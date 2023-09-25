@@ -4,17 +4,17 @@ plugins {
 }
 
 android {
-    namespace = "com.moadgara.gamixir"
-    compileSdk = 34
+    namespace = Configs.namespace
+    compileSdk = Configs.compileSdk
 
     defaultConfig {
-        applicationId = "com.moadgara.gamixir"
-        minSdk = 24
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = Configs.applicationId
+        minSdk = Configs.minSdk
+        targetSdk = Configs.targetSdk
+        versionCode = Configs.versionCode
+        versionName = Configs.versionName
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = Configs.testInstrumentationRunner
     }
 
     buildTypes {
@@ -27,22 +27,21 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = Configs.sourceCompatibility
+        targetCompatibility = Configs.targetCompatibility
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = Configs.jvmTarget
     }
 }
 
 dependencies {
-
-    implementation("androidx.core:core-splashscreen:1.0.1")
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.9.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation(Dependencies.splashScreen)
+    implementation(Dependencies.core_ktx)
+    implementation(Dependencies.appcompat)
+    implementation(Dependencies.material)
+    implementation(Dependencies.constrainlayout)
+    testImplementation(Dependencies.junit)
+    androidTestImplementation(Dependencies.ext_junit)
+    androidTestImplementation(Dependencies.espresso)
 }
