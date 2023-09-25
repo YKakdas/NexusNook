@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Gamixir"
 include(":app")
- 
+include(":uicomponent")
