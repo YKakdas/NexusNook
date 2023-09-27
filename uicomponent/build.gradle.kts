@@ -8,4 +8,8 @@ dependencies {
     api(Dependencies.appcompat)
     api(Dependencies.material)
     api(Dependencies.constrainlayout)
+
+    testApi(Dependencies.junit)
+    androidTestApi(Dependencies.ext_junit)
+    androidTestApi(Dependencies.espresso)
 }

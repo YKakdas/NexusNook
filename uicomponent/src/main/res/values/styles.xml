@@ -1,2 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+
+    <!-- Primary Button -->
+    <style name="Widget.Moadgara.Button" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/primary_button_background_color</item>
+        <item name="rippleColor">@color/primary_button_selected</item>
+        <item name="android:textColor">@color/primary_button_text_color</item>
+        <item name="iconTint">@color/primary_button_text_color</item>
+        <item name="iconSize">@dimen/button_icon_size</item>
+        <item name="iconPadding">@dimen/button_icon_padding</item>
+        <item name="android:paddingStart">@dimen/margin_small</item>
+        <item name="android:paddingEnd">@dimen/margin_small</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:maxHeight">@dimen/button_height</item>
+        <item name="android:minHeight">@dimen/button_height</item>
+    </style>
+
+    <style name="Widget.Moadgara.Button.Rounded.Small" parent="Widget.Moadgara.Button">
+        <item name="cornerRadius">@dimen/margin_small</item>
+    </style>
+
+    <style name="Widget.Moadgara.Button.Rounded.Medium" parent="Widget.Moadgara.Button">
+        <item name="cornerRadius">@dimen/margin_medium</item>
+    </style>
+
+    <style name="Widget.Moadgara.Button.Rounded.High" parent="Widget.Moadgara.Button">
+        <item name="cornerRadius">@dimen/margin_high</item>
+    </style>
+
+    <!-- Primary Button Light-->
+    <style name="Widget.Moadgara.Button.Light" parent="Widget.Moadgara.Button">
+        <item name="backgroundTint">@color/light_button_background_color</item>
+        <item name="rippleColor">@color/light_button_selected</item>
+        <item name="android:textColor">@color/light_button_text_color</item>
+        <item name="iconTint">@color/light_button_text_color</item>
+    </style>
+
+    <style name="Widget.Moadgara.Button.Light.Rounded.Small" parent="Widget.Moadgara.Button.Light">
+        <item name="cornerRadius">@dimen/margin_small</item>
+    </style>
+
+    <style name="Widget.Moadgara.Button.Light.Rounded.Medium" parent="Widget.Moadgara.Button.Light">
+        <item name="cornerRadius">@dimen/margin_medium</item>
+    </style>
+
+    <style name="Widget.Moadgara.Button.Light.Rounded.High" parent="Widget.Moadgara.Button.Light">
+        <item name="cornerRadius">@dimen/margin_high</item>
+    </style>
+
+</resources>

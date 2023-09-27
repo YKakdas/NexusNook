@@ -1,5 +1,6 @@
 package com.moadgara.gamixir
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -20,6 +21,10 @@ class MainActivity : AppCompatActivity() {
     private fun initSplashScreen() {
         val splashScreen = installSplashScreen()
         splashScreen.setKeepOnScreenCondition { keepSplashOnScreen }
-        Handler(Looper.getMainLooper()).postDelayed({ keepSplashOnScreen = false }, delay)
+        Handler(Looper.getMainLooper()).postDelayed({
+            keepSplashOnScreen = false
+            // todo remove after testing ui styles
+            startActivity(Intent(this, UIComponentTestActivity::class.java))
+        }, delay)
     }
 }

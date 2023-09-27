@@ -11,9 +11,5 @@ android {
 }
 dependencies {
     implementation(Dependencies.splashScreen)
-    testImplementation(Dependencies.junit)
-    androidTestImplementation(Dependencies.ext_junit)
-    androidTestImplementation(Dependencies.espresso)
-
     implementation(project(":uicomponent"))
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/seafoam"
+    android:orientation="vertical"
+    android:layout_margin="@dimen/margin_small"
+    android:padding="@dimen/margin_small">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_tiny"
+        android:text="Primary" />
+
+    <Button
+        style="@style/Widget.Moadgara.Button.Rounded.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_tiny"
+        android:text="Primary Rounded Small" />
+
+    <Button
+        style="@style/Widget.Moadgara.Button.Rounded.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_tiny"
+        android:text="Primary Rounded Medium" />
+
+    <Button
+        style="@style/Widget.Moadgara.Button.Rounded.High"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_tiny"
+        android:text="Primary Rounded High" />
+</LinearLayout>
