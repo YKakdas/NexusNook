@@ -19,6 +19,8 @@
     <color name="star_dust">#9F9F9C</color>
     <color name="link_water">#EADDFF</color>
     <color name="raven">#717d8d</color>
+    <color name="white_smoke">#F5F5F5</color>
+    <color name="linen">#FAF0E6</color>
 
     <color name="colorPrimary">@color/eggplant</color>
     <color name="colorPrimaryVariant">@color/wine</color>
@@ -45,5 +47,8 @@
     <color name="outlined_button_disabled_stroke">@color/cool_grey</color>
     <color name="outlined_button_disabled_text">@color/cool_grey</color>
     <color name="outlined_button_ripple">@color/link_water</color>
+
+    <color name="text_button_selected">@color/link_water</color>
+    <color name="text_button_light_selected">@color/link_water</color>
 
 </resources>

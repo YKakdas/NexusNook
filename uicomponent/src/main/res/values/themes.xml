@@ -11,9 +11,9 @@
         <item name="colorOnSecondary">@color/colorOnSecondary</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Button styles. -->
         <item name="materialButtonStyle">@style/Widget.Moadgara.Button</item>
         <item name="materialButtonOutlinedStyle">@style/Widget.Moadgara.Button.Outlined</item>
-        <!-- Customize your theme here. -->
     </style>
 
 </resources>
