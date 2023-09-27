@@ -32,7 +32,7 @@
         <item name="cornerRadius">@dimen/margin_high</item>
     </style>
 
-    <!-- Primary Button Light-->
+    <!-- Light Button -->
     <style name="Widget.Moadgara.Button.Light" parent="Widget.Moadgara.Button">
         <item name="backgroundTint">@color/light_button_background_color</item>
         <item name="rippleColor">@color/light_button_selected</item>
@@ -49,6 +49,39 @@
     </style>
 
     <style name="Widget.Moadgara.Button.Light.Rounded.High" parent="Widget.Moadgara.Button.Light">
+        <item name="cornerRadius">@dimen/margin_high</item>
+    </style>
+
+    <!-- Outlined Button -->
+    <style name="Widget.Moadgara.Button.Outlined" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="backgroundTint">@color/outlined_button_default</item>
+        <item name="strokeColor">@color/outlined_button_stroke_color</item>
+        <item name="rippleColor">@color/outlined_button_ripple</item>
+        <item name="android:textColor">@color/outlined_button_text_color</item>
+        <item name="iconTint">@color/outlined_button_text_color</item>
+        <item name="iconSize">@dimen/button_icon_size</item>
+        <item name="iconPadding">@dimen/button_icon_padding</item>
+        <item name="android:paddingStart">@dimen/margin_small</item>
+        <item name="android:paddingEnd">@dimen/margin_small</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:maxHeight">@dimen/button_height</item>
+        <item name="android:minHeight">@dimen/button_height</item>
+        <item name="strokeWidth">@dimen/outlined_button_stroke_width</item>
+    </style>
+
+    <style name="Widget.Moadgara.Button.Outlined.Rounded.Small" parent="Widget.Moadgara.Button.Outlined">
+        <item name="cornerRadius">@dimen/margin_small</item>
+    </style>
+
+    <style name="Widget.Moadgara.Button.Outlined.Rounded.Medium" parent="Widget.Moadgara.Button.Outlined">
+        <item name="cornerRadius">@dimen/margin_medium</item>
+    </style>
+
+    <style name="Widget.Moadgara.Button.Outlined.Rounded.High" parent="Widget.Moadgara.Button.Outlined">
         <item name="cornerRadius">@dimen/margin_high</item>
     </style>
 

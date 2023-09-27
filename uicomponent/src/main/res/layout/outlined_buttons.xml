@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/link_water"
+    android:orientation="vertical"
+    android:layout_margin="@dimen/margin_small"
+    android:padding="@dimen/margin_small">
+
+    <Button
+        style="@style/Widget.Moadgara.Button.Outlined"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_tiny"
+        android:text="Outlined" />
+
+    <Button
+        style="@style/Widget.Moadgara.Button.Outlined.Rounded.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_tiny"
+        android:text="Outlined Rounded Small" />
+
+    <Button
+        style="@style/Widget.Moadgara.Button.Outlined.Rounded.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_tiny"
+        android:text="Outlined Rounded Medium" />
+
+    <Button
+        style="@style/Widget.Moadgara.Button.Outlined.Rounded.High"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_tiny"
+        android:text="Outlined Rounded High" />
+</LinearLayout>

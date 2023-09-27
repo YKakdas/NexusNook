@@ -34,6 +34,18 @@
         <!-- Light Disabled Button -->
         <include layout="@layout/light_buttons_disabled_with_icon" />
 
+        <!-- Outlined Button -->
+        <include layout="@layout/outlined_buttons" />
+
+        <!-- Outlined Disabled Button -->
+        <include layout="@layout/outlined_buttons_disabled" />
+
+        <!-- Outlined Button -->
+        <include layout="@layout/outlined_buttons_with_icon" />
+
+        <!-- Outlined Disabled Button -->
+        <include layout="@layout/outlined_buttons_disabled_with_icon" />
+
     </LinearLayout>
 
 
