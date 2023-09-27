@@ -36,6 +36,7 @@
     <style name="Widget.Moadgara.Button.Light" parent="Widget.Moadgara.Button">
         <item name="backgroundTint">@color/light_button_background_color</item>
         <item name="rippleColor">@color/light_button_selected</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/light_button_text_color</item>
         <item name="iconTint">@color/light_button_text_color</item>
     </style>
@@ -58,6 +59,7 @@
         <item name="strokeColor">@color/outlined_button_stroke_color</item>
         <item name="rippleColor">@color/outlined_button_ripple</item>
         <item name="android:textColor">@color/outlined_button_text_color</item>
+        <item name="android:textStyle">bold</item>
         <item name="iconTint">@color/outlined_button_text_color</item>
         <item name="iconSize">@dimen/button_icon_size</item>
         <item name="iconPadding">@dimen/button_icon_padding</item>

@@ -31,7 +31,7 @@
 
     <color name="primary_button_selected">@color/colorPrimaryVariant</color>
     <color name="primary_button_disabled">@color/cool_grey</color>
-    <color name="primary_button_default">@color/dull_purple</color>
+    <color name="primary_button_default">@color/colorPrimary</color>
     <color name="primary_button_text_default">@color/white</color>
     <color name="primary_button_text_disabled">@color/raven</color>
 
@@ -42,7 +42,7 @@
     <color name="light_button_disabled_text">@color/cool_grey</color>
 
     <color name="outlined_button_default">@color/white</color>
-    <color name="outlined_button_default_stroke">@color/colorPrimaryVariant</color>
+    <color name="outlined_button_default_stroke">@color/colorPrimary</color>
     <color name="outlined_button_default_text">@color/colorPrimary</color>
     <color name="outlined_button_disabled_stroke">@color/cool_grey</color>
     <color name="outlined_button_disabled_text">@color/cool_grey</color>
