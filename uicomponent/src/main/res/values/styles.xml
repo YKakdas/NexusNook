@@ -125,4 +125,12 @@
         <item name="android:textColor">@color/checkbox_color_light</item>
     </style>
 
+    <style name="Widget.Moadgara.RadioButton" parent="Widget.MaterialComponents.CompoundButton.RadioButton">
+        <item name="android:button">@drawable/radio_button_background</item>
+        <item name="android:textColor">@color/radio_button_color</item>
+        <item name="android:textStyle">bold</item>
+        <item name="useMaterialThemeColors">false</item>
+        <item name="android:paddingStart">@dimen/margin_small</item>
+    </style>
+
 </resources>
