@@ -120,4 +120,9 @@
         <item name="useMaterialThemeColors">false</item>
     </style>
 
+    <style name="Widget.Moadgara.CheckBox.Light" parent="Widget.Moadgara.CheckBox">
+        <item name="android:button">@drawable/checkbox_background_light</item>
+        <item name="android:textColor">@color/checkbox_color_light</item>
+    </style>
+
 </resources>

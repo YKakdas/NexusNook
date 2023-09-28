@@ -53,7 +53,10 @@
         <include layout="@layout/text_buttons_light" />
 
         <!-- Checkbox -->
-        <include layout="@layout/checkboxes"/>
+        <include layout="@layout/checkboxes" />
+
+        <!-- Light Checkbox -->
+        <include layout="@layout/checkboxes_light" />
 
     </LinearLayout>
 
