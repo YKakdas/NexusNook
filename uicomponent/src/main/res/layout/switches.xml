@@ -3,40 +3,36 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/margin_small"
-    android:background="@color/linen"
+    android:background="@color/pistachio"
     android:orientation="vertical"
     android:padding="@dimen/margin_small">
 
-    <com.moadgara.gamixir.ToggleableRadioButton
-        style="@style/Widget.Moadgara.RadioButton"
+    <androidx.appcompat.widget.SwitchCompat
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:text="Radio Button" />
+        android:text="Switch" />
 
-    <com.moadgara.gamixir.ToggleableRadioButton
-        style="@style/Widget.Moadgara.RadioButton"
+    <androidx.appcompat.widget.SwitchCompat
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:enabled="false"
-        android:text="Radio Button Disabled" />
+        android:text="Switch Disabled" />
 
-    <com.moadgara.gamixir.ToggleableRadioButton
-        style="@style/Widget.Moadgara.RadioButton"
+    <androidx.appcompat.widget.SwitchCompat
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:checked="true"
         android:clickable="false"
-        android:text="Radio Button Checked" />
+        android:text="Switch Toggled" />
 
-    <com.moadgara.gamixir.ToggleableRadioButton
-        style="@style/Widget.Moadgara.RadioButton"
+    <androidx.appcompat.widget.SwitchCompat
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:checked="true"
         android:enabled="false"
-        android:text="Radio Button Disabled Checked" />
+        android:text="Switch Disabled Toggled" />
 </LinearLayout>
