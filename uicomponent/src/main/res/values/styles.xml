@@ -109,4 +109,15 @@
         <item name="iconTint">@color/primary_button_text_color</item>
     </style>
 
+    <!-- Checkbox -->
+    <style name="Widget.Moadgara.CheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_background</item>
+        <item name="android:textColor">@color/checkbox_color</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingStart">@dimen/margin_small</item>
+        <item name="android:minWidth">@dimen/margin_high</item>
+        <item name="android:minHeight">@dimen/margin_high</item>
+        <item name="useMaterialThemeColors">false</item>
+    </style>
+
 </resources>

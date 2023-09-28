@@ -14,6 +14,7 @@
         <!-- Button styles. -->
         <item name="materialButtonStyle">@style/Widget.Moadgara.Button</item>
         <item name="materialButtonOutlinedStyle">@style/Widget.Moadgara.Button.Outlined</item>
+        <item name="checkboxStyle">@style/Widget.Moadgara.CheckBox</item>
     </style>
 
 </resources>
