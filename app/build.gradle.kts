@@ -11,5 +11,6 @@ android {
 }
 dependencies {
     implementation(Dependencies.splashScreen)
+    implementation(project(":base"))
     implementation(project(":uicomponent"))
 }
