@@ -26,6 +26,10 @@ allprojects {
     }
 }
 
+/*
+    The following block reduces duplicate codes. Defines common properties that all Android modules
+    need under their corresponding gradle file.
+ */
 subprojects {
     afterEvaluate {
         if (hasProperty("android")) {

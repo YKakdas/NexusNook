@@ -3,6 +3,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
+// api function was used since all Android related modules need the following dependencies. Those
+// are not needed to be redefined again under the modules that include :base.
 dependencies {
     api(Dependencies.core_ktx)
     api(Dependencies.appcompat)
