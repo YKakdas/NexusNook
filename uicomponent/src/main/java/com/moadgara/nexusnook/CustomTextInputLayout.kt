@@ -17,6 +17,7 @@ import com.moadgara.base.closeSoftKeyboard
 import com.moadgara.base.getEnumOrDefault
 import com.moadgara.base.setAndStartAnimation
 import com.moadgara.base.validation.InputValidationError
+import com.moadgara.base.validation.PhoneNumberTextWatcher
 
 
 class CustomTextInputLayout constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
@@ -36,6 +37,8 @@ class CustomTextInputLayout constructor(context: Context, attrs: AttributeSet?, 
 
     private lateinit var errorView: View
     private lateinit var errorTextView: TextView
+
+    private var errorInitiated = false
 
     var validationError: InputValidationError? = null
         set(value) {
@@ -138,6 +141,7 @@ class CustomTextInputLayout constructor(context: Context, attrs: AttributeSet?, 
             })
         )
 
+        errorInitiated = true
     }
 
     private fun clearError() {
@@ -151,12 +155,16 @@ class CustomTextInputLayout constructor(context: Context, attrs: AttributeSet?, 
         editText?.setTextColor(editTextColor)
         defaultHintTextColor = hintColor
 
-        errorView.setAndStartAnimation(
-            animationMetaDataHideError, AnimationListenerParameters(onEnd = {
-                errorView.clearAnimation()
-                errorView.visibility = GONE
-            })
-        )
+        if (errorInitiated) {
+            errorView.setAndStartAnimation(
+                animationMetaDataHideError, AnimationListenerParameters(onEnd = {
+                    errorView.clearAnimation()
+                    errorView.visibility = GONE
+                })
+            )
+            errorInitiated = false
+        }
+
     }
 
     private fun isErrorAlwaysVisible(): Boolean {
