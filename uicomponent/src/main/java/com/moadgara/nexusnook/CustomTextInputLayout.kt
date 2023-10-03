@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnFocusChangeListener
+import android.widget.TextView
 import androidx.core.view.doOnLayout
 import com.google.android.material.textfield.TextInputLayout
 import com.moadgara.base.InputValidationError
@@ -33,24 +34,18 @@ class CustomTextInputLayout constructor(context: Context, attrs: AttributeSet?, 
     private var animationMetaDataShowError: AnimationMetaData = AnimationMetaData()
     private var animationMetaDataHideError: AnimationMetaData = AnimationMetaData()
 
-    private var isErrorInitialized = false
-    var validationError: InputValidationError? = null
-
     private lateinit var errorView: View
+    private lateinit var errorTextView: TextView
 
-
-    private val focusChangeListener = OnFocusChangeListener { _, hasFocus ->
-        if (!hasFocus) {
-            closeSoftKeyboard()
+    var validationError: InputValidationError? = null
+        set(value) {
+            field = value
+            if (value == null) {
+                clearError()
+            } else {
+                showError()
+            }
         }
-
-        if (hasFocus /* || validationError == null */) {
-            clearError()
-        } else {
-            showError()
-        }
-
-    }
 
     init {
         parseDeclarableStyleAttributes(attrs)
@@ -63,6 +58,21 @@ class CustomTextInputLayout constructor(context: Context, attrs: AttributeSet?, 
                 LayoutInflater.from(context).inflate(R.layout.text_input_error_layout, this, false)
             errorView.visibility = GONE
             addView(errorView)
+
+            errorTextView = errorView.findViewById(R.id.error_text)
+        }
+
+    }
+
+    private val focusChangeListener = OnFocusChangeListener { _, hasFocus ->
+        if (!hasFocus) {
+            closeSoftKeyboard()
+        }
+
+        if (hasFocus || validationError == null) {
+            clearError()
+        } else {
+            showError()
         }
 
     }
@@ -83,14 +93,11 @@ class CustomTextInputLayout constructor(context: Context, attrs: AttributeSet?, 
                     AnimationDirection.LEFT_TO_RIGHT
                 )
                 type = getEnumOrDefault(
-                    R.styleable.CustomTextInputLayout_animationTypeShowError,
-                    AnimationType.FADE_IN
+                    R.styleable.CustomTextInputLayout_animationTypeShowError, AnimationType.FADE_IN
                 )
-                duration =
-                    getInt(
-                        R.styleable.CustomTextInputLayout_animationDurationShowError,
-                        1000
-                    ).toLong()
+                duration = getInt(
+                    R.styleable.CustomTextInputLayout_animationDurationShowError, 1000
+                ).toLong()
             }
 
             animationMetaDataHideError = AnimationMetaData().apply {
@@ -99,14 +106,11 @@ class CustomTextInputLayout constructor(context: Context, attrs: AttributeSet?, 
                     AnimationDirection.LEFT_TO_RIGHT
                 )
                 type = getEnumOrDefault(
-                    R.styleable.CustomTextInputLayout_animationTypeHideError,
-                    AnimationType.FADE_IN
+                    R.styleable.CustomTextInputLayout_animationTypeHideError, AnimationType.FADE_IN
                 )
-                duration =
-                    getInt(
-                        R.styleable.CustomTextInputLayout_animationDurationHideError,
-                        1000
-                    ).toLong()
+                duration = getInt(
+                    R.styleable.CustomTextInputLayout_animationDurationHideError, 1000
+                ).toLong()
             }
 
             recycle()
@@ -114,6 +118,10 @@ class CustomTextInputLayout constructor(context: Context, attrs: AttributeSet?, 
     }
 
     private fun showError() {
+        if (validationError != null) {
+            errorTextView.text = validationError!!.getText(resources)
+        }
+
         if (boxStrokeColorError != null) {
             setBoxStrokeColorStateList(boxStrokeColorError!!)
         }

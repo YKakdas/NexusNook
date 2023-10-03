@@ -20,4 +20,8 @@
 
     <dimen name="outlined_button_stroke_width">2dp</dimen>
 
+    <dimen name="text_input_error_layout_vertical_margin">16dp</dimen>
+    <dimen name="text_input_error_layout_marginTop">-10dp</dimen>
+    <dimen name="text_input_layout_edittext_height">56dp</dimen>
+    <dimen name="text_input_layout_edittext_padding">18dp</dimen>
 </resources>
