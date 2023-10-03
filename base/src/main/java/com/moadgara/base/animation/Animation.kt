@@ -1,10 +1,7 @@
-package com.moadgara.base
+package com.moadgara.base.animation
 
-import android.view.View
 import android.view.animation.Animation
 import android.view.animation.Animation.AnimationListener
-import android.view.animation.AnimationUtils
-import androidx.annotation.AnimRes
 
 fun Animation.setAnimationListener(animationListenerParameters: AnimationListenerParameters?) {
     setAnimationListener(object : AnimationListener {

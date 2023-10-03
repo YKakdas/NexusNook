@@ -1,4 +1,4 @@
-package com.moadgara.base
+package com.moadgara.base.animation
 
 data class AnimationListenerParameters(
     var onStart: (() -> Unit)? = null,
