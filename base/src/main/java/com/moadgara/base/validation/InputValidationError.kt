@@ -1,4 +1,4 @@
-package com.moadgara.base
+package com.moadgara.base.validation
 
 import android.content.res.Resources
 import androidx.annotation.StringRes
@@ -15,7 +15,8 @@ import androidx.annotation.StringRes
 class InputValidationError(
     @StringRes
     private var errorId: Int? = null,
-    private var errorText: String? = null
+    private var errorText: String? = null,
+    val isAlwaysVisible: Boolean = false
 ) {
 
     /**

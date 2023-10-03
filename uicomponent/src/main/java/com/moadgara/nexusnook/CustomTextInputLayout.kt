@@ -9,7 +9,6 @@ import android.view.View.OnFocusChangeListener
 import android.widget.TextView
 import androidx.core.view.doOnLayout
 import com.google.android.material.textfield.TextInputLayout
-import com.moadgara.base.InputValidationError
 import com.moadgara.base.animation.AnimationDirection
 import com.moadgara.base.animation.AnimationListenerParameters
 import com.moadgara.base.animation.AnimationMetaData
@@ -17,6 +16,7 @@ import com.moadgara.base.animation.AnimationType
 import com.moadgara.base.closeSoftKeyboard
 import com.moadgara.base.getEnumOrDefault
 import com.moadgara.base.setAndStartAnimation
+import com.moadgara.base.validation.InputValidationError
 
 
 class CustomTextInputLayout constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
@@ -40,10 +40,10 @@ class CustomTextInputLayout constructor(context: Context, attrs: AttributeSet?, 
     var validationError: InputValidationError? = null
         set(value) {
             field = value
-            if (value == null) {
-                clearError()
-            } else {
+            if (isErrorAlwaysVisible()) {
                 showError()
+            } else {
+                clearError()
             }
         }
 
@@ -69,7 +69,7 @@ class CustomTextInputLayout constructor(context: Context, attrs: AttributeSet?, 
             closeSoftKeyboard()
         }
 
-        if (hasFocus || validationError == null) {
+        if ((hasFocus || validationError == null) && !isErrorAlwaysVisible()) {
             clearError()
         } else {
             showError()
@@ -157,5 +157,9 @@ class CustomTextInputLayout constructor(context: Context, attrs: AttributeSet?, 
                 errorView.visibility = GONE
             })
         )
+    }
+
+    private fun isErrorAlwaysVisible(): Boolean {
+        return validationError?.isAlwaysVisible ?: false
     }
 }

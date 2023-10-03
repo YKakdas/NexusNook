@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="phonenum_empty_error">Phone number cannot be empty.</string>
+    <string name="phonenum_length_error">Phone number should be length of 10 without country code.</string>
+</resources>
