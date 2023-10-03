@@ -2,7 +2,8 @@ package com.moadgara.base
 
 import android.content.res.TypedArray
 
-inline fun <reified T : Enum<T>> TypedArray.getEnum(index: Int, default: T) =
+inline fun <reified T : Enum<T>> TypedArray.getEnumOrDefault(index: Int, default: T): T {
     getInt(index, -1).let {
-        if (it >= 0) enumValues<T>()[it] else default
+        return if (it >= 0) enumValues<T>()[it] else default
     }
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:moadgara="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp">
+
+    <LinearLayout
+        android:layout_width="0px"
+        android:layout_height="0px"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
+
+    <com.moadgara.gamixir.CustomTextInputLayout
+        android:id="@+id/customTextInputLayout"
+        style="@style/Widget.Moadgara.TextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="This is hint text...">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edittext"
+            style="@style/Widget.Moadgara.EditText"
+            android:layout_width="match_parent" />
+
+    </com.moadgara.gamixir.CustomTextInputLayout>
+
+
+</LinearLayout>

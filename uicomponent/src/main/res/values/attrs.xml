@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="CustomTextInputLayout">
+        <attr name="editTextColor" format="color" />
+        <attr name="hintTextColor" format="color" />
+        <attr name="errorColor" format="color" />
+        <attr name="boxStrokeColorOriginal" format="color" />
+        <attr name="boxStrokeColorOnError" format="color" />
+        <attr name="animationDirectionShowError" format="enum">
+            <enum name="RIGHT_TO_LEFT" value="0" />
+            <enum name="LEFT_TO_RIGHT" value="1" />
+            <enum name="TOP_TO_BOTTOM" value="2" />
+            <enum name="BOTTOM_TO_TOP" value="3" />
+        </attr>
+        <attr name="animationDirectionHideError" format="enum">
+            <enum name="RIGHT_TO_LEFT" value="0" />
+            <enum name="LEFT_TO_RIGHT" value="1" />
+            <enum name="TOP_TO_BOTTOM" value="2" />
+            <enum name="BOTTOM_TO_TOP" value="3" />
+        </attr>
+        <attr name="animationTypeShowError" format="enum">
+            <enum name="FADE_IN" value="0" />
+            <enum name="FADE_OUT" value="1" />
+            <enum name="SLIDE_IN" value="2" />
+            <enum name="SLIDE_OUT" value="3" />
+            <enum name="SLIDE_FADE_IN" value="4" />
+            <enum name="SLIDE_FADE_OUT" value="5" />
+            <enum name="SCALE_UP" value="6" />
+            <enum name="SCALE_DOWN" value="7" />
+        </attr>
+        <attr name="animationTypeHideError" format="enum">
+            <enum name="FADE_IN" value="0" />
+            <enum name="FADE_OUT" value="1" />
+            <enum name="SLIDE_IN" value="2" />
+            <enum name="SLIDE_OUT" value="3" />
+            <enum name="SLIDE_FADE_IN" value="4" />
+            <enum name="SLIDE_FADE_OUT" value="5" />
+            <enum name="SCALE_UP" value="6" />
+            <enum name="SCALE_DOWN" value="7" />
+        </attr>
+        <attr name="animationDurationShowError" format="integer" />
+        <attr name="animationDurationHideError" format="integer" />
+    </declare-styleable>
+
+</resources>

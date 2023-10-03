@@ -57,16 +57,13 @@ fun produceAnimationSetFromMetaData(metaData: AnimationMetaData): AnimationSet {
         }
     }
 
+
     if (metaData.type.name.contains("FADE_IN")) {
         fadeAnimation = AlphaAnimation(0f, 1f)
         fadeAnimation.interpolator = DecelerateInterpolator()
-        fadeAnimation.duration = metaData.duration
-        fadeAnimation.fillAfter = true
     } else if (metaData.type.name.contains("FADE_OUT")) {
         fadeAnimation = AlphaAnimation(1f, 0f)
         fadeAnimation.interpolator = AccelerateInterpolator()
-        fadeAnimation.duration = metaData.duration
-        fadeAnimation.fillAfter = true
     }
 
     if (metaData.type == AnimationType.SCALE_UP) {
@@ -76,6 +73,8 @@ fun produceAnimationSetFromMetaData(metaData: AnimationMetaData): AnimationSet {
     }
 
     if (fadeAnimation != null) {
+        fadeAnimation.duration = metaData.duration
+        fadeAnimation.fillAfter = true
         animationSet.addAnimation(fadeAnimation)
     }
 
