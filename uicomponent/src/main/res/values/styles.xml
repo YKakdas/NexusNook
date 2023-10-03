@@ -152,12 +152,10 @@
         <item name="hintTextColor">@color/raven</item>
         <item name="android:textColorHint">@color/raven</item>
         <item name="errorColor">@color/rose</item>
-        <item name="animationTypeShowError">SLIDE_FADE_IN</item>
-        <item name="animationDirectionShowError">LEFT_TO_RIGHT</item>
-        <item name="animationDurationShowError">1000</item>
-        <item name="animationTypeHideError">SLIDE_FADE_OUT</item>
-        <item name="animationDirectionHideError">RIGHT_TO_LEFT</item>
-        <item name="animationDurationHideError">1000</item>
+        <item name="animationTypeShowError">SCALE_UP</item>
+        <item name="animationDurationShowError">500</item>
+        <item name="animationTypeHideError">SCALE_DOWN</item>
+        <item name="animationDurationHideError">500</item>
     </style>
 
     <style name="Widget.Moadgara.EditText" parent="Widget.AppCompat.EditText">

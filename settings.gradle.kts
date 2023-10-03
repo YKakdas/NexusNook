@@ -13,7 +13,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Gamixir"
+rootProject.name = "NexusNook"
 include(":app")
 include(":uicomponent")
 include(":base")

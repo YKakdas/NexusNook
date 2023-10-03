@@ -5,7 +5,7 @@ import androidx.annotation.StringRes
 
 /**
  * Generic class for handling error messages. Can be used in
- * [com.moadgara.gamixir.CustomTextInputLayout] with [android.text.TextWatcher]
+ * [com.moadgara.nexusnook.CustomTextInputLayout] with [android.text.TextWatcher]
  *
  * @constructor creates an error message object with
  * @param [errorId] : [StringRes]

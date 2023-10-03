@@ -11,7 +11,7 @@
         android:focusable="true"
         android:focusableInTouchMode="true" />
 
-    <com.moadgara.gamixir.CustomTextInputLayout
+    <com.moadgara.nexusnook.CustomTextInputLayout
         android:id="@+id/customTextInputLayout"
         style="@style/Widget.Moadgara.TextInputLayout"
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             style="@style/Widget.Moadgara.EditText"
             android:layout_width="match_parent" />
 
-    </com.moadgara.gamixir.CustomTextInputLayout>
+    </com.moadgara.nexusnook.CustomTextInputLayout>
 
 
 </LinearLayout>

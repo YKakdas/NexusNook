@@ -5,4 +5,8 @@ plugins {
 
 dependencies {
     implementation(project(":base"))
+
+    testImplementation(Dependencies.junit)
+    androidTestImplementation(Dependencies.ext_junit)
+    androidTestImplementation(Dependencies.espresso)
 }
