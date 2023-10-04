@@ -30,7 +30,6 @@ class CustomTextInputLayout constructor(context: Context, attrs: AttributeSet?, 
     private var errorColor: ColorStateList? = null
     private var boxStrokeColorOriginal: ColorStateList? = null
     private var boxStrokeColorError: ColorStateList? = null
-    private var boxStrokeWidthOriginal: Int = 1
     private var animationMetaDataShowError: AnimationMetaData = AnimationMetaData()
     private var animationMetaDataHideError: AnimationMetaData = AnimationMetaData()
 
@@ -55,12 +54,13 @@ class CustomTextInputLayout constructor(context: Context, attrs: AttributeSet?, 
         doOnLayout {
             editText?.onFocusChangeListener = focusChangeListener
             hintTextColor = hintColor
-            boxStrokeWidthOriginal = boxStrokeWidth
             errorView =
                 LayoutInflater.from(context).inflate(R.layout.text_input_error_layout, this, false)
             errorView.visibility = GONE
             addView(errorView)
-
+            // todo move these to custom attributes
+            boxStrokeWidth = 5
+            boxStrokeWidthFocused = 7
             errorTextView = errorView.findViewById(R.id.error_text)
         }
 
@@ -128,7 +128,6 @@ class CustomTextInputLayout constructor(context: Context, attrs: AttributeSet?, 
             setBoxStrokeColorStateList(boxStrokeColorError!!)
         }
 
-        boxStrokeWidth = 5
         defaultHintTextColor = boxStrokeColorError
         editText?.setTextColor(errorColor)
 
@@ -149,7 +148,6 @@ class CustomTextInputLayout constructor(context: Context, attrs: AttributeSet?, 
         }
 
         editText?.setTextColor(editTextColor)
-        boxStrokeWidth = boxStrokeWidthOriginal
 
         editText?.setTextColor(editTextColor)
         defaultHintTextColor = hintColor
