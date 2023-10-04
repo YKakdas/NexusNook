@@ -4,6 +4,8 @@ plugins {
 }
 
 android {
+    namespace = "moadgara.app"
+
     defaultConfig {
         applicationId = Configs.applicationId
     }

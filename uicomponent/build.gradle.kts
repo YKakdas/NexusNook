@@ -3,6 +3,10 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
+android {
+    namespace = "moadgara.uicomponent"
+}
+
 dependencies {
     implementation(project(":base"))
 

@@ -1,8 +1,7 @@
 import org.gradle.api.JavaVersion
 
 object Configs {
-    const val namespace = "com.moadgara.nexusnook"
-    const val applicationId = "com.moadgara.nexusnook"
+    const val applicationId = "moadgara.nexusnook"
     const val compileSdk = 34
     const val minSdk = 24
     const val targetSdk = 34

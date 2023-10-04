@@ -13,7 +13,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:8.1.1")
+        classpath("com.android.tools.build:gradle:8.1.2")
         // fill the rest
     }
 }
@@ -34,7 +34,6 @@ subprojects {
     afterEvaluate {
         if (hasProperty("android")) {
             configure<BaseExtension> {
-                namespace = Configs.namespace
                 compileSdkVersion(Configs.compileSdk)
 
                 defaultConfig {

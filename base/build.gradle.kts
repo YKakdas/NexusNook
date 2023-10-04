@@ -3,6 +3,10 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
+android {
+    namespace = "moadgara.base"
+}
+
 // api function was used since all Android related modules need the following dependencies. Those
 // are not needed to be redefined again under the modules that include :base.
 dependencies {
