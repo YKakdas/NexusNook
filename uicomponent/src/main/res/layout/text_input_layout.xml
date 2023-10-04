@@ -1,28 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="20dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:moadgara="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="moadgara.uicomponent.UIComponentTestViewModel" />
+
+    </data>
 
     <LinearLayout
-        android:layout_width="0px"
-        android:layout_height="0px"
-        android:focusable="true"
-        android:focusableInTouchMode="true" />
-
-    <moadgara.uicomponent.CustomTextInputLayout
-        android:id="@+id/customTextInputLayout"
-        style="@style/Widget.Moadgara.TextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter your phone number...">
+        android:layout_marginBottom="20dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edittext"
-            style="@style/Widget.Moadgara.EditText"
-            android:layout_width="match_parent" />
+        <LinearLayout
+            android:layout_width="0px"
+            android:layout_height="0px"
+            android:focusable="true"
+            android:focusableInTouchMode="true" />
 
-    </moadgara.uicomponent.CustomTextInputLayout>
+        <moadgara.uicomponent.CustomTextInputLayout
+            android:id="@+id/customTextInputLayout"
+            style="@style/Widget.Moadgara.TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@{vm.hintText}"
+            moadgara:validationError="@{vm.error}">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edittext"
+                style="@style/Widget.Moadgara.EditText"
+                android:layout_width="match_parent"
+                moadgara:registerTextWatcher="@{vm.phoneNumberTextWatcher}" />
+
+        </moadgara.uicomponent.CustomTextInputLayout>
 
 
-</LinearLayout>
+    </LinearLayout>
+</layout>

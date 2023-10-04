@@ -1,80 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clickable="true"
-    android:focusable="true"
-    android:focusableInTouchMode="true">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:moadgara="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <data>
+
+        <variable
+            name="vm"
+            type="moadgara.uicomponent.UIComponentTestViewModel" />
+    </data>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_small"
+        android:layout_height="match_parent"
         android:clickable="true"
         android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:orientation="vertical"
-        android:padding="@dimen/margin_small">
+        android:focusableInTouchMode="true">
 
-        <!-- Text Input Layout -->
-        <include layout="@layout/text_input_layout" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_small"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:padding="@dimen/margin_small">
 
-        <!-- Primary Buttons -->
-        <include layout="@layout/primary_buttons" />
+            <!-- Text Input Layout -->
+            <include layout="@layout/text_input_layout"
+                moadgara:vm = "@{vm}"/>
 
-        <!-- Primary Button Disabled -->
-        <include layout="@layout/primary_disabled_buttons" />
+            <!-- Primary Buttons -->
+            <include layout="@layout/primary_buttons" />
 
-        <!-- Primary Button Disabled -->
-        <include layout="@layout/primary_buttons_with_icon" />
+            <!-- Primary Button Disabled -->
+            <include layout="@layout/primary_disabled_buttons" />
 
-        <!-- Primary Button Disabled -->
-        <include layout="@layout/primary_disabled_buttons_with_icon" />
+            <!-- Primary Button Disabled -->
+            <include layout="@layout/primary_buttons_with_icon" />
 
-        <!-- Light Button -->
-        <include layout="@layout/light_buttons" />
+            <!-- Primary Button Disabled -->
+            <include layout="@layout/primary_disabled_buttons_with_icon" />
 
-        <!-- Light Disabled Button -->
-        <include layout="@layout/light_buttons_disabled" />
+            <!-- Light Button -->
+            <include layout="@layout/light_buttons" />
 
-        <!-- Light Button -->
-        <include layout="@layout/light_buttons_with_icon" />
+            <!-- Light Disabled Button -->
+            <include layout="@layout/light_buttons_disabled" />
 
-        <!-- Light Disabled Button -->
-        <include layout="@layout/light_buttons_disabled_with_icon" />
+            <!-- Light Button -->
+            <include layout="@layout/light_buttons_with_icon" />
 
-        <!-- Outlined Button -->
-        <include layout="@layout/outlined_buttons" />
+            <!-- Light Disabled Button -->
+            <include layout="@layout/light_buttons_disabled_with_icon" />
 
-        <!-- Outlined Disabled Button -->
-        <include layout="@layout/outlined_buttons_disabled" />
+            <!-- Outlined Button -->
+            <include layout="@layout/outlined_buttons" />
 
-        <!-- Outlined Button -->
-        <include layout="@layout/outlined_buttons_with_icon" />
+            <!-- Outlined Disabled Button -->
+            <include layout="@layout/outlined_buttons_disabled" />
 
-        <!-- Outlined Disabled Button -->
-        <include layout="@layout/outlined_buttons_disabled_with_icon" />
+            <!-- Outlined Button -->
+            <include layout="@layout/outlined_buttons_with_icon" />
 
-        <!-- Text Buttons -->
-        <include layout="@layout/text_buttons" />
+            <!-- Outlined Disabled Button -->
+            <include layout="@layout/outlined_buttons_disabled_with_icon" />
 
-        <!-- Text Buttons Light -->
-        <include layout="@layout/text_buttons_light" />
+            <!-- Text Buttons -->
+            <include layout="@layout/text_buttons" />
 
-        <!-- Checkbox -->
-        <include layout="@layout/checkbox" />
+            <!-- Text Buttons Light -->
+            <include layout="@layout/text_buttons_light" />
 
-        <!-- Light Checkbox -->
-        <include layout="@layout/checkbox_light" />
+            <!-- Checkbox -->
+            <include layout="@layout/checkbox" />
 
-        <!-- Radio Button -->
-        <include layout="@layout/radio_button" />
+            <!-- Light Checkbox -->
+            <include layout="@layout/checkbox_light" />
 
-        <!-- Switch -->
-        <include layout="@layout/switches" />
+            <!-- Radio Button -->
+            <include layout="@layout/radio_button" />
+
+            <!-- Switch -->
+            <include layout="@layout/switches" />
 
 
-    </LinearLayout>
+        </LinearLayout>
 
 
-</ScrollView>
+    </ScrollView>
+</layout>

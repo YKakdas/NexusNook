@@ -5,6 +5,7 @@ plugins {
     id("com.android.application") version "8.1.1" apply false
     id("org.jetbrains.kotlin.android") version "1.9.0" apply false
     id("com.android.library") version "8.1.1" apply false
+    kotlin("kapt") version "1.9.10" apply false
 }
 
 buildscript {
@@ -54,14 +55,34 @@ subprojects {
                         )
                     }
                 }
+
                 compileOptions {
                     sourceCompatibility = Configs.sourceCompatibility
                     targetCompatibility = Configs.targetCompatibility
                 }
 
+                dataBinding.enable = true
+
+                dependencies {
+                    add("implementation", Dependencies.core_ktx)
+                    add("implementation", Dependencies.fragment_ktx)
+                    add("implementation", Dependencies.appcompat)
+                    add("implementation", Dependencies.material)
+                    add("implementation", Dependencies.constrainlayout)
+
+                    add("implementation", Dependencies.Arch.viewModel)
+                    add("implementation", Dependencies.Arch.liveData)
+
+                    add("testImplementation", Dependencies.junit)
+
+                    add("androidTestImplementation", Dependencies.ext_junit)
+                    add("androidTestImplementation", Dependencies.espresso)
+                }
+
             }
 
         }
+
     }
 
 }
