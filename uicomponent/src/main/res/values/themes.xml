@@ -16,6 +16,7 @@
         <item name="materialButtonOutlinedStyle">@style/Widget.Moadgara.Button.Outlined</item>
         <item name="checkboxStyle">@style/Widget.Moadgara.CheckBox</item>
         <item name="switchStyle">@style/Widget.Moadgara.Switch</item>
+        <item name="android:colorBackground">@color/white_smoke</item>
     </style>
 
 </resources>
