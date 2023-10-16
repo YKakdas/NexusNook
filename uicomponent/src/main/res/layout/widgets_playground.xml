@@ -27,8 +27,14 @@
             android:padding="@dimen/margin_small">
 
             <!-- Text Input Layout -->
-            <include layout="@layout/text_input_layout"
-                moadgara:vm = "@{vm}"/>
+            <include
+                layout="@layout/text_input_layout"
+                moadgara:vm="@{vm}" />
+
+            <!-- Alert Dialogs -->
+            <include
+                layout="@layout/alert_dialog_samples"
+                moadgara:vm="@{vm}" />
 
             <!-- Primary Buttons -->
             <include layout="@layout/primary_buttons" />

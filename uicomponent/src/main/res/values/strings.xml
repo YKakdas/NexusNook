@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="alert_dialog_neutral_text_default">OK</string>
+    <string name="alert_dialog_positive_text_default">Continue</string>
+</resources>

@@ -17,6 +17,12 @@
         <item name="checkboxStyle">@style/Widget.Moadgara.CheckBox</item>
         <item name="switchStyle">@style/Widget.Moadgara.Switch</item>
         <item name="android:colorBackground">@color/white_smoke</item>
+        <item name="android:dialogTheme">@style/Theme.DialogTheme</item>
     </style>
 
+    <style name="Theme.DialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowMinWidthMajor">95%</item>
+        <item name="android:windowMinWidthMinor">95%</item>
+    </style>
 </resources>

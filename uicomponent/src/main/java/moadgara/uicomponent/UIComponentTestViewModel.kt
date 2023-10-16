@@ -5,7 +5,18 @@ import androidx.lifecycle.ViewModel
 import moadgara.base.validation.InputValidationError
 import moadgara.base.validation.PhoneNumberTextWatcher
 
-class UIComponentTestViewModel : ViewModel() {
+class UIComponentTestViewModel(
+    val dialogNoParam: AlertDialog.Builder,
+    val dialogNeutral: AlertDialog.Builder,
+    val dialogPositiveNegative: AlertDialog.Builder,
+    val dialogWithTitle: AlertDialog.Builder,
+    val dialogWithDescription: AlertDialog.Builder,
+    val dialogWarning: AlertDialog.Builder,
+    val dialogError: AlertDialog.Builder,
+    val dialogSuccess: AlertDialog.Builder,
+    val dialogQuestion: AlertDialog.Builder,
+    val dialogAnnouncement: AlertDialog.Builder
+) : ViewModel() {
 
     val hintText = MutableLiveData("ViewModel setter hint text")
 
@@ -21,6 +32,5 @@ class UIComponentTestViewModel : ViewModel() {
 
     val phoneNumberTextWatcher =
         PhoneNumberTextWatcher(phoneNumberInputSuccessListener, phoneNumberInputFailureListener)
-
 
 }
