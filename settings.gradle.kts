@@ -17,3 +17,6 @@ rootProject.name = "NexusNook"
 include(":app")
 include(":uicomponent")
 include(":base")
+include(":main")
+include(":data")
+include(":domain")
