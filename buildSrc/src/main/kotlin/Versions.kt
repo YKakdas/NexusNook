@@ -11,4 +11,6 @@ object Versions {
     const val lifeCycle = "2.6.2"
     const val ktor = "2.3.5"
     const val kotlinxSerialization = "1.6.0"
+    const val koin = "3.5.0"
+    const val timber = "5.0.1"
 }

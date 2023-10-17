@@ -24,8 +24,16 @@ object Dependencies {
         const val contentNegotiation = "io.ktor:ktor-client-content-negotiation:${Versions.ktor}"
         const val kotlinxSerializationJson =
             "io.ktor:ktor-serialization-kotlinx-json:${Versions.ktor}"
+        const val clientMock = "io.ktor:ktor-client-mock:${Versions.ktor}"
     }
 
     const val kotlinxSerialization =
         "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.kotlinxSerialization}"
+
+    object Koin {
+        const val koinCore = "io.insert-koin:koin-core:${Versions.koin}"
+        const val koinAndroid = "io.insert-koin:koin-core:${Versions.koin}"
+    }
+
+    const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
 }

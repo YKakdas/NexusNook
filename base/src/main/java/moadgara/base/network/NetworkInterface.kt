@@ -1,22 +1,22 @@
 package moadgara.base.network
 
+import io.ktor.client.HttpClient
 import io.ktor.client.call.body
-import io.ktor.client.engine.android.AndroidClientEngine
-import io.ktor.client.engine.android.AndroidEngineConfig
 import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import moadgara.base.BuildConfig
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import org.koin.core.parameter.parametersOf
 
-object NetworkInterface {
 
-    val client =
-        HttpClientConfig.createOrGetHttpClient(AndroidClientEngine(AndroidEngineConfig().apply {
-            connectTimeout = 10000
-            socketTimeout = 10000
-        }))
+class NetworkInterface : KoinComponent {
+    private var isMock = false
+
+    val client: HttpClient by inject { parametersOf(isMock) }
 
     suspend inline fun <reified T : Any> get(endPoint: String): Result<T> = try {
         val response: T = client.get(BaseUrl.apiUrl + endPoint) {
