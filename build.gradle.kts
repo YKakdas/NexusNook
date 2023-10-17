@@ -3,9 +3,10 @@ import com.android.build.gradle.BaseExtension
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
     id("com.android.application") version "8.1.1" apply false
-    id("org.jetbrains.kotlin.android") version "1.9.0" apply false
     id("com.android.library") version "8.1.1" apply false
+    kotlin("android") version "1.9.0" apply false
     kotlin("kapt") version "1.9.10" apply false
+    kotlin("plugin.serialization") version "1.9.0" apply false
 }
 
 buildscript {
@@ -15,7 +16,6 @@ buildscript {
     }
     dependencies {
         classpath("com.android.tools.build:gradle:8.1.2")
-        // fill the rest
     }
 }
 
@@ -79,6 +79,11 @@ subprojects {
                     add("androidTestImplementation", Dependencies.espresso)
                 }
 
+                buildFeatures.buildConfig = true
+
+                val gradleProperty = project.property("API_KEY")
+                val API_KEY = if (gradleProperty is String) gradleProperty else ""
+                buildTypes.forEach { it.buildConfigField("String", "API_KEY", API_KEY) }
             }
 
         }

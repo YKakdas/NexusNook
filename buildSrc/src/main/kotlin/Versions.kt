@@ -9,4 +9,6 @@ object Versions {
     const val ext_junit = "1.1.5"
     const val espresso = "3.5.1"
     const val lifeCycle = "2.6.2"
+    const val ktor = "2.3.5"
+    const val kotlinxSerialization = "1.6.0"
 }

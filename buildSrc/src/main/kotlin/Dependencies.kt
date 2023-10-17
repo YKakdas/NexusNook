@@ -16,4 +16,16 @@ object Dependencies {
         const val viewModel = "${archLifecycle}viewmodel-ktx:${Versions.lifeCycle}"
         const val liveData = "${archLifecycle}livedata-ktx:${Versions.lifeCycle}"
     }
+
+    object Ktor {
+        const val clientCore = "io.ktor:ktor-client-core:${Versions.ktor}"
+        const val clientAndroid = "io.ktor:ktor-client-android:${Versions.ktor}"
+        const val clientSerialization = "io.ktor:ktor-client-serialization:${Versions.ktor}"
+        const val contentNegotiation = "io.ktor:ktor-client-content-negotiation:${Versions.ktor}"
+        const val kotlinxSerializationJson =
+            "io.ktor:ktor-serialization-kotlinx-json:${Versions.ktor}"
+    }
+
+    const val kotlinxSerialization =
+        "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.kotlinxSerialization}"
 }
