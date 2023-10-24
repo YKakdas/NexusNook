@@ -8,7 +8,7 @@ import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.textfield.TextInputEditText
 
 @BindingAdapter("registerTextWatcher")
-fun setNavigationMenuListener(view: TextInputEditText, watcher: TextWatcher) {
+fun setTextWatcher(view: TextInputEditText, watcher: TextWatcher) {
     view.addTextChangedListener(watcher)
 }
 
