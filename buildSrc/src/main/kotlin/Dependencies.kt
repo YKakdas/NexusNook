@@ -32,7 +32,7 @@ object Dependencies {
 
     object Koin {
         const val koinCore = "io.insert-koin:koin-core:${Versions.koin}"
-        const val koinAndroid = "io.insert-koin:koin-core:${Versions.koin}"
+        const val koinAndroid = "io.insert-koin:koin-android:${Versions.koin}"
     }
 
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"

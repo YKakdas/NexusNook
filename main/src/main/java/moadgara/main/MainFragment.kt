@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import androidx.core.widget.ImageViewCompat
 import androidx.fragment.app.Fragment
 import moadgara.main.databinding.FragmentMainBinding
+import org.koin.android.ext.android.inject
 import moadgara.uicomponent.R as uiComponentR
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 
+    private val navigator: MainNavigator by inject()
     private var isFabOpen = false
     private lateinit var binding: FragmentMainBinding
 
@@ -31,10 +33,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setupFabListeners()
+        initFab()
+        initBottomNavigationView()
     }
 
-    private fun setupFabListeners() {
+    private fun initFab() {
         binding.fab.setOnClickListener {
             val angle = if (isFabOpen) -180f else 180f
             isFabOpen = !isFabOpen
@@ -53,5 +56,17 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 )
             )
         }
+    }
+
+    private fun initBottomNavigationView() {
+        binding.bottomNavView.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.discover -> navigator.navigateToDiscoverFragment()
+                R.id.search -> navigator.navigateToSearchFragment()
+                R.id.favorites -> navigator.navigateToFavoritesFragment()
+            }
+            true
+        }
+        binding.bottomNavView.selectedItemId = R.id.discover
     }
 }

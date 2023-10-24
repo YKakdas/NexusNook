@@ -1,5 +1,5 @@
 <resources>
-    <string name="bottom_nav_menu_home_title">Discover</string>
+    <string name="bottom_nav_menu_discover_title">Discover</string>
     <string name="bottom_nav_menu_search_title">Search</string>
     <string name="bottom_nav_menu_favorites_title">Favorites</string>
 </resources>

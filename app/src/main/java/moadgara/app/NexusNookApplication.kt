@@ -1,22 +1,56 @@
 package moadgara.app
 
+import android.app.Activity
 import android.app.Application
-import moadgara.base.network.koinNetworkModule
+import android.os.Bundle
+import moadgara.base.CurrentActivityProvider
+import moadgara.base.network.networkKoinModule
+import moadgara.main.mainKoinModule
+import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import timber.log.Timber
 
-class NexusNookApplication : Application() {
+class NexusNookApplication : Application(), Application.ActivityLifecycleCallbacks,
+    CurrentActivityProvider {
+
+    private var currentActivity: Activity? = null
     override fun onCreate() {
         super.onCreate()
-
+        registerActivityLifecycleCallbacks(this)
         Timber.plant(Timber.DebugTree())
         initKoin()
     }
 
     private fun initKoin() {
-        val modules = listOf(koinNetworkModule)
+        val modules = listOf(globalKoinModule, networkKoinModule, mainKoinModule)
         startKoin {
+            androidContext(this@NexusNookApplication)
             modules(modules)
         }
     }
+
+    override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+        currentActivity = activity
+    }
+
+    override fun onActivityStarted(activity: Activity) {
+        currentActivity = activity
+    }
+
+    override fun onActivityResumed(activity: Activity) {
+        currentActivity = activity
+    }
+
+    override fun onActivityPaused(activity: Activity) {
+        currentActivity = null
+    }
+
+    override fun onActivityStopped(activity: Activity) {}
+
+    override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
+
+    override fun onActivityDestroyed(activity: Activity) {}
+
+    override fun getCurrentActivity() = currentActivity
+
 }

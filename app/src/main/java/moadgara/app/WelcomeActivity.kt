@@ -5,12 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import moadgara.main.MainActivity
 
-class LaunchActivity : AppCompatActivity() {
+class WelcomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_launch)
+        setContentView(R.layout.activity_welcome)
         //  startActivity(Intent(this, UIComponentTestActivity::class.java))
         MainActivity.start(this)
     }
