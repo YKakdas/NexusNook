@@ -3,7 +3,8 @@ package moadgara.app
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import moadgara.base.CurrentActivityProvider
+import moadgara.base.ContextProvider
+import moadgara.base.ResourceProvider
 import moadgara.base.network.networkKoinModule
 import moadgara.main.mainKoinModule
 import org.koin.android.ext.koin.androidContext
@@ -11,7 +12,7 @@ import org.koin.core.context.startKoin
 import timber.log.Timber
 
 class NexusNookApplication : Application(), Application.ActivityLifecycleCallbacks,
-    CurrentActivityProvider {
+    ContextProvider {
 
     private var currentActivity: Activity? = null
     override fun onCreate() {
@@ -52,5 +53,13 @@ class NexusNookApplication : Application(), Application.ActivityLifecycleCallbac
     override fun onActivityDestroyed(activity: Activity) {}
 
     override fun getCurrentActivity() = currentActivity
+    override fun getResourceProvider(): ResourceProvider {
+        if (currentActivity?.applicationContext == null) {
+            throw RuntimeException("Application context is null!!!")
+        } else {
+            return ResourceProvider(currentActivity!!.applicationContext)
+        }
+    }
+
 
 }

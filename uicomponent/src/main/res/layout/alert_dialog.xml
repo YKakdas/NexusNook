@@ -21,6 +21,7 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/alert_dialog_image_height"
             android:background="@drawable/shape_alert_dialog_top"
+            android:importantForAccessibility="no"
             android:padding="@dimen/margin_small"
             android:src="@{builder.drawableRes}"
             app:layout_constraintEnd_toEndOf="parent"

@@ -2,6 +2,7 @@ package moadgara.base
 
 import android.app.Activity
 
-interface CurrentActivityProvider {
+interface ContextProvider {
     fun getCurrentActivity(): Activity?
+    fun getResourceProvider(): ResourceProvider
 }
