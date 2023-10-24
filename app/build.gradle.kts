@@ -18,4 +18,5 @@ dependencies {
 
     implementation(project(":base"))
     implementation(project(":uicomponent"))
+    implementation(project(":main"))
 }

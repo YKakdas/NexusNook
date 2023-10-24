@@ -1,10 +1,9 @@
 package moadgara.app
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import moadgara.uicomponent.UIComponentTestActivity
+import moadgara.main.MainActivity
 
 class LaunchActivity : AppCompatActivity() {
 
@@ -12,7 +11,8 @@ class LaunchActivity : AppCompatActivity() {
         installSplashScreen()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_launch)
-        startActivity(Intent(this, UIComponentTestActivity::class.java))
+        //  startActivity(Intent(this, UIComponentTestActivity::class.java))
+        MainActivity.start(this)
     }
 
 }

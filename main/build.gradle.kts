@@ -6,3 +6,6 @@ plugins {
 android {
     namespace = "moadgara.main"
 }
+dependencies {
+    implementation(project(":uicomponent"))
+}

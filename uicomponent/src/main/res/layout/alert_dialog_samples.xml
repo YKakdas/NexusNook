@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_small"
-        android:background="@color/seafoam"
+        android:background="@color/link_water"
         android:orientation="vertical"
         android:padding="@dimen/margin_small">
 

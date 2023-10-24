@@ -27,4 +27,7 @@
 
     <dimen name="alert_dialog_image_height">120dp</dimen>
     <dimen name="alert_dialog_button_min_width">140dp</dimen>
+
+    <dimen name="bottom_navigation_bar_icon_size">30dp</dimen>
+    <dimen name="bottom_navigation_bar_margin_end">100dp</dimen>
 </resources>
