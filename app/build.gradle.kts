@@ -13,7 +13,7 @@ android {
 }
 dependencies {
     implementation(Dependencies.splashScreen)
-    implementation(Dependencies.Koin.koinAndroid)
+    implementation(Dependencies.Koin.android)
     implementation(Dependencies.timber)
 
     implementation(project(":base"))

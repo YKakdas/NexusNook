@@ -13,4 +13,5 @@ object Versions {
     const val kotlinxSerialization = "1.6.0"
     const val koin = "3.5.0"
     const val timber = "5.0.1"
+    const val coil = "2.4.0"
 }

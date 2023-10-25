@@ -15,6 +15,8 @@ dependencies {
     implementation(Dependencies.Ktor.contentNegotiation)
     implementation(Dependencies.Ktor.kotlinxSerializationJson)
     implementation(Dependencies.Ktor.clientMock)
+    implementation(Dependencies.Coil.core)
+    implementation(Dependencies.Coil.gif)
 
     api(Dependencies.kotlinxSerialization)
 }

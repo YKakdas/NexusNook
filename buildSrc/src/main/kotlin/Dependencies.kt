@@ -31,9 +31,14 @@ object Dependencies {
         "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.kotlinxSerialization}"
 
     object Koin {
-        const val koinCore = "io.insert-koin:koin-core:${Versions.koin}"
-        const val koinAndroid = "io.insert-koin:koin-android:${Versions.koin}"
+        const val core = "io.insert-koin:koin-core:${Versions.koin}"
+        const val android = "io.insert-koin:koin-android:${Versions.koin}"
     }
 
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
+
+    object Coil {
+        const val core = "io.coil-kt:coil:${Versions.coil}"
+        const val gif = "io.coil-kt:coil-gif:${Versions.coil}"
+    }
 }

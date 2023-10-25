@@ -9,5 +9,8 @@ android {
 }
 
 dependencies {
+    implementation(Dependencies.Coil.core)
+    implementation(Dependencies.Coil.gif)
+
     implementation(project(":base"))
 }

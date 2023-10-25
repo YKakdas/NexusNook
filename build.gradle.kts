@@ -79,7 +79,7 @@ subprojects {
                     add("androidTestImplementation", Dependencies.ext_junit)
                     add("androidTestImplementation", Dependencies.espresso)
 
-                    add("implementation", Dependencies.Koin.koinAndroid)
+                    add("implementation", Dependencies.Koin.android)
 
                     add("implementation", Dependencies.timber)
                 }
