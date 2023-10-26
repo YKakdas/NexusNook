@@ -27,11 +27,11 @@ class NetworkImpl : KoinComponent, NetworkInterface {
 
     val client: HttpClient by inject { parametersOf(isMock) }
 
-    override fun <T : Any> get(
+    override fun <Response : Any> get(
         endPoint: String,
         queryParams: Map<String, String>?,
-        type: KClass<T>
-    ): Flow<NetworkResult<T>> = flow {
+        type: KClass<Response>
+    ): Flow<NetworkResult<Response>> = flow {
         emit(NetworkResult.Loading)
         try {
             val queryParameters = queryParams?.toMutableMap() ?: mutableMapOf()
