@@ -14,4 +14,6 @@ object Versions {
     const val koin = "3.5.0"
     const val timber = "5.0.1"
     const val coil = "2.4.0"
+    const val cardView = "1.0.0"
+    const val kotlinCoroutine = "1.7.3"
 }

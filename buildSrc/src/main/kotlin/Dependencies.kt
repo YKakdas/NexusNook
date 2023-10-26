@@ -9,6 +9,11 @@ object Dependencies {
     const val junit = "junit:junit:${Versions.junit}"
     const val ext_junit = "androidx.test.ext:junit:${Versions.ext_junit}"
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.espresso}"
+    const val cardView = "androidx.cardview:cardview:${Versions.cardView}"
+    const val kotlinxSerialization =
+        "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.kotlinxSerialization}"
+    const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
+    const val kotlinCoroutine = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinCoroutine}"
 
     object Arch {
         private const val archLifecycle = "androidx.lifecycle:lifecycle-"
@@ -27,18 +32,14 @@ object Dependencies {
         const val clientMock = "io.ktor:ktor-client-mock:${Versions.ktor}"
     }
 
-    const val kotlinxSerialization =
-        "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.kotlinxSerialization}"
-
     object Koin {
         const val core = "io.insert-koin:koin-core:${Versions.koin}"
         const val android = "io.insert-koin:koin-android:${Versions.koin}"
     }
 
-    const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
-
     object Coil {
         const val core = "io.coil-kt:coil:${Versions.coil}"
         const val gif = "io.coil-kt:coil-gif:${Versions.coil}"
     }
+
 }

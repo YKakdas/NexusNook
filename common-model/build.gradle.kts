@@ -1,7 +1,6 @@
 plugins {
     id("java-library")
     id("org.jetbrains.kotlin.jvm")
-    kotlin("plugin.serialization")
 }
 
 java {
@@ -10,8 +9,5 @@ java {
 }
 
 dependencies {
-    implementation(Dependencies.kotlinxSerialization)
     implementation(Dependencies.kotlinCoroutine)
-
-    implementation(project(":common-model"))
 }

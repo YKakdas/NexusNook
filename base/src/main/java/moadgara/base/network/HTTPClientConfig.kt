@@ -27,7 +27,6 @@ object HttpClientConfig {
                     json(Json {
                         ignoreUnknownKeys = true
                         isLenient = true
-                        encodeDefaults = false
                     })
                 }
 

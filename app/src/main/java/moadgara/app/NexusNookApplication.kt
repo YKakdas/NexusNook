@@ -6,6 +6,7 @@ import android.os.Bundle
 import moadgara.base.ContextProvider
 import moadgara.base.ResourceProvider
 import moadgara.base.network.networkKoinModule
+import moadgara.main.discover.discoverKoinModule
 import moadgara.main.mainKoinModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -23,7 +24,8 @@ class NexusNookApplication : Application(), Application.ActivityLifecycleCallbac
     }
 
     private fun initKoin() {
-        val modules = listOf(globalKoinModule, networkKoinModule, mainKoinModule)
+        val modules =
+            listOf(globalKoinModule, networkKoinModule, mainKoinModule, discoverKoinModule)
         startKoin {
             androidContext(this@NexusNookApplication)
             modules(modules)

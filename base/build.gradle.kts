@@ -1,6 +1,6 @@
 plugins {
     id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    kotlin("android")
     id("kotlin-kapt")
 }
 
@@ -19,4 +19,6 @@ dependencies {
     implementation(Dependencies.Coil.gif)
 
     api(Dependencies.kotlinxSerialization)
+
+    implementation(project(":common-model"))
 }
