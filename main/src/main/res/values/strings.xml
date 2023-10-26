@@ -2,4 +2,7 @@
     <string name="bottom_nav_menu_discover_title">Discover</string>
     <string name="bottom_nav_menu_search_title">Search</string>
     <string name="bottom_nav_menu_favorites_title">Favorites</string>
+    <string name="generic_error_title">An error occurred!</string>
+    <string name="generic_error_description">Unexpected error occurred in server. Please try again later</string>
+    <string name="alert_dialog_neutral_button_text">OK</string>
 </resources>

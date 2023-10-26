@@ -28,9 +28,9 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
 
         viewModel.getMessage().observe(viewLifecycleOwner) {
             AlertDialog.Builder(requireContext())
-                .setTitle("An error occurred!")
-                .setDescription(it ?: "Unexpected error occurred!")
-                .setNeutralText("OK")
+                .setTitle(R.string.generic_error_title)
+                .setDescription(it ?: resources.getString(R.string.generic_error_description))
+                .setNeutralText(R.string.alert_dialog_neutral_button_text)
                 .setType(AlertDialog.Type.ERROR)
                 .build()
         }

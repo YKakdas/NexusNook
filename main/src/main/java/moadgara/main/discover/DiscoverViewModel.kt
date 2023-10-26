@@ -20,7 +20,7 @@ class DiscoverViewModel(private val getTrendingGamesUseCase: GetTrendingGamesUse
     fun getProgress(): LiveData<Boolean> = progress
 
     init {
-        val job = viewModelScope.launch {
+        viewModelScope.launch {
             getTrendingGamesUseCase(Unit).transformWhile {
                 emit(it)
                 it is NetworkResult.Loading
@@ -34,7 +34,6 @@ class DiscoverViewModel(private val getTrendingGamesUseCase: GetTrendingGamesUse
 
                     is NetworkResult.Success -> {
                         progress.value = false
-                        message.value = "yeeee222ey"
                     }
                 }
             }
