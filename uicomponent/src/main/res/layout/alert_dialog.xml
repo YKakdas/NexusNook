@@ -9,6 +9,10 @@
             name="builder"
             type="moadgara.uicomponent.AlertDialog.Builder" />
 
+        <variable
+            name="data"
+            type="moadgara.uicomponent.adapter.GenericListItem" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
