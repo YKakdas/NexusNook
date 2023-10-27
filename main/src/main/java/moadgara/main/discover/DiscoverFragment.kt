@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import moadgara.main.R
 import moadgara.uicomponent.AlertDialog
 import moadgara.uicomponent.ProgressDialog
+import moadgara.uicomponent.alertDialog
 import org.koin.android.ext.android.inject
 
 class DiscoverFragment : Fragment(R.layout.fragment_discover) {
@@ -27,12 +28,12 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
         }
 
         viewModel.getMessage().observe(viewLifecycleOwner) {
-            AlertDialog.Builder(requireContext())
-                .setTitle(R.string.generic_error_title)
-                .setDescription(it ?: resources.getString(R.string.generic_error_description))
-                .setNeutralText(R.string.alert_dialog_neutral_button_text)
-                .setType(AlertDialog.Type.ERROR)
-                .build()
+            alertDialog(requireContext()) {
+                title(R.string.generic_error_title)
+                description(it ?: resources.getString(R.string.generic_error_description))
+                neutralText(R.string.alert_dialog_neutral_button_text)
+                type(AlertDialog.Type.ERROR)
+            }
         }
 
     }

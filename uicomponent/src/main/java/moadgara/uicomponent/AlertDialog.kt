@@ -10,9 +10,17 @@ import androidx.annotation.StringRes
 import androidx.appcompat.view.ContextThemeWrapper
 import moadgara.uicomponent.databinding.AlertDialogBinding
 
+@DslMarker
+annotation class AlertDialogBuilder
+
+fun alertDialog(context: Context, builder: AlertDialog.Builder.() -> Unit): AlertDialog {
+    return AlertDialog.Builder(context).apply(builder).build()
+}
+
 class AlertDialog {
 
-    open class Builder(private val context: Context) : Cloneable {
+    @AlertDialogBuilder
+    class Builder(private val context: Context) : Cloneable {
         private var type: Type = Type.INFORMATION
         private var cancelable = false
 
@@ -29,62 +37,62 @@ class AlertDialog {
         private var positiveListener: (() -> Unit)? = null
         private var negativeListener: (() -> Unit)? = null
 
-        fun setType(type: Type) = apply {
+        fun type(type: Type) = apply {
             this.type = type
             findDrawableImage(type)
         }
 
-        fun setCancelable(cancelable: Boolean) = apply { this.cancelable = cancelable }
+        fun cancelable(cancelable: Boolean) = apply { this.cancelable = cancelable }
 
-        fun setTitle(title: String) = apply { this.title = title }
+        fun title(title: String) = apply { this.title = title }
 
-        fun setTitle(@StringRes title: Int) =
+        fun title(@StringRes title: Int) =
             apply { this.title = context.resources.getString(title) }
 
         fun getTitle() = title
 
-        fun setDescription(description: String) = apply { this.description = description }
+        fun description(description: String) = apply { this.description = description }
 
-        fun setDescription(@StringRes description: Int) = apply {
+        fun description(@StringRes description: Int) = apply {
             this.description = context.resources.getString(description)
         }
 
         fun getDescription() = description
 
-        fun setNeutralText(text: String?) = apply { this.neutralText = text }
+        fun neutralText(text: String?) = apply { this.neutralText = text }
 
-        fun setNeutralText(@StringRes text: Int) =
+        fun neutralText(@StringRes text: Int) =
             apply { this.neutralText = context.resources.getString(text) }
 
         fun getNeutralText() = neutralText
 
-        fun setPositiveText(text: String?) = apply { this.positiveText = text }
+        fun positiveText(text: String?) = apply { this.positiveText = text }
 
-        fun setPositiveText(@StringRes text: Int) =
+        fun positiveText(@StringRes text: Int) =
             apply { this.positiveText = context.resources.getString(text) }
 
         fun getPositiveText() = positiveText
 
-        fun setNegativeText(text: String?) = apply { this.negativeText = text }
+        fun negativeText(text: String?) = apply { this.negativeText = text }
 
-        fun setNegativeText(@StringRes text: Int) =
+        fun negativeText(@StringRes text: Int) =
             apply { this.negativeText = context.resources.getString(text) }
 
         fun getNegativeText() = negativeText
 
-        fun setNeutralListener(listener: (() -> Unit)?) = apply {
+        fun neutralListener(listener: (() -> Unit)?) = apply {
             this.neutralListener = listener
         }
 
         fun getNeutralListener() = neutralListener
 
-        fun setPositiveListener(listener: (() -> Unit)?) = apply {
+        fun positiveListener(listener: (() -> Unit)?) = apply {
             this.positiveListener = listener
         }
 
         fun getPositiveListener() = positiveListener
 
-        fun setNegativeListener(listener: (() -> Unit)?) = apply {
+        fun negativeListener(listener: (() -> Unit)?) = apply {
             this.negativeListener = listener
         }
 
@@ -92,7 +100,7 @@ class AlertDialog {
 
         fun getDrawableRes() = drawableRes
 
-        fun build(): AlertDialog {
+        internal fun build(): AlertDialog {
             val dialog = Dialog(context)
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
 

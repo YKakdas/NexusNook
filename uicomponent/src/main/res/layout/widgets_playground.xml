@@ -31,11 +31,6 @@
                 layout="@layout/text_input_layout"
                 moadgara:vm="@{vm}" />
 
-            <!-- Alert Dialogs -->
-            <include
-                layout="@layout/alert_dialog_samples"
-                moadgara:vm="@{vm}" />
-
             <!-- Primary Buttons -->
             <include layout="@layout/primary_buttons" />
 
