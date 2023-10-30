@@ -50,7 +50,7 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
 
         setupTrendingGamesView()
         setupBestOfTheYearGamesView()
-
+        setupRecentlyAddedPopularGamesView()
     }
 
     private fun setupTrendingGamesView() {
@@ -70,6 +70,16 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
             viewModel.getBestOfTheYearGamesPreviewList(),
             binding.bestOfTheYearGamesPreviewList.root,
             binding.bestOfTheYearGamesPreviewListShimmer
+        )
+    }
+
+    private fun setupRecentlyAddedPopularGamesView() {
+        setupRecyclerViewAndObserve(
+            binding.recentlyAddedPopularGamesPreviewList.recyclerView,
+            genericAdapter {},
+            viewModel.getRecentlyAddedPopularGamesPreviewList(),
+            binding.recentlyAddedPopularGamesPreviewList.root,
+            binding.recentlyAddedPopularGamesPreviewListShimmer
         )
     }
 

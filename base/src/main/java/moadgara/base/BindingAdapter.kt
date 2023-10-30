@@ -32,7 +32,7 @@ fun setOnNavigationItemSelected(
 }
 
 @BindingAdapter(value = ["android:src", "placeholder", "error"], requireAll = false)
-fun setImageFromUrl(view: ImageView, url: String, placeholder: Drawable?, error: Drawable?) {
+fun setImageFromUrl(view: ImageView, url: String?, placeholder: Drawable?, error: Drawable?) {
     Glide.with(view.context)
         .load(url)
         .placeholder(placeholder)
