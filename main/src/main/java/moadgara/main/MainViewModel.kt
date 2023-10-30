@@ -5,16 +5,18 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import androidx.core.widget.ImageViewCompat
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import moadgara.base.ResourceProvider
 import moadgara.uicomponent.R as uiComponentR
 
 class MainViewModel(
-    private val navigator: MainNavigator,
-    private val resourceProvider: ResourceProvider
+    private val navigator: MainNavigator
 ) : ViewModel() {
 
     private var isFabOpen = false
+    private val onFabClicked = MutableLiveData<Boolean>()
 
     fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -25,16 +27,10 @@ class MainViewModel(
         return true
     }
 
-    fun onFabClicked(view: View) {
-        val angle = if (isFabOpen) -180f else 180f
+    fun getIsFabClicked(): LiveData<Boolean> = onFabClicked
+
+    fun onFabClicked() {
+        onFabClicked.value = !isFabOpen
         isFabOpen = !isFabOpen
-
-        val tintColor =
-            if (isFabOpen) uiComponentR.color.colorPrimary else uiComponentR.color.fountain_blue
-
-        view.animate().rotationBy(angle).duration = 500L
-        ImageViewCompat.setImageTintList(
-            view as ImageView, ColorStateList.valueOf(resourceProvider.getColor(tintColor))
-        )
     }
 }

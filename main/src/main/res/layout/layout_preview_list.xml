@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="moadgara.main.discover.PreviewListMetaData" />
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/preview_list_view_height">
+
+        <Button
+            android:id="@+id/title"
+            style="@style/Widget.Moadgara.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/preview_list_view_button_height"
+            android:layout_gravity="top|start"
+            android:clickable="false"
+            android:text="@{data.title}"
+            tools:text="Trending" />
+
+        <Button
+            style="@style/Widget.Moadgara.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/preview_list_view_button_height"
+            android:layout_gravity="top|end"
+            android:insetRight="@dimen/margin_tiny_negative"
+            android:onClick="@{() -> data.buttonAction.invoke()}"
+            android:text="@{data.buttonTitle}"
+            android:textColor="?colorSecondary"
+            app:icon="@drawable/ic_arrow_right"
+            app:iconGravity="textEnd"
+            app:iconPadding="0dp"
+            app:iconTint="?colorSecondary"
+            tools:text="See All" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/preview_list_item_view_height"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal"
+            app:itemDecoration="@{@dimen/margin_small}"
+            tools:itemCount="6"
+            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/layout_small_card_view_list_item" />
+
+    </FrameLayout>
+</layout>

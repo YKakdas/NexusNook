@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import moadgara.data.games.entity.ListOfGamesResponse
 
 class GamesRepository(private val networkInterface: NetworkInterface) {
-    fun fetchTrendingGames(pageNum: Int): Flow<NetworkResult<ListOfGamesResponse>> {
-        return networkInterface.getRequest("games/lists/main", null)
+    fun fetchTrendingGames(queryParams: Map<String, String>): Flow<NetworkResult<ListOfGamesResponse>> {
+        return networkInterface.getRequest("games/lists/main", queryParams)
     }
 }

@@ -7,6 +7,8 @@
     <dimen name="margin_large">32dp</dimen>
     <dimen name="margin_xlarge">64dp</dimen>
 
+    <dimen name="margin_tiny_negative">-4dp</dimen>
+
     <dimen name="spacing_8">8dp</dimen>
     <dimen name="spacing_12">12dp</dimen>
     <dimen name="spacing_16">16dp</dimen>
@@ -32,4 +34,18 @@
     <dimen name="bottom_navigation_bar_margin_end">100dp</dimen>
 
     <dimen name="progress_bar_min_image_size">300dp</dimen>
+
+    <dimen name="preview_list_view_height">168dp</dimen>
+    <dimen name="preview_list_view_button_height">36dp</dimen>
+    <dimen name="preview_list_item_view_height">128dp</dimen>
+    <dimen name="preview_list_item_view_width">100dp</dimen>
+    <dimen name="preview_list_item_image_height">100dp</dimen>
+    <dimen name="preview_list_item_text_height">20dp</dimen>
+
+    <dimen name="shimmer_preview_list_title_height">36dp</dimen>
+    <dimen name="shimmer_preview_list_title_vertical_margin">10dp</dimen>
+    <dimen name="shimmer_preview_list_title_start_margin">2dp</dimen>
+    <dimen name="shimmer_preview_list_title_width">96dp</dimen>
+    <dimen name="shimmer_preview_list_button_width">88dp</dimen>
+    <dimen name="shimmer_preview_list_item_text_vertical_margin">5dp</dimen>
 </resources>

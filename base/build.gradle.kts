@@ -1,7 +1,7 @@
 plugins {
     id("com.android.library")
-    kotlin("android")
     id("kotlin-kapt")
+    kotlin("android")
 }
 
 android {
@@ -17,6 +17,9 @@ dependencies {
     implementation(Dependencies.Ktor.clientMock)
     implementation(Dependencies.Coil.core)
     implementation(Dependencies.Coil.gif)
+
+    implementation(Dependencies.Glide.glide)
+    kapt(Dependencies.Glide.compiler)
 
     api(Dependencies.kotlinxSerialization)
 

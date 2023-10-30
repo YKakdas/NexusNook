@@ -1,7 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:text="DISCOVER">
-</TextView>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:moadgara="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="java.util.List" />
+
+        <import type="moadgara.main.discover.PreviewListMetaData" />
+
+        <variable
+            name="data"
+            type="List&lt;PreviewListMetaData>" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginVertical="20dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/trending_games_preview_list"
+                layout="@layout/layout_preview_list"
+                android:visibility="gone"
+                moadgara:data="@{data.get(0)}" />
+
+        </LinearLayout>
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            moadgara:shimmer_auto_start="true"
+            moadgara:shimmer_intensity="0.5"
+            moadgara:shimmer_repeat_mode="reverse">
+
+            <include
+                android:id="@+id/trending_games_preview_list_shimmer"
+                layout="@layout/layout_preview_list_shimmer" />
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+    </LinearLayout>
+
+
+</layout>

@@ -13,6 +13,11 @@ class GetTrendingGamesUseCase(
     coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : FlowUseCase<Unit, ListOfGamesResponse>(coroutineDispatcher) {
     override fun execute(parameters: Unit): Flow<NetworkResult<ListOfGamesResponse>> {
-        return repository.fetchTrendingGames(0)
+        val queryParams = mutableMapOf<String, String>()
+        queryParams["pageNum"] = "0"
+        queryParams["discover"] = "true"
+        queryParams["ordering"] = "-relevance"
+        queryParams["page_size"] = "40"
+        return repository.fetchTrendingGames(queryParams)
     }
 }

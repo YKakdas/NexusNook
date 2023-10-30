@@ -13,7 +13,9 @@ object Dependencies {
     const val kotlinxSerialization =
         "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.kotlinxSerialization}"
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
-    const val kotlinCoroutine = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinCoroutine}"
+    const val kotlinCoroutine =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinCoroutine}"
+    const val shimmer = "com.facebook.shimmer:shimmer:${Versions.shimmer}"
 
     object Arch {
         private const val archLifecycle = "androidx.lifecycle:lifecycle-"
@@ -40,6 +42,11 @@ object Dependencies {
     object Coil {
         const val core = "io.coil-kt:coil:${Versions.coil}"
         const val gif = "io.coil-kt:coil-gif:${Versions.coil}"
+    }
+
+    object Glide {
+        const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
+        const val compiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
     }
 
 }
