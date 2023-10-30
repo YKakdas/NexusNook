@@ -6,6 +6,7 @@
     <string name="generic_error_description">Unexpected error occurred in server. Please try again later</string>
     <string name="alert_dialog_neutral_button_text">OK</string>
 
-    <string name="discover_trending_games_title">Trending Games</string>
+    <string name="discover_trending_games_title">Trending Now</string>
+    <string name="discover_best_of_the_year_games_title">Best of the Year</string>
     <string name="see_all_button_title">See All</string>
 </resources>

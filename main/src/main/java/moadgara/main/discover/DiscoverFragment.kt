@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import moadgara.main.R
 import moadgara.main.databinding.FragmentDiscoverBinding
 import moadgara.uicomponent.AlertDialog
+import moadgara.uicomponent.adapter.GenericAdapter
 import moadgara.uicomponent.adapter.genericAdapter
 import moadgara.uicomponent.alertDialog
 import org.koin.android.ext.android.inject
@@ -45,23 +48,52 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
             }
         }
 
-        val myAdapter = genericAdapter<PreviewListItemData> {}
+        setupTrendingGamesView()
+        setupBestOfTheYearGamesView()
 
-        binding.trendingGamesPreviewList.recyclerView.apply {
+    }
+
+    private fun setupTrendingGamesView() {
+        setupRecyclerViewAndObserve(
+            binding.trendingGamesPreviewList.recyclerView,
+            genericAdapter {},
+            viewModel.getTrendingGamesPreviewList(),
+            binding.trendingGamesPreviewList.root,
+            binding.trendingGamesPreviewListShimmer
+        )
+    }
+
+    private fun setupBestOfTheYearGamesView() {
+        setupRecyclerViewAndObserve(
+            binding.bestOfTheYearGamesPreviewList.recyclerView,
+            genericAdapter {},
+            viewModel.getBestOfTheYearGamesPreviewList(),
+            binding.bestOfTheYearGamesPreviewList.root,
+            binding.bestOfTheYearGamesPreviewListShimmer
+        )
+    }
+
+    private fun setupRecyclerViewAndObserve(
+        recyclerView: RecyclerView,
+        adapter: GenericAdapter<PreviewListItemData>,
+        listLiveData: LiveData<List<PreviewListItemData>>,
+        actualView: View,
+        shimmerView: View
+    ) {
+        recyclerView.apply {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
             setItemViewCacheSize(40)
-            adapter = myAdapter
+            this.adapter = adapter
         }
 
-        viewModel.getTrendingGamesPreviewList().observe(viewLifecycleOwner) {
-            binding.trendingGamesPreviewListShimmer.visibility = View.GONE
-            binding.trendingGamesPreviewList.root.visibility = View.VISIBLE
+        listLiveData.observe(viewLifecycleOwner) {
+            shimmerView.visibility = View.GONE
+            actualView.visibility = View.VISIBLE
 
-            myAdapter.submitList(it)
+            adapter.submitList(it)
         }
-
     }
 
 }

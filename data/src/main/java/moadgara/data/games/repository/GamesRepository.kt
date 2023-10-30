@@ -10,4 +10,8 @@ class GamesRepository(private val networkInterface: NetworkInterface) {
     fun fetchTrendingGames(queryParams: Map<String, String>): Flow<NetworkResult<ListOfGamesResponse>> {
         return networkInterface.getRequest("games/lists/main", queryParams)
     }
+
+    fun fetchBestOfTheYear(queryParams: Map<String, String>): Flow<NetworkResult<ListOfGamesResponse>> {
+        return networkInterface.getRequest("games/lists/greatest", queryParams)
+    }
 }

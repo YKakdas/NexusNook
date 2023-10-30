@@ -17,7 +17,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginVertical="20dp"
+        android:layout_marginVertical="@dimen/margin_high"
         android:orientation="vertical">
 
         <LinearLayout
@@ -31,6 +31,16 @@
                 android:visibility="gone"
                 moadgara:data="@{data.get(0)}" />
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_high" />
+
+            <include
+                android:id="@+id/best_of_the_year_games_preview_list"
+                layout="@layout/layout_preview_list"
+                android:visibility="gone"
+                moadgara:data="@{data.get(1)}" />
+
         </LinearLayout>
 
         <com.facebook.shimmer.ShimmerFrameLayout
@@ -40,9 +50,25 @@
             moadgara:shimmer_intensity="0.5"
             moadgara:shimmer_repeat_mode="reverse">
 
-            <include
-                android:id="@+id/trending_games_preview_list_shimmer"
-                layout="@layout/layout_preview_list_shimmer" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <include
+                    android:id="@+id/trending_games_preview_list_shimmer"
+                    layout="@layout/layout_preview_list_shimmer" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_high" />
+
+                <include
+                    android:id="@+id/best_of_the_year_games_preview_list_shimmer"
+                    layout="@layout/layout_preview_list_shimmer" />
+            </LinearLayout>
+
         </com.facebook.shimmer.ShimmerFrameLayout>
 
     </LinearLayout>
