@@ -24,8 +24,6 @@
             android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="@dimen/preview_list_item_image_height"
-            android:adjustViewBounds="true"
-            android:scaleType="fitXY"
             android:src="@{data.imageUrl}"
             app:error="@{@drawable/no_image_found}"
             app:placeholder="@{@drawable/placeholder}"

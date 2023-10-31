@@ -37,6 +37,7 @@ fun setImageFromUrl(view: ImageView, url: String?, placeholder: Drawable?, error
         .load(url)
         .placeholder(placeholder)
         .error(error)
+        .centerCrop()
         .transition(DrawableTransitionOptions.withCrossFade())
         .into(view)
 }
