@@ -3,6 +3,7 @@ package moadgara.base
 import android.graphics.drawable.Drawable
 import android.text.TextWatcher
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -31,8 +32,19 @@ fun setOnNavigationItemSelected(
     if (position != null) view.selectedItemId = view.menu.getItem(position).itemId
 }
 
-@BindingAdapter(value = ["android:src", "placeholder", "error"], requireAll = false)
-fun setImageFromUrl(view: ImageView, url: String?, placeholder: Drawable?, error: Drawable?) {
+@BindingAdapter(value = ["android:src", "placeholder", "error", "tint"], requireAll = false)
+fun setImageFromUrl(
+    view: ImageView,
+    url: String?,
+    placeholder: Drawable?,
+    error: Drawable?,
+    tintColor: Int?
+) {
+    if (tintColor != null) {
+        placeholder?.setTint(ContextCompat.getColor(view.context, tintColor))
+        error?.setTint(ContextCompat.getColor(view.context, tintColor))
+    }
+
     Glide.with(view.context)
         .load(url)
         .placeholder(placeholder)

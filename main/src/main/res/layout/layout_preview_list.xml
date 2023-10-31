@@ -13,7 +13,11 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/preview_list_view_height">
+        android:layout_height="@dimen/preview_list_view_height"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:background="@drawable/preview_list_background"
+        android:elevation="@dimen/preview_list_view_elevation">
 
         <Button
             android:id="@+id/title"

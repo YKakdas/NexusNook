@@ -29,6 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
+                android:backgroundTint="@color/raven"
                 app:contentInsetEnd="0dp"
                 app:contentInsetLeft="0dp"
                 app:contentInsetRight="0dp"
@@ -60,7 +61,7 @@
                 android:importantForAccessibility="no"
                 android:onClick="@{() -> vm.onFabClicked()}"
                 android:src="@drawable/ic_rocket"
-                app:backgroundTint="@color/white"
+                app:backgroundTint="@color/raven"
                 app:layout_anchor="@id/bottomAppBar"
                 app:maxImageSize="@dimen/bottom_navigation_bar_icon_size"
                 app:tint="@color/fountain_blue" />

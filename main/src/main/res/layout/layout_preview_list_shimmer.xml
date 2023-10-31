@@ -3,12 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/shimmer_preview_list_view_height"
     android:layout_marginHorizontal="@dimen/margin_tiny"
+    android:background="@drawable/preview_list_background"
+    android:elevation="@dimen/preview_list_view_elevation"
     android:orientation="vertical">
 
     <FrameLayout
         android:layout_width="match_parent"
+        android:layout_marginHorizontal="@dimen/margin_small"
         android:layout_height="@dimen/shimmer_preview_list_title_height"
-
         android:orientation="vertical">
 
         <TextView
@@ -29,8 +31,10 @@
     </FrameLayout>
 
     <LinearLayout
+        android:layout_marginHorizontal="@dimen/margin_small"
         android:layout_width="match_parent"
         android:layout_height="@dimen/shimmer_preview_list_item_view_height"
+        android:background="@drawable/preview_list_background"
         android:orientation="horizontal">
 
         <include layout="@layout/layout_small_card_view_list_item_shimmer" />
