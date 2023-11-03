@@ -4,14 +4,6 @@
 
     <data>
 
-        <import type="java.util.List" />
-
-        <import type="moadgara.main.discover.PreviewListMetaData" />
-
-        <variable
-            name="data"
-            type="List&lt;PreviewListMetaData>" />
-
     </data>
 
     <ScrollView
@@ -20,68 +12,25 @@
         android:layout_marginBottom="@dimen/preview_list_scroll_view_bottom_margin">
 
         <LinearLayout
+            android:id="@+id/inflate_view_root"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
             android:orientation="vertical">
-
-            <include
-                android:id="@+id/trending_games_preview_list"
-                layout="@layout/layout_preview_list"
-                android:visibility="gone"
-                moadgara:data="@{data.get(0)}" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/margin_high" />
-
-            <include
-                android:id="@+id/best_of_the_year_games_preview_list"
-                layout="@layout/layout_preview_list"
-                android:visibility="gone"
-                moadgara:data="@{data.get(1)}" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/margin_high" />
-
-            <include
-                android:id="@+id/recently_added_popular_games_preview_list"
-                layout="@layout/layout_preview_list"
-                android:visibility="gone"
-                moadgara:data="@{data.get(2)}" />
 
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
                 moadgara:shimmer_auto_start="true"
                 moadgara:shimmer_intensity="0.5"
                 moadgara:shimmer_repeat_mode="reverse">
 
                 <LinearLayout
+                    android:id="@+id/shimmer_inflate_view_root"
                     android:layout_width="match_parent"
+                    android:layout_gravity="top"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
-                    <include
-                        android:id="@+id/trending_games_preview_list_shimmer"
-                        layout="@layout/layout_preview_list_shimmer" />
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/shimmer_preview_list_space_between_items" />
-
-                    <include
-                        android:id="@+id/best_of_the_year_games_preview_list_shimmer"
-                        layout="@layout/layout_preview_list_shimmer" />
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/shimmer_preview_list_space_between_items" />
-
-                    <include
-                        android:id="@+id/recently_added_popular_games_preview_list_shimmer"
-                        layout="@layout/layout_preview_list_shimmer" />
 
                 </LinearLayout>
 

@@ -1,15 +1,23 @@
 package moadgara.main.discover
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.Space
+import androidx.annotation.DimenRes
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import moadgara.main.R
 import moadgara.main.databinding.FragmentDiscoverBinding
+import moadgara.main.databinding.LayoutPreviewListBinding
+import moadgara.main.databinding.LayoutPreviewListShimmerBinding
 import moadgara.uicomponent.AlertDialog
 import moadgara.uicomponent.adapter.GenericAdapter
 import moadgara.uicomponent.adapter.genericAdapter
@@ -20,6 +28,7 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
 
     private val viewModel: DiscoverViewModel by inject()
 
+    private lateinit var allPreviewListLiveData: List<LiveData<List<PreviewListItemData>>>
     private lateinit var binding: FragmentDiscoverBinding
 
     companion object {
@@ -29,12 +38,9 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentDiscoverBinding.inflate(inflater, container, false)
-        binding.data = viewModel.preparePageMetaData()
         return binding.root
     }
 
@@ -48,39 +54,71 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
             }
         }
 
-        setupTrendingGamesView()
-        setupBestOfTheYearGamesView()
-        setupRecentlyAddedPopularGamesView()
+        allPreviewListLiveData = viewModel.getAllPreviewListLiveData()
+
+        val pageMetaData = viewModel.preparePageMetaData()
+        allPreviewListLiveData.forEachIndexed { index, liveData ->
+            populateView(
+                index, pageMetaData[index], liveData
+            )
+        }
+        viewModel.fetchData()
+
     }
 
-    private fun setupTrendingGamesView() {
+    private fun populateView(
+        index: Int, metaData: PreviewListMetaData, liveData: LiveData<List<PreviewListItemData>>
+    ) {
+        val actualViewsParent = binding.inflateViewRoot
+        val childActualViewBinding =
+            inflatePreviewListLayout<LayoutPreviewListBinding>(actualViewsParent)
+        val actualViewSpace =
+            createSpaceView(moadgara.uicomponent.R.dimen.margin_high, actualViewsParent.context)
+
+        val shimmerViewsParent = binding.shimmerInflateViewRoot
+        val childShimmerViewBinding =
+            inflatePreviewListLayout<LayoutPreviewListShimmerBinding>(shimmerViewsParent)
+        val shimmerViewSpace =
+            createSpaceView(
+                moadgara.uicomponent.R.dimen.shimmer_preview_list_space_between_items,
+                shimmerViewsParent.context
+            )
+
+        childActualViewBinding.data = metaData
+        childActualViewBinding.root.visibility = View.GONE
+        actualViewSpace.visibility = View.GONE
+
+        actualViewsParent.addView(childActualViewBinding.root, index * 2)
+        actualViewsParent.addView(actualViewSpace, index * 2 + 1)
+        shimmerViewsParent.addView(childShimmerViewBinding.root, index * 2)
+        shimmerViewsParent.addView(shimmerViewSpace)
+
         setupRecyclerViewAndObserve(
-            binding.trendingGamesPreviewList.recyclerView,
+            childActualViewBinding.recyclerView,
             genericAdapter {},
-            viewModel.getTrendingGamesPreviewList(),
-            binding.trendingGamesPreviewList.root,
-            binding.trendingGamesPreviewListShimmer
+            liveData,
+            childActualViewBinding.root,
+            actualViewSpace,
+            childShimmerViewBinding.root
         )
+
     }
 
-    private fun setupBestOfTheYearGamesView() {
-        setupRecyclerViewAndObserve(
-            binding.bestOfTheYearGamesPreviewList.recyclerView,
-            genericAdapter {},
-            viewModel.getBestOfTheYearGamesPreviewList(),
-            binding.bestOfTheYearGamesPreviewList.root,
-            binding.bestOfTheYearGamesPreviewListShimmer
-        )
+    private inline fun <reified T : ViewDataBinding> inflatePreviewListLayout(parent: ViewGroup): T {
+        val layout = if (T::class == LayoutPreviewListBinding::class) {
+            R.layout.layout_preview_list
+        } else {
+            R.layout.layout_preview_list_shimmer
+        }
+        return DataBindingUtil.inflate(LayoutInflater.from(parent.context), layout, parent, false)
     }
 
-    private fun setupRecentlyAddedPopularGamesView() {
-        setupRecyclerViewAndObserve(
-            binding.recentlyAddedPopularGamesPreviewList.recyclerView,
-            genericAdapter {},
-            viewModel.getRecentlyAddedPopularGamesPreviewList(),
-            binding.recentlyAddedPopularGamesPreviewList.root,
-            binding.recentlyAddedPopularGamesPreviewListShimmer
+    private fun createSpaceView(@DimenRes height: Int, context: Context): Space {
+        val space = Space(context)
+        space.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, resources.getDimension(height).toInt()
         )
+        return space
     }
 
     private fun setupRecyclerViewAndObserve(
@@ -88,6 +126,7 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
         adapter: GenericAdapter<PreviewListItemData>,
         listLiveData: LiveData<List<PreviewListItemData>>,
         actualView: View,
+        space: Space,
         shimmerView: View
     ) {
         recyclerView.apply {
@@ -101,6 +140,7 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
         listLiveData.observe(viewLifecycleOwner) {
             shimmerView.visibility = View.GONE
             actualView.visibility = View.VISIBLE
+            space.visibility = View.VISIBLE
 
             adapter.submitList(it)
         }

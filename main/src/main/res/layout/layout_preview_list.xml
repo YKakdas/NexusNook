@@ -14,8 +14,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/preview_list_view_height"
-        android:layout_marginHorizontal="8dp"
-        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_marginHorizontal="@dimen/margin_small"
         android:background="@drawable/preview_list_background"
         android:elevation="@dimen/preview_list_view_elevation">
 
@@ -23,11 +22,13 @@
             android:id="@+id/title"
             style="@style/Widget.Moadgara.Button.TextButton"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/preview_list_view_button_height"
+            android:layout_height="wrap_content"
             android:layout_gravity="top|start"
             android:clickable="false"
+            android:gravity="top|start"
+            android:maxWidth="@dimen/preview_list_view_title_max_width"
             android:text="@{data.title}"
-            tools:text="Trending" />
+            tools:text="Recently Added Popular Games" />
 
         <Button
             style="@style/Widget.Moadgara.Button.TextButton"

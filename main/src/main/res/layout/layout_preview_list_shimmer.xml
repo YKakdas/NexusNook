@@ -1,50 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/shimmer_preview_list_view_height"
-    android:layout_marginHorizontal="@dimen/margin_tiny"
-    android:background="@drawable/preview_list_background"
-    android:elevation="@dimen/preview_list_view_elevation"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_marginHorizontal="@dimen/margin_small"
-        android:layout_height="@dimen/shimmer_preview_list_title_height"
-        android:orientation="vertical">
+    <data>
 
-        <TextView
-            android:layout_width="@dimen/shimmer_preview_list_title_width"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:layout_marginVertical="@dimen/shimmer_preview_list_title_vertical_margin"
-            android:layout_marginStart="@dimen/shimmer_preview_list_title_start_margin"
-            android:background="@color/shimmer" />
-
-        <TextView
-            android:layout_width="@dimen/shimmer_preview_list_button_width"
-            android:layout_height="match_parent"
-            android:layout_gravity="end"
-            android:layout_marginVertical="@dimen/shimmer_preview_list_title_vertical_margin"
-            android:background="@color/shimmer" />
-
-    </FrameLayout>
+    </data>
 
     <LinearLayout
-        android:layout_marginHorizontal="@dimen/margin_small"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/shimmer_preview_list_item_view_height"
+        android:layout_height="@dimen/shimmer_preview_list_view_height"
+        android:layout_marginHorizontal="@dimen/margin_tiny"
         android:background="@drawable/preview_list_background"
-        android:orientation="horizontal">
+        android:elevation="@dimen/preview_list_view_elevation"
+        android:orientation="vertical">
 
-        <include layout="@layout/layout_small_card_view_list_item_shimmer" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/shimmer_preview_list_title_height"
+            android:layout_marginHorizontal="@dimen/margin_small"
+            android:orientation="vertical">
 
-        <include layout="@layout/layout_small_card_view_list_item_shimmer" />
+            <TextView
+                android:layout_width="@dimen/shimmer_preview_list_title_width"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:layout_marginVertical="@dimen/shimmer_preview_list_title_vertical_margin"
+                android:layout_marginStart="@dimen/shimmer_preview_list_title_start_margin"
+                android:background="@color/shimmer" />
 
-        <include layout="@layout/layout_small_card_view_list_item_shimmer" />
+            <TextView
+                android:layout_width="@dimen/shimmer_preview_list_button_width"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_marginVertical="@dimen/shimmer_preview_list_title_vertical_margin"
+                android:background="@color/shimmer" />
 
-        <include layout="@layout/layout_small_card_view_list_item_shimmer" />
+        </FrameLayout>
 
-        <include layout="@layout/layout_small_card_view_list_item_shimmer" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/shimmer_preview_list_item_view_height"
+            android:layout_marginHorizontal="@dimen/margin_small"
+            android:background="@drawable/preview_list_background"
+            android:orientation="horizontal">
+
+            <include layout="@layout/layout_small_card_view_list_item_shimmer" />
+
+            <include layout="@layout/layout_small_card_view_list_item_shimmer" />
+
+            <include layout="@layout/layout_small_card_view_list_item_shimmer" />
+
+            <include layout="@layout/layout_small_card_view_list_item_shimmer" />
+
+            <include layout="@layout/layout_small_card_view_list_item_shimmer" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</layout>

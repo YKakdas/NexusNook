@@ -18,4 +18,8 @@ class GamesRepository(private val networkInterface: NetworkInterface) {
     fun fetchRecentlyAddedPopularGames(queryParams: Map<String, String>): Flow<NetworkResult<ListOfGamesResponse>> {
         return networkInterface.getRequest("games/lists/recent-games-past", queryParams)
     }
+
+    fun fetchGames(queryParams: Map<String, String>): Flow<NetworkResult<ListOfGamesResponse>> {
+        return networkInterface.getRequest("games", queryParams)
+    }
 }
