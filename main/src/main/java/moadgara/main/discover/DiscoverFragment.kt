@@ -30,7 +30,7 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
 
     private lateinit var allPreviewListLiveData: List<LiveData<List<PreviewListItemData>>>
     private lateinit var binding: FragmentDiscoverBinding
-
+    private var initialized: Boolean = false
     companion object {
         fun newInstance(): DiscoverFragment {
             return DiscoverFragment()
@@ -62,8 +62,10 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
                 index, pageMetaData[index], liveData
             )
         }
-        viewModel.fetchData()
-
+        if(!initialized){
+            viewModel.fetchData()
+            initialized = true
+        }
     }
 
     private fun populateView(
