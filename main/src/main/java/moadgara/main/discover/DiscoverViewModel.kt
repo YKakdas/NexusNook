@@ -19,11 +19,12 @@ class DiscoverViewModel(
 ) : ViewModel() {
 
     private val message = MutableLiveData<String?>()
-    private val previewListsLiveData = mutableListOf<MutableLiveData<List<PreviewListItemData>>>()
+    private val previewListsLiveData = mutableListOf<MutableLiveData<List<PreviewListItemData>?>>()
+    private var errorCount = 0
 
     init {
         repeat(useCases.size) {
-            previewListsLiveData.add(MutableLiveData<List<PreviewListItemData>>())
+            previewListsLiveData.add(MutableLiveData<List<PreviewListItemData>?>())
         }
     }
 
@@ -43,7 +44,7 @@ class DiscoverViewModel(
         return previewLists
     }
 
-    fun getAllPreviewListLiveData(): List<LiveData<List<PreviewListItemData>>> =
+    fun getAllPreviewListLiveData(): List<LiveData<List<PreviewListItemData>?>> =
         previewListsLiveData
 
     fun fetchData() {
@@ -61,7 +62,7 @@ class DiscoverViewModel(
     }
 
     private suspend fun fetchData(
-        listLiveData: MutableLiveData<List<PreviewListItemData>>,
+        listLiveData: MutableLiveData<List<PreviewListItemData>?>,
         useCase: FlowUseCase<Any, ListOfGamesResponse>,
         parameters: Any
     ) {
@@ -72,7 +73,11 @@ class DiscoverViewModel(
             when (networkResult) {
                 is NetworkResult.Loading -> {}
                 is NetworkResult.Failure -> {
-                    message.value = networkResult.message
+                    errorCount++
+                    if (errorCount == useCases.size) {
+                        message.value = networkResult.message
+                    }
+                    listLiveData.value = null
                 }
 
                 is NetworkResult.Success -> {

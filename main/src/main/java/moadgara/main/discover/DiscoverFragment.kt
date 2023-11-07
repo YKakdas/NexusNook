@@ -28,9 +28,10 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
 
     private val viewModel: DiscoverViewModel by inject()
 
-    private lateinit var allPreviewListLiveData: List<LiveData<List<PreviewListItemData>>>
+    private lateinit var allPreviewListLiveData: List<LiveData<List<PreviewListItemData>?>>
     private lateinit var binding: FragmentDiscoverBinding
     private var initialized: Boolean = false
+
     companion object {
         fun newInstance(): DiscoverFragment {
             return DiscoverFragment()
@@ -62,14 +63,14 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
                 index, pageMetaData[index], liveData
             )
         }
-        if(!initialized){
+        if (!initialized) {
             viewModel.fetchData()
             initialized = true
         }
     }
 
     private fun populateView(
-        index: Int, metaData: PreviewListMetaData, liveData: LiveData<List<PreviewListItemData>>
+        index: Int, metaData: PreviewListMetaData, liveData: LiveData<List<PreviewListItemData>?>
     ) {
         val actualViewsParent = binding.inflateViewRoot
         val childActualViewBinding =
@@ -99,9 +100,12 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
             childActualViewBinding.recyclerView,
             genericAdapter {},
             liveData,
-            childActualViewBinding.root,
-            actualViewSpace,
-            childShimmerViewBinding.root
+            ViewReferencePass(
+                childActualViewBinding.root,
+                actualViewSpace,
+                childShimmerViewBinding.root,
+                shimmerViewSpace
+            )
         )
 
     }
@@ -126,10 +130,8 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
     private fun setupRecyclerViewAndObserve(
         recyclerView: RecyclerView,
         adapter: GenericAdapter<PreviewListItemData>,
-        listLiveData: LiveData<List<PreviewListItemData>>,
-        actualView: View,
-        space: Space,
-        shimmerView: View
+        listLiveData: LiveData<List<PreviewListItemData>?>,
+        viewReferencePass: ViewReferencePass,
     ) {
         recyclerView.apply {
             layoutManager =
@@ -140,12 +142,21 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
         }
 
         listLiveData.observe(viewLifecycleOwner) {
-            shimmerView.visibility = View.GONE
-            actualView.visibility = View.VISIBLE
-            space.visibility = View.VISIBLE
-
-            adapter.submitList(it)
+            viewReferencePass.shimmerView.visibility = View.GONE
+            viewReferencePass.shimmerSpace.visibility = View.GONE
+            if (it != null) {
+                viewReferencePass.actualView.visibility = View.VISIBLE
+                viewReferencePass.actualSpace.visibility = View.VISIBLE
+                adapter.submitList(it)
+            }
         }
     }
 
 }
+
+private data class ViewReferencePass(
+    val actualView: View,
+    val actualSpace: Space,
+    val shimmerView: View,
+    val shimmerSpace: Space
+)
