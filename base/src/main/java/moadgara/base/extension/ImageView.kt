@@ -1,4 +1,4 @@
-package moadgara.base
+package moadgara.base.extension
 
 import android.content.Context
 import android.os.Build.VERSION.SDK_INT

@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
-import moadgara.base.loadGif
+import moadgara.base.extension.loadGif
 import moadgara.uicomponent.databinding.LayoutProgressBinding
 
 class ProgressDialog : DialogFragment() {

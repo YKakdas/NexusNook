@@ -3,7 +3,7 @@ package moadgara.uicomponent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import moadgara.base.viewModel
+import moadgara.base.extension.viewModel
 import moadgara.uicomponent.databinding.WidgetsPlaygroundBinding
 
 /**

@@ -3,10 +3,11 @@ package moadgara.main
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.util.TypedValue
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import moadgara.base.extension.applyFullScreen
 
 
 class MainActivity : AppCompatActivity() {
@@ -23,26 +24,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setActionBarColor()
-
         supportFragmentManager.beginTransaction().replace(
             android.R.id.content,
             MainFragment.newInstance(),
             MainFragment::class.java.simpleName
         ).commit()
 
+        window.applyFullScreen()
     }
 
-    private fun setActionBarColor() {
-        val actionBar = supportActionBar
-
-        actionBar?.elevation = 0f
-
-        val typedValue = TypedValue()
-        theme.resolveAttribute(android.R.attr.windowBackground, typedValue, true)
-        val color = typedValue.data
-
-        actionBar?.setBackgroundDrawable(ColorDrawable(color))
-    }
 }
 

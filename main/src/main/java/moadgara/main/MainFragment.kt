@@ -1,7 +1,9 @@
 package moadgara.main
 
 import android.content.res.ColorStateList
+import android.os.Build
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,11 +33,18 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.vm = viewModel
+
+        /* For now, it fixes extra padding issue on fullscreen, investigate the issue later
+         * https://stackoverflow.com/questions/50207843/bottomnavigationview-jumps-up-leaving-blank-space-when-fullscreen/67394348#67394348
+         */
+        binding.bottomNavView.setOnApplyWindowInsetsListener(null)
+
         setupFabClickListener(binding.fab)
     }
 
@@ -52,4 +61,5 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             )
         }
     }
+
 }

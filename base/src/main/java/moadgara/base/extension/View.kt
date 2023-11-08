@@ -1,12 +1,14 @@
-package moadgara.base
+package moadgara.base.extension
 
 import android.app.Activity
 import android.content.Context
 import android.view.View
+import android.view.WindowInsets
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.AnimRes
+import moadgara.base.PaddingHolder
 import moadgara.base.animation.AnimationListenerParameters
 import moadgara.base.animation.AnimationMetaData
 import moadgara.base.animation.produceAnimationSetFromMetaData
@@ -41,4 +43,32 @@ fun View.closeSoftKeyboard(): Boolean {
         return imm.hideSoftInputFromWindow(windowToken, 0)
     }
     return false
+}
+
+fun View.doOnApplyWindowInsets(actionOnApplyWindowInsets: (View, WindowInsets, PaddingHolder) -> Unit) {
+    val initialPadding = this.let {
+        PaddingHolder(it.paddingLeft, it.paddingTop, it.paddingRight, it.paddingBottom)
+    }
+
+    setOnApplyWindowInsetsListener { v, insets ->
+        actionOnApplyWindowInsets(v, insets, initialPadding)
+        insets
+    }
+
+    requestApplyInsetsWhenAttached()
+}
+
+fun View.requestApplyInsetsWhenAttached() {
+    if (isAttachedToWindow) {
+        requestApplyInsets()
+    } else {
+        addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
+            override fun onViewAttachedToWindow(v: View) {
+                v.removeOnAttachStateChangeListener(this)
+                v.requestApplyInsets()
+            }
+
+            override fun onViewDetachedFromWindow(v: View) = Unit
+        })
+    }
 }

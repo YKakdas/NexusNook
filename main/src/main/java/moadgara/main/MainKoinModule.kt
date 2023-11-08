@@ -5,6 +5,6 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val mainKoinModule = module {
-    single { MainNavigator(get<ContextProvider>().getCurrentActivity()) }
+    factory { MainNavigator(get<ContextProvider>().getCurrentActivity()) }
     viewModel { MainViewModel(get()) }
 }

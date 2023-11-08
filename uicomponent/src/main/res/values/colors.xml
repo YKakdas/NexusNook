@@ -58,4 +58,6 @@
     <color name="text_button_selected">@color/link_water</color>
     <color name="text_button_light_selected">@color/link_water</color>
 
+    <color name="window_background_color">@color/baltic_sea</color>
+
 </resources>

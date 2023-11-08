@@ -2,6 +2,7 @@ package moadgara.base
 
 import android.graphics.drawable.Drawable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
@@ -11,6 +12,8 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.textfield.TextInputEditText
+import moadgara.base.extension.doOnApplyWindowInsets
+import moadgara.base.extension.toPaddingHolder
 
 @BindingAdapter("registerTextWatcher")
 fun setTextWatcher(view: TextInputEditText, watcher: TextWatcher) {
@@ -57,4 +60,35 @@ fun setImageFromUrl(
 @BindingAdapter("itemDecoration")
 fun setItemDecoration(view: RecyclerView, margin: Float) {
     view.addItemDecoration(HorizontalMarginItemDecoration(margin))
+}
+
+@BindingAdapter(
+    "paddingLeftSystemWindowInsets",
+    "paddingTopSystemWindowInsets",
+    "paddingRightSystemWindowInsets",
+    "paddingBottomSystemWindowInsets",
+    requireAll = false
+)
+fun applySystemWindows(
+    view: View,
+    applyLeft: Boolean,
+    applyTop: Boolean,
+    applyRight: Boolean,
+    applyBottom: Boolean
+) {
+    view.doOnApplyWindowInsets { _, insets, padding ->
+        val insetPadding = insets.toPaddingHolder()
+
+        val insetLeft = if (applyLeft) insetPadding.left else 0
+        val insetTop = if (applyTop) insetPadding.top else 0
+        val insetRight = if (applyRight) insetPadding.right else 0
+        val insetBottom = if (applyBottom) insetPadding.bottom else 0
+
+        view.setPadding(
+            padding.left + insetLeft,
+            padding.top + insetTop,
+            padding.right + insetRight,
+            padding.bottom + insetBottom
+        )
+    }
 }

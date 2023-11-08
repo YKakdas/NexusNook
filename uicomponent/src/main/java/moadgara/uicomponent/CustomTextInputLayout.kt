@@ -13,9 +13,9 @@ import moadgara.base.animation.AnimationDirection
 import moadgara.base.animation.AnimationListenerParameters
 import moadgara.base.animation.AnimationMetaData
 import moadgara.base.animation.AnimationType
-import moadgara.base.closeSoftKeyboard
+import moadgara.base.extension.closeSoftKeyboard
 import moadgara.base.getEnumOrDefault
-import moadgara.base.setAndStartAnimation
+import moadgara.base.extension.setAndStartAnimation
 import moadgara.base.validation.InputValidationError
 
 

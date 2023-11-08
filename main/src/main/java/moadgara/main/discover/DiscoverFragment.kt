@@ -42,6 +42,7 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentDiscoverBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
         return binding.root
     }
 

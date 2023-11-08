@@ -14,7 +14,7 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val discoverKoinModule = module {
-    single { DiscoverNavigator(get<ContextProvider>().getCurrentActivity()) }
+    factory { DiscoverNavigator(get<ContextProvider>().getCurrentActivity()) }
 
     single { GamesRepository(get()) }
 
