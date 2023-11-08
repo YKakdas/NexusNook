@@ -15,6 +15,7 @@
         <item name="android:dialogTheme">@style/Theme.DialogTheme</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
     <style name="Theme.DialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog">
@@ -28,6 +29,5 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowCloseOnTouchOutside">false</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 </resources>
