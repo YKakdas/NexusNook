@@ -3,8 +3,8 @@ package moadgara.app
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import moadgara.base.ContextProvider
-import moadgara.base.ResourceProvider
+import moadgara.base.util.ContextProvider
+import moadgara.base.util.ResourceProvider
 import moadgara.base.network.networkKoinModule
 import moadgara.main.discover.discoverKoinModule
 import moadgara.main.mainKoinModule

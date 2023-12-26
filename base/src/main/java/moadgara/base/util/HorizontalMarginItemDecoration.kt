@@ -1,4 +1,4 @@
-package moadgara.base
+package moadgara.base.util
 
 import android.graphics.Rect
 import android.view.View

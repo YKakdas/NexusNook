@@ -1,6 +1,6 @@
 package moadgara.main
 
-import moadgara.base.ContextProvider
+import moadgara.base.util.ContextProvider
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

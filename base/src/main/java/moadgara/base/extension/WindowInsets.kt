@@ -1,9 +1,8 @@
 package moadgara.base.extension
 
 import android.os.Build
-import android.util.TypedValue
 import android.view.WindowInsets
-import moadgara.base.PaddingHolder
+import moadgara.base.util.PaddingHolder
 
 @Suppress("DEPRECATION")
 fun WindowInsets.toPaddingHolder(): PaddingHolder {

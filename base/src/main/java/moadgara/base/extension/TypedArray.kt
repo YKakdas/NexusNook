@@ -1,4 +1,4 @@
-package moadgara.base
+package moadgara.base.extension
 
 import android.content.res.TypedArray
 

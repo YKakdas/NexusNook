@@ -1,4 +1,4 @@
-package moadgara.base
+package moadgara.base.util
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

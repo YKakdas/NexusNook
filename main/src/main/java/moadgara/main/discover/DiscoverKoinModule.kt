@@ -1,8 +1,8 @@
 package moadgara.main.discover
 
 import com.moadgara.common_model.usecase.FlowUseCase
-import moadgara.base.ContextProvider
-import moadgara.base.DateUtil
+import moadgara.base.util.ContextProvider
+import moadgara.base.util.DateUtil
 import moadgara.data.games.entity.ListOfGamesResponse
 import moadgara.data.games.repository.GamesRepository
 import moadgara.domain.games.GetBestOfTheYearUseCase

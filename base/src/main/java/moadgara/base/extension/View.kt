@@ -8,7 +8,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.AnimRes
-import moadgara.base.PaddingHolder
+import moadgara.base.util.PaddingHolder
 import moadgara.base.animation.AnimationListenerParameters
 import moadgara.base.animation.AnimationMetaData
 import moadgara.base.animation.produceAnimationSetFromMetaData

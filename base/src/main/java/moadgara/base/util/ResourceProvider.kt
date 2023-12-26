@@ -1,4 +1,4 @@
-package moadgara.base
+package moadgara.base.util
 
 import android.content.Context
 import android.content.res.ColorStateList

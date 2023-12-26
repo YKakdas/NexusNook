@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.createViewModelLazy
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelStoreOwner
-import moadgara.base.ViewModelFactory
+import moadgara.base.util.ViewModelFactory
 
 inline fun <reified VM : ViewModel> Fragment.viewModel(noinline creator: () -> VM) =
     createViewModelLazy(
