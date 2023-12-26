@@ -20,7 +20,9 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/shimmer_preview_list_item_text_height"
         android:layout_gravity="center_horizontal"
+        android:layout_marginHorizontal="@dimen/margin_tiny"
         android:layout_marginVertical="@dimen/shimmer_preview_list_item_text_vertical_margin"
+        android:layout_marginBottom="@dimen/margin_small"
         android:background="@color/shimmer" />
 
 </LinearLayout>

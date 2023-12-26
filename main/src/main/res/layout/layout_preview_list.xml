@@ -11,50 +11,52 @@
 
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/preview_list_view_height"
         android:layout_marginHorizontal="@dimen/margin_small"
-        android:background="@drawable/preview_list_background"
-        android:elevation="@dimen/preview_list_view_elevation">
+        android:background="@color/transparent">
 
-        <Button
-            android:id="@+id/title"
-            style="@style/Widget.Moadgara.Button.TextButton"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top|start"
-            android:clickable="false"
-            android:gravity="top|start"
-            android:maxWidth="@dimen/preview_list_view_title_max_width"
+            android:layout_marginStart="@dimen/margin_small"
+            android:ellipsize="end"
+            android:maxLength="300"
+            android:maxLines="1"
+            android:minHeight="@dimen/preview_list_view_button_height"
             android:text="@{data.title}"
-            tools:text="Recently Added Popular Games" />
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/recyclerView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Recenty Added Games" />
 
-        <Button
-            style="@style/Widget.Moadgara.Button.TextButton"
+        <ImageButton
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/preview_list_view_button_height"
-            android:layout_gravity="top|end"
-            android:insetRight="@dimen/margin_tiny_negative"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:background="?actionBarItemBackground"
+            android:minHeight="@dimen/preview_list_view_button_height"
             android:onClick="@{() -> data.buttonAction.invoke()}"
-            android:text="@{data.buttonTitle}"
-            android:textColor="?colorSecondary"
-            app:icon="@drawable/ic_arrow_right"
-            app:iconGravity="textEnd"
-            app:iconPadding="0dp"
-            app:iconTint="?colorSecondary"
-            tools:text="See All" />
+            android:src="@drawable/ic_arrow_right"
+            app:layout_constraintBottom_toTopOf="@id/recyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="@dimen/preview_list_item_view_height"
-            android:layout_gravity="bottom"
             android:orientation="horizontal"
             app:itemDecoration="@{@dimen/margin_small}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             tools:itemCount="6"
             tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/layout_small_card_view_list_item" />
-
-    </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

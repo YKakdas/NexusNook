@@ -1,57 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
     </data>
 
-    <LinearLayout
+    <com.facebook.shimmer.ShimmerFrameLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/shimmer_preview_list_view_height"
-        android:layout_marginHorizontal="@dimen/margin_tiny"
-        android:background="@drawable/preview_list_background"
-        android:elevation="@dimen/preview_list_view_elevation"
-        android:orientation="vertical">
+        android:layout_height="@dimen/preview_list_view_height"
+        android:layout_marginHorizontal="@dimen/margin_small"
+        app:shimmer_auto_start="true"
+        app:shimmer_intensity="0.5"
+        app:shimmer_repeat_mode="reverse">
 
-        <FrameLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/shimmer_preview_list_title_height"
+            android:layout_height="match_parent"
             android:layout_marginHorizontal="@dimen/margin_small"
-            android:orientation="vertical">
+            android:background="@color/transparent">
 
             <TextView
                 android:layout_width="@dimen/shimmer_preview_list_title_width"
-                android:layout_height="match_parent"
-                android:layout_gravity="start"
-                android:layout_marginVertical="@dimen/shimmer_preview_list_title_vertical_margin"
-                android:layout_marginStart="@dimen/shimmer_preview_list_title_start_margin"
-                android:background="@color/shimmer" />
+                android:layout_height="@dimen/shimmer_preview_list_title_height"
+                android:background="@color/shimmer"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/shimmerRecyclerView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:layout_width="@dimen/shimmer_preview_list_button_width"
-                android:layout_height="match_parent"
-                android:layout_gravity="end"
-                android:layout_marginVertical="@dimen/shimmer_preview_list_title_vertical_margin"
-                android:background="@color/shimmer" />
+                android:layout_height="@dimen/shimmer_preview_list_button_height"
+                android:background="@color/shimmer"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/shimmerRecyclerView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </FrameLayout>
+            <LinearLayout
+                android:id="@+id/shimmerRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/shimmer_preview_list_item_view_height"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/shimmer_preview_list_item_view_height"
-            android:layout_marginHorizontal="@dimen/margin_small"
-            android:background="@drawable/preview_list_background"
-            android:orientation="horizontal">
+                <include layout="@layout/layout_small_card_view_list_item_shimmer" />
 
-            <include layout="@layout/layout_small_card_view_list_item_shimmer" />
+                <include layout="@layout/layout_small_card_view_list_item_shimmer" />
 
-            <include layout="@layout/layout_small_card_view_list_item_shimmer" />
+                <include layout="@layout/layout_small_card_view_list_item_shimmer" />
 
-            <include layout="@layout/layout_small_card_view_list_item_shimmer" />
+                <include layout="@layout/layout_small_card_view_list_item_shimmer" />
 
-            <include layout="@layout/layout_small_card_view_list_item_shimmer" />
+            </LinearLayout>
 
-            <include layout="@layout/layout_small_card_view_list_item_shimmer" />
-        </LinearLayout>
-    </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
 </layout>

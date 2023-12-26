@@ -8,9 +8,10 @@ import com.moadgara.common_model.network.NetworkResult
 import com.moadgara.common_model.usecase.FlowUseCase
 import kotlinx.coroutines.flow.transformWhile
 import kotlinx.coroutines.launch
-import moadgara.base.ResourceProvider
+import moadgara.base.util.ResourceProvider
 import moadgara.data.games.entity.ListOfGamesResponse
 import moadgara.main.R
+import timber.log.Timber
 
 class DiscoverViewModel(
     private val resourceProvider: ResourceProvider,
@@ -19,12 +20,13 @@ class DiscoverViewModel(
 ) : ViewModel() {
 
     private val message = MutableLiveData<String?>()
-    private val previewListsLiveData = mutableListOf<MutableLiveData<List<PreviewListItemData>?>>()
+    private val previewListsLiveData = mutableListOf<MutableLiveData<PreviewList>>()
     private var errorCount = 0
+    private var count = 0
 
     init {
         repeat(useCases.size) {
-            previewListsLiveData.add(MutableLiveData<List<PreviewListItemData>?>())
+            previewListsLiveData.add(MutableLiveData<PreviewList>())
         }
     }
 
@@ -44,17 +46,14 @@ class DiscoverViewModel(
         return previewLists
     }
 
-    fun getAllPreviewListLiveData(): List<LiveData<List<PreviewListItemData>?>> =
-        previewListsLiveData
+    fun getAllPreviewListsLiveData(): List<LiveData<PreviewList>> = previewListsLiveData
 
     fun fetchData() {
         viewModelScope.launch {
             useCases.forEachIndexed { index, useCasePair ->
                 launch {
                     fetchData(
-                        previewListsLiveData[index],
-                        useCasePair.first,
-                        useCasePair.second
+                        previewListsLiveData[index], useCasePair.first, useCasePair.second
                     )
                 }
             }
@@ -62,7 +61,7 @@ class DiscoverViewModel(
     }
 
     private suspend fun fetchData(
-        listLiveData: MutableLiveData<List<PreviewListItemData>?>,
+        listLiveData: MutableLiveData<PreviewList>,
         useCase: FlowUseCase<Any, ListOfGamesResponse>,
         parameters: Any
     ) {
@@ -74,6 +73,7 @@ class DiscoverViewModel(
                 is NetworkResult.Loading -> {}
                 is NetworkResult.Failure -> {
                     errorCount++
+                    Timber.d(errorCount.toString())
                     if (errorCount == useCases.size) {
                         message.value = networkResult.message
                     }
@@ -81,23 +81,20 @@ class DiscoverViewModel(
                 }
 
                 is NetworkResult.Success -> {
-                    listLiveData.value = networkResult.data?.results?.map {
+                    listLiveData.value = PreviewList(networkResult.data?.results?.map {
                         PreviewListItemData(
-                            it.shortScreenshots?.firstOrNull()?.screenshotImage,
-                            it.name
+                            it.shortScreenshots?.firstOrNull()?.screenshotImage, it.name
                         ) {
                             discoverNavigator.navigateToGameDetailPage(it.name ?: "")
                         }
-                    }
+                    })
                 }
             }
         }
     }
 
-    private fun getPreviewListMetaData(title: String) =
-        PreviewListMetaData(
-            title,
-            resourceProvider.getString(R.string.see_all_button_title)
-        ) { discoverNavigator.navigateToAllGamesPage(title) }
+    private fun getPreviewListMetaData(title: String) = PreviewListMetaData(
+        title, resourceProvider.getString(R.string.see_all_button_title)
+    ) { discoverNavigator.navigateToAllGamesPage(title) }
 
 }

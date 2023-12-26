@@ -13,14 +13,13 @@
 
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="@dimen/preview_list_item_view_width"
         android:layout_height="match_parent"
         android:background="@drawable/card_view_small_ripple"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="@{() -> data.action.invoke()}"
-        android:orientation="vertical">
+        android:onClick="@{() -> data.action.invoke()}">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/image"
@@ -28,6 +27,11 @@
             android:layout_height="@dimen/preview_list_item_image_height"
             android:src="@{data.imageUrl}"
             app:error="@{@drawable/no_image_found}"
+            app:imageHeight="@{@dimen/preview_list_item_image_height}"
+            app:imageWidth="@{@dimen/preview_list_item_image_height}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:placeholder="@{@drawable/placeholder}"
             app:shapeAppearanceOverlay="@style/RoundedSquare"
             app:tint="@{R.color.raven}"
@@ -41,10 +45,13 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:text="@{data.gameTitle}"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="12sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             tools:text="Baldur's Gate III" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

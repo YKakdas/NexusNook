@@ -10,7 +10,7 @@
 
     <string name="discover_trending_games_title">Trending Now</string>
     <string name="discover_best_of_the_year_games_title">Best of the Year</string>
-    <string name="discover_recently_added_popular_games_title">Recently Added Popular Games</string>
+    <string name="discover_recently_added_popular_games_title">Recently Added Popular</string>
     <string name="discover_released_this_month_games_title">This Month\'s Releases</string>
     <string name="discover_released_this_week_games_title">This Week\'s Releases</string>
     <string name="discover_releasing_next_week_games_title">Releasing Next Week</string>

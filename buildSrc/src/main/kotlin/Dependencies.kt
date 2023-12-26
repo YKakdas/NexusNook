@@ -46,6 +46,8 @@ object Dependencies {
 
     object Glide {
         const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
+        const val recyclerViewIntegration =
+            "com.github.bumptech.glide:recyclerview-integration:${Versions.glide}"
         const val compiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
     }
 

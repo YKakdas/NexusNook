@@ -8,12 +8,14 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.textfield.TextInputEditText
 import moadgara.base.extension.doOnApplyWindowInsets
 import moadgara.base.extension.toPaddingHolder
+import moadgara.base.util.HorizontalMarginItemDecoration
 
 @BindingAdapter("registerTextWatcher")
 fun setTextWatcher(view: TextInputEditText, watcher: TextWatcher) {
@@ -35,13 +37,18 @@ fun setOnNavigationItemSelected(
     if (position != null) view.selectedItemId = view.menu.getItem(position).itemId
 }
 
-@BindingAdapter(value = ["android:src", "placeholder", "error", "tint"], requireAll = false)
+@BindingAdapter(
+    value = ["android:src", "placeholder", "error", "tint", "imageWidth", "imageHeight"],
+    requireAll = false
+)
 fun setImageFromUrl(
     view: ImageView,
     url: String?,
     placeholder: Drawable?,
     error: Drawable?,
-    tintColor: Int?
+    tintColor: Int?,
+    imageWidth: Float = 100f,
+    imageHeight: Float = 100f
 ) {
     if (tintColor != null) {
         placeholder?.setTint(ContextCompat.getColor(view.context, tintColor))
@@ -54,6 +61,8 @@ fun setImageFromUrl(
         .error(error)
         .centerCrop()
         .transition(DrawableTransitionOptions.withCrossFade())
+        .override(imageWidth.toInt(), imageHeight.toInt())
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
         .into(view)
 }
 

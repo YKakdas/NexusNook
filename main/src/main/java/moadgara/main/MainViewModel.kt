@@ -1,15 +1,9 @@
 package moadgara.main
 
-import android.content.res.ColorStateList
 import android.view.MenuItem
-import android.view.View
-import android.widget.ImageView
-import androidx.core.widget.ImageViewCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import moadgara.base.ResourceProvider
-import moadgara.uicomponent.R as uiComponentR
 
 class MainViewModel(
     private val navigator: MainNavigator

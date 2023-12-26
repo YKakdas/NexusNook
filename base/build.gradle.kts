@@ -18,7 +18,8 @@ dependencies {
     implementation(Dependencies.Coil.core)
     implementation(Dependencies.Coil.gif)
 
-    implementation(Dependencies.Glide.glide)
+    api(Dependencies.Glide.glide)
+    api(Dependencies.Glide.recyclerViewIntegration) { isTransitive = false }
     kapt(Dependencies.Glide.compiler)
 
     api(Dependencies.kotlinxSerialization)

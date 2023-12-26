@@ -24,7 +24,7 @@
             android:layout_marginStart="@dimen/margin_medium"
             android:layout_marginBottom="@dimen/margin_small"
             android:background="?actionBarItemBackground"
-            android:src="@drawable/ic_arrow_back" />
+            android:src="@drawable/ic_chevron_back" />
 
         <TextView
             android:id="@+id/toolbar_title"

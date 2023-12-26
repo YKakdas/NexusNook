@@ -13,6 +13,7 @@
     <color name="scarlet">#910D09</color>
     <color name="rose">#E3242B</color>
     <color name="bumblebee">#FCE205</color>
+    <color name="lightning_yellow">#FCC01E</color>
     <color name="seafoam">#3CEC97</color>
     <color name="mint">#98EDC3</color>
     <color name="pistachio">#B2D3C2</color>
@@ -22,11 +23,13 @@
     <color name="star_dust">#9F9F9C</color>
     <color name="link_water">#EADDFF</color>
     <color name="raven">#717d8d</color>
-    <color name="shimmer">@color/pistachio</color>
+    <color name="shimmer">@color/raven</color>
     <color name="white_smoke">#F5F5F5</color>
     <color name="linen">#FAF0E6</color>
     <color name="transparent">#0000</color>
     <color name="black">#000</color>
+    <color name="onyx">#131313</color>
+    <color name="thunder">#303030</color>
     <color name="baltic_sea">#272525</color>
 
     <color name="colorPrimary">@color/eggplant</color>
@@ -58,6 +61,6 @@
     <color name="text_button_selected">@color/link_water</color>
     <color name="text_button_light_selected">@color/link_water</color>
 
-    <color name="window_background_color">@color/baltic_sea</color>
+    <color name="window_background_color">@color/black</color>
 
 </resources>
