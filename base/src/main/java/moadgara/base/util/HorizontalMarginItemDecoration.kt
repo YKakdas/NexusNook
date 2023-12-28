@@ -13,10 +13,13 @@ class HorizontalMarginItemDecoration(private val margin: Float) :
     ) {
         with(outRect) {
             if (parent.getChildAdapterPosition(view) == 0) {
-                left = margin.toInt()
+                left = margin.toInt() / 2
+                right = margin.toInt()
+            } else if (parent.getChildAdapterPosition(view) == parent.childCount - 1) {
+                right = margin.toInt() / 2
+            } else {
+                right = margin.toInt()
             }
-
-            right = margin.toInt()
         }
     }
 }

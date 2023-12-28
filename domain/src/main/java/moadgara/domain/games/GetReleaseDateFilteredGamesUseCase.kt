@@ -14,7 +14,7 @@ class GetReleaseDateFilteredGamesUseCase(
 ) : FlowUseCase<Pair<String, String>, ListOfGamesResponse>(coroutineDispatcher) {
     override fun execute(parameters: Pair<String, String>): Flow<NetworkResult<ListOfGamesResponse>> {
         val queryParams = mutableMapOf<String, String>()
-        queryParams["pageNum"] = "0"
+        queryParams["page"] = "1"
         queryParams["ordering"] = "-released"
         queryParams["page_size"] = "40"
         queryParams["dates"] = parameters.first.plus(",").plus(parameters.second)

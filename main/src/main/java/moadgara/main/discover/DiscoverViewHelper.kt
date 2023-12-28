@@ -1,18 +1,21 @@
 package moadgara.main.discover
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import moadgara.base.util.DimensionUtil
 import moadgara.base.util.ViewUtil
 import moadgara.main.R
 import moadgara.main.databinding.LayoutPreviewListBinding
 import moadgara.main.databinding.LayoutPreviewListShimmerBinding
+import moadgara.uicomponent.CustomLinearSnapHelper
 import moadgara.uicomponent.adapter.genericAdapter
 import moadgara.uicomponent.glide.GlideUtil
 
@@ -26,8 +29,14 @@ class DiscoverViewHelper(private val fragment: DiscoverFragment) {
     private var imageHeight: Int = 0
 
     init {
-        imageWidth = DimensionUtil.dpToPx(value = 100, resources = fragment.resources)
-        imageHeight = DimensionUtil.dpToPx(value = 100, resources = fragment.resources)
+        imageWidth = DimensionUtil.dpToPx(
+            resourceId = moadgara.uicomponent.R.dimen.preview_list_item_view_width,
+            resources = fragment.resources
+        )
+        imageHeight = DimensionUtil.dpToPx(
+            resourceId = moadgara.uicomponent.R.dimen.preview_list_item_image_height,
+            resources = fragment.resources
+        )
     }
 
     fun setDataObservers(dataObservers: List<LiveData<PreviewList>>) = apply {
@@ -74,11 +83,12 @@ class DiscoverViewHelper(private val fragment: DiscoverFragment) {
                 LinearLayoutManager(fragment.requireContext(), RecyclerView.HORIZONTAL, false)
             setHasFixedSize(true)
             setItemViewCacheSize(40)
-            recycledViewPool.setMaxRecycledViews(R.layout.layout_preview_list, 10)
+            recycledViewPool.setMaxRecycledViews(R.layout.layout_preview_list, 40)
             this.adapter = adapter
         }
 
-        LinearSnapHelper().attachToRecyclerView(actualViewBinding.recyclerView)
+        CustomLinearSnapHelper().attachToRecyclerView(actualViewBinding.recyclerView)
+
         liveData.observe(fragment.viewLifecycleOwner) {
             val index = rootView.indexOfChild(shimmerViewBinding.root)
             rootView.removeView(shimmerViewBinding.root)

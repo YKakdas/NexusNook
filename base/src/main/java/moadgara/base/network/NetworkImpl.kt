@@ -12,13 +12,14 @@ import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.util.reflect.TypeInfo
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import moadgara.base.BuildConfig
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
+import timber.log.Timber
 import kotlin.reflect.KClass
 
 
@@ -33,30 +34,32 @@ class NetworkImpl : KoinComponent, NetworkInterface {
         type: KClass<Response>
     ): Flow<NetworkResult<Response>> = flow {
         emit(NetworkResult.Loading)
-        try {
-            val queryParameters = queryParams?.toMutableMap() ?: mutableMapOf()
-            queryParameters["key"] = SecurityUtil.decode(3, BuildConfig.API_KEY)
-            val response =
-                client.get(BaseUrl.apiUrl + endPoint) {
-                    queryParameters.forEach { parameter(it.key, it.value) }
-                }
-            if (response.status.value == 200) {
-                emit(
-                    NetworkResult.Success(
-                        response.body(
-                            TypeInfo(
-                                type = type,
-                                reifiedType = type.javaObjectType
-                            )
+
+        val queryParameters = queryParams?.toMutableMap() ?: mutableMapOf()
+        queryParameters["key"] = SecurityUtil.decode(3, BuildConfig.API_KEY)
+        val response =
+            client.get(BaseUrl.apiUrl + endPoint) {
+                queryParameters.forEach { parameter(it.key, it.value) }
+            }
+        if (response.status.value == 200) {
+            emit(
+                NetworkResult.Success(
+                    response.body(
+                        TypeInfo(
+                            type = type,
+                            reifiedType = type.javaObjectType
                         )
                     )
                 )
-            } else {
-                emit(NetworkResult.Failure(response.status.description))
-            }
-        } catch (e: Exception) {
-            emit(NetworkResult.Failure(e.localizedMessage))
+            )
+        } else {
+            Timber.d(response.status.description)
+            emit(NetworkResult.Failure(response.status.description))
         }
+
+    }.catch {
+        Timber.d(it.message)
+        emit(NetworkResult.Failure(it.localizedMessage))
     }
 
     //TODO(Update Post)

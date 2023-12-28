@@ -14,7 +14,7 @@ class GetBestOfTheYearUseCase(
 ) : FlowUseCase<Unit, ListOfGamesResponse>(coroutineDispatcher) {
     override fun execute(parameters: Unit): Flow<NetworkResult<ListOfGamesResponse>> {
         val queryParams = mutableMapOf<String, String>()
-        queryParams["pageNum"] = "0"
+        queryParams["page"] = "1"
         queryParams["discover"] = "true"
         queryParams["ordering"] = "-relevance"
         queryParams["page_size"] = "40"
