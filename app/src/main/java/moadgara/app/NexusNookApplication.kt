@@ -3,9 +3,9 @@ package moadgara.app
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
+import moadgara.base.network.networkKoinModule
 import moadgara.base.util.ContextProvider
 import moadgara.base.util.ResourceProvider
-import moadgara.base.network.networkKoinModule
 import moadgara.main.discover.discoverKoinModule
 import moadgara.main.mainKoinModule
 import org.koin.android.ext.koin.androidContext
@@ -13,23 +13,14 @@ import org.koin.core.context.startKoin
 import timber.log.Timber
 
 class NexusNookApplication : Application(), Application.ActivityLifecycleCallbacks,
-    ContextProvider {
+  ContextProvider {
 
     private var currentActivity: Activity? = null
     override fun onCreate() {
         super.onCreate()
         registerActivityLifecycleCallbacks(this)
-        Timber.plant(Timber.DebugTree())
+        initLogger()
         initKoin()
-    }
-
-    private fun initKoin() {
-        val modules =
-            listOf(globalKoinModule, networkKoinModule, mainKoinModule, discoverKoinModule)
-        startKoin {
-            androidContext(this@NexusNookApplication)
-            modules(modules)
-        }
     }
 
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
@@ -63,5 +54,17 @@ class NexusNookApplication : Application(), Application.ActivityLifecycleCallbac
         }
     }
 
+    private fun initKoin() {
+        val modules =
+          listOf(globalKoinModule, networkKoinModule, mainKoinModule, discoverKoinModule)
+        startKoin {
+            androidContext(this@NexusNookApplication)
+            modules(modules)
+        }
+    }
+
+    private fun initLogger() {
+        Timber.plant(Timber.DebugTree())
+    }
 
 }

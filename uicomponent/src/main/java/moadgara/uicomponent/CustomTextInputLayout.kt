@@ -20,7 +20,7 @@ import moadgara.base.validation.InputValidationError
 
 
 class CustomTextInputLayout constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
-    TextInputLayout(context, attrs, defStyleAttr) {
+  TextInputLayout(context, attrs, defStyleAttr) {
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context) : this(context, null, 0)
@@ -55,7 +55,7 @@ class CustomTextInputLayout constructor(context: Context, attrs: AttributeSet?, 
             editText?.onFocusChangeListener = focusChangeListener
             hintTextColor = hintColor
             errorView =
-                LayoutInflater.from(context).inflate(R.layout.text_input_error_layout, this, false)
+              LayoutInflater.from(context).inflate(R.layout.text_input_error_layout, this, false)
             errorView.visibility = GONE
             addView(errorView)
             // todo move these to custom attributes
@@ -85,33 +85,33 @@ class CustomTextInputLayout constructor(context: Context, attrs: AttributeSet?, 
             hintColor = getColorStateList(R.styleable.CustomTextInputLayout_hintTextColor)
             errorColor = getColorStateList(R.styleable.CustomTextInputLayout_errorColor)
             boxStrokeColorOriginal =
-                getColorStateList(R.styleable.CustomTextInputLayout_boxStrokeColorOriginal)
+              getColorStateList(R.styleable.CustomTextInputLayout_boxStrokeColorOriginal)
             boxStrokeColorError =
-                getColorStateList(R.styleable.CustomTextInputLayout_boxStrokeColorOnError)
+              getColorStateList(R.styleable.CustomTextInputLayout_boxStrokeColorOnError)
 
             animationMetaDataShowError = AnimationMetaData().apply {
                 direction = getEnumOrDefault(
-                    R.styleable.CustomTextInputLayout_animationDirectionShowError,
-                    AnimationDirection.LEFT_TO_RIGHT
+                  R.styleable.CustomTextInputLayout_animationDirectionShowError,
+                  AnimationDirection.LEFT_TO_RIGHT
                 )
                 type = getEnumOrDefault(
-                    R.styleable.CustomTextInputLayout_animationTypeShowError, AnimationType.FADE_IN
+                  R.styleable.CustomTextInputLayout_animationTypeShowError, AnimationType.FADE_IN
                 )
                 duration = getInt(
-                    R.styleable.CustomTextInputLayout_animationDurationShowError, 1000
+                  R.styleable.CustomTextInputLayout_animationDurationShowError, 1000
                 ).toLong()
             }
 
             animationMetaDataHideError = AnimationMetaData().apply {
                 direction = getEnumOrDefault(
-                    R.styleable.CustomTextInputLayout_animationDirectionHideError,
-                    AnimationDirection.LEFT_TO_RIGHT
+                  R.styleable.CustomTextInputLayout_animationDirectionHideError,
+                  AnimationDirection.LEFT_TO_RIGHT
                 )
                 type = getEnumOrDefault(
-                    R.styleable.CustomTextInputLayout_animationTypeHideError, AnimationType.FADE_IN
+                  R.styleable.CustomTextInputLayout_animationTypeHideError, AnimationType.FADE_IN
                 )
                 duration = getInt(
-                    R.styleable.CustomTextInputLayout_animationDurationHideError, 1000
+                  R.styleable.CustomTextInputLayout_animationDurationHideError, 1000
                 ).toLong()
             }
 
@@ -134,9 +134,9 @@ class CustomTextInputLayout constructor(context: Context, attrs: AttributeSet?, 
         errorView.visibility = VISIBLE
 
         errorView.setAndStartAnimation(
-            animationMetaDataShowError, AnimationListenerParameters(onEnd = {
-                errorView.clearAnimation()
-            })
+          animationMetaDataShowError, AnimationListenerParameters(onEnd = {
+            errorView.clearAnimation()
+        })
         )
 
         errorInitiated = true
@@ -154,10 +154,10 @@ class CustomTextInputLayout constructor(context: Context, attrs: AttributeSet?, 
 
         if (errorInitiated) {
             errorView.setAndStartAnimation(
-                animationMetaDataHideError, AnimationListenerParameters(onEnd = {
-                    errorView.clearAnimation()
-                    errorView.visibility = GONE
-                })
+              animationMetaDataHideError, AnimationListenerParameters(onEnd = {
+                errorView.clearAnimation()
+                errorView.visibility = GONE
+            })
             )
             errorInitiated = false
         }

@@ -1,9 +1,7 @@
 package moadgara.main
 
 import android.content.res.ColorStateList
-import android.os.Build
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,9 +26,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+      inflater: LayoutInflater,
+      container: ViewGroup?,
+      savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
@@ -52,12 +50,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         viewModel.getIsFabClicked().observe(viewLifecycleOwner) {
             val angle = if (it) 180f else -180f
             val tintColor =
-                if (it) uiComponentR.color.colorPrimary else uiComponentR.color.fountain_blue
+              if (it) uiComponentR.color.colorPrimary else uiComponentR.color.fountain_blue
 
             fab.animate().rotationBy(angle).duration = 500L
             ImageViewCompat.setImageTintList(
-                fab as ImageView,
-                ColorStateList.valueOf(ContextCompat.getColor(requireContext(), tintColor))
+              fab as ImageView,
+              ColorStateList.valueOf(ContextCompat.getColor(requireContext(), tintColor))
             )
         }
     }

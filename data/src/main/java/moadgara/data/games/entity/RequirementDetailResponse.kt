@@ -5,6 +5,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class RequirementDetailResponse(
-    @SerialName("minimum") val minimum: String? = null,
-    @SerialName("recommended") val recommended: String? = null
+  @SerialName("minimum") val minimum: String? = null,
+  @SerialName("recommended") val recommended: String? = null
 )

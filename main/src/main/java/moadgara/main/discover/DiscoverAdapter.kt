@@ -12,7 +12,7 @@ import moadgara.main.BR
 import moadgara.main.databinding.LayoutSmallCardViewListItemBinding
 
 class DiscoverAdapter(private val imageLoader: ImageLoader) :
-    ListAdapter<PreviewListItemData, DiscoverAdapter.DiscoverViewHolder>(itemDiff) {
+  ListAdapter<PreviewListItemData, DiscoverAdapter.DiscoverViewHolder>(itemDiff) {
     private lateinit var context: Context
     private var data: List<PreviewListItemData>? = null
     private var prefetchCallback: (() -> Unit)? = null
@@ -22,7 +22,7 @@ class DiscoverAdapter(private val imageLoader: ImageLoader) :
     companion object {
         private val itemDiff = object : DiffUtil.ItemCallback<PreviewListItemData>() {
             override fun areItemsTheSame(oldItem: PreviewListItemData, newItem: PreviewListItemData): Boolean {
-                return oldItem.gameTitle == newItem.gameTitle
+                return oldItem === newItem
             }
 
             override fun areContentsTheSame(oldItem: PreviewListItemData, newItem: PreviewListItemData): Boolean {
@@ -33,7 +33,7 @@ class DiscoverAdapter(private val imageLoader: ImageLoader) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DiscoverViewHolder {
         return DiscoverViewHolder(
-            LayoutSmallCardViewListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+          LayoutSmallCardViewListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
@@ -61,22 +61,26 @@ class DiscoverAdapter(private val imageLoader: ImageLoader) :
         for (position in 0..prefetchThreshold) {
             data?.get(position)?.imageUrl?.let { imageUrl ->
                 val request = ImageRequest.Builder(context)
-                    .data(imageUrl)
-                    .listener(
-                        onSuccess = { _, _ ->
-                            prefetchCount++
-                            if (prefetchCount >= prefetchThreshold) {
-                                prefetchCallback?.invoke()
-                            }
-                        },
-                        onError = { _, _ -> prefetchThreshold-- },
-                        onCancel = { _ -> prefetchThreshold-- })
-                    .build()
+                  .data(imageUrl)
+                  .listener(
+                    onSuccess = { _, _ -> coilOnSuccess() },
+                    onError = { _, _ -> coilOnFailure() },
+                    onCancel = { _ -> coilOnFailure() })
+                  .build()
 
                 imageLoader.enqueue(request)
             }
         }
     }
+
+    private val coilOnSuccess = {
+        prefetchCount++
+        if (prefetchCount >= prefetchThreshold) {
+            prefetchCallback?.invoke()
+        }
+    }
+
+    private val coilOnFailure = { prefetchThreshold-- }
 
     fun setPrefetchCallback(prefetchCallback: () -> Unit) {
         this.prefetchCallback = prefetchCallback

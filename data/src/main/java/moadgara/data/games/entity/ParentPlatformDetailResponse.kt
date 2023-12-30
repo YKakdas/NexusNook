@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ParentPlatformDetailResponse(
-    @SerialName("id") val parentPlatformId: Int? = null,
-    @SerialName("name") val parentPlatformName: String? = null,
-    @SerialName("slug") val parentPlatformSlug: String? = null
+  @SerialName("id") val parentPlatformId: Int? = null,
+  @SerialName("name") val parentPlatformName: String? = null,
+  @SerialName("slug") val parentPlatformSlug: String? = null
 )

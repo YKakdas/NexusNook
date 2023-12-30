@@ -9,12 +9,10 @@ class DiscoverNavigator(activity: Activity?) {
     private val activityWeakReference = WeakReference(activity as FragmentActivity)
 
     fun navigateToGameDetailPage(name: String) {
-        Toast.makeText(activityWeakReference.get()?.applicationContext, name, Toast.LENGTH_SHORT)
-            .show()
+        Toast.makeText(activityWeakReference.get()?.applicationContext, name, Toast.LENGTH_SHORT).show()
     }
 
     fun navigateToAllGamesPage(name: String) {
-        Toast.makeText(activityWeakReference.get()?.applicationContext, name, Toast.LENGTH_SHORT)
-            .show()
+        Toast.makeText(activityWeakReference.get()?.applicationContext, name, Toast.LENGTH_SHORT).show()
     }
 }

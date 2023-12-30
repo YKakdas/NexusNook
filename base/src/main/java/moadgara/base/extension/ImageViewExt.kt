@@ -27,12 +27,10 @@ fun ImageView.loadGif(@RawRes gifResId: Int, additionalAnimations: List<Int>) {
 
 }
 
-private fun getImageLoader(context: Context): ImageLoader =
-    ImageLoader.Builder(context)
-        .components {
-            if (SDK_INT >= 28) {
-                add(ImageDecoderDecoder.Factory())
-            } else {
-                add(GifDecoder.Factory())
-            }
-        }.build()
+private fun getImageLoader(context: Context): ImageLoader = ImageLoader.Builder(context).components {
+    if (SDK_INT >= 28) {
+        add(ImageDecoderDecoder.Factory())
+    } else {
+        add(GifDecoder.Factory())
+    }
+}.build()

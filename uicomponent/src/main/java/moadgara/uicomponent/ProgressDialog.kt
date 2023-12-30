@@ -29,7 +29,7 @@ class ProgressDialog : DialogFragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+      inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = LayoutProgressBinding.inflate(inflater, container, false)
         dialog?.window?.setDimAmount(0.85f)
@@ -60,8 +60,8 @@ class ProgressDialog : DialogFragment() {
 
     private fun showLoadingAnimation() {
         binding.progressImage.loadGif(
-            R.raw.loading_animation,
-            listOf(R.anim.progress_rotate)
+          R.raw.loading_animation,
+          listOf(R.anim.progress_rotate)
         )
     }
 }

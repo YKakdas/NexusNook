@@ -47,7 +47,7 @@ class AlertDialog {
         fun title(title: String) = apply { this.title = title }
 
         fun title(@StringRes title: Int) =
-            apply { this.title = context.resources.getString(title) }
+          apply { this.title = context.resources.getString(title) }
 
         fun getTitle() = title
 
@@ -62,21 +62,21 @@ class AlertDialog {
         fun neutralText(text: String?) = apply { this.neutralText = text }
 
         fun neutralText(@StringRes text: Int) =
-            apply { this.neutralText = context.resources.getString(text) }
+          apply { this.neutralText = context.resources.getString(text) }
 
         fun getNeutralText() = neutralText
 
         fun positiveText(text: String?) = apply { this.positiveText = text }
 
         fun positiveText(@StringRes text: Int) =
-            apply { this.positiveText = context.resources.getString(text) }
+          apply { this.positiveText = context.resources.getString(text) }
 
         fun getPositiveText() = positiveText
 
         fun negativeText(text: String?) = apply { this.negativeText = text }
 
         fun negativeText(@StringRes text: Int) =
-            apply { this.negativeText = context.resources.getString(text) }
+          apply { this.negativeText = context.resources.getString(text) }
 
         fun getNegativeText() = negativeText
 
@@ -111,10 +111,10 @@ class AlertDialog {
             }
 
             val localInflater = dialog.layoutInflater.cloneInContext(
-                ContextThemeWrapper(
-                    context,
-                    R.style.Theme_Main
-                )
+              ContextThemeWrapper(
+                context,
+                R.style.Theme_Main
+              )
             )
 
             val binding = AlertDialogBinding.inflate(localInflater)
@@ -137,7 +137,7 @@ class AlertDialog {
                 isNeutral = true
                 if (neutralText.isNullOrBlank()) {
                     neutralText =
-                        context.resources.getString(R.string.alert_dialog_neutral_text_default)
+                      context.resources.getString(R.string.alert_dialog_neutral_text_default)
                 }
             }
 
@@ -148,7 +148,7 @@ class AlertDialog {
 
                 if (positiveText.isNullOrBlank()) {
                     positiveText =
-                        context.resources.getString(R.string.alert_dialog_positive_text_default)
+                      context.resources.getString(R.string.alert_dialog_positive_text_default)
                 }
                 binding.neutralButton.visibility = View.GONE
             } else {

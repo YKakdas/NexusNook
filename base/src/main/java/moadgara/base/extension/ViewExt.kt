@@ -8,15 +8,15 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.AnimRes
-import moadgara.base.util.PaddingHolder
 import moadgara.base.animation.AnimationListenerParameters
 import moadgara.base.animation.AnimationMetaData
 import moadgara.base.animation.produceAnimationSetFromMetaData
 import moadgara.base.animation.setAnimationListener
+import moadgara.base.util.PaddingHolder
 
 fun View.setAndStartAnimation(
-    @AnimRes animResId: Int,
-    animationListenerParameters: AnimationListenerParameters?
+  @AnimRes animResId: Int,
+  animationListenerParameters: AnimationListenerParameters?
 ) {
     val animation: Animation = AnimationUtils.loadAnimation(context, animResId)
     startAnimation(animation)
@@ -24,8 +24,8 @@ fun View.setAndStartAnimation(
 }
 
 fun View.setAndStartAnimation(
-    animationMetaData: AnimationMetaData,
-    animationListenerParameters: AnimationListenerParameters?
+  animationMetaData: AnimationMetaData,
+  animationListenerParameters: AnimationListenerParameters?
 ) {
     val animationSet = produceAnimationSetFromMetaData(animationMetaData)
     startAnimation(animationSet)

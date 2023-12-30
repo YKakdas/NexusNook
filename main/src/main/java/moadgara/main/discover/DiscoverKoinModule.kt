@@ -36,25 +36,25 @@ val discoverKoinModule = module {
 
     viewModel {
         DiscoverViewModel(
-            get<ContextProvider>().getResourceProvider(),
-            get(),
-            listOf(
-                Pair(get(named("TrendingGamesUseCase")), Unit),
-                Pair(get(named("BestOfTheYearUseCase")), Unit),
-                Pair(get(named("RecentlyAddedPopularGamesUseCase")), Unit),
-                Pair(
-                    get(named("ReleaseDateFilteredGamesUseCase")),
-                    DateUtil.getDateRangeForMonth()
-                ),
-                Pair(
-                    get(named("ReleaseDateFilteredGamesUseCase")),
-                    DateUtil.getDateRangeForWeek(DateUtil.getCurrentWeek())
-                ),
-                Pair(
-                    get(named("ReleaseDateFilteredGamesUseCase")),
-                    DateUtil.getDateRangeForWeek(DateUtil.getCurrentWeek() + 1)
-                )
+          get<ContextProvider>().getResourceProvider(),
+          get(),
+          listOf(
+            Pair(get(named("TrendingGamesUseCase")), Unit),
+            Pair(get(named("BestOfTheYearUseCase")), Unit),
+            Pair(get(named("RecentlyAddedPopularGamesUseCase")), Unit),
+            Pair(
+              get(named("ReleaseDateFilteredGamesUseCase")),
+              DateUtil.getDateRangeForMonth()
+            ),
+            Pair(
+              get(named("ReleaseDateFilteredGamesUseCase")),
+              DateUtil.getDateRangeForWeek(DateUtil.getCurrentWeek())
+            ),
+            Pair(
+              get(named("ReleaseDateFilteredGamesUseCase")),
+              DateUtil.getDateRangeForWeek(DateUtil.getCurrentWeek() + 1)
             )
+          )
         )
     }
 

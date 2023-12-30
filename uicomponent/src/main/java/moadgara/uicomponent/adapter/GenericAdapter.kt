@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
 class GenericAdapter<T : Any> internal constructor(callback: DiffUtil.ItemCallback<T>) :
-    ListAdapter<T, GenericAdapter<T>.ViewHolder>(callback) {
+  ListAdapter<T, GenericAdapter<T>.ViewHolder>(callback) {
 
     @LayoutRes
     internal var itemLayoutResource: Int = 0
@@ -22,9 +22,9 @@ class GenericAdapter<T : Any> internal constructor(callback: DiffUtil.ItemCallba
     private var selectedItemPosition = RecyclerView.NO_POSITION
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
-        DataBindingUtil.inflate(
-            LayoutInflater.from(parent.context), viewType, parent, false
-        )
+      DataBindingUtil.inflate(
+        LayoutInflater.from(parent.context), viewType, parent, false
+      )
     )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -59,7 +59,7 @@ class GenericAdapter<T : Any> internal constructor(callback: DiffUtil.ItemCallba
     }
 
     inner class ViewHolder(private val binding: ViewDataBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+      RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.setOnClickListener {
                 if (adapterPosition != RecyclerView.NO_POSITION) {

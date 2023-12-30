@@ -27,8 +27,6 @@
             android:layout_height="@dimen/preview_list_item_image_height"
             android:src="@{data.imageUrl}"
             app:error="@{@drawable/no_image_found}"
-            app:imageHeight="@{@dimen/preview_list_item_image_height}"
-            app:imageWidth="@{@dimen/preview_list_item_image_height}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

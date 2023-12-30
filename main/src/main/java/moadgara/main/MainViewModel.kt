@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class MainViewModel(
-    private val navigator: MainNavigator
+  private val navigator: MainNavigator
 ) : ViewModel() {
 
     private var isFabOpen = false

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 class CustomLinearSnapHelper : LinearSnapHelper() {
     override fun findSnapView(layoutManager: RecyclerView.LayoutManager?): View? {
         val firstVisiblePosition =
-            (layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
+          (layoutManager as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
         val lastVisiblePosition = layoutManager.findLastCompletelyVisibleItemPosition()
         val firstItem = 0
         val lastItem = layoutManager.itemCount - 1

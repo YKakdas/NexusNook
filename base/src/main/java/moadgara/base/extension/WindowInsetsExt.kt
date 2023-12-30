@@ -11,10 +11,10 @@ fun WindowInsets.toPaddingHolder(): PaddingHolder {
         PaddingHolder(insets.left, insets.top, insets.right, insets.bottom)
     } else {
         PaddingHolder(
-            systemWindowInsetLeft,
-            systemWindowInsetTop,
-            systemWindowInsetRight,
-            systemWindowInsetBottom
+          systemWindowInsetLeft,
+          systemWindowInsetTop,
+          systemWindowInsetRight,
+          systemWindowInsetBottom
         )
     }
 }

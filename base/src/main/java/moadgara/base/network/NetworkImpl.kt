@@ -29,34 +29,25 @@ class NetworkImpl : KoinComponent, NetworkInterface {
     val client: HttpClient by inject { parametersOf(isMock) }
 
     override fun <Response : Any> get(
-        endPoint: String,
-        queryParams: Map<String, String>?,
-        type: KClass<Response>
+      endPoint: String,
+      queryParams: Map<String, String>?,
+      type: KClass<Response>
     ): Flow<NetworkResult<Response>> = flow {
         emit(NetworkResult.Loading)
 
         val queryParameters = queryParams?.toMutableMap() ?: mutableMapOf()
         queryParameters["key"] = SecurityUtil.decode(3, BuildConfig.API_KEY)
-        val response =
-            client.get(BaseUrl.apiUrl + endPoint) {
-                queryParameters.forEach { parameter(it.key, it.value) }
-            }
+
+        val response = client.get(BaseUrl.apiUrl + endPoint) {
+            queryParameters.forEach { parameter(it.key, it.value) }
+        }
+
         if (response.status.value == 200) {
-            emit(
-                NetworkResult.Success(
-                    response.body(
-                        TypeInfo(
-                            type = type,
-                            reifiedType = type.javaObjectType
-                        )
-                    )
-                )
-            )
+            emit(NetworkResult.Success(response.body(TypeInfo(type = type, reifiedType = type.javaObjectType))))
         } else {
             Timber.d(response.status.description)
             emit(NetworkResult.Failure(response.status.description))
         }
-
     }.catch {
         Timber.d(it.message)
         emit(NetworkResult.Failure(it.localizedMessage))
@@ -64,13 +55,13 @@ class NetworkImpl : KoinComponent, NetworkInterface {
 
     //TODO(Update Post)
     suspend inline fun <reified Body : Any, reified Response> post(
-        endPoint: String, requestBody: Body,
+      endPoint: String, requestBody: Body,
     ): NetworkResult<Response> = try {
         val response: Response =
-            client.post(BaseUrl.apiUrl + endPoint) {
-                contentType(ContentType.Application.Json)
-                setBody(requestBody)
-            }.body()
+          client.post(BaseUrl.apiUrl + endPoint) {
+              contentType(ContentType.Application.Json)
+              setBody(requestBody)
+          }.body()
 
         NetworkResult.Success(response)
     } catch (e: Exception) {

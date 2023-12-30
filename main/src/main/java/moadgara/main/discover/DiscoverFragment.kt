@@ -25,7 +25,7 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+      inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentDiscoverBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
@@ -33,6 +33,12 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        showErrorMessage()
+        setupHelper()
+        initialize()
+    }
+
+    private fun showErrorMessage() {
         viewModel.getMessage().observe(viewLifecycleOwner) {
             alertDialog(requireContext()) {
                 title(R.string.generic_error_title)
@@ -41,16 +47,20 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
                 type(AlertDialog.Type.ERROR)
             }
         }
+    }
 
+    private fun setupHelper() {
         val observables = viewModel.getAllPreviewListsLiveData()
         val pageMetaData = viewModel.preparePageMetaData()
 
         DiscoverViewHelper(this)
-            .setRootView(binding.inflateViewRoot)
-            .setDataObservers(observables)
-            .setListMetaData(pageMetaData)
-            .inflateViews()
+          .setRootView(binding.inflateViewRoot)
+          .setDataObservers(observables)
+          .setListMetaData(pageMetaData)
+          .inflateViews()
+    }
 
+    private fun initialize() {
         if (!initialized) {
             viewModel.fetchData()
             initialized = true

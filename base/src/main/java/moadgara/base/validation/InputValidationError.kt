@@ -13,10 +13,10 @@ import androidx.annotation.StringRes
  *
  */
 class InputValidationError(
-    @StringRes
-    private var errorId: Int? = null,
-    private var errorText: String? = null,
-    val isAlwaysVisible: Boolean = false
+  @StringRes
+  private var errorId: Int? = null,
+  private var errorText: String? = null,
+  val isAlwaysVisible: Boolean = false
 ) {
 
     /**

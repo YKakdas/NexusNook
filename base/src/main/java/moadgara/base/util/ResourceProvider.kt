@@ -51,9 +51,9 @@ class ResourceProvider(private val context: Context) {
     }
 
     fun getQuantityString(
-        @PluralsRes resId: Int,
-        quantity: Int,
-        vararg formatArgs: Any?
+      @PluralsRes resId: Int,
+      quantity: Int,
+      vararg formatArgs: Any?
     ): String {
         return context.resources.getQuantityString(resId, quantity, *formatArgs)
     }

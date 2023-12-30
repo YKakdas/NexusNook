@@ -15,8 +15,6 @@ import moadgara.main.R
 import moadgara.main.databinding.LayoutPreviewListBinding
 import moadgara.main.databinding.LayoutPreviewListShimmerBinding
 import moadgara.uicomponent.CustomLinearSnapHelper
-import moadgara.uicomponent.ProgressDialog
-import timber.log.Timber
 
 
 class DiscoverViewHelper(private val fragment: DiscoverFragment) {
@@ -29,12 +27,12 @@ class DiscoverViewHelper(private val fragment: DiscoverFragment) {
 
     init {
         imageWidth = DimensionUtil.dpToPx(
-            resourceId = moadgara.uicomponent.R.dimen.preview_list_item_view_width,
-            resources = fragment.resources
+          resourceId = moadgara.uicomponent.R.dimen.preview_list_item_view_width,
+          resources = fragment.resources
         )
         imageHeight = DimensionUtil.dpToPx(
-            resourceId = moadgara.uicomponent.R.dimen.preview_list_item_image_height,
-            resources = fragment.resources
+          resourceId = moadgara.uicomponent.R.dimen.preview_list_item_image_height,
+          resources = fragment.resources
         )
     }
 
@@ -57,17 +55,17 @@ class DiscoverViewHelper(private val fragment: DiscoverFragment) {
     }
 
     private fun populateView(
-        metaData: PreviewListMetaData,
-        liveData: LiveData<PreviewList>
+      metaData: PreviewListMetaData,
+      liveData: LiveData<PreviewList>
     ) {
         val actualViewBinding = inflatePreviewListLayout<LayoutPreviewListBinding>(rootView)
         val shimmerViewBinding = inflatePreviewListLayout<LayoutPreviewListShimmerBinding>(rootView)
         val space = ViewUtil.createSpace(
-            fragment.requireContext(),
-            height = DimensionUtil.dpToPx(
-                resourceId = moadgara.uicomponent.R.dimen.margin_high,
-                resources = fragment.resources
-            )
+          fragment.requireContext(),
+          height = DimensionUtil.dpToPx(
+            resourceId = moadgara.uicomponent.R.dimen.margin_high,
+            resources = fragment.resources
+          )
         )
 
         actualViewBinding.data = metaData
@@ -76,16 +74,16 @@ class DiscoverViewHelper(private val fragment: DiscoverFragment) {
         rootView.addView(space)
 
         val coilImageLoader = ImageLoader.Builder(fragment.requireContext())
-            .crossfade(true)
-            .memoryCachePolicy(CachePolicy.ENABLED) // Enable memory caching
-            .diskCachePolicy(CachePolicy.ENABLED)   // Enable disk caching
-            .build()
+          .crossfade(true)
+          .memoryCachePolicy(CachePolicy.ENABLED) // Enable memory caching
+          .diskCachePolicy(CachePolicy.ENABLED)   // Enable disk caching
+          .build()
 
         val adapter = DiscoverAdapter(coilImageLoader)
 
         actualViewBinding.recyclerView.apply {
             this.layoutManager =
-                LinearLayoutManager(fragment.requireContext(), RecyclerView.HORIZONTAL, false)
+              LinearLayoutManager(fragment.requireContext(), RecyclerView.HORIZONTAL, false)
             setHasFixedSize(true)
             setItemViewCacheSize(40)
             recycledViewPool.setMaxRecycledViews(R.layout.layout_preview_list, 40)

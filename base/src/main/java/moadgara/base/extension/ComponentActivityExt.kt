@@ -6,4 +6,4 @@ import androidx.lifecycle.ViewModel
 import moadgara.base.util.ViewModelFactory
 
 inline fun <reified VM : ViewModel> ComponentActivity.viewModel(noinline creator: () -> VM) =
-    viewModels<VM> { ViewModelFactory(creator) }
+  viewModels<VM> { ViewModelFactory(creator) }

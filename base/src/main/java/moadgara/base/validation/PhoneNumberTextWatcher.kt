@@ -5,8 +5,8 @@ import android.text.TextWatcher
 import moadgara.base.R
 
 class PhoneNumberTextWatcher(
-    private var successListener: () -> Unit,
-    private var failureListener: (InputValidationError) -> Unit
+  private var successListener: () -> Unit,
+  private var failureListener: (InputValidationError) -> Unit
 ) : TextWatcher {
 
     private var isTextBeingFormatted = false

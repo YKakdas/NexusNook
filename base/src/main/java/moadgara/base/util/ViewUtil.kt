@@ -6,5 +6,5 @@ import android.widget.Space
 
 object ViewUtil {
     fun createSpace(context: Context, width: Int = -1, height: Int = -1) =
-        Space(context).also { it.layoutParams = LinearLayout.LayoutParams(width, height) }
+      Space(context).also { it.layoutParams = LinearLayout.LayoutParams(width, height) }
 }

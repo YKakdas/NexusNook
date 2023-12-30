@@ -9,7 +9,7 @@ import androidx.appcompat.widget.AppCompatRadioButton
  * it is already checked.
  */
 class ToggleableRadioButton constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
-    AppCompatRadioButton(context, attrs, defStyleAttr) {
+  AppCompatRadioButton(context, attrs, defStyleAttr) {
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 

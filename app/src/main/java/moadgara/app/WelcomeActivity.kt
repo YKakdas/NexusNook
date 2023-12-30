@@ -11,7 +11,6 @@ class WelcomeActivity : AppCompatActivity() {
         installSplashScreen()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
-        //  startActivity(Intent(this, UIComponentTestActivity::class.java))
         MainActivity.start(this)
     }
 

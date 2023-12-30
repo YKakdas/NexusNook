@@ -9,8 +9,8 @@ import moadgara.data.games.entity.ListOfGamesResponse
 import moadgara.data.games.repository.GamesRepository
 
 class GetReleaseDateFilteredGamesUseCase(
-    private val repository: GamesRepository,
-    coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
+  private val repository: GamesRepository,
+  coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : FlowUseCase<Pair<String, String>, ListOfGamesResponse>(coroutineDispatcher) {
     override fun execute(parameters: Pair<String, String>): Flow<NetworkResult<ListOfGamesResponse>> {
         val queryParams = mutableMapOf<String, String>()

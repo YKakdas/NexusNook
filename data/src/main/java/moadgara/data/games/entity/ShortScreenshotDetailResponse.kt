@@ -5,6 +5,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ShortScreenshotDetailResponse(
-    @SerialName("id") val screenshotId: Int? = null,
-    @SerialName("image") val screenshotImage: String? = null
+  @SerialName("id") val screenshotId: Int? = null,
+  @SerialName("image") val screenshotImage: String? = null
 )

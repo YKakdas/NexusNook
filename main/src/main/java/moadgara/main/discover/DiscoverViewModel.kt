@@ -14,9 +14,9 @@ import moadgara.main.R
 import timber.log.Timber
 
 class DiscoverViewModel(
-    private val resourceProvider: ResourceProvider,
-    private val discoverNavigator: DiscoverNavigator,
-    private val useCases: List<Pair<FlowUseCase<Any, ListOfGamesResponse>, Any>>
+  private val resourceProvider: ResourceProvider,
+  private val discoverNavigator: DiscoverNavigator,
+  private val useCases: List<Pair<FlowUseCase<Any, ListOfGamesResponse>, Any>>
 ) : ViewModel() {
 
     private val message = MutableLiveData<String?>()
@@ -53,7 +53,7 @@ class DiscoverViewModel(
             useCases.forEachIndexed { index, useCasePair ->
                 launch {
                     fetchData(
-                        previewListsLiveData[index], useCasePair.first, useCasePair.second
+                      previewListsLiveData[index], useCasePair.first, useCasePair.second
                     )
                 }
             }
@@ -61,9 +61,9 @@ class DiscoverViewModel(
     }
 
     private suspend fun fetchData(
-        listLiveData: MutableLiveData<PreviewList>,
-        useCase: FlowUseCase<Any, ListOfGamesResponse>,
-        parameters: Any
+      listLiveData: MutableLiveData<PreviewList>,
+      useCase: FlowUseCase<Any, ListOfGamesResponse>,
+      parameters: Any
     ) {
         useCase(parameters).transformWhile {
             emit(it)
@@ -83,7 +83,7 @@ class DiscoverViewModel(
                 is NetworkResult.Success -> {
                     listLiveData.value = PreviewList(networkResult.data?.results?.map {
                         PreviewListItemData(
-                            it.shortScreenshots?.firstOrNull()?.screenshotImage, it.name
+                          it.shortScreenshots?.firstOrNull()?.screenshotImage, it.name
                         ) {
                             discoverNavigator.navigateToGameDetailPage(it.name ?: "")
                         }
@@ -94,7 +94,7 @@ class DiscoverViewModel(
     }
 
     private fun getPreviewListMetaData(title: String) = PreviewListMetaData(
-        title, resourceProvider.getString(R.string.see_all_button_title)
+      title, resourceProvider.getString(R.string.see_all_button_title)
     ) { discoverNavigator.navigateToAllGamesPage(title) }
 
 }

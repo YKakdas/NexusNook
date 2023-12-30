@@ -42,9 +42,9 @@ class MainNavigator(activity: Activity?) {
 
         activityWeakReference.get()?.supportFragmentManager?.commit {
             replace(
-                R.id.main_container,
-                favoritesFragment,
-                favoritesFragment::class.java.simpleName
+              R.id.main_container,
+              favoritesFragment,
+              favoritesFragment::class.java.simpleName
             )
         }
     }

@@ -13,9 +13,9 @@ fun Window.applyFullScreen() {
             clearFlags(android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
             addFlags(android.view.WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             decorView.systemUiVisibility =
-                android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
-                        android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                        android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+              android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
         }
     }
 }

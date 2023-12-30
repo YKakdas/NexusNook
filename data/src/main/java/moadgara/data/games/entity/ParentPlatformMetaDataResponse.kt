@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ParentPlatformMetaDataResponse(
-    @SerialName("platform") val parentPlatform: ParentPlatformDetailResponse? = null
+  @SerialName("platform") val parentPlatform: ParentPlatformDetailResponse? = null
 )

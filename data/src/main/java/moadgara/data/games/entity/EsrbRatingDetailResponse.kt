@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class EsrbRatingDetailResponse(
-    @SerialName("id") val esrbId: Int? = null,
-    @SerialName("slug") val esrbSlug: String? = null,
-    @SerialName("name") val esrbName: String? = null
+  @SerialName("id") val esrbId: Int? = null,
+  @SerialName("slug") val esrbSlug: String? = null,
+  @SerialName("name") val esrbName: String? = null
 )

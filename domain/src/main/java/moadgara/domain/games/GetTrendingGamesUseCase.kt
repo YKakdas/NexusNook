@@ -9,8 +9,8 @@ import moadgara.data.games.entity.ListOfGamesResponse
 import moadgara.data.games.repository.GamesRepository
 
 class GetTrendingGamesUseCase(
-    private val repository: GamesRepository,
-    coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
+  private val repository: GamesRepository,
+  coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : FlowUseCase<Unit, ListOfGamesResponse>(coroutineDispatcher) {
     override fun execute(parameters: Unit): Flow<NetworkResult<ListOfGamesResponse>> {
         val queryParams = mutableMapOf<String, String>()
