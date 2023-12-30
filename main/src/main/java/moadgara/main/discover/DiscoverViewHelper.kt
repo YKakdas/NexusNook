@@ -1,23 +1,22 @@
 package moadgara.main.discover
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSnapHelper
-import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import coil.ImageLoader
+import coil.request.CachePolicy
 import moadgara.base.util.DimensionUtil
 import moadgara.base.util.ViewUtil
 import moadgara.main.R
 import moadgara.main.databinding.LayoutPreviewListBinding
 import moadgara.main.databinding.LayoutPreviewListShimmerBinding
 import moadgara.uicomponent.CustomLinearSnapHelper
-import moadgara.uicomponent.adapter.genericAdapter
-import moadgara.uicomponent.glide.GlideUtil
+import moadgara.uicomponent.ProgressDialog
+import timber.log.Timber
 
 
 class DiscoverViewHelper(private val fragment: DiscoverFragment) {
@@ -76,7 +75,13 @@ class DiscoverViewHelper(private val fragment: DiscoverFragment) {
         rootView.addView(shimmerViewBinding.root)
         rootView.addView(space)
 
-        val adapter = genericAdapter<PreviewListItemData> {}
+        val coilImageLoader = ImageLoader.Builder(fragment.requireContext())
+            .crossfade(true)
+            .memoryCachePolicy(CachePolicy.ENABLED) // Enable memory caching
+            .diskCachePolicy(CachePolicy.ENABLED)   // Enable disk caching
+            .build()
+
+        val adapter = DiscoverAdapter(coilImageLoader)
 
         actualViewBinding.recyclerView.apply {
             this.layoutManager =
@@ -88,21 +93,15 @@ class DiscoverViewHelper(private val fragment: DiscoverFragment) {
         }
 
         CustomLinearSnapHelper().attachToRecyclerView(actualViewBinding.recyclerView)
-
         liveData.observe(fragment.viewLifecycleOwner) {
-            val index = rootView.indexOfChild(shimmerViewBinding.root)
-            rootView.removeView(shimmerViewBinding.root)
-
-            if (it != null && !it.list.isNullOrEmpty()) {
-                val imageUrls = it.list.mapNotNull { data -> data.imageUrl }
-
-                val recyclerViewPreloader = GlideUtil.getRecyclerViewPreloader(
-                    fragment, imageUrls, imageWidth, imageHeight
-                )
-                actualViewBinding.recyclerView.addOnScrollListener(recyclerViewPreloader)
-
-                rootView.addView(actualViewBinding.root, index)
+            if (it != null) {
+                val index = rootView.indexOfChild(shimmerViewBinding.root)
+                adapter.setData(it.list)
                 adapter.submitList(it.list)
+                adapter.setPrefetchCallback {
+                    rootView.addView(actualViewBinding.root, index)
+                    rootView.removeView(shimmerViewBinding.root)
+                }
             }
         }
     }

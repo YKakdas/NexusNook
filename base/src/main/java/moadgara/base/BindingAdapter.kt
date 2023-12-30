@@ -7,15 +7,15 @@ import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import coil.load
+import coil.transform.RoundedCornersTransformation
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.textfield.TextInputEditText
 import moadgara.base.extension.doOnApplyWindowInsets
 import moadgara.base.extension.toPaddingHolder
 import moadgara.base.util.HorizontalMarginItemDecoration
+import timber.log.Timber
 
 @BindingAdapter("registerTextWatcher")
 fun setTextWatcher(view: TextInputEditText, watcher: TextWatcher) {
@@ -55,15 +55,12 @@ fun setImageFromUrl(
         error?.setTint(ContextCompat.getColor(view.context, tintColor))
     }
 
-    Glide.with(view.context)
-        .load(url)
-        .placeholder(placeholder)
-        .error(error)
-        .centerCrop()
-        .transition(DrawableTransitionOptions.withCrossFade())
-        .override(imageWidth.toInt(), imageHeight.toInt())
-        .diskCacheStrategy(DiskCacheStrategy.ALL)
-        .into(view)
+    view.load(url) {
+        placeholder(placeholder)
+        error(error)
+        transformations(RoundedCornersTransformation())
+    }
+
 }
 
 @BindingAdapter("itemDecoration")
