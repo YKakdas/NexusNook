@@ -37,7 +37,7 @@ fun setOnNavigationItemSelected(
 }
 
 @BindingAdapter(
-  value = ["android:src", "placeholder", "error", "tint", "imageWidth", "imageHeight"],
+  value = ["android:src", "placeholder", "error", "tint"],
   requireAll = false
 )
 fun setImageFromUrl(
@@ -45,7 +45,7 @@ fun setImageFromUrl(
   url: String?,
   placeholder: Drawable?,
   error: Drawable?,
-  tintColor: Int?,
+  tintColor: Int?
 ) {
     if (tintColor != null) {
         placeholder?.setTint(ContextCompat.getColor(view.context, tintColor))
