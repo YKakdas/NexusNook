@@ -53,14 +53,13 @@ class DiscoverAdapter(private val imageLoader: ImageLoader) :
 
     fun setData(data: List<PreviewListItemData>?) {
         this.data = data
+        prefetchThreshold = (data?.size?.minus(1)) ?: 0
         prefetchImages()
     }
 
     private fun prefetchImages() {
-        prefetchThreshold = (data?.size?.minus(1)) ?: 0
-        val nextItemsToPrefetch = 0..prefetchThreshold
-        nextItemsToPrefetch.forEach { prefetchPosition ->
-            data?.get(prefetchPosition)?.imageUrl?.let { imageUrl ->
+        for (position in 0..prefetchThreshold) {
+            data?.get(position)?.imageUrl?.let { imageUrl ->
                 val request = ImageRequest.Builder(context)
                     .data(imageUrl)
                     .listener(
@@ -89,5 +88,5 @@ class DiscoverAdapter(private val imageLoader: ImageLoader) :
             binding.executePendingBindings()
         }
     }
-    
+
 }
