@@ -8,11 +8,13 @@ import com.moadgara.common_model.network.NetworkResult
 import kotlinx.coroutines.flow.transformWhile
 import kotlinx.coroutines.launch
 import moadgara.data.creators.entity.ListOfCreatorsResponse
+import moadgara.data.creators.entity.ListOfDevelopersResponse
 import moadgara.data.games.entity.ListOfGamesResponse
 import moadgara.data.genres.entity.ListOfGenresResponse
 import moadgara.data.platforms.entity.ListOfPlatformsResponse
 import moadgara.data.publishers.entity.ListOfPublishersResponse
 import moadgara.data.stores.entity.ListOfStoresResponse
+import moadgara.data.tags.entity.ListOfTagsResponse
 import moadgara.main.discover.sublists.PreviewList
 import timber.log.Timber
 
@@ -85,6 +87,14 @@ class DiscoverViewModel(private val previewLists: List<PreviewList>) : ViewModel
 
                         is ListOfCreatorsResponse? -> {
                             showListOfCreatorsSublist(networkResult, previewList)
+                        }
+
+                        is ListOfDevelopersResponse? -> {
+                            showListOfDevelopersSublist(networkResult, previewList)
+                        }
+
+                        is ListOfTagsResponse? -> {
+                            showListOfTagsSublist(networkResult, previewList)
                         }
                     }
 
@@ -164,6 +174,30 @@ class DiscoverViewModel(private val previewLists: List<PreviewList>) : ViewModel
         previewList.getViewLiveData().value = PreviewListViewData(data?.results?.map {
             PreviewListItemData(
                 it.creatorImage ?: it.creatorImageBackground, it.creatorName, previewList.getInnerItemAction(it.creatorName)
+            )
+        })
+    }
+
+    private fun showListOfDevelopersSublist(
+        networkResult: NetworkResult.Success<Any>,
+        previewList: PreviewList
+    ) {
+        val data = networkResult.data as ListOfDevelopersResponse?
+        previewList.getViewLiveData().value = PreviewListViewData(data?.results?.map {
+            PreviewListItemData(
+                it.developerImageBackground, it.developerName, previewList.getInnerItemAction(it.developerName)
+            )
+        })
+    }
+
+    private fun showListOfTagsSublist(
+        networkResult: NetworkResult.Success<Any>,
+        previewList: PreviewList
+    ) {
+        val data = networkResult.data as ListOfTagsResponse?
+        previewList.getViewLiveData().value = PreviewListViewData(data?.results?.map {
+            PreviewListItemData(
+                it.tagImageBackground, it.tagName, previewList.getInnerItemAction(it.tagName)
             )
         })
     }

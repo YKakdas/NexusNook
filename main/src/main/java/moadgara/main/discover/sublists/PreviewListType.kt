@@ -11,5 +11,7 @@ enum class PreviewListType {
     PLATFORMS,
     PUBLISHERS,
     STORES,
-    CREATORS
+    CREATORS,
+    DEVELOPERS,
+    TAGS
 }

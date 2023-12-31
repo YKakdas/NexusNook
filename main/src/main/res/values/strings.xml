@@ -19,4 +19,6 @@
     <string name="discover_publishers_title">Publishers</string>
     <string name="discover_stores_title">Stores</string>
     <string name="discover_creators_title">Creators</string>
+    <string name="discover_developers_title">Developers</string>
+    <string name="discover_tags_title">Tags</string>
 </resources>

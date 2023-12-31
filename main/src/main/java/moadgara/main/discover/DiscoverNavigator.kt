@@ -55,4 +55,20 @@ class DiscoverNavigator(activity: Activity?) {
     fun navigateToCreatorDetail(name: String?) {
         Toast.makeText(activityWeakReference.get()?.applicationContext, name, Toast.LENGTH_SHORT).show()
     }
+
+    fun navigateToAllDevelopers(name: String) {
+        Toast.makeText(activityWeakReference.get()?.applicationContext, name, Toast.LENGTH_SHORT).show()
+    }
+
+    fun navigateToDeveloperDetail(name: String?) {
+        Toast.makeText(activityWeakReference.get()?.applicationContext, name, Toast.LENGTH_SHORT).show()
+    }
+
+    fun navigateToAllTags(name: String) {
+        Toast.makeText(activityWeakReference.get()?.applicationContext, name, Toast.LENGTH_SHORT).show()
+    }
+
+    fun navigateToTagDetail(name: String?) {
+        Toast.makeText(activityWeakReference.get()?.applicationContext, name, Toast.LENGTH_SHORT).show()
+    }
 }

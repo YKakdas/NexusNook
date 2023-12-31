@@ -6,6 +6,7 @@ import moadgara.data.genres.entity.GenreDetailResponse
 import moadgara.data.platforms.entity.ParentPlatformMetaDataResponse
 import moadgara.data.platforms.entity.PlatformMetaDataResponse
 import moadgara.data.stores.entity.StoreMetaDataResponse
+import moadgara.data.tags.entity.TagDetailResponse
 
 @Serializable
 data class GameDetailResponse(
