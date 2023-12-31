@@ -23,4 +23,12 @@ class DiscoverNavigator(activity: Activity?) {
     fun navigateToGenreDetail(name: String?) {
         Toast.makeText(activityWeakReference.get()?.applicationContext, name, Toast.LENGTH_SHORT).show()
     }
+
+    fun navigateToAllPlatforms(name: String) {
+        Toast.makeText(activityWeakReference.get()?.applicationContext, name, Toast.LENGTH_SHORT).show()
+    }
+
+    fun navigateToPlatformDetail(name: String?) {
+        Toast.makeText(activityWeakReference.get()?.applicationContext, name, Toast.LENGTH_SHORT).show()
+    }
 }

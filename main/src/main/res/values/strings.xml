@@ -15,5 +15,6 @@
     <string name="discover_released_this_week_games_title">This Week\'s Releases</string>
     <string name="discover_releasing_next_week_games_title">Releasing Next Week</string>
     <string name="discover_genres_title">Genres</string>
+    <string name="discover_platforms_title">Platforms</string>
 
 </resources>
