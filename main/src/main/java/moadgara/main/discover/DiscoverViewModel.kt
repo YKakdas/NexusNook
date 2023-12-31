@@ -8,6 +8,7 @@ import com.moadgara.common_model.network.NetworkResult
 import kotlinx.coroutines.flow.transformWhile
 import kotlinx.coroutines.launch
 import moadgara.data.games.entity.ListOfGamesResponse
+import moadgara.data.genres.entity.ListOfGenresResponse
 import moadgara.main.discover.sublists.PreviewList
 import timber.log.Timber
 
@@ -61,7 +62,16 @@ class DiscoverViewModel(private val previewLists: List<PreviewList>) : ViewModel
                         val data = networkResult.data as ListOfGamesResponse?
                         previewList.getViewLiveData().value = PreviewListViewData(data?.results?.map {
                             PreviewListItemData(
-                              it.shortScreenshots?.firstOrNull()?.screenshotImage, it.name, previewList.getInnerItemAction(it.name)
+                                it.shortScreenshots?.firstOrNull()?.screenshotImage,
+                                it.name,
+                                previewList.getInnerItemAction(it.name)
+                            )
+                        })
+                    } else if (networkResult.data is ListOfGenresResponse?) {
+                        val data = networkResult.data as ListOfGenresResponse?
+                        previewList.getViewLiveData().value = PreviewListViewData(data?.results?.map {
+                            PreviewListItemData(
+                                it.genreImageBackground, it.genreName, previewList.getInnerItemAction(it.genreName)
                             )
                         })
                     }

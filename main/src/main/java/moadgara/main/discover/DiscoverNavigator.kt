@@ -15,4 +15,12 @@ class DiscoverNavigator(activity: Activity?) {
     fun navigateToAllGamesPage(name: String) {
         Toast.makeText(activityWeakReference.get()?.applicationContext, name, Toast.LENGTH_SHORT).show()
     }
+
+    fun navigateToAllGenres(name: String) {
+        Toast.makeText(activityWeakReference.get()?.applicationContext, name, Toast.LENGTH_SHORT).show()
+    }
+
+    fun navigateToGenreDetail(name: String?) {
+        Toast.makeText(activityWeakReference.get()?.applicationContext, name, Toast.LENGTH_SHORT).show()
+    }
 }

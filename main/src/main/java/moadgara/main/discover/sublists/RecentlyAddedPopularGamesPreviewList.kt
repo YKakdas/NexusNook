@@ -28,8 +28,8 @@ class RecentlyAddedPopularGamesPreviewList(
         )
     }
 
-    override fun getInnerItemAction(gameTitle: String?): () -> Unit {
-        return { previewListCommonParameters.discoverNavigator.navigateToGameDetailPage(gameTitle)}
+    override fun getInnerItemAction(name: String?): () -> Unit {
+        return { previewListCommonParameters.discoverNavigator.navigateToGameDetailPage(name)}
     }
 
     override fun getViewLiveData(): MutableLiveData<PreviewListViewData> {

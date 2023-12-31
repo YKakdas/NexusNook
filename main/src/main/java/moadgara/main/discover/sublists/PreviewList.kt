@@ -13,7 +13,7 @@ abstract class PreviewList(previewListCommonParameters: PreviewListCommonParamet
 
     abstract fun getPreviewListMetaData(): PreviewListMetaData
 
-    abstract fun getInnerItemAction(gameTitle: String?): () -> Unit
+    abstract fun getInnerItemAction(name: String?): () -> Unit
 
     abstract fun getViewLiveData(): MutableLiveData<PreviewListViewData>
 
