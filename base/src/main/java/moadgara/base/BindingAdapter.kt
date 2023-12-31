@@ -53,7 +53,6 @@ fun setImageFromUrl(
     }
 
     view.load(url) {
-        placeholder(placeholder)
         error(error)
         transformations(RoundedCornersTransformation())
     }

@@ -74,7 +74,6 @@ class DiscoverViewModel(private val previewLists: List<PreviewList>) : ViewModel
                         }
 
                         is ListOfPublishersResponse? -> {
-                            Timber.d("Hello")
                             showListOfPublishersSublist(networkResult, previewList)
                         }
                     }

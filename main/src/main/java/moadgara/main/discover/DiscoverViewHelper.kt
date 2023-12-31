@@ -83,8 +83,8 @@ class DiscoverViewHelper(private val fragment: DiscoverFragment) {
             this.layoutManager =
               LinearLayoutManager(fragment.requireContext(), RecyclerView.HORIZONTAL, false)
             setHasFixedSize(true)
-            setItemViewCacheSize(40)
-            recycledViewPool.setMaxRecycledViews(R.layout.layout_preview_list, 40)
+            setItemViewCacheSize(10)
+            recycledViewPool.setMaxRecycledViews(R.layout.layout_preview_list, 10)
             this.adapter = adapter
         }
 
