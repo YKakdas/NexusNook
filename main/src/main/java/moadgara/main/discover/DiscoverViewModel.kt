@@ -11,6 +11,7 @@ import moadgara.data.games.entity.ListOfGamesResponse
 import moadgara.data.genres.entity.ListOfGenresResponse
 import moadgara.data.platforms.entity.ListOfPlatformsResponse
 import moadgara.data.publishers.entity.ListOfPublishersResponse
+import moadgara.data.stores.entity.ListOfStoresResponse
 import moadgara.main.discover.sublists.PreviewList
 import timber.log.Timber
 
@@ -76,6 +77,10 @@ class DiscoverViewModel(private val previewLists: List<PreviewList>) : ViewModel
                         is ListOfPublishersResponse? -> {
                             showListOfPublishersSublist(networkResult, previewList)
                         }
+
+                        is ListOfStoresResponse? -> {
+                            showListOfStoresSublist(networkResult, previewList)
+                        }
                     }
 
                 }
@@ -130,6 +135,18 @@ class DiscoverViewModel(private val previewLists: List<PreviewList>) : ViewModel
         previewList.getViewLiveData().value = PreviewListViewData(data?.results?.map {
             PreviewListItemData(
                 it.publisherImageBackground, it.publisherName, previewList.getInnerItemAction(it.publisherName)
+            )
+        })
+    }
+
+    private fun showListOfStoresSublist(
+        networkResult: NetworkResult.Success<Any>,
+        previewList: PreviewList
+    ) {
+        val data = networkResult.data as ListOfStoresResponse?
+        previewList.getViewLiveData().value = PreviewListViewData(data?.results?.map {
+            PreviewListItemData(
+                it.storeImageBackground, it.storeName, previewList.getInnerItemAction(it.storeName)
             )
         })
     }

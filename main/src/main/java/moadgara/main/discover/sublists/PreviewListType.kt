@@ -9,5 +9,6 @@ enum class PreviewListType {
     RELEASING_NEXT_WEEK,
     GENRES,
     PLATFORMS,
-    PUBLISHERS
+    PUBLISHERS,
+    STORES
 }
