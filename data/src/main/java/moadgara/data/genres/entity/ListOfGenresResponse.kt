@@ -2,7 +2,6 @@ package moadgara.data.genres.entity
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import moadgara.data.games.entity.GenreDetailResponse
 
 @Serializable
 data class ListOfGenresResponse(

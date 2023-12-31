@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import moadgara.data.games.entity.ListOfGamesResponse
 import moadgara.data.genres.entity.ListOfGenresResponse
 import moadgara.data.platforms.entity.ListOfPlatformsResponse
+import moadgara.data.publishers.entity.ListOfPublishersResponse
 import moadgara.main.discover.sublists.PreviewList
 import timber.log.Timber
 
@@ -71,6 +72,11 @@ class DiscoverViewModel(private val previewLists: List<PreviewList>) : ViewModel
                         is ListOfPlatformsResponse? -> {
                             showListOfPlatformsSublist(networkResult, previewList)
                         }
+
+                        is ListOfPublishersResponse? -> {
+                            Timber.d("Hello")
+                            showListOfPublishersSublist(networkResult, previewList)
+                        }
                     }
 
                 }
@@ -116,5 +122,17 @@ class DiscoverViewModel(private val previewLists: List<PreviewList>) : ViewModel
             )
         })
     }
-    
+
+    private fun showListOfPublishersSublist(
+        networkResult: NetworkResult.Success<Any>,
+        previewList: PreviewList
+    ) {
+        val data = networkResult.data as ListOfPublishersResponse?
+        previewList.getViewLiveData().value = PreviewListViewData(data?.results?.map {
+            PreviewListItemData(
+                it.publisherImageBackground, it.publisherName, previewList.getInnerItemAction(it.publisherName)
+            )
+        })
+    }
+
 }

@@ -1,4 +1,4 @@
-package moadgara.data.games.entity
+package moadgara.data.platforms.entity
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

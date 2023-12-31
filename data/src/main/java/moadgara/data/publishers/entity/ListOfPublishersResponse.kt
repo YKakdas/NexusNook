@@ -1,13 +1,13 @@
-package moadgara.data.platforms.entity
+package moadgara.data.publishers.entity
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class ListOfPlatformsResponse(
+data class ListOfPublishersResponse(
     @SerialName("count") val count: Int? = null,
     @SerialName("next") val next: String? = null,
     @SerialName("previous") val previous: String? = null,
-    @SerialName("results") val results: List<PlatformDetailResponse>? = null
+    @SerialName("results") val results: List<PublisherDetailResponse>? = null
 )
 

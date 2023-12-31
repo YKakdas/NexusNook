@@ -4,16 +4,19 @@ import moadgara.base.util.ContextProvider
 import moadgara.data.games.repository.GamesRepository
 import moadgara.data.genres.repository.GenresRepository
 import moadgara.data.platforms.repository.PlatformsRepository
+import moadgara.data.publishers.repository.PublishersRepository
 import moadgara.domain.games.GetBestOfTheYearUseCase
 import moadgara.domain.games.GetRecentlyAddedPopularGamesUseCase
 import moadgara.domain.games.GetReleaseDateFilteredGamesUseCase
 import moadgara.domain.games.GetTrendingGamesUseCase
 import moadgara.domain.genres.GetGenresUseCase
 import moadgara.domain.platforms.GetPlatformsUseCase
+import moadgara.domain.publishers.GetPublishersUseCase
 import moadgara.main.discover.sublists.BestOfTheYearGamesPreviewList
 import moadgara.main.discover.sublists.GenresPreviewList
 import moadgara.main.discover.sublists.PlatformsPreviewList
 import moadgara.main.discover.sublists.PreviewListCommonParameters
+import moadgara.main.discover.sublists.PublishersPreviewList
 import moadgara.main.discover.sublists.RecentlyAddedPopularGamesPreviewList
 import moadgara.main.discover.sublists.ReleasingNextWeekGamesPreviewList
 import moadgara.main.discover.sublists.ThisMonthReleasedGamesPreviewList
@@ -29,6 +32,7 @@ val discoverKoinModule = module {
     single { GamesRepository(get()) }
     single { GenresRepository(get()) }
     single { PlatformsRepository(get()) }
+    single { PublishersRepository(get()) }
 
     single { GetTrendingGamesUseCase(get()) }
     single { GetBestOfTheYearUseCase(get()) }
@@ -36,6 +40,7 @@ val discoverKoinModule = module {
     factory { GetReleaseDateFilteredGamesUseCase(get()) }
     single { GetGenresUseCase(get()) }
     single { GetPlatformsUseCase(get()) }
+    single { GetPublishersUseCase(get()) }
 
     single { PreviewListCommonParameters(get(), get()) }
 
@@ -47,6 +52,7 @@ val discoverKoinModule = module {
     single { ReleasingNextWeekGamesPreviewList(get(), get()) }
     single { GenresPreviewList(get(), get()) }
     single { PlatformsPreviewList(get(), get()) }
+    single { PublishersPreviewList(get(), get()) }
 
     viewModel {
         DiscoverViewModel(
@@ -58,7 +64,8 @@ val discoverKoinModule = module {
                 get<ThisWeekReleasedGamesPreviewList>(),
                 get<ReleasingNextWeekGamesPreviewList>(),
                 get<GenresPreviewList>(),
-                get<PlatformsPreviewList>()
+                get<PlatformsPreviewList>(),
+                get<PublishersPreviewList>()
             )
         )
     }
