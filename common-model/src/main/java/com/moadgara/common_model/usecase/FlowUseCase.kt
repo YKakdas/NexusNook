@@ -11,11 +11,12 @@ import kotlinx.coroutines.flow.flowOn
  * [NetworkResult].
  * Handling an exception (emit [NetworkResult.Failure] to the result) is the subclasses's responsibility.
  */
-abstract class FlowUseCase<in P, R>(private val coroutineDispatcher: CoroutineDispatcher) {
+abstract class FlowUseCase<P, R>(private val coroutineDispatcher: CoroutineDispatcher) {
 
     operator fun invoke(parameters: P): Flow<NetworkResult<R>> = execute(parameters)
       .catch { e -> emit(NetworkResult.Failure(e.localizedMessage)) }
       .flowOn(coroutineDispatcher)
 
     protected abstract fun execute(parameters: P): Flow<NetworkResult<R>>
+
 }

@@ -7,8 +7,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import coil.ImageLoader
-import coil.request.CachePolicy
+import moadgara.base.util.CoilUtil
 import moadgara.base.util.DimensionUtil
 import moadgara.base.util.ViewUtil
 import moadgara.main.R
@@ -19,24 +18,11 @@ import moadgara.uicomponent.CustomLinearSnapHelper
 
 class DiscoverViewHelper(private val fragment: DiscoverFragment) {
 
-    private lateinit var dataObservers: List<LiveData<PreviewList>>
+    private lateinit var dataObservers: List<LiveData<PreviewListViewData>>
     private lateinit var listMetaData: List<PreviewListMetaData>
     private lateinit var rootView: ViewGroup
-    private var imageWidth: Int = 0
-    private var imageHeight: Int = 0
 
-    init {
-        imageWidth = DimensionUtil.dpToPx(
-          resourceId = moadgara.uicomponent.R.dimen.preview_list_item_view_width,
-          resources = fragment.resources
-        )
-        imageHeight = DimensionUtil.dpToPx(
-          resourceId = moadgara.uicomponent.R.dimen.preview_list_item_image_height,
-          resources = fragment.resources
-        )
-    }
-
-    fun setDataObservers(dataObservers: List<LiveData<PreviewList>>) = apply {
+    fun setDataObservers(dataObservers: List<LiveData<PreviewListViewData>>) = apply {
         this.dataObservers = dataObservers
     }
 
@@ -56,7 +42,7 @@ class DiscoverViewHelper(private val fragment: DiscoverFragment) {
 
     private fun populateView(
       metaData: PreviewListMetaData,
-      liveData: LiveData<PreviewList>
+      liveData: LiveData<PreviewListViewData>
     ) {
         val actualViewBinding = inflatePreviewListLayout<LayoutPreviewListBinding>(rootView)
         val shimmerViewBinding = inflatePreviewListLayout<LayoutPreviewListShimmerBinding>(rootView)
@@ -73,24 +59,12 @@ class DiscoverViewHelper(private val fragment: DiscoverFragment) {
         rootView.addView(shimmerViewBinding.root)
         rootView.addView(space)
 
-        val coilImageLoader = ImageLoader.Builder(fragment.requireContext())
-          .crossfade(true)
-          .memoryCachePolicy(CachePolicy.ENABLED) // Enable memory caching
-          .diskCachePolicy(CachePolicy.ENABLED)   // Enable disk caching
-          .build()
+        val coilImageLoader = CoilUtil.getCachedCoilImageLoader(fragment.requireContext())
 
         val adapter = DiscoverAdapter(coilImageLoader)
 
-        actualViewBinding.recyclerView.apply {
-            this.layoutManager =
-              LinearLayoutManager(fragment.requireContext(), RecyclerView.HORIZONTAL, false)
-            setHasFixedSize(true)
-            setItemViewCacheSize(40)
-            recycledViewPool.setMaxRecycledViews(R.layout.layout_preview_list, 40)
-            this.adapter = adapter
-        }
+        setupRecyclerView(actualViewBinding.recyclerView, adapter)
 
-        CustomLinearSnapHelper().attachToRecyclerView(actualViewBinding.recyclerView)
         liveData.observe(fragment.viewLifecycleOwner) {
             if (it != null) {
                 val index = rootView.indexOfChild(shimmerViewBinding.root)
@@ -102,6 +76,19 @@ class DiscoverViewHelper(private val fragment: DiscoverFragment) {
                 }
             }
         }
+    }
+
+    private fun setupRecyclerView(recyclerView: RecyclerView, adapter: DiscoverAdapter) {
+        recyclerView.apply {
+            this.layoutManager =
+              LinearLayoutManager(fragment.requireContext(), RecyclerView.HORIZONTAL, false)
+            setHasFixedSize(true)
+            setItemViewCacheSize(40)
+            recycledViewPool.setMaxRecycledViews(R.layout.layout_preview_list, 40)
+            this.adapter = adapter
+        }
+
+        CustomLinearSnapHelper().attachToRecyclerView(recyclerView)
     }
 
     private inline fun <reified T : ViewDataBinding> inflatePreviewListLayout(parent: ViewGroup): T {

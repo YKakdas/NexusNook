@@ -15,6 +15,7 @@ class GetRecentlyAddedPopularGamesUseCase(
     override fun execute(parameters: Unit): Flow<NetworkResult<ListOfGamesResponse>> {
         val queryParams = mutableMapOf<String, String>()
         queryParams["page"] = "1"
+        queryParams["ordering"] = "relevance"
         queryParams["page_size"] = "40"
         return repository.fetchRecentlyAddedPopularGames(queryParams)
     }

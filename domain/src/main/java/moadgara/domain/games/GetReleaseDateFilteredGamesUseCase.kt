@@ -11,13 +11,13 @@ import moadgara.data.games.repository.GamesRepository
 class GetReleaseDateFilteredGamesUseCase(
   private val repository: GamesRepository,
   coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
-) : FlowUseCase<Pair<String, String>, ListOfGamesResponse>(coroutineDispatcher) {
-    override fun execute(parameters: Pair<String, String>): Flow<NetworkResult<ListOfGamesResponse>> {
+) : FlowUseCase<List<String>, ListOfGamesResponse>(coroutineDispatcher) {
+    override fun execute(parameters: List<String>): Flow<NetworkResult<ListOfGamesResponse>> {
         val queryParams = mutableMapOf<String, String>()
         queryParams["page"] = "1"
-        queryParams["ordering"] = "-released"
+        queryParams["ordering"] = "released"
         queryParams["page_size"] = "40"
-        queryParams["dates"] = parameters.first.plus(",").plus(parameters.second)
+        queryParams["dates"] = parameters[0].plus(",").plus(parameters[1])
         return repository.fetchGames(queryParams)
     }
 }

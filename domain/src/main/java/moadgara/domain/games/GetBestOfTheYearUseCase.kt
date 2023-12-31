@@ -16,7 +16,7 @@ class GetBestOfTheYearUseCase(
         val queryParams = mutableMapOf<String, String>()
         queryParams["page"] = "1"
         queryParams["discover"] = "true"
-        queryParams["ordering"] = "-relevance"
+        queryParams["ordering"] = "relevance"
         queryParams["page_size"] = "40"
         return repository.fetchBestOfTheYear(queryParams)
     }

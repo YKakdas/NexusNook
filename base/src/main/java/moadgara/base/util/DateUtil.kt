@@ -6,7 +6,7 @@ import java.util.Locale
 
 object DateUtil {
 
-    fun getDateRangeForWeek(week: Int?): Pair<String, String> {
+    fun getDateRangeForWeek(week: Int?): List<String> {
         val calendar = Calendar.getInstance()
 
         val currentYear = calendar.get(Calendar.YEAR)
@@ -28,10 +28,10 @@ object DateUtil {
         calendar.add(Calendar.DAY_OF_MONTH, 6)
         val endDate = dateFormatter.format(calendar.time)
 
-        return Pair(startDate, endDate)
+        return listOf(startDate, endDate)
     }
 
-    fun getDateRangeForMonth(): Pair<String, String> {
+    fun getDateRangeForMonth(): List<String> {
         val calendar = Calendar.getInstance()
 
         val currentYear = calendar.get(Calendar.YEAR)
@@ -48,7 +48,7 @@ object DateUtil {
         calendar.add(Calendar.DAY_OF_MONTH, -1)
         val endDate = dateFormatter.format(calendar.time)
 
-        return Pair(startDate, endDate)
+        return listOf(startDate, endDate)
     }
 
     fun getCurrentWeek(): Int {
