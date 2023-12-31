@@ -1,11 +1,13 @@
 package moadgara.main.discover
 
 import moadgara.base.util.ContextProvider
+import moadgara.data.creators.repository.CreatorsRepository
 import moadgara.data.games.repository.GamesRepository
 import moadgara.data.genres.repository.GenresRepository
 import moadgara.data.platforms.repository.PlatformsRepository
 import moadgara.data.publishers.repository.PublishersRepository
 import moadgara.data.stores.repository.StoresRepository
+import moadgara.domain.creators.GetCreatorsUseCase
 import moadgara.domain.games.GetBestOfTheYearUseCase
 import moadgara.domain.games.GetRecentlyAddedPopularGamesUseCase
 import moadgara.domain.games.GetReleaseDateFilteredGamesUseCase
@@ -15,6 +17,7 @@ import moadgara.domain.platforms.GetPlatformsUseCase
 import moadgara.domain.publishers.GetPublishersUseCase
 import moadgara.domain.stores.GetStoresUseCase
 import moadgara.main.discover.sublists.BestOfTheYearGamesPreviewList
+import moadgara.main.discover.sublists.CreatorsPreviewList
 import moadgara.main.discover.sublists.GenresPreviewList
 import moadgara.main.discover.sublists.PlatformsPreviewList
 import moadgara.main.discover.sublists.PreviewListCommonParameters
@@ -37,6 +40,7 @@ val discoverKoinModule = module {
     single { PlatformsRepository(get()) }
     single { PublishersRepository(get()) }
     single { StoresRepository(get()) }
+    single { CreatorsRepository(get()) }
 
     single { GetTrendingGamesUseCase(get()) }
     single { GetBestOfTheYearUseCase(get()) }
@@ -46,6 +50,7 @@ val discoverKoinModule = module {
     single { GetPlatformsUseCase(get()) }
     single { GetPublishersUseCase(get()) }
     single { GetStoresUseCase(get()) }
+    single { GetCreatorsUseCase(get()) }
 
     single { PreviewListCommonParameters(get(), get()) }
 
@@ -59,6 +64,7 @@ val discoverKoinModule = module {
     single { PlatformsPreviewList(get(), get()) }
     single { PublishersPreviewList(get(), get()) }
     single { StoresPreviewList(get(), get()) }
+    single { CreatorsPreviewList(get(), get()) }
 
     viewModel {
         DiscoverViewModel(
@@ -72,7 +78,8 @@ val discoverKoinModule = module {
                 get<GenresPreviewList>(),
                 get<PlatformsPreviewList>(),
                 get<PublishersPreviewList>(),
-                get<StoresPreviewList>()
+                get<StoresPreviewList>(),
+                get<CreatorsPreviewList>()
             )
         )
     }

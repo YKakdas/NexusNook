@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.moadgara.common_model.network.NetworkResult
 import kotlinx.coroutines.flow.transformWhile
 import kotlinx.coroutines.launch
+import moadgara.data.creators.entity.ListOfCreatorsResponse
 import moadgara.data.games.entity.ListOfGamesResponse
 import moadgara.data.genres.entity.ListOfGenresResponse
 import moadgara.data.platforms.entity.ListOfPlatformsResponse
@@ -81,6 +82,10 @@ class DiscoverViewModel(private val previewLists: List<PreviewList>) : ViewModel
                         is ListOfStoresResponse? -> {
                             showListOfStoresSublist(networkResult, previewList)
                         }
+
+                        is ListOfCreatorsResponse? -> {
+                            showListOfCreatorsSublist(networkResult, previewList)
+                        }
                     }
 
                 }
@@ -122,7 +127,7 @@ class DiscoverViewModel(private val previewLists: List<PreviewList>) : ViewModel
         val data = networkResult.data as ListOfPlatformsResponse?
         previewList.getViewLiveData().value = PreviewListViewData(data?.results?.map {
             PreviewListItemData(
-                it.platformImageBackground, it.platformName, previewList.getInnerItemAction(it.platformName)
+                it.platformImage ?: it.platformImageBackground, it.platformName, previewList.getInnerItemAction(it.platformName)
             )
         })
     }
@@ -147,6 +152,18 @@ class DiscoverViewModel(private val previewLists: List<PreviewList>) : ViewModel
         previewList.getViewLiveData().value = PreviewListViewData(data?.results?.map {
             PreviewListItemData(
                 it.storeImageBackground, it.storeName, previewList.getInnerItemAction(it.storeName)
+            )
+        })
+    }
+
+    private fun showListOfCreatorsSublist(
+        networkResult: NetworkResult.Success<Any>,
+        previewList: PreviewList
+    ) {
+        val data = networkResult.data as ListOfCreatorsResponse?
+        previewList.getViewLiveData().value = PreviewListViewData(data?.results?.map {
+            PreviewListItemData(
+                it.creatorImage ?: it.creatorImageBackground, it.creatorName, previewList.getInnerItemAction(it.creatorName)
             )
         })
     }

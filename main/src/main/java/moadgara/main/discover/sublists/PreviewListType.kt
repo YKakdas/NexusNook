@@ -10,5 +10,6 @@ enum class PreviewListType {
     GENRES,
     PLATFORMS,
     PUBLISHERS,
-    STORES
+    STORES,
+    CREATORS
 }

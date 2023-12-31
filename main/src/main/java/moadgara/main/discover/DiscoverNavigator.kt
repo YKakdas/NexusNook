@@ -47,4 +47,12 @@ class DiscoverNavigator(activity: Activity?) {
     fun navigateToStoreDetail(name: String?) {
         Toast.makeText(activityWeakReference.get()?.applicationContext, name, Toast.LENGTH_SHORT).show()
     }
+
+    fun navigateToAllCreators(name: String) {
+        Toast.makeText(activityWeakReference.get()?.applicationContext, name, Toast.LENGTH_SHORT).show()
+    }
+
+    fun navigateToCreatorDetail(name: String?) {
+        Toast.makeText(activityWeakReference.get()?.applicationContext, name, Toast.LENGTH_SHORT).show()
+    }
 }
