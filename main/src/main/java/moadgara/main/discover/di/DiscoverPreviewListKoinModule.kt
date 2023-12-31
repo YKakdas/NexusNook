@@ -1,19 +1,19 @@
 package moadgara.main.discover.di
 
-import moadgara.main.discover.sublists.BestOfTheYearGamesPreviewList
-import moadgara.main.discover.sublists.CreatorsPreviewList
-import moadgara.main.discover.sublists.DevelopersPreviewList
-import moadgara.main.discover.sublists.GenresPreviewList
-import moadgara.main.discover.sublists.PlatformsPreviewList
+import moadgara.main.discover.sublists.games.BestOfTheYearGamesPreviewList
+import moadgara.main.discover.sublists.creators.CreatorsPreviewList
+import moadgara.main.discover.sublists.developers.DevelopersPreviewList
+import moadgara.main.discover.sublists.genres.GenresPreviewList
+import moadgara.main.discover.sublists.platforms.PlatformsPreviewList
 import moadgara.main.discover.sublists.PreviewListCommonParameters
-import moadgara.main.discover.sublists.PublishersPreviewList
-import moadgara.main.discover.sublists.RecentlyAddedPopularGamesPreviewList
-import moadgara.main.discover.sublists.ReleasingNextWeekGamesPreviewList
-import moadgara.main.discover.sublists.StoresPreviewList
-import moadgara.main.discover.sublists.TagsPreviewList
-import moadgara.main.discover.sublists.ThisMonthReleasedGamesPreviewList
-import moadgara.main.discover.sublists.ThisWeekReleasedGamesPreviewList
-import moadgara.main.discover.sublists.TrendingGamesPreviewList
+import moadgara.main.discover.sublists.publishers.PublishersPreviewList
+import moadgara.main.discover.sublists.games.RecentlyAddedPopularGamesPreviewList
+import moadgara.main.discover.sublists.games.ReleasingNextWeekGamesPreviewList
+import moadgara.main.discover.sublists.stores.StoresPreviewList
+import moadgara.main.discover.sublists.tags.TagsPreviewList
+import moadgara.main.discover.sublists.games.ThisMonthReleasedGamesPreviewList
+import moadgara.main.discover.sublists.games.ThisWeekReleasedGamesPreviewList
+import moadgara.main.discover.sublists.games.TrendingGamesPreviewList
 import org.koin.dsl.module
 
 val previewListModule = module {

@@ -1,35 +1,37 @@
-package moadgara.main.discover.sublists
+package moadgara.main.discover.sublists.stores
 
 import androidx.lifecycle.MutableLiveData
 import com.moadgara.common_model.network.NetworkResult
 import kotlinx.coroutines.flow.Flow
-import moadgara.domain.creators.GetCreatorsUseCase
-import moadgara.domain.developers.GetDevelopersUseCase
+import moadgara.domain.stores.GetStoresUseCase
 import moadgara.main.R
 import moadgara.main.discover.PreviewListMetaData
 import moadgara.main.discover.PreviewListViewData
+import moadgara.main.discover.sublists.PreviewList
+import moadgara.main.discover.sublists.PreviewListCommonParameters
+import moadgara.main.discover.sublists.PreviewListType
 
-class DevelopersPreviewList(
-    private val previewListCommonParameters: PreviewListCommonParameters, private val useCase: GetDevelopersUseCase
+class StoresPreviewList(
+    private val previewListCommonParameters: PreviewListCommonParameters, private val useCase: GetStoresUseCase
 ) :
     PreviewList(previewListCommonParameters, useCase) {
 
     private val viewLiveData = MutableLiveData<PreviewListViewData>()
 
     override val previewListType: PreviewListType
-        get() = PreviewListType.DEVELOPERS
+        get() = PreviewListType.STORES
 
     override fun getPreviewListMetaData(): PreviewListMetaData {
-        val listTitle = previewListCommonParameters.resourceProvider.getString(R.string.discover_developers_title)
+        val listTitle = previewListCommonParameters.resourceProvider.getString(R.string.discover_stores_title)
         return PreviewListMetaData(
             title = listTitle,
             buttonTitle = previewListCommonParameters.resourceProvider.getString(R.string.see_all_button_title),
-            buttonAction = { previewListCommonParameters.discoverNavigator.navigateToAllDevelopers(listTitle) }
+            buttonAction = { previewListCommonParameters.discoverNavigator.navigateToAllStores(listTitle) }
         )
     }
 
     override fun getInnerItemAction(name: String?): () -> Unit {
-        return { previewListCommonParameters.discoverNavigator.navigateToDeveloperDetail(name) }
+        return { previewListCommonParameters.discoverNavigator.navigateToStoreDetail(name) }
     }
 
     override fun getViewLiveData(): MutableLiveData<PreviewListViewData> {
