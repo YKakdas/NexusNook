@@ -6,7 +6,7 @@ import android.os.Bundle
 import moadgara.base.network.networkKoinModule
 import moadgara.base.util.ContextProvider
 import moadgara.base.util.ResourceProvider
-import moadgara.main.discover.discoverKoinModule
+import moadgara.main.discover.di.discoverKoinModule
 import moadgara.main.mainKoinModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
