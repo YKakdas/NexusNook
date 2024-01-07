@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.moadgara.common_model.network.NetworkResult
-import kotlinx.coroutines.flow.transformWhile
 import kotlinx.coroutines.launch
 import moadgara.data.creators.entity.ListOfCreatorsResponse
 import moadgara.data.creators.entity.ListOfDevelopersResponse
@@ -48,57 +47,55 @@ class DiscoverViewModel(private val previewLists: List<PreviewList>) : ViewModel
     }
 
     private suspend fun fetchData(previewList: PreviewList) {
-        previewList.invokeUseCase().transformWhile {
-            emit(it)
-            it is NetworkResult.Loading
-        }.collect { networkResult ->
-            when (networkResult) {
-                is NetworkResult.Loading -> {}
-                is NetworkResult.Failure -> {
-                    errorCount++
-                    Timber.d(errorCount.toString())
-                    if (errorCount == previewLists.size) {
-                        message.value = networkResult.message
-                    }
-                    previewList.getViewLiveData().value = null
+        val networkResult = previewList.invokeUseCase()
+        when (networkResult) {
+            is NetworkResult.Failure -> {
+                errorCount++
+                Timber.d(errorCount.toString())
+                if (errorCount == previewLists.size) {
+                    message.value = networkResult.message
                 }
+                previewList.getViewLiveData().value = null
+            }
 
-                is NetworkResult.Success -> {
-                    when (networkResult.data) {
-                        is ListOfGamesResponse? -> {
-                            showListOfGamesSublist(networkResult, previewList)
-                        }
-
-                        is ListOfGenresResponse? -> {
-                            showListOfGenresSublist(networkResult, previewList)
-                        }
-
-                        is ListOfPlatformsResponse? -> {
-                            showListOfPlatformsSublist(networkResult, previewList)
-                        }
-
-                        is ListOfPublishersResponse? -> {
-                            showListOfPublishersSublist(networkResult, previewList)
-                        }
-
-                        is ListOfStoresResponse? -> {
-                            showListOfStoresSublist(networkResult, previewList)
-                        }
-
-                        is ListOfCreatorsResponse? -> {
-                            showListOfCreatorsSublist(networkResult, previewList)
-                        }
-
-                        is ListOfDevelopersResponse? -> {
-                            showListOfDevelopersSublist(networkResult, previewList)
-                        }
-
-                        is ListOfTagsResponse? -> {
-                            showListOfTagsSublist(networkResult, previewList)
-                        }
+            is NetworkResult.Success -> {
+                when (networkResult.data) {
+                    is ListOfGamesResponse? -> {
+                        showListOfGamesSublist(networkResult, previewList)
                     }
 
+                    is ListOfGenresResponse? -> {
+                        showListOfGenresSublist(networkResult, previewList)
+                    }
+
+                    is ListOfPlatformsResponse? -> {
+                        showListOfPlatformsSublist(networkResult, previewList)
+                    }
+
+                    is ListOfPublishersResponse? -> {
+                        showListOfPublishersSublist(networkResult, previewList)
+                    }
+
+                    is ListOfStoresResponse? -> {
+                        showListOfStoresSublist(networkResult, previewList)
+                    }
+
+                    is ListOfCreatorsResponse? -> {
+                        showListOfCreatorsSublist(networkResult, previewList)
+                    }
+
+                    is ListOfDevelopersResponse? -> {
+                        showListOfDevelopersSublist(networkResult, previewList)
+                    }
+
+                    is ListOfTagsResponse? -> {
+                        showListOfTagsSublist(networkResult, previewList)
+                    }
                 }
+            }
+
+            else -> {
+                throw IllegalArgumentException()
             }
         }
 

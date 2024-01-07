@@ -4,7 +4,7 @@ import com.moadgara.common_model.network.NetworkResult
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
-abstract class SuspendUseCase<in P, R>(private val coroutineDispatcher: CoroutineDispatcher) {
+abstract class SuspendUseCase<P, R>(private val coroutineDispatcher: CoroutineDispatcher) {
 
     /** Executes the use case asynchronously and returns a [NetworkResult].
      *

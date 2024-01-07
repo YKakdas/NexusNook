@@ -12,14 +12,10 @@ import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.util.reflect.TypeInfo
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flow
 import moadgara.base.BuildConfig
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
-import timber.log.Timber
 import kotlin.reflect.KClass
 
 
@@ -28,40 +24,39 @@ class NetworkImpl : KoinComponent, NetworkInterface {
 
     val client: HttpClient by inject { parametersOf(isMock) }
 
-    override fun <Response : Any> get(
-      endPoint: String,
-      queryParams: Map<String, String>?,
-      type: KClass<Response>
-    ): Flow<NetworkResult<Response>> = flow {
-        emit(NetworkResult.Loading)
+    override suspend fun <Response : Any> get(
+        endPoint: String,
+        queryParams: Map<String, String>?,
+        type: KClass<Response>
+    ): NetworkResult<Response> {
+        try {
+            val queryParameters = queryParams?.toMutableMap() ?: mutableMapOf()
+            queryParameters["key"] = SecurityUtil.decode(3, BuildConfig.API_KEY)
 
-        val queryParameters = queryParams?.toMutableMap() ?: mutableMapOf()
-        queryParameters["key"] = SecurityUtil.decode(3, BuildConfig.API_KEY)
+            val response = client.get(BaseUrl.apiUrl + endPoint) {
+                queryParameters.forEach { parameter(it.key, it.value) }
+            }
 
-        val response = client.get(BaseUrl.apiUrl + endPoint) {
-            queryParameters.forEach { parameter(it.key, it.value) }
+            return if (response.status.value == 200) {
+                NetworkResult.Success(response.body(TypeInfo(type = type, reifiedType = type.javaObjectType)))
+            } else {
+                NetworkResult.Failure(response.status.description)
+            }
+        } catch (e: Exception) {
+            return NetworkResult.Failure(e.localizedMessage)
         }
 
-        if (response.status.value == 200) {
-            emit(NetworkResult.Success(response.body(TypeInfo(type = type, reifiedType = type.javaObjectType))))
-        } else {
-            Timber.d(response.status.description)
-            emit(NetworkResult.Failure(response.status.description))
-        }
-    }.catch {
-        Timber.d(it.message)
-        emit(NetworkResult.Failure(it.localizedMessage))
     }
 
     //TODO(Update Post)
     suspend inline fun <reified Body : Any, reified Response> post(
-      endPoint: String, requestBody: Body,
+        endPoint: String, requestBody: Body,
     ): NetworkResult<Response> = try {
         val response: Response =
-          client.post(BaseUrl.apiUrl + endPoint) {
-              contentType(ContentType.Application.Json)
-              setBody(requestBody)
-          }.body()
+            client.post(BaseUrl.apiUrl + endPoint) {
+                contentType(ContentType.Application.Json)
+                setBody(requestBody)
+            }.body()
 
         NetworkResult.Success(response)
     } catch (e: Exception) {

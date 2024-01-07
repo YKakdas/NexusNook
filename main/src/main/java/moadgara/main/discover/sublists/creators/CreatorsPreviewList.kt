@@ -2,7 +2,6 @@ package moadgara.main.discover.sublists.creators
 
 import androidx.lifecycle.MutableLiveData
 import com.moadgara.common_model.network.NetworkResult
-import kotlinx.coroutines.flow.Flow
 import moadgara.domain.creators.GetCreatorsUseCase
 import moadgara.main.R
 import moadgara.main.discover.PreviewListMetaData
@@ -38,7 +37,7 @@ class CreatorsPreviewList(
         return viewLiveData
     }
 
-    override suspend fun invokeUseCase(): Flow<NetworkResult<Any>> {
+    override suspend fun invokeUseCase(): NetworkResult<Any> {
         return useCase.invoke(Unit)
     }
 }

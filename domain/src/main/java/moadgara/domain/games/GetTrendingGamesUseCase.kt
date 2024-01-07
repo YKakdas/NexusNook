@@ -1,18 +1,17 @@
 package moadgara.domain.games
 
 import com.moadgara.common_model.network.NetworkResult
-import com.moadgara.common_model.usecase.FlowUseCase
+import com.moadgara.common_model.usecase.SuspendUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import moadgara.data.games.entity.ListOfGamesResponse
 import moadgara.data.games.repository.GamesRepository
 
 class GetTrendingGamesUseCase(
-  private val repository: GamesRepository,
-  coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
-) : FlowUseCase<Unit, ListOfGamesResponse>(coroutineDispatcher) {
-    override fun execute(parameters: Unit): Flow<NetworkResult<ListOfGamesResponse>> {
+    private val repository: GamesRepository,
+    coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
+) : SuspendUseCase<Unit, ListOfGamesResponse>(coroutineDispatcher) {
+    override suspend fun execute(param: Unit): NetworkResult<ListOfGamesResponse> {
         val queryParams = mutableMapOf<String, String>()
         queryParams["page"] = "1"
         queryParams["discover"] = "true"
