@@ -4,8 +4,8 @@ import com.moadgara.common_model.network.NetworkResult
 import com.moadgara.common_model.usecase.SuspendUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import moadgara.data.creators.entity.ListOfDevelopersResponse
-import moadgara.data.creators.repository.DevelopersRepository
+import moadgara.data.developers.entity.ListOfDevelopersResponse
+import moadgara.data.developers.repository.DevelopersRepository
 
 class GetDevelopersUseCase(
     private val repository: DevelopersRepository,

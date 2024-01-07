@@ -1,4 +1,4 @@
-package moadgara.data.creators.entity
+package moadgara.data.developers.entity
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

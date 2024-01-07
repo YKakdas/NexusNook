@@ -1,9 +1,9 @@
-package moadgara.data.creators.repository
+package moadgara.data.developers.repository
 
 import com.moadgara.common_model.network.NetworkInterface
 import com.moadgara.common_model.network.NetworkResult
 import com.moadgara.common_model.network.getRequest
-import moadgara.data.creators.entity.ListOfDevelopersResponse
+import moadgara.data.developers.entity.ListOfDevelopersResponse
 
 class DevelopersRepository(private val networkInterface: NetworkInterface) {
 

@@ -2,6 +2,7 @@ package moadgara.main.discover.sublists.tags
 
 import androidx.lifecycle.MutableLiveData
 import com.moadgara.common_model.network.NetworkResult
+import moadgara.data.ResponseMapper
 import moadgara.domain.tags.GetTagsUseCase
 import moadgara.main.R
 import moadgara.main.discover.PreviewListMetaData
@@ -37,7 +38,7 @@ class TagsPreviewList(
         return viewLiveData
     }
 
-    override suspend fun invokeUseCase(): NetworkResult<Any> {
+    override suspend fun invokeUseCase(): NetworkResult<ResponseMapper> {
         return useCase.invoke(Unit)
     }
 }

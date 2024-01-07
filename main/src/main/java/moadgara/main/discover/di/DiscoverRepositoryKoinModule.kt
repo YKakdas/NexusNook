@@ -1,7 +1,7 @@
 package moadgara.main.discover.di
 
 import moadgara.data.creators.repository.CreatorsRepository
-import moadgara.data.creators.repository.DevelopersRepository
+import moadgara.data.developers.repository.DevelopersRepository
 import moadgara.data.games.repository.GamesRepository
 import moadgara.data.genres.repository.GenresRepository
 import moadgara.data.platforms.repository.PlatformsRepository

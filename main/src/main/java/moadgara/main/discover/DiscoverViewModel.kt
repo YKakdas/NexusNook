@@ -6,14 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.moadgara.common_model.network.NetworkResult
 import kotlinx.coroutines.launch
-import moadgara.data.creators.entity.ListOfCreatorsResponse
-import moadgara.data.creators.entity.ListOfDevelopersResponse
-import moadgara.data.games.entity.ListOfGamesResponse
-import moadgara.data.genres.entity.ListOfGenresResponse
-import moadgara.data.platforms.entity.ListOfPlatformsResponse
-import moadgara.data.publishers.entity.ListOfPublishersResponse
-import moadgara.data.stores.entity.ListOfStoresResponse
-import moadgara.data.tags.entity.ListOfTagsResponse
+import moadgara.data.ResponseMapper
 import moadgara.main.discover.sublists.PreviewList
 import timber.log.Timber
 
@@ -47,8 +40,7 @@ class DiscoverViewModel(private val previewLists: List<PreviewList>) : ViewModel
     }
 
     private suspend fun fetchData(previewList: PreviewList) {
-        val networkResult = previewList.invokeUseCase()
-        when (networkResult) {
+        when (val networkResult = previewList.invokeUseCase()) {
             is NetworkResult.Failure -> {
                 errorCount++
                 Timber.d(errorCount.toString())
@@ -58,143 +50,17 @@ class DiscoverViewModel(private val previewLists: List<PreviewList>) : ViewModel
                 previewList.getViewLiveData().value = null
             }
 
-            is NetworkResult.Success -> {
-                when (networkResult.data) {
-                    is ListOfGamesResponse? -> {
-                        showListOfGamesSublist(networkResult, previewList)
-                    }
+            is NetworkResult.Success -> toPreviewListViewData(networkResult.data, previewList)
+            else -> throw IllegalArgumentException()
 
-                    is ListOfGenresResponse? -> {
-                        showListOfGenresSublist(networkResult, previewList)
-                    }
-
-                    is ListOfPlatformsResponse? -> {
-                        showListOfPlatformsSublist(networkResult, previewList)
-                    }
-
-                    is ListOfPublishersResponse? -> {
-                        showListOfPublishersSublist(networkResult, previewList)
-                    }
-
-                    is ListOfStoresResponse? -> {
-                        showListOfStoresSublist(networkResult, previewList)
-                    }
-
-                    is ListOfCreatorsResponse? -> {
-                        showListOfCreatorsSublist(networkResult, previewList)
-                    }
-
-                    is ListOfDevelopersResponse? -> {
-                        showListOfDevelopersSublist(networkResult, previewList)
-                    }
-
-                    is ListOfTagsResponse? -> {
-                        showListOfTagsSublist(networkResult, previewList)
-                    }
-                }
-            }
-
-            else -> {
-                throw IllegalArgumentException()
-            }
         }
 
     }
 
-    private fun showListOfGamesSublist(
-        networkResult: NetworkResult.Success<Any>,
-        previewList: PreviewList
-    ) {
-        val data = networkResult.data as ListOfGamesResponse?
-        previewList.getViewLiveData().value = PreviewListViewData(data?.results?.map {
+    private fun toPreviewListViewData(common: ResponseMapper?, previewList: PreviewList) {
+        previewList.getViewLiveData().value = PreviewListViewData(common?.toSmallViewData()?.map {
             PreviewListItemData(
-                it.shortScreenshots?.firstOrNull()?.screenshotImage,
-                it.name,
-                previewList.getInnerItemAction(it.name)
-            )
-        })
-    }
-
-    private fun showListOfGenresSublist(
-        networkResult: NetworkResult.Success<Any>,
-        previewList: PreviewList
-    ) {
-        val data = networkResult.data as ListOfGenresResponse?
-        previewList.getViewLiveData().value = PreviewListViewData(data?.results?.map {
-            PreviewListItemData(
-                it.genreImageBackground, it.genreName, previewList.getInnerItemAction(it.genreName)
-            )
-        })
-    }
-
-    private fun showListOfPlatformsSublist(
-        networkResult: NetworkResult.Success<Any>,
-        previewList: PreviewList
-    ) {
-        val data = networkResult.data as ListOfPlatformsResponse?
-        previewList.getViewLiveData().value = PreviewListViewData(data?.results?.map {
-            PreviewListItemData(
-                it.platformImage ?: it.platformImageBackground, it.platformName, previewList.getInnerItemAction(it.platformName)
-            )
-        })
-    }
-
-    private fun showListOfPublishersSublist(
-        networkResult: NetworkResult.Success<Any>,
-        previewList: PreviewList
-    ) {
-        val data = networkResult.data as ListOfPublishersResponse?
-        previewList.getViewLiveData().value = PreviewListViewData(data?.results?.map {
-            PreviewListItemData(
-                it.publisherImageBackground, it.publisherName, previewList.getInnerItemAction(it.publisherName)
-            )
-        })
-    }
-
-    private fun showListOfStoresSublist(
-        networkResult: NetworkResult.Success<Any>,
-        previewList: PreviewList
-    ) {
-        val data = networkResult.data as ListOfStoresResponse?
-        previewList.getViewLiveData().value = PreviewListViewData(data?.results?.map {
-            PreviewListItemData(
-                it.storeImageBackground, it.storeName, previewList.getInnerItemAction(it.storeName)
-            )
-        })
-    }
-
-    private fun showListOfCreatorsSublist(
-        networkResult: NetworkResult.Success<Any>,
-        previewList: PreviewList
-    ) {
-        val data = networkResult.data as ListOfCreatorsResponse?
-        previewList.getViewLiveData().value = PreviewListViewData(data?.results?.map {
-            PreviewListItemData(
-                it.creatorImage ?: it.creatorImageBackground, it.creatorName, previewList.getInnerItemAction(it.creatorName)
-            )
-        })
-    }
-
-    private fun showListOfDevelopersSublist(
-        networkResult: NetworkResult.Success<Any>,
-        previewList: PreviewList
-    ) {
-        val data = networkResult.data as ListOfDevelopersResponse?
-        previewList.getViewLiveData().value = PreviewListViewData(data?.results?.map {
-            PreviewListItemData(
-                it.developerImageBackground, it.developerName, previewList.getInnerItemAction(it.developerName)
-            )
-        })
-    }
-
-    private fun showListOfTagsSublist(
-        networkResult: NetworkResult.Success<Any>,
-        previewList: PreviewList
-    ) {
-        val data = networkResult.data as ListOfTagsResponse?
-        previewList.getViewLiveData().value = PreviewListViewData(data?.results?.map {
-            PreviewListItemData(
-                it.tagImageBackground, it.tagName, previewList.getInnerItemAction(it.tagName)
+                it.imageUrl, it.name, previewList.getInnerItemAction(it.name)
             )
         })
     }
