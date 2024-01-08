@@ -5,17 +5,21 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.moadgara.common_model.network.NetworkResult
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import moadgara.data.ResponseMapper
 import moadgara.main.discover.sublists.PreviewList
-import timber.log.Timber
 
 class DiscoverViewModel(private val previewLists: List<PreviewList>) : ViewModel() {
 
     private val message = MutableLiveData<String?>()
+    private val progress = MutableLiveData<Boolean>()
     private var errorCount = 0
 
     fun getMessage(): LiveData<String?> = message
+
+    fun getProgress(): LiveData<Boolean> = progress
 
     fun preparePageMetaData(): List<PreviewListMetaData> {
         val previewListsMetaData = mutableListOf<PreviewListMetaData>()
@@ -31,30 +35,27 @@ class DiscoverViewModel(private val previewLists: List<PreviewList>) : ViewModel
 
     fun fetchData() {
         viewModelScope.launch {
-            previewLists.forEach { previewList ->
-                launch {
-                    fetchData(previewList)
+            previewLists.map { previewList ->
+                async {
+                    val result = previewList.invokeUseCase()
+                    previewList to result // Pair the network result with its corresponding meta data
+                }
+            }.awaitAll().forEach {
+                val previewList = it.first
+                val result = it.second
+                if (result is NetworkResult.Failure) {
+                    errorCount++
+                    previewList.getViewLiveData().value = null
+                    if (errorCount == previewLists.size) {
+                        message.value = result.message
+                    }
+                } else if (result is NetworkResult.Success) {
+                    toPreviewListViewData(result.data, previewList)
                 }
             }
+
+            progress.value = false
         }
-    }
-
-    private suspend fun fetchData(previewList: PreviewList) {
-        when (val networkResult = previewList.invokeUseCase()) {
-            is NetworkResult.Failure -> {
-                errorCount++
-                Timber.d(errorCount.toString())
-                if (errorCount == previewLists.size) {
-                    message.value = networkResult.message
-                }
-                previewList.getViewLiveData().value = null
-            }
-
-            is NetworkResult.Success -> toPreviewListViewData(networkResult.data, previewList)
-            else -> throw IllegalArgumentException()
-
-        }
-
     }
 
     private fun toPreviewListViewData(common: ResponseMapper?, previewList: PreviewList) {

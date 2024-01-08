@@ -12,8 +12,10 @@ import coil.transform.RoundedCornersTransformation
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.textfield.TextInputEditText
+import kotlinx.coroutines.withContext
 import moadgara.base.extension.doOnApplyWindowInsets
 import moadgara.base.extension.toPaddingHolder
+import moadgara.base.util.CoilUtil
 import moadgara.base.util.HorizontalMarginItemDecoration
 
 @BindingAdapter("registerTextWatcher")
@@ -28,31 +30,31 @@ fun setImageResource(view: ImageView, resource: Int) {
 
 @BindingAdapter(value = ["onNavigationItemSelected", "selectNavBarItem"], requireAll = false)
 fun setOnNavigationItemSelected(
-  view: BottomNavigationView,
-  listener: NavigationBarView.OnItemSelectedListener?,
-  position: Int?
+    view: BottomNavigationView,
+    listener: NavigationBarView.OnItemSelectedListener?,
+    position: Int?
 ) {
     if (listener != null) view.setOnItemSelectedListener(listener)
     if (position != null) view.selectedItemId = view.menu.getItem(position).itemId
 }
 
 @BindingAdapter(
-  value = ["android:src", "placeholder", "error", "tint"],
-  requireAll = false
+    value = ["android:src", "placeholder", "error", "tint"],
+    requireAll = false
 )
 fun setImageFromUrl(
-  view: ImageView,
-  url: String?,
-  placeholder: Drawable?,
-  error: Drawable?,
-  tintColor: Int?
+    view: ImageView,
+    url: String?,
+    placeholder: Drawable?,
+    error: Drawable?,
+    tintColor: Int?
 ) {
     if (tintColor != null) {
         placeholder?.setTint(ContextCompat.getColor(view.context, tintColor))
         error?.setTint(ContextCompat.getColor(view.context, tintColor))
     }
 
-    view.load(url) {
+    view.load(url, CoilUtil.getCachedCoilImageLoader(view.context)) {
         error(error)
         transformations(RoundedCornersTransformation())
     }
@@ -65,18 +67,18 @@ fun setItemDecoration(view: RecyclerView, margin: Float) {
 }
 
 @BindingAdapter(
-  "paddingLeftSystemWindowInsets",
-  "paddingTopSystemWindowInsets",
-  "paddingRightSystemWindowInsets",
-  "paddingBottomSystemWindowInsets",
-  requireAll = false
+    "paddingLeftSystemWindowInsets",
+    "paddingTopSystemWindowInsets",
+    "paddingRightSystemWindowInsets",
+    "paddingBottomSystemWindowInsets",
+    requireAll = false
 )
 fun applySystemWindows(
-  view: View,
-  applyLeft: Boolean,
-  applyTop: Boolean,
-  applyRight: Boolean,
-  applyBottom: Boolean
+    view: View,
+    applyLeft: Boolean,
+    applyTop: Boolean,
+    applyRight: Boolean,
+    applyBottom: Boolean
 ) {
     view.doOnApplyWindowInsets { _, insets, padding ->
         val insetPadding = insets.toPaddingHolder()
@@ -87,10 +89,10 @@ fun applySystemWindows(
         val insetBottom = if (applyBottom) insetPadding.bottom else 0
 
         view.setPadding(
-          padding.left + insetLeft,
-          padding.top + insetTop,
-          padding.right + insetRight,
-          padding.bottom + insetBottom
+            padding.left + insetLeft,
+            padding.top + insetTop,
+            padding.right + insetRight,
+            padding.bottom + insetBottom
         )
     }
 }
