@@ -2,8 +2,8 @@ package moadgara.data.games.entity
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import moadgara.data.ResponseMapper
 import moadgara.data.CommonResponseData
+import moadgara.data.ResponseMapper
 
 @Serializable
 data class ListOfGamesResponse(
@@ -14,5 +14,7 @@ data class ListOfGamesResponse(
 ) : ResponseMapper {
     override fun toSmallViewData() =
         results?.map { CommonResponseData(it.shortScreenshots?.firstOrNull()?.screenshotImage, it.name) }
+
+    override fun toImageList(): List<String>? = results?.mapNotNull { it.shortScreenshots?.firstOrNull()?.screenshotImage }
 }
 

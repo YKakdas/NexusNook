@@ -2,8 +2,8 @@ package moadgara.data.creators.entity
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import moadgara.data.ResponseMapper
 import moadgara.data.CommonResponseData
+import moadgara.data.ResponseMapper
 
 @Serializable
 data class ListOfCreatorsResponse(
@@ -14,4 +14,7 @@ data class ListOfCreatorsResponse(
 ) : ResponseMapper {
     override fun toSmallViewData() =
         results?.map { CommonResponseData(it.creatorImage ?: it.creatorImageBackground, it.creatorName) }
+
+    override fun toImageList(): List<String>? = results?.mapNotNull { it.creatorImage ?: it.creatorImageBackground }
+
 }

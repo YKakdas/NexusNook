@@ -8,7 +8,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/preview_list_scroll_view_bottom_margin"
         android:paddingTop="@dimen/margin_medium"
         moadgara:paddingBottomSystemWindowInsets="@{true}"
@@ -20,6 +20,5 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" />
     </ScrollView>
-
 
 </layout>

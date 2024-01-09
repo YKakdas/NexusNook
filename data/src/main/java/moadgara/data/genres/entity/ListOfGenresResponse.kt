@@ -13,5 +13,7 @@ data class ListOfGenresResponse(
     @SerialName("results") val results: List<GenreDetailResponse>? = null
 ) : ResponseMapper {
     override fun toSmallViewData() = results?.map { CommonResponseData(it.genreImageBackground, it.genreName) }
+
+    override fun toImageList(): List<String>? = results?.mapNotNull { it.genreImageBackground}
 }
 

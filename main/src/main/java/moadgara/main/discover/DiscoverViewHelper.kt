@@ -1,26 +1,31 @@
 package moadgara.main.discover
 
 import android.view.LayoutInflater
-import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.Space
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LiveData
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import moadgara.base.util.CoilUtil
+import androidx.recyclerview.widget.RecyclerView.OnFlingListener
 import moadgara.base.util.DimensionUtil
 import moadgara.base.util.ViewUtil
 import moadgara.main.R
+import moadgara.main.databinding.FragmentDiscoverBinding
 import moadgara.main.databinding.LayoutPreviewListBinding
-import moadgara.main.databinding.LayoutPreviewListShimmerBinding
 import moadgara.uicomponent.CustomLinearSnapHelper
+import moadgara.uicomponent.PreloadLinearLayoutManager
+import moadgara.uicomponent.adapter.GenericAdapter
+import moadgara.uicomponent.adapter.genericAdapter
+import kotlin.math.abs
+import kotlin.math.sign
 
 
 class DiscoverViewHelper(private val fragment: DiscoverFragment) {
 
     private lateinit var dataObservers: List<LiveData<PreviewListViewData>>
     private lateinit var listMetaData: List<PreviewListMetaData>
-    private lateinit var rootView: ViewGroup
+    private lateinit var binding: FragmentDiscoverBinding
 
     fun setDataObservers(dataObservers: List<LiveData<PreviewListViewData>>) = apply {
         this.dataObservers = dataObservers
@@ -30,74 +35,91 @@ class DiscoverViewHelper(private val fragment: DiscoverFragment) {
         this.listMetaData = listMetaData
     }
 
-    fun setRootView(rootView: ViewGroup) = apply {
-        this.rootView = rootView
+    fun setBinding(binding: FragmentDiscoverBinding) = apply {
+        this.binding = binding
     }
 
     fun inflateViews() {
         dataObservers.forEachIndexed { index, liveData ->
-            populateView(listMetaData[index], liveData)
+            populateView(listMetaData[index], liveData, index)
         }
     }
 
     private fun populateView(
-      metaData: PreviewListMetaData,
-      liveData: LiveData<PreviewListViewData>
+        metaData: PreviewListMetaData,
+        liveData: LiveData<PreviewListViewData>,
+        index: Int
     ) {
-        val actualViewBinding = inflatePreviewListLayout<LayoutPreviewListBinding>(rootView)
-        val shimmerViewBinding = inflatePreviewListLayout<LayoutPreviewListShimmerBinding>(rootView)
-        val space = ViewUtil.createSpace(
-          fragment.requireContext(),
-          height = DimensionUtil.dpToPx(
-            resourceId = moadgara.uicomponent.R.dimen.margin_high,
-            resources = fragment.resources
-          )
-        )
+        val root = binding.inflateViewRoot
+        val listViewBinding: LayoutPreviewListBinding =
+            DataBindingUtil.inflate(LayoutInflater.from(root.context), R.layout.layout_preview_list, root, false)
+        listViewBinding.data = metaData
 
-        actualViewBinding.data = metaData
+        val space = addSpace(root, index)
 
-        rootView.addView(shimmerViewBinding.root)
-        rootView.addView(space)
-
-        val coilImageLoader = CoilUtil.getCachedCoilImageLoader(fragment.requireContext())
-
-        val adapter = DiscoverAdapter(coilImageLoader)
-
-        setupRecyclerView(actualViewBinding.recyclerView, adapter)
+        val adapter = genericAdapter { diffCallback(itemDiffCallback) }
+        setupRecyclerView(listViewBinding.recyclerView, adapter)
 
         liveData.observe(fragment.viewLifecycleOwner) {
             if (it != null) {
-                val index = rootView.indexOfChild(shimmerViewBinding.root)
-                adapter.setData(it.list)
                 adapter.submitList(it.list)
-                adapter.setPrefetchCallback {
-                    rootView.addView(actualViewBinding.root, index)
-                    rootView.removeView(shimmerViewBinding.root)
+                root.post {
+                    val child = root.indexOfChild(space)
+                    root.addView(listViewBinding.root, child + 1)
                 }
+
+            } else {
+                root.removeView(listViewBinding.root)
             }
         }
     }
 
-    private fun setupRecyclerView(recyclerView: RecyclerView, adapter: DiscoverAdapter) {
-        recyclerView.apply {
-            this.layoutManager =
-              LinearLayoutManager(fragment.requireContext(), RecyclerView.HORIZONTAL, false)
-            setHasFixedSize(true)
-            setItemViewCacheSize(10)
-            recycledViewPool.setMaxRecycledViews(R.layout.layout_preview_list, 10)
-            this.adapter = adapter
-        }
-
-        CustomLinearSnapHelper().attachToRecyclerView(recyclerView)
+    private fun addSpace(root: LinearLayout, index: Int): Space {
+        val space = ViewUtil.createSpace(
+            fragment.requireContext(),
+            height = DimensionUtil.dpToPx(
+                resourceId = moadgara.uicomponent.R.dimen.margin_high,
+                resources = fragment.resources
+            )
+        )
+        return space.also { root.addView(space, index) }
     }
 
-    private inline fun <reified T : ViewDataBinding> inflatePreviewListLayout(parent: ViewGroup): T {
-        val layout = if (T::class == LayoutPreviewListBinding::class) {
-            R.layout.layout_preview_list
-        } else {
-            R.layout.layout_preview_list_shimmer
+    private val itemDiffCallback = object : DiffUtil.ItemCallback<PreviewListItemData>() {
+        override fun areItemsTheSame(oldItem: PreviewListItemData, newItem: PreviewListItemData): Boolean {
+            return oldItem === newItem
         }
-        return DataBindingUtil.inflate(LayoutInflater.from(parent.context), layout, parent, false)
+
+        override fun areContentsTheSame(oldItem: PreviewListItemData, newItem: PreviewListItemData): Boolean {
+            return oldItem.gameTitle == newItem.gameTitle
+        }
+    }
+
+    private fun setupRecyclerView(recyclerView: RecyclerView, adapter: GenericAdapter<PreviewListItemData>) {
+        recyclerView.apply {
+            val preloadLinearLayoutManager = PreloadLinearLayoutManager(fragment.requireContext(), RecyclerView.HORIZONTAL, false)
+            preloadLinearLayoutManager.setPreloadItemCount(6)
+            this.layoutManager = preloadLinearLayoutManager
+            this.adapter = adapter
+            setHasFixedSize(true)
+            setItemViewCacheSize(6)
+            CustomLinearSnapHelper().attachToRecyclerView(this)
+            onFlingListener = getFlingListener(this)
+        }
+    }
+
+    private fun getFlingListener(recyclerView: RecyclerView): OnFlingListener {
+        return object : OnFlingListener() {
+            override fun onFling(velocityX: Int, velocityY: Int): Boolean {
+                val maxVelocity = 2500
+                if (abs(velocityX) > maxVelocity) {
+                    val newVelocity = maxVelocity * sign(velocityX.toDouble()).toInt()
+                    recyclerView.fling(newVelocity, velocityY)
+                    return true
+                }
+                return false
+            }
+        }
     }
 
 }

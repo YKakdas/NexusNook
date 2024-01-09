@@ -2,8 +2,8 @@ package moadgara.data.publishers.entity
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import moadgara.data.ResponseMapper
 import moadgara.data.CommonResponseData
+import moadgara.data.ResponseMapper
 
 @Serializable
 data class ListOfPublishersResponse(
@@ -13,5 +13,7 @@ data class ListOfPublishersResponse(
     @SerialName("results") val results: List<PublisherDetailResponse>? = null
 ) : ResponseMapper {
     override fun toSmallViewData() = results?.map { CommonResponseData(it.publisherImageBackground, it.publisherName) }
+
+    override fun toImageList(): List<String>? = results?.mapNotNull { it.publisherImageBackground }
 }
 

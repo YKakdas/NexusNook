@@ -11,15 +11,22 @@ import kotlinx.coroutines.launch
 import moadgara.data.ResponseMapper
 import moadgara.main.discover.sublists.PreviewList
 
-class DiscoverViewModel(private val previewLists: List<PreviewList>) : ViewModel() {
+class DiscoverViewModel(
+    private val enablePrefetch: Boolean = false,
+    private val prefetchAmount: Int = 6,
+    private val previewLists: List<PreviewList>
+) : ViewModel() {
 
     private val message = MutableLiveData<String?>()
-    private val progress = MutableLiveData<Boolean>()
+    private val images = MutableLiveData<List<String>>()
+
     private var errorCount = 0
+
+    private lateinit var data: List<Pair<PreviewList, NetworkResult<ResponseMapper>>>
 
     fun getMessage(): LiveData<String?> = message
 
-    fun getProgress(): LiveData<Boolean> = progress
+    fun getImages(): LiveData<List<String>> = images
 
     fun preparePageMetaData(): List<PreviewListMetaData> {
         val previewListsMetaData = mutableListOf<PreviewListMetaData>()
@@ -34,27 +41,48 @@ class DiscoverViewModel(private val previewLists: List<PreviewList>) : ViewModel
     }
 
     fun fetchData() {
-        viewModelScope.launch {
-            previewLists.map { previewList ->
-                async {
-                    val result = previewList.invokeUseCase()
-                    previewList to result // Pair the network result with its corresponding meta data
-                }
-            }.awaitAll().forEach {
-                val previewList = it.first
-                val result = it.second
-                if (result is NetworkResult.Failure) {
-                    errorCount++
-                    previewList.getViewLiveData().value = null
-                    if (errorCount == previewLists.size) {
-                        message.value = result.message
+        if (!::data.isInitialized) {
+            viewModelScope.launch {
+                data = previewLists.map { previewList ->
+                    async {
+                        val result = previewList.invokeUseCase()
+                        previewList to result // Pair the network result with its corresponding meta data
                     }
-                } else if (result is NetworkResult.Success) {
-                    toPreviewListViewData(result.data, previewList)
-                }
+                }.awaitAll()
+                images.value = processData()
             }
+        } else {
+            processData()
+        }
 
-            progress.value = false
+    }
+
+    private fun processData(): List<String> {
+        val imagesToPrefetch = mutableListOf<String>()
+        data.forEach {
+            val previewList = it.first
+            val result = it.second
+            if (result is NetworkResult.Failure) {
+                errorCount++
+                previewList.getViewLiveData().value = null
+                if (errorCount == previewLists.size) {
+                    message.value = result.message
+                }
+            } else if (result is NetworkResult.Success) {
+                if (enablePrefetch && imagesToPrefetch.isEmpty()) {
+                    imagesToPrefetch.addAll(getPortionOfList(list = result.data?.toImageList()))
+                }
+                toPreviewListViewData(result.data, previewList)
+            }
+        }
+        return imagesToPrefetch
+    }
+
+    private fun getPortionOfList(list: List<String>?): List<String> {
+        return if (list != null && list.size < prefetchAmount) {
+            list
+        } else {
+            list?.subList(0, prefetchAmount) ?: emptyList()
         }
     }
 

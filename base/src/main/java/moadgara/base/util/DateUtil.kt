@@ -6,56 +6,45 @@ import java.util.Locale
 
 object DateUtil {
 
-    fun getDateRangeForWeek(week: Int?): List<String> {
+    fun getDateRangeForWeek(weekNumber: Int): List<String> {
         val calendar = Calendar.getInstance()
 
-        val currentYear = calendar.get(Calendar.YEAR)
-        val currentWeek = week ?: getCurrentWeek()
-
         calendar.firstDayOfWeek = Calendar.MONDAY
-        calendar.minimalDaysInFirstWeek = 4
-
-        calendar.set(Calendar.YEAR, currentYear)
-        calendar.set(Calendar.MONTH, Calendar.JANUARY)
-        calendar.set(Calendar.DAY_OF_MONTH, 1)
-
-        calendar.add(Calendar.WEEK_OF_YEAR, currentWeek)
+        calendar.set(Calendar.WEEK_OF_YEAR, weekNumber)
         calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
 
-        val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.US)
-        val startDate = dateFormatter.format(calendar.time)
+        val startDate = calendar.time
 
-        calendar.add(Calendar.DAY_OF_MONTH, 6)
-        val endDate = dateFormatter.format(calendar.time)
+        calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
+        val endDate = calendar.time
 
-        return listOf(startDate, endDate)
+        val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val startString = dateFormatter.format(startDate)
+        val endString = dateFormatter.format(endDate)
+
+        return listOf(startString, endString)
     }
 
     fun getDateRangeForMonth(): List<String> {
         val calendar = Calendar.getInstance()
 
-        val currentYear = calendar.get(Calendar.YEAR)
-        val currentMonth = calendar.get(Calendar.MONTH)
-
-        calendar.set(Calendar.YEAR, currentYear)
-        calendar.set(Calendar.MONTH, currentMonth)
         calendar.set(Calendar.DAY_OF_MONTH, 1)
+        val startDate = calendar.time
 
-        val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.US)
-        val startDate = dateFormatter.format(calendar.time)
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH))
+        val endDate = calendar.time
 
-        calendar.add(Calendar.MONTH, 1)
-        calendar.add(Calendar.DAY_OF_MONTH, -1)
-        val endDate = dateFormatter.format(calendar.time)
+        val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val startString = dateFormatter.format(startDate)
+        val endString = dateFormatter.format(endDate)
 
-        return listOf(startDate, endDate)
+        return listOf(startString, endString)
     }
 
     fun getCurrentWeek(): Int {
         val calendar = Calendar.getInstance()
-        calendar.firstDayOfWeek = Calendar.MONDAY
-        calendar.minimalDaysInFirstWeek = 4
-        return calendar.get(Calendar.WEEK_OF_YEAR)
+        val weekNumber = calendar.get(Calendar.WEEK_OF_YEAR)
+        return weekNumber
     }
 
 }

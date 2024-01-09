@@ -14,5 +14,7 @@ data class ListOfPlatformsResponse(
 ) : ResponseMapper {
     override fun toSmallViewData() =
         results?.map { CommonResponseData(it.platformImage ?: it.platformImageBackground, it.platformName) }
+
+    override fun toImageList(): List<String>? = results?.mapNotNull { it.platformImage ?: it.platformImageBackground }
 }
 
