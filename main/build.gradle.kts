@@ -14,4 +14,7 @@ dependencies {
     implementation(project(":data"))
     implementation(project(":domain"))
     implementation(project(":uicomponent"))
+
+    implementation(Dependencies.Media3.exoplayer)
+    implementation(Dependencies.Media3.ui)
 }

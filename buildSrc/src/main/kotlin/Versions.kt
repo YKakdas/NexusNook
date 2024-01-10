@@ -16,4 +16,5 @@ object Versions {
     const val coil = "2.4.0"
     const val cardView = "1.0.0"
     const val kotlinCoroutine = "1.7.3"
+    const val media3 = "1.2.0"
 }

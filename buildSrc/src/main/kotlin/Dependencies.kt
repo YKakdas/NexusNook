@@ -43,4 +43,9 @@ object Dependencies {
         const val gif = "io.coil-kt:coil-gif:${Versions.coil}"
     }
 
+    object Media3 {
+        const val exoplayer = "androidx.media3:media3-exoplayer:${Versions.media3}"
+        const val ui = "androidx.media3:media3-ui:${Versions.media3}"
+    }
+
 }

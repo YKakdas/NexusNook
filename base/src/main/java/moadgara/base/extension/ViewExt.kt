@@ -3,12 +3,16 @@ package moadgara.base.extension
 import android.app.Activity
 import android.content.Context
 import android.graphics.Rect
+import android.os.Build
 import android.view.View
+import android.view.ViewGroup.MarginLayoutParams
 import android.view.WindowInsets
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.AnimRes
+import androidx.core.view.doOnLayout
+import androidx.core.view.updateLayoutParams
 import moadgara.base.animation.AnimationListenerParameters
 import moadgara.base.animation.AnimationMetaData
 import moadgara.base.animation.produceAnimationSetFromMetaData
@@ -79,4 +83,20 @@ fun View.isVisibleOnScreen(reference: View): Boolean {
     val scrollBounds = Rect()
     reference.getHitRect(scrollBounds)
     return getLocalVisibleRect(scrollBounds)
+}
+
+fun View.statusBarPadding(direction: Int = 1) {
+    setOnApplyWindowInsetsListener { _, insets ->
+        doOnLayout {
+            val statusBarHeight = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                insets.getInsets(WindowInsets.Type.statusBars()).top
+            } else {
+                insets.systemWindowInsetTop
+            }
+            updateLayoutParams<MarginLayoutParams> {
+                topMargin = statusBarHeight * direction * 2
+            }
+        }
+        insets
+    }
 }
