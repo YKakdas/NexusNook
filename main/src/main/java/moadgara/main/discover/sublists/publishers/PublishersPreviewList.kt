@@ -30,8 +30,8 @@ class PublishersPreviewList(
         )
     }
 
-    override fun getInnerItemAction(name: String?): () -> Unit {
-        return { previewListCommonParameters.discoverNavigator.navigateToPublisherDetail(name) }
+    override fun getInnerItemAction(id: Int?): () -> Unit {
+        return { previewListCommonParameters.discoverNavigator.navigateToPublisherDetail(id) }
     }
 
     override fun getViewLiveData(): MutableLiveData<PreviewListViewData> {

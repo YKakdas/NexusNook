@@ -30,8 +30,8 @@ class TagsPreviewList(
         )
     }
 
-    override fun getInnerItemAction(name: String?): () -> Unit {
-        return { previewListCommonParameters.discoverNavigator.navigateToTagDetail(name) }
+    override fun getInnerItemAction(id: Int?): () -> Unit {
+        return { previewListCommonParameters.discoverNavigator.navigateToTagDetail(id) }
     }
 
     override fun getViewLiveData(): MutableLiveData<PreviewListViewData> {

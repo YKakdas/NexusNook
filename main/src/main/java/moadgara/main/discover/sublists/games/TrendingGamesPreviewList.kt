@@ -30,8 +30,8 @@ class TrendingGamesPreviewList(
 
     class Container<out T>
 
-    override fun getInnerItemAction(name: String?): () -> Unit {
-        return { previewListCommonParameters.discoverNavigator.navigateToGameDetailPage(name) }
+    override fun getInnerItemAction(id: Int?): () -> Unit {
+        return { previewListCommonParameters.discoverNavigator.navigateToGameDetailPage(id) }
     }
 
     override fun getViewLiveData(): MutableLiveData<PreviewListViewData> {

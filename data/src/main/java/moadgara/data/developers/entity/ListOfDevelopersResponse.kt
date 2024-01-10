@@ -12,7 +12,8 @@ data class ListOfDevelopersResponse(
     @SerialName("previous") val previous: String? = null,
     @SerialName("results") val results: List<DeveloperDetailResponse>? = null
 ) : ResponseMapper {
-    override fun toSmallViewData() = results?.map { CommonResponseData(it.developerImageBackground, it.developerName) }
+    override fun toSmallViewData() =
+        results?.map { CommonResponseData(it.developerId, it.developerImageBackground, it.developerName) }
 
     override fun toImageList(): List<String>? = results?.mapNotNull { it.developerImageBackground }
 }

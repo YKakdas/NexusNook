@@ -13,7 +13,7 @@ data class ListOfCreatorsResponse(
     @SerialName("results") val results: List<CreatorDetailResponse>? = null
 ) : ResponseMapper {
     override fun toSmallViewData() =
-        results?.map { CommonResponseData(it.creatorImage ?: it.creatorImageBackground, it.creatorName) }
+        results?.map { CommonResponseData(it.creatorId, it.creatorImage ?: it.creatorImageBackground, it.creatorName) }
 
     override fun toImageList(): List<String>? = results?.mapNotNull { it.creatorImage ?: it.creatorImageBackground }
 

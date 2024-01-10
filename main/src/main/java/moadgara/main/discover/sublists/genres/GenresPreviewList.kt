@@ -30,8 +30,8 @@ class GenresPreviewList(
         )
     }
 
-    override fun getInnerItemAction(name: String?): () -> Unit {
-        return { previewListCommonParameters.discoverNavigator.navigateToGenreDetail(name) }
+    override fun getInnerItemAction(id: Int?): () -> Unit {
+        return { previewListCommonParameters.discoverNavigator.navigateToGenreDetail(id) }
     }
 
     override fun getViewLiveData(): MutableLiveData<PreviewListViewData> {

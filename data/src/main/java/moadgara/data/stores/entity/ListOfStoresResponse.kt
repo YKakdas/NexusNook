@@ -12,7 +12,7 @@ data class ListOfStoresResponse(
     @SerialName("previous") val previous: String? = null,
     @SerialName("results") val results: List<StoreDetailResponse>? = null
 ) : ResponseMapper {
-    override fun toSmallViewData() = results?.map { CommonResponseData(it.storeImageBackground, it.storeName) }
+    override fun toSmallViewData() = results?.map { CommonResponseData(it.storeId, it.storeImageBackground, it.storeName) }
 
     override fun toImageList(): List<String>? = results?.mapNotNull { it.storeImageBackground }
 }

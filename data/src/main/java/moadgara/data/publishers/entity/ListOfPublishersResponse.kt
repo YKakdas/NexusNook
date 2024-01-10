@@ -12,7 +12,8 @@ data class ListOfPublishersResponse(
     @SerialName("previous") val previous: String? = null,
     @SerialName("results") val results: List<PublisherDetailResponse>? = null
 ) : ResponseMapper {
-    override fun toSmallViewData() = results?.map { CommonResponseData(it.publisherImageBackground, it.publisherName) }
+    override fun toSmallViewData() =
+        results?.map { CommonResponseData(it.publisherId, it.publisherImageBackground, it.publisherName) }
 
     override fun toImageList(): List<String>? = results?.mapNotNull { it.publisherImageBackground }
 }

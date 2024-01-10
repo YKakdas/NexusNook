@@ -13,7 +13,7 @@ data class ListOfGamesResponse(
     @SerialName("results") val results: List<GameDetailResponse>? = null
 ) : ResponseMapper {
     override fun toSmallViewData() =
-        results?.map { CommonResponseData(it.shortScreenshots?.firstOrNull()?.screenshotImage, it.name) }
+        results?.map { CommonResponseData(it.id, it.shortScreenshots?.firstOrNull()?.screenshotImage, it.name) }
 
     override fun toImageList(): List<String>? = results?.mapNotNull { it.shortScreenshots?.firstOrNull()?.screenshotImage }
 }
