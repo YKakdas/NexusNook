@@ -1,4 +1,4 @@
-package moadgara.base.network
+package moadgara.base.util
 
 import android.os.Build
 import java.util.Base64

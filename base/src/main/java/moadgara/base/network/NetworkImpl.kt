@@ -13,6 +13,7 @@ import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.util.reflect.TypeInfo
 import moadgara.base.BuildConfig
+import moadgara.base.util.SecurityUtil
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
