@@ -3,6 +3,8 @@ package moadgara.main.discover
 import android.app.Activity
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
+import moadgara.main.games_detail.GameDetailFragment
+import moadgara.main.overlay.OverlayBaseFragment
 import java.lang.ref.WeakReference
 
 class DiscoverNavigator(activity: Activity?) {
@@ -10,6 +12,10 @@ class DiscoverNavigator(activity: Activity?) {
 
     fun navigateToGameDetailPage(name: String?) {
         Toast.makeText(activityWeakReference.get()?.applicationContext, name, Toast.LENGTH_SHORT).show()
+        activityWeakReference.get()?.supportFragmentManager?.let {
+            OverlayBaseFragment.startOrAdd(it, GameDetailFragment::class.java)
+        }
+
     }
 
     fun navigateToAllGamesPage(name: String) {

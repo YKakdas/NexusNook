@@ -68,6 +68,8 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
                         progressDialog.dismissProgress()
                     }
                 }
+            } else {
+                progressDialog.dismissProgress()
             }
         }
     }

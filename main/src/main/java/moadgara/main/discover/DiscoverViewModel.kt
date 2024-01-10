@@ -71,6 +71,8 @@ class DiscoverViewModel(
             } else if (result is NetworkResult.Success) {
                 if (enablePrefetch && imagesToPrefetch.isEmpty()) {
                     imagesToPrefetch.addAll(getPortionOfList(list = result.data?.toImageList()))
+                } else {
+                    images.value = emptyList()
                 }
                 toPreviewListViewData(result.data, previewList)
             }

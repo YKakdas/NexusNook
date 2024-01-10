@@ -2,6 +2,7 @@ package moadgara.base.extension
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.Rect
 import android.view.View
 import android.view.WindowInsets
 import android.view.animation.Animation
@@ -14,9 +15,10 @@ import moadgara.base.animation.produceAnimationSetFromMetaData
 import moadgara.base.animation.setAnimationListener
 import moadgara.base.util.PaddingHolder
 
+
 fun View.setAndStartAnimation(
-  @AnimRes animResId: Int,
-  animationListenerParameters: AnimationListenerParameters?
+    @AnimRes animResId: Int,
+    animationListenerParameters: AnimationListenerParameters?
 ) {
     val animation: Animation = AnimationUtils.loadAnimation(context, animResId)
     startAnimation(animation)
@@ -24,8 +26,8 @@ fun View.setAndStartAnimation(
 }
 
 fun View.setAndStartAnimation(
-  animationMetaData: AnimationMetaData,
-  animationListenerParameters: AnimationListenerParameters?
+    animationMetaData: AnimationMetaData,
+    animationListenerParameters: AnimationListenerParameters?
 ) {
     val animationSet = produceAnimationSetFromMetaData(animationMetaData)
     startAnimation(animationSet)
@@ -71,4 +73,10 @@ fun View.requestApplyInsetsWhenAttached() {
             override fun onViewDetachedFromWindow(v: View) = Unit
         })
     }
+}
+
+fun View.isVisibleOnScreen(reference: View): Boolean {
+    val scrollBounds = Rect()
+    reference.getHitRect(scrollBounds)
+    return getLocalVisibleRect(scrollBounds)
 }
