@@ -42,8 +42,8 @@
     <dimen name="preview_list_item_image_height">140dp</dimen>
     <dimen name="preview_list_item_text_height">20dp</dimen>
     <dimen name="preview_list_scroll_view_bottom_margin">88dp</dimen>
-    <dimen name="preview_list_view_elevation">12dp</dimen>
-    <dimen name="preview_list_view_title_max_width">180dp</dimen>
 
     <dimen name="toolbar_height">56dp</dimen>
+
+    <dimen name="game_detail_top_image_height">320dp</dimen>
 </resources>

@@ -1,34 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <variable
+            name="data"
+            type="moadgara.data.games.entity.GameDetailsFromIdResponse" />
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".games_detail.GameDetailFragment">
+        tools:context=".games_detail.GameDetailsFragment">
 
         <ImageView
             android:id="@+id/image"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="@dimen/game_detail_top_image_height"
             android:foreground="@drawable/foreground_gradient_shadow_effect"
-            android:scaleType="centerCrop"
-            android:src="@drawable/test_image" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="228dp"
-            android:text="Grand Theft Auto"
-            android:textColor="@color/white"
-            android:textSize="36sp"
-            android:textStyle="bold" />
-
+            android:scaleType="fitXY"
+            android:src="@{data.backgroundImageAdditionalUri}"
+            app:error="@{@drawable/nexus_nook_image}" />
 
     </FrameLayout>
 </layout>

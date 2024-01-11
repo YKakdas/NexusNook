@@ -39,7 +39,7 @@ fun setOnNavigationItemSelected(
 }
 
 @BindingAdapter(
-    value = ["android:src", "placeholder", "error", "tint"],
+    value = ["android:src", "placeholder", "error", "tint", "transform"],
     requireAll = false
 )
 fun setImageFromUrl(
@@ -47,7 +47,8 @@ fun setImageFromUrl(
     url: String?,
     placeholder: Drawable?,
     error: Drawable?,
-    tintColor: Int?
+    tintColor: Int?,
+    transform: Boolean = false
 ) {
     if (tintColor != null) {
         placeholder?.setTint(ContextCompat.getColor(view.context, tintColor))
@@ -56,7 +57,7 @@ fun setImageFromUrl(
 
     view.load(url, CoilUtil.getCachedCoilImageLoader(view.context)) {
         error(error)
-        transformations(RoundedCornersTransformation())
+        if (transform) transformations(RoundedCornersTransformation())
     }
 
 }

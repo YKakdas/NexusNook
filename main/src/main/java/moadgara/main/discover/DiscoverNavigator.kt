@@ -1,9 +1,11 @@
 package moadgara.main.discover
 
 import android.app.Activity
+import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
-import moadgara.main.games_detail.GameDetailFragment
+import moadgara.main.games_detail.GameDetailsFragment
+import moadgara.main.games_detail.GameDetailsFragment.Companion.KEY_GAME_ID
 import moadgara.main.overlay.OverlayBaseFragment
 import java.lang.ref.WeakReference
 
@@ -12,10 +14,11 @@ class DiscoverNavigator(activity: Activity?) {
 
     fun navigateToGameDetailPage(id: Int?) {
         Toast.makeText(activityWeakReference.get()?.applicationContext, id.toString(), Toast.LENGTH_SHORT).show()
+        val bundle = Bundle()
+        bundle.putInt(KEY_GAME_ID, id ?: 0)
         activityWeakReference.get()?.supportFragmentManager?.let {
-            OverlayBaseFragment.startOrAdd(it, GameDetailFragment::class.java)
+            OverlayBaseFragment.startOrAdd(it, GameDetailsFragment::class.java, bundle)
         }
-
     }
 
     fun navigateToAllGamesPage(name: String) {
