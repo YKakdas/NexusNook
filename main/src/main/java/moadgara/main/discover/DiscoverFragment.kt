@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import moadgara.base.extension.launchInIO
 import moadgara.base.extension.observeOnce
 import moadgara.base.util.CoilUtil
+import moadgara.base.viewBinding
 import moadgara.main.R
 import moadgara.main.databinding.FragmentDiscoverBinding
 import moadgara.uicomponent.AlertDialog
@@ -20,21 +21,13 @@ class DiscoverFragment : Fragment(R.layout.fragment_discover) {
     private val viewModel: DiscoverViewModel by inject()
     private var progressDialog: ProgressDialog = ProgressDialog.newInstance()
 
-    private lateinit var binding: FragmentDiscoverBinding
+    private val binding by viewBinding(FragmentDiscoverBinding::bind)
     private lateinit var discoverHelper: DiscoverViewHelper
 
     companion object {
         fun newInstance(): DiscoverFragment {
             return DiscoverFragment()
         }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentDiscoverBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
-        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
