@@ -1,9 +1,11 @@
 package moadgara.base
 
 import android.graphics.drawable.Drawable
+import android.text.Html
 import android.text.TextWatcher
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -101,4 +103,14 @@ fun applySystemWindows(
 @BindingAdapter("statusBarPadding")
 fun setStatusBarPadding(view: View, direction: Int) {
     view.statusBarPadding(direction)
+}
+
+@BindingAdapter("android:visibility")
+fun setVisibility(view: View, visible: Boolean) {
+    view.visibility = if (visible) View.VISIBLE else View.GONE
+}
+
+@BindingAdapter("htmlText")
+fun setTextFromHtml(view: TextView, text: String) {
+    view.text = Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT)
 }
