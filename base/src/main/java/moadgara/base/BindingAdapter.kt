@@ -19,6 +19,7 @@ import moadgara.base.extension.statusBarPadding
 import moadgara.base.extension.toPaddingHolder
 import moadgara.base.util.CoilUtil
 import moadgara.base.util.HorizontalMarginItemDecoration
+import moadgara.base.util.VerticalMarginItemDecoration
 
 @BindingAdapter("registerTextWatcher")
 fun setTextWatcher(view: TextInputEditText, watcher: TextWatcher) {
@@ -64,9 +65,14 @@ fun setImageFromUrl(
 
 }
 
-@BindingAdapter("itemDecoration")
-fun setItemDecoration(view: RecyclerView, margin: Float) {
+@BindingAdapter("horizontalItemDecoration")
+fun setHorizontalItemDecoration(view: RecyclerView, margin: Float) {
     view.addItemDecoration(HorizontalMarginItemDecoration(margin))
+}
+
+@BindingAdapter("verticalItemDecoration")
+fun setVerticalItemDecoration(view: RecyclerView, margin: Float) {
+    view.addItemDecoration(VerticalMarginItemDecoration(margin))
 }
 
 @BindingAdapter(
