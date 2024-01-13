@@ -148,8 +148,6 @@ class CustomTextInputLayout constructor(context: Context, attrs: AttributeSet?, 
         }
 
         editText?.setTextColor(editTextColor)
-
-        editText?.setTextColor(editTextColor)
         defaultHintTextColor = hintColor
 
         if (errorInitiated) {
