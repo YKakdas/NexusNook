@@ -27,10 +27,12 @@ class ExpandableTextView2 constructor(context: Context, attrs: AttributeSet?, de
     private var collapsedHeight: Int = 0
     private var expandedHeight: Int = 0
 
+    private var isBeingAnimated = false
+
     init {
         parseDeclarableStyleAttributes(attrs)
         setupTextView()
-        setOnClickListener { toggle() }
+        setOnClickListener { if (!isBeingAnimated) toggle() }
     }
 
     private fun parseDeclarableStyleAttributes(attrs: AttributeSet?) {
@@ -100,15 +102,18 @@ class ExpandableTextView2 constructor(context: Context, attrs: AttributeSet?, de
     private fun animate(current: Int, new: Int, callback: (() -> Unit)? = null) {
         val valueAnimator = ValueAnimator.ofInt(current, new).setDuration(animationDuration.toLong())
         valueAnimator.addUpdateListener {
-            val lp = layoutParams
-            lp?.height = it.animatedValue as Int
-            layoutParams = lp
+            layoutParams.height = it.animatedValue as Int
             requestLayout()
         }
 
-        valueAnimator.doOnEnd { callback?.invoke() }
+        valueAnimator.doOnEnd {
+            callback?.invoke()
+            isBeingAnimated = false
+        }
+
         valueAnimator.interpolator = AccelerateDecelerateInterpolator()
         valueAnimator.start()
+        isBeingAnimated = true
     }
 
     fun setBody(text: String?) {
