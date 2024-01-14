@@ -1,10 +1,8 @@
 package moadgara.main.discover
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import moadgara.base.BaseFragment
 import moadgara.base.extension.launchInIO
 import moadgara.base.extension.observeOnce
 import moadgara.base.util.CoilUtil
@@ -16,7 +14,7 @@ import moadgara.uicomponent.ProgressDialog
 import moadgara.uicomponent.alertDialog
 import org.koin.android.ext.android.inject
 
-class DiscoverFragment : Fragment(R.layout.fragment_discover) {
+class DiscoverFragment : BaseFragment(R.layout.fragment_discover) {
 
     private val viewModel: DiscoverViewModel by inject()
     private var progressDialog: ProgressDialog = ProgressDialog.newInstance()

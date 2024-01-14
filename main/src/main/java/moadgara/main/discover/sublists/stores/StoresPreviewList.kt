@@ -30,7 +30,7 @@ class StoresPreviewList(
         )
     }
 
-    override fun getInnerItemAction(id: Int?): () -> Unit {
+    override fun getInnerItemAction(id: Int?, name: String?): () -> Unit {
         return { previewListCommonParameters.discoverNavigator.navigateToStoreDetail(id) }
     }
 

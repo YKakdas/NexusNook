@@ -11,10 +11,11 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
+import moadgara.base.OnToolbarVisibilityChangedListener
 import moadgara.main.R
 import moadgara.main.databinding.LayoutOverlayBaseBinding
 
-class OverlayBaseFragment : DialogFragment() {
+class OverlayBaseFragment : DialogFragment(), OnToolbarVisibilityChangedListener {
 
     companion object {
         private const val KEY_INNER_FRAGMENT_CLASS = "inner-fragment-class"
@@ -22,17 +23,15 @@ class OverlayBaseFragment : DialogFragment() {
         private var instance: OverlayBaseFragment? = null
 
         fun startOrAdd(
-          fragmentManager: FragmentManager,
-          innerFragmentClass: Class<out Fragment>,
-          innerFragmentBundle: Bundle? = null
+            fragmentManager: FragmentManager, innerFragmentClass: Class<out Fragment>, innerFragmentBundle: Bundle? = null
         ) {
             val bundle = Bundle().apply {
                 putString(KEY_INNER_FRAGMENT_CLASS, innerFragmentClass.canonicalName)
                 putBundle(KEY_INNER_FRAGMENT_BUNDLE, innerFragmentBundle)
             }
 
-            val fragmentTransaction = fragmentManager.beginTransaction()
-              .addToBackStack(OverlayBaseFragment::class.java.simpleName)
+            val fragmentTransaction =
+                fragmentManager.beginTransaction().addToBackStack(OverlayBaseFragment::class.java.simpleName)
 
             if (instance == null) {
                 instance = OverlayBaseFragment().apply {
@@ -78,9 +77,7 @@ class OverlayBaseFragment : DialogFragment() {
     }
 
     override fun onCreateView(
-      inflater: LayoutInflater,
-      container: ViewGroup?,
-      savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = LayoutOverlayBaseBinding.inflate(inflater, container, false)
         ToolbarHelper()
@@ -110,26 +107,22 @@ class OverlayBaseFragment : DialogFragment() {
     }
 
     private fun addInnerFragment(
-      fragmentClass: Class<out Fragment>,
-      fragmentBundle: Bundle? = null
+        fragmentClass: Class<out Fragment>, fragmentBundle: Bundle? = null
     ) {
         fragmentManager.commit {
             replace(
-              R.id.container,
-              fragmentClass,
-              fragmentBundle,
-              fragmentClass.simpleName
+                R.id.container, fragmentClass, fragmentBundle, fragmentClass.simpleName
             )
             addToBackStack(fragmentClass.simpleName)
         }
     }
 
     private inner class ToolbarHelper {
+
         init {
+            binding.toolbar.background.alpha = 0f
             fragmentManager.addOnBackStackChangedListener {
-                val fragment =
-                  fragmentManager.fragments.lastOrNull()
-                    ?: return@addOnBackStackChangedListener
+                val fragment = fragmentManager.fragments.lastOrNull() ?: return@addOnBackStackChangedListener
 
                 if (fragment is ToolbarTitle) {
                     binding.toolbar.toolbarTitle.text = fragment.getTitle()
@@ -150,4 +143,9 @@ class OverlayBaseFragment : DialogFragment() {
             }
         }
     }
+
+    override fun onToolbarVisibilityChanged(visibility: Float) {
+        binding.toolbar.background.alpha = visibility
+    }
+
 }

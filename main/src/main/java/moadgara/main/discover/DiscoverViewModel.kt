@@ -91,7 +91,7 @@ class DiscoverViewModel(
     private fun toPreviewListViewData(common: ResponseMapper?, previewList: PreviewList) {
         previewList.getViewLiveData().value = PreviewListViewData(common?.toSmallViewData()?.map {
             PreviewListItemData(
-                it.imageUrl, it.name, previewList.getInnerItemAction(it.id)
+                it.imageUrl, it.name, previewList.getInnerItemAction(it.id, it.name)
             )
         })
     }

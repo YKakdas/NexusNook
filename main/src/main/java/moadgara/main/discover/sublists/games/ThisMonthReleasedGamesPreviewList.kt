@@ -30,8 +30,8 @@ class ThisMonthReleasedGamesPreviewList(
         )
     }
 
-    override fun getInnerItemAction(id: Int?): () -> Unit {
-        return { previewListCommonParameters.discoverNavigator.navigateToGameDetailPage(id) }
+    override fun getInnerItemAction(id: Int?, name: String?): () -> Unit {
+        return { previewListCommonParameters.discoverNavigator.navigateToGameDetailPage(id, name) }
     }
 
     override fun getViewLiveData(): MutableLiveData<PreviewListViewData> {

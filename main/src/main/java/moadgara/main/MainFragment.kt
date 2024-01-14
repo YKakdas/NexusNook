@@ -6,14 +6,14 @@ import android.view.View
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
-import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import moadgara.base.BaseFragment
 import moadgara.base.viewBinding
 import moadgara.main.databinding.FragmentMainBinding
 import org.koin.android.ext.android.inject
 import moadgara.uicomponent.R as uiComponentR
 
-class MainFragment : Fragment(R.layout.fragment_main) {
+class MainFragment : BaseFragment(R.layout.fragment_main) {
     private val viewModel: MainViewModel by inject()
 
     private val binding by viewBinding(FragmentMainBinding::bind)

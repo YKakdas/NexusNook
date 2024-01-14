@@ -7,49 +7,63 @@
 
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/transparent"
-        android:minHeight="@dimen/toolbar_height"
-        android:orientation="horizontal"
-        android:paddingTop="@dimen/margin_medium"
-        app:paddingTopSystemWindowInsets="@{true}">
+        android:minHeight="@dimen/toolbar_min_height">
+
+        <FrameLayout
+            android:id="@+id/background"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/onyx"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:paddingTopSystemWindowInsets="@{true}">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/toolbar_title_height"
+                android:layout_gravity="bottom|center"
+                android:layout_marginBottom="@dimen/spacing_20"
+                android:ellipsize="end"
+                android:maxWidth="@dimen/toolbar_title_max_width"
+                android:maxLength="50"
+                android:maxLines="1"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:text="Toolbar Title" />
+
+        </FrameLayout>
 
         <ImageButton
             android:id="@+id/back"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|center_vertical"
+            android:layout_height="@dimen/toolbar_button_height"
             android:layout_marginStart="@dimen/margin_medium"
-            android:layout_marginBottom="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/spacing_20"
             android:background="?actionBarItemBackground"
-            android:src="@drawable/ic_chevron_back" />
-
-        <TextView
-            android:id="@+id/toolbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="@dimen/margin_medium"
-            android:layout_marginBottom="@dimen/margin_small"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:maxLength="50"
-            android:maxLines="1"
-            android:textColor="@color/white"
-            tools:text="Toolbar Title" />
+            android:src="@drawable/ic_chevron_back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageButton
             android:id="@+id/close"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/toolbar_button_height"
             android:layout_gravity="center_vertical|end"
-            android:layout_marginEnd="@dimen/margin_medium"
-            android:layout_marginBottom="@dimen/margin_small"
+            android:layout_marginStart="@dimen/margin_medium"
+            android:layout_marginBottom="@dimen/spacing_20"
             android:background="?actionBarItemBackground"
             android:src="@drawable/ic_close"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </FrameLayout>
+
 </layout>

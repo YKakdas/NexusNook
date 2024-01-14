@@ -47,4 +47,9 @@
 
     <dimen name="game_detail_top_image_height">320dp</dimen>
     <dimen name="game_detail_title_margin_top">-12dp</dimen>
+
+    <dimen name="toolbar_min_height">100dp</dimen>
+    <dimen name="toolbar_title_height">24dp</dimen>
+    <dimen name="toolbar_title_max_width">240dp</dimen>
+    <dimen name="toolbar_button_height">20dp</dimen>
 </resources>
