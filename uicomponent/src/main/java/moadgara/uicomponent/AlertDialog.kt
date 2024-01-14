@@ -39,7 +39,7 @@ class AlertDialog {
         private var negativeListener: (() -> Unit)? = null
 
         private var options: List<String>? = null
-        private var optionClickListener: ((Int) -> Unit)? = null
+        private var optionClickListener: ((which: Int) -> Unit)? = null
 
         fun type(type: Type) = apply {
             this.type = type
@@ -104,12 +104,12 @@ class AlertDialog {
 
         fun getDrawableRes() = drawableRes
 
-        fun options(options: List<String>, listener: ((Int) -> Unit)?) = apply {
+        fun options(options: List<String>, listener: ((which: Int) -> Unit)?) = apply {
             this.options = options
             this.optionClickListener = listener
         }
 
-        fun optionsFromResources(optionsResourceIds: List<Int>, listener: ((Int) -> Unit)?) = apply {
+        fun optionsFromResources(optionsResourceIds: List<Int>, listener: ((which: Int) -> Unit)?) = apply {
             this.options = optionsResourceIds.map { context.resources.getString(it) }
             this.optionClickListener = listener
         }
@@ -196,7 +196,10 @@ class AlertDialog {
                     val buttonBinding = ButtonBinding.inflate(localInflater, binding.buttonGroup, true)
                     buttonBinding.button.run {
                         text = optionText
-                        setOnClickListener { optionClickListener?.invoke(index) }
+                        setOnClickListener {
+                            dialog.cancel()
+                            optionClickListener?.invoke(index)
+                        }
                     }
                 }
 

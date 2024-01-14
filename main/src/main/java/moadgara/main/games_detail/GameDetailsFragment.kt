@@ -5,18 +5,19 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import moadgara.base.BaseFragment
+import moadgara.base.extension.observeOnce
 import moadgara.base.extension.px
 import moadgara.base.viewBinding
 import moadgara.main.R
 import moadgara.main.databinding.FragmentGameDetailBinding
 import moadgara.main.games_detail.listitems.GameDetailsAdapter
-import moadgara.main.overlay.ToolbarTitle
 import moadgara.uicomponent.AlertDialog
 import moadgara.uicomponent.ProgressDialog
 import moadgara.uicomponent.alertDialog
+import moadgara.uicomponent.overlay.ToolbarFragment
 import org.koin.android.ext.android.inject
 
-class GameDetailsFragment : BaseFragment(R.layout.fragment_game_detail), ToolbarTitle {
+class GameDetailsFragment : BaseFragment(R.layout.fragment_game_detail), ToolbarFragment {
 
     private val viewModel: GameDetailsViewModel by inject()
     private val binding by viewBinding(FragmentGameDetailBinding::bind)
@@ -35,7 +36,7 @@ class GameDetailsFragment : BaseFragment(R.layout.fragment_game_detail), Toolbar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         gameId = arguments?.getInt(KEY_GAME_ID)
-        title = arguments?.getString(KEY_GAME_NAME) ?: ""
+        title = arguments?.getString(KEY_GAME_NAME).orEmpty()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,7 +59,7 @@ class GameDetailsFragment : BaseFragment(R.layout.fragment_game_detail), Toolbar
     }
 
     private fun observeError() {
-        viewModel.getMessage().observe(viewLifecycleOwner) {
+        viewModel.getMessage().observeOnce(viewLifecycleOwner) {
             progressDialog.showProgress(false, parentFragmentManager)
             alertDialog(requireContext()) {
                 title(R.string.generic_error_title)
@@ -70,7 +71,7 @@ class GameDetailsFragment : BaseFragment(R.layout.fragment_game_detail), Toolbar
     }
 
     private fun observeData() {
-        viewModel.getGameDetailsData().observe(viewLifecycleOwner) {
+        viewModel.getGameDetailsData().observeOnce(viewLifecycleOwner) {
             listAdapter.submitList(it)
             progressDialog.showProgress(false, parentFragmentManager)
         }
@@ -96,4 +97,7 @@ class GameDetailsFragment : BaseFragment(R.layout.fragment_game_detail), Toolbar
         }
     }
 
+    override fun showToolbar(): Boolean = false
+
+    override fun onBackPressed(): Boolean = false
 }

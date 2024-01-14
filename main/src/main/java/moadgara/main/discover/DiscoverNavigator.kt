@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentActivity
 import moadgara.main.games_detail.GameDetailsFragment
 import moadgara.main.games_detail.GameDetailsFragment.Companion.KEY_GAME_ID
 import moadgara.main.games_detail.GameDetailsFragment.Companion.KEY_GAME_NAME
-import moadgara.main.overlay.OverlayBaseFragment
+import moadgara.uicomponent.overlay.OverlayBaseFragment
 import java.lang.ref.WeakReference
 
 class DiscoverNavigator(activity: Activity?) {
@@ -17,7 +17,7 @@ class DiscoverNavigator(activity: Activity?) {
         Toast.makeText(activityWeakReference.get()?.applicationContext, id.toString(), Toast.LENGTH_SHORT).show()
         val bundle = Bundle()
         bundle.putInt(KEY_GAME_ID, id ?: 0)
-        bundle.putString(KEY_GAME_NAME, name ?: "")
+        bundle.putString(KEY_GAME_NAME, name.orEmpty())
         activityWeakReference.get()?.supportFragmentManager?.let {
             OverlayBaseFragment.startOrAdd(it, GameDetailsFragment::class.java, bundle)
         }

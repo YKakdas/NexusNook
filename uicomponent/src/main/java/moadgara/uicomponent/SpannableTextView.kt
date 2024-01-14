@@ -1,7 +1,9 @@
 package moadgara.uicomponent
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.AbsoluteSizeSpan
@@ -10,8 +12,10 @@ import android.text.style.ForegroundColorSpan
 import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.fragment.app.FragmentActivity
+import moadgara.uicomponent.UIUtil.showWebView
 
-class SpannableTextView constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
+class SpannableTextView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
     AppCompatTextView(context, attrs, defStyleAttr) {
 
     constructor(context: Context) : this(context, null)
@@ -65,19 +69,7 @@ class SpannableTextView constructor(context: Context, attrs: AttributeSet?, defS
                     val end = start + secondSpan.length
 
                     if (isWebsiteUrl(secondSpan)) {
-                        val clickableSpan = object : ClickableSpan() {
-                            override fun onClick(widget: View) {
-                                val options = listOf("Open in WebView", "Open in Browser", "Copy link to clipboard")
-                                alertDialog(context) {
-                                    title("Please choose an action for the selected website link")
-                                    options(options) {
-
-                                    }
-                                    cancelable(true)
-                                    type(AlertDialog.Type.INFORMATION)
-                                }
-                            }
-                        }
+                        val clickableSpan = setupClickableSpan(secondSpan)
                         spannableStringBuilder.setSpan(clickableSpan, start, end, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
                     }
 
@@ -90,16 +82,42 @@ class SpannableTextView constructor(context: Context, attrs: AttributeSet?, defS
         }
     }
 
+    private fun setupClickableSpan(text: String): ClickableSpan {
+        return object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                val options =
+                    listOf(R.string.action_open_in_web_view, R.string.action_open_in_external, R.string.action_copy_text)
+                alertDialog(context) {
+                    title(R.string.choose_action_prompt)
+                    optionsFromResources(options) { which ->
+                        when (which) {
+                            0 -> showWebView((context as FragmentActivity).supportFragmentManager, text)
+                            1 -> showInExternalApp(text)
+                            2 -> copyTextToClipboard(text)
+                        }
+                    }
+                    cancelable(true)
+                    type(AlertDialog.Type.INFORMATION)
+                }
+            }
+
+        }
+    }
+
 
     private fun isWebsiteUrl(text: String): Boolean {
         return android.util.Patterns.WEB_URL.matcher(text).matches()
     }
 
-
     private fun copyTextToClipboard(textToCopy: String) {
         val clipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
         val clipData = android.content.ClipData.newPlainText("Copied Text", textToCopy)
         clipboardManager.setPrimaryClip(clipData)
+    }
+
+    private fun showInExternalApp(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        context.startActivity(intent)
     }
 
 }

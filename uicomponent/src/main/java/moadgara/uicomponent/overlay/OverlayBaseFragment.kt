@@ -1,4 +1,4 @@
-package moadgara.main.overlay
+package moadgara.uicomponent.overlay
 
 import android.app.Dialog
 import android.content.DialogInterface
@@ -12,8 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import moadgara.base.OnToolbarVisibilityChangedListener
-import moadgara.main.R
-import moadgara.main.databinding.LayoutOverlayBaseBinding
+import moadgara.uicomponent.R
+import moadgara.uicomponent.databinding.LayoutOverlayBaseBinding
 
 class OverlayBaseFragment : DialogFragment(), OnToolbarVisibilityChangedListener {
 
@@ -39,7 +39,7 @@ class OverlayBaseFragment : DialogFragment(), OnToolbarVisibilityChangedListener
                     show(fragmentTransaction, OverlayBaseFragment::class.java.simpleName)
                 }
             } else {
-                instance!!.addInnerFragment(innerFragmentClass, bundle)
+                instance!!.addInnerFragment(innerFragmentClass, innerFragmentBundle)
             }
 
         }
@@ -94,25 +94,28 @@ class OverlayBaseFragment : DialogFragment(), OnToolbarVisibilityChangedListener
     }
 
     override fun getTheme(): Int {
-        return moadgara.uicomponent.R.style.Theme_FullScreenDialogTheme
+        return R.style.Theme_FullScreenDialogTheme
     }
 
     private fun handleBackPress() {
-        if (fragmentManager.backStackEntryCount > 1) {
-            fragmentManager.popBackStack()
-        } else {
-            instance = null
-            dismiss()
+        val fragment = fragmentManager.fragments.lastOrNull()
+        if (fragment is ToolbarFragment && fragment.onBackPressed()) return
+        else {
+            if (fragmentManager.backStackEntryCount > 1) {
+                fragmentManager.popBackStack()
+            } else {
+                instance = null
+                dismiss()
+            }
         }
+
     }
 
     private fun addInnerFragment(
         fragmentClass: Class<out Fragment>, fragmentBundle: Bundle? = null
     ) {
         fragmentManager.commit {
-            replace(
-                R.id.container, fragmentClass, fragmentBundle, fragmentClass.simpleName
-            )
+            replace(R.id.container, fragmentClass, fragmentBundle, fragmentClass.simpleName)
             addToBackStack(fragmentClass.simpleName)
         }
     }
@@ -124,12 +127,17 @@ class OverlayBaseFragment : DialogFragment(), OnToolbarVisibilityChangedListener
             fragmentManager.addOnBackStackChangedListener {
                 val fragment = fragmentManager.fragments.lastOrNull() ?: return@addOnBackStackChangedListener
 
-                if (fragment is ToolbarTitle) {
+                if (fragment is ToolbarFragment) {
                     binding.toolbar.toolbarTitle.text = fragment.getTitle()
+                    if (fragment.showToolbar()) {
+                        binding.toolbar.background.alpha = 1f
+                    }
                 }
 
                 if (fragmentManager.backStackEntryCount > 1) {
                     binding.toolbar.close.visibility = View.VISIBLE
+                } else {
+                    binding.toolbar.close.visibility = View.GONE
                 }
             }
 

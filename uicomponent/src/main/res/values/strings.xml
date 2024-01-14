@@ -2,4 +2,8 @@
 <resources>
     <string name="alert_dialog_neutral_text_default">OK</string>
     <string name="alert_dialog_positive_text_default">Continue</string>
+    <string name="action_open_in_web_view">Open inside the app</string>
+    <string name="action_open_in_external">Open in Browser</string>
+    <string name="action_copy_text">Copy link to clipboard</string>
+    <string name="choose_action_prompt">Please choose an action for the selected website link</string>
 </resources>
