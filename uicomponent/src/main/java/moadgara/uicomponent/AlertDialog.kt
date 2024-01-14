@@ -9,6 +9,7 @@ import android.view.Window
 import androidx.annotation.StringRes
 import androidx.appcompat.view.ContextThemeWrapper
 import moadgara.uicomponent.databinding.AlertDialogBinding
+import moadgara.uicomponent.databinding.ButtonBinding
 
 @DslMarker
 annotation class AlertDialogBuilder
@@ -37,6 +38,9 @@ class AlertDialog {
         private var positiveListener: (() -> Unit)? = null
         private var negativeListener: (() -> Unit)? = null
 
+        private var options: List<String>? = null
+        private var optionClickListener: ((Int) -> Unit)? = null
+
         fun type(type: Type) = apply {
             this.type = type
             findDrawableImage(type)
@@ -47,7 +51,7 @@ class AlertDialog {
         fun title(title: String) = apply { this.title = title }
 
         fun title(@StringRes title: Int) =
-          apply { this.title = context.resources.getString(title) }
+            apply { this.title = context.resources.getString(title) }
 
         fun getTitle() = title
 
@@ -62,21 +66,21 @@ class AlertDialog {
         fun neutralText(text: String?) = apply { this.neutralText = text }
 
         fun neutralText(@StringRes text: Int) =
-          apply { this.neutralText = context.resources.getString(text) }
+            apply { this.neutralText = context.resources.getString(text) }
 
         fun getNeutralText() = neutralText
 
         fun positiveText(text: String?) = apply { this.positiveText = text }
 
         fun positiveText(@StringRes text: Int) =
-          apply { this.positiveText = context.resources.getString(text) }
+            apply { this.positiveText = context.resources.getString(text) }
 
         fun getPositiveText() = positiveText
 
         fun negativeText(text: String?) = apply { this.negativeText = text }
 
         fun negativeText(@StringRes text: Int) =
-          apply { this.negativeText = context.resources.getString(text) }
+            apply { this.negativeText = context.resources.getString(text) }
 
         fun getNegativeText() = negativeText
 
@@ -100,6 +104,16 @@ class AlertDialog {
 
         fun getDrawableRes() = drawableRes
 
+        fun options(options: List<String>, listener: ((Int) -> Unit)?) = apply {
+            this.options = options
+            this.optionClickListener = listener
+        }
+
+        fun optionsFromResources(optionsResourceIds: List<Int>, listener: ((Int) -> Unit)?) = apply {
+            this.options = optionsResourceIds.map { context.resources.getString(it) }
+            this.optionClickListener = listener
+        }
+
         internal fun build(): AlertDialog {
             val dialog = Dialog(context)
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -111,10 +125,10 @@ class AlertDialog {
             }
 
             val localInflater = dialog.layoutInflater.cloneInContext(
-              ContextThemeWrapper(
-                context,
-                R.style.Theme_Main
-              )
+                ContextThemeWrapper(
+                    context,
+                    R.style.Theme_Main
+                )
             )
 
             val binding = AlertDialogBinding.inflate(localInflater)
@@ -137,7 +151,7 @@ class AlertDialog {
                 isNeutral = true
                 if (neutralText.isNullOrBlank()) {
                     neutralText =
-                      context.resources.getString(R.string.alert_dialog_neutral_text_default)
+                        context.resources.getString(R.string.alert_dialog_neutral_text_default)
                 }
             }
 
@@ -148,7 +162,7 @@ class AlertDialog {
 
                 if (positiveText.isNullOrBlank()) {
                     positiveText =
-                      context.resources.getString(R.string.alert_dialog_positive_text_default)
+                        context.resources.getString(R.string.alert_dialog_positive_text_default)
                 }
                 binding.neutralButton.visibility = View.GONE
             } else {
@@ -171,6 +185,22 @@ class AlertDialog {
             }
 
             findDrawableImage(type)
+
+            if (options != null) {
+                binding.neutralButton.visibility = View.GONE
+                binding.nonNeutralButtons.visibility = View.GONE
+
+                val optionsRoot = binding.buttonGroup
+                optionsRoot.visibility = View.VISIBLE
+                options?.forEachIndexed { index, optionText ->
+                    val buttonBinding = ButtonBinding.inflate(localInflater, binding.buttonGroup, true)
+                    buttonBinding.button.run {
+                        text = optionText
+                        setOnClickListener { optionClickListener?.invoke(index) }
+                    }
+                }
+
+            }
 
             dialog.show()
             return AlertDialog()

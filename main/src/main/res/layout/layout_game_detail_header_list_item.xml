@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -9,12 +10,32 @@
             type="moadgara.main.games_detail.listitems.GameDetailsHeaderListItem" />
     </data>
 
-    <ImageView
-        android:id="@+id/image"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/game_detail_top_image_height"
-        android:foreground="@drawable/foreground_gradient_shadow_effect"
-        android:scaleType="fitXY"
-        android:src="@{data.imageUrl}"
-        app:error="@{data.defaultImage}" />
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/game_detail_top_image_height"
+            android:foreground="@drawable/foreground_gradient_shadow_effect"
+            android:scaleType="fitXY"
+            android:src="@{data.imageUrl}"
+            app:error="@{data.defaultImage}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginHorizontal="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/game_detail_title_margin_top"
+            android:breakStrategy="balanced"
+            android:gravity="center_horizontal"
+            android:text="@{data.name}"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:visibility="@{data.name != null}"
+            tools:text="Grand Theft Auto V" />
+
+    </FrameLayout>
 </layout>

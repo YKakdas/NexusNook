@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="data"
+            type="moadgara.main.games_detail.listitems.SpannableText" />
+    </data>
+
+    <moadgara.uicomponent.SpannableTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_high"
+        android:autoLink="web"
+        android:textStyle="bold"
+        app:firstSpanText="@{data.firstSpan}"
+        app:firstSpanTextColor="@color/cloudy_grey"
+        app:firstSpanTextSize="16sp"
+        app:secondSpanText="@{data.secondSpan}"
+        app:secondSpanTextColor="@color/quick_silver"
+        app:secondSpanTextSize="14sp" />
+
+</layout>

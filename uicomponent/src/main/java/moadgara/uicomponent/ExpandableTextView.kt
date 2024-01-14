@@ -10,7 +10,7 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.animation.doOnEnd
 
-class ExpandableTextView2 constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
+class ExpandableTextView constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
     AppCompatTextView(context, attrs, defStyleAttr) {
 
     constructor(context: Context) : this(context, null)
@@ -36,12 +36,12 @@ class ExpandableTextView2 constructor(context: Context, attrs: AttributeSet?, de
     }
 
     private fun parseDeclarableStyleAttributes(attrs: AttributeSet?) {
-        context.obtainStyledAttributes(attrs, R.styleable.ExpandableTextView2).apply {
-            collapsedMaxLines = getInt(R.styleable.ExpandableTextView2_collapsedMaxLines, 3)
-            textSize = getDimensionPixelSize(R.styleable.ExpandableTextView2_textSize, 18)
-            textColor = getColorStateList(R.styleable.ExpandableTextView2_textColor) ?: ColorStateList.valueOf(Color.WHITE)
-            body = getString(R.styleable.ExpandableTextView2_body)
-            animationDuration = getInt(R.styleable.ExpandableTextView2_animationDuration, 1200)
+        context.obtainStyledAttributes(attrs, R.styleable.ExpandableTextView).apply {
+            collapsedMaxLines = getInt(R.styleable.ExpandableTextView_collapsedMaxLines, 3)
+            textSize = getDimensionPixelSize(R.styleable.ExpandableTextView_textSize, 18)
+            textColor = getColorStateList(R.styleable.ExpandableTextView_textColor) ?: ColorStateList.valueOf(Color.WHITE)
+            body = getString(R.styleable.ExpandableTextView_body)
+            animationDuration = getInt(R.styleable.ExpandableTextView_animationDuration, 1200)
 
             recycle()
         }
@@ -49,7 +49,7 @@ class ExpandableTextView2 constructor(context: Context, attrs: AttributeSet?, de
 
     private fun setupTextView() {
         setTextColor(textColor)
-        setTextSize(TypedValue.COMPLEX_UNIT_PX, this@ExpandableTextView2.textSize?.toFloat() ?: 8f)
+        setTextSize(TypedValue.COMPLEX_UNIT_PX, this@ExpandableTextView.textSize?.toFloat() ?: 8f)
         text = body
         if (state == State.COLLAPSED) {
             maxLines = collapsedMaxLines

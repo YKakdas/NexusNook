@@ -8,6 +8,8 @@ import kotlinx.coroutines.launch
 import moadgara.data.games.entity.GameDetailsFromIdResponse
 import moadgara.domain.games.GetGameDetailsFromIdUseCase
 import moadgara.main.games_detail.listitems.GameDetailsHeaderListItem
+import moadgara.main.games_detail.listitems.GameDetailsSummaryListItem
+import moadgara.main.games_detail.listitems.SpannableText
 import moadgara.uicomponent.adapter.GenericListItem
 
 class GameDetailsViewModel(val getGameDetailsFromIdUseCase: GetGameDetailsFromIdUseCase) : ViewModel() {
@@ -29,9 +31,25 @@ class GameDetailsViewModel(val getGameDetailsFromIdUseCase: GetGameDetailsFromId
 
     private fun prepareData(data: GameDetailsFromIdResponse) {
         val list = mutableListOf<GenericListItem>()
-        val header = GameDetailsHeaderListItem(imageUrl = data.backgroundImageAdditionalUri)
 
+        val header = GameDetailsHeaderListItem(imageUrl = data.backgroundImageAdditionalUri, name = data.name ?: data.slug)
         list.add(header)
+
+
+        var playtime: String? = data.playTime?.toString()
+        if (playtime != null && playtime == "0") {
+            playtime = null
+        }
+
+        val summary = GameDetailsSummaryListItem(
+            listOf(
+                SpannableText("Release Date", data.releasedDate),
+                SpannableText("Publisher", data.publishers?.firstOrNull()?.publisherName),
+                SpannableText("Play Time", playtime?.plus(" hours")),
+                SpannableText("Website", data.websiteUri)
+            )
+        )
+        list.add(summary)
 
         gameDetailsData.value = list
     }

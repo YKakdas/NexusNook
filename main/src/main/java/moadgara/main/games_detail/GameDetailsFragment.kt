@@ -8,11 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import moadgara.base.viewBinding
 import moadgara.main.R
 import moadgara.main.databinding.FragmentGameDetailBinding
+import moadgara.main.games_detail.listitems.GameDetailsAdapter
 import moadgara.uicomponent.AlertDialog
 import moadgara.uicomponent.ProgressDialog
-import moadgara.uicomponent.adapter.GenericAdapter
-import moadgara.uicomponent.adapter.GenericListItem
-import moadgara.uicomponent.adapter.genericAdapter
 import moadgara.uicomponent.alertDialog
 import org.koin.android.ext.android.inject
 
@@ -22,7 +20,7 @@ class GameDetailsFragment : Fragment(R.layout.fragment_game_detail) {
     private val binding by viewBinding(FragmentGameDetailBinding::bind)
     private val progressDialog = ProgressDialog.newInstance()
 
-    private lateinit var listAdapter: GenericAdapter<GenericListItem>
+    private lateinit var listAdapter: GameDetailsAdapter
     private var gameId: Int? = null
 
 
@@ -74,7 +72,7 @@ class GameDetailsFragment : Fragment(R.layout.fragment_game_detail) {
     }
 
     private fun setupRecyclerView() {
-        listAdapter = genericAdapter { }
+        listAdapter = GameDetailsAdapter()
 
         binding.recyclerView.run {
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
