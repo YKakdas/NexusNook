@@ -17,7 +17,7 @@ class GameDetailsSummaryViewHolder(val binding: LayoutGameDetailSummaryListItemB
 
     private fun setupRecyclerView(data: GameDetailsSummaryListItem) {
         binding.recyclerView.run {
-            val innerItems = data.spannableTexts.filter { it.secondSpan != null }
+            val innerItems = data.spannableTexts.filter { !it.secondSpan.isNullOrEmpty() }
             val innerAdapter = genericAdapter<SpannableText> { itemLayoutResource(R.layout.layout_spannable_text) }
             layoutManager = GridLayoutManager(context, 2)
             adapter = innerAdapter
