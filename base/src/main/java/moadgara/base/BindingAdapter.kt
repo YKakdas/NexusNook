@@ -4,9 +4,11 @@ import android.graphics.drawable.Drawable
 import android.text.Html
 import android.text.TextWatcher
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.view.updateLayoutParams
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -15,6 +17,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.textfield.TextInputEditText
 import moadgara.base.extension.doOnApplyWindowInsets
+import moadgara.base.extension.orDefault
+import moadgara.base.extension.px
 import moadgara.base.extension.statusBarPadding
 import moadgara.base.extension.toPaddingHolder
 import moadgara.base.util.CoilUtil
@@ -109,6 +113,13 @@ fun applySystemWindows(
 @BindingAdapter("statusBarPadding")
 fun setStatusBarPadding(view: View, direction: Int) {
     view.statusBarPadding(direction)
+}
+
+@BindingAdapter("toolbarPadding")
+fun setToolbarPadding(view: View, padding: Float?) {
+    view.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+        topMargin = padding?.toInt().orDefault(90.px)
+    }
 }
 
 @BindingAdapter("android:visibility")

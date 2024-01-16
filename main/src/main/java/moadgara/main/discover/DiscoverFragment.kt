@@ -5,6 +5,7 @@ import android.view.View
 import moadgara.base.BaseFragment
 import moadgara.base.extension.launchInIO
 import moadgara.base.extension.observeOnce
+import moadgara.base.extension.orDefault
 import moadgara.base.util.CoilUtil
 import moadgara.base.viewBinding
 import moadgara.main.R
@@ -44,7 +45,7 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover) {
         viewModel.getMessage().observe(viewLifecycleOwner) {
             alertDialog(requireContext()) {
                 title(R.string.generic_error_title)
-                description(it ?: resources.getString(R.string.generic_error_description))
+                description(it.orDefault(resources.getString(R.string.generic_error_description)))
                 neutralText(R.string.alert_dialog_neutral_button_text)
                 type(AlertDialog.Type.ERROR)
             }

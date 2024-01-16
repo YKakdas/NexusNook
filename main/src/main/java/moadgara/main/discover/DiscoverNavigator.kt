@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
+import moadgara.base.extension.orZero
 import moadgara.main.games_detail.GameDetailsFragment
 import moadgara.main.games_detail.GameDetailsFragment.Companion.KEY_GAME_ID
 import moadgara.main.games_detail.GameDetailsFragment.Companion.KEY_GAME_NAME
@@ -16,7 +17,7 @@ class DiscoverNavigator(activity: Activity?) {
     fun navigateToGameDetailPage(id: Int?, name: String?) {
         Toast.makeText(activityWeakReference.get()?.applicationContext, id.toString(), Toast.LENGTH_SHORT).show()
         val bundle = Bundle()
-        bundle.putInt(KEY_GAME_ID, id ?: 0)
+        bundle.putInt(KEY_GAME_ID, id.orZero())
         bundle.putString(KEY_GAME_NAME, name.orEmpty())
         activityWeakReference.get()?.supportFragmentManager?.let {
             OverlayBaseFragment.startOrAdd(it, GameDetailsFragment::class.java, bundle)

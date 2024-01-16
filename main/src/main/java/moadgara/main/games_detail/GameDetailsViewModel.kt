@@ -10,6 +10,7 @@ import moadgara.domain.games.GetGameDetailsFromIdUseCase
 import moadgara.main.games_detail.listitems.GameDetailsHeaderListItem
 import moadgara.main.games_detail.listitems.GameDetailsSummaryListItem
 import moadgara.main.games_detail.listitems.SpannableText
+import moadgara.main.games_detail.listitems.SummaryListItemType
 import moadgara.uicomponent.adapter.GenericListItem
 
 class GameDetailsViewModel(val getGameDetailsFromIdUseCase: GetGameDetailsFromIdUseCase) : ViewModel() {
@@ -43,10 +44,10 @@ class GameDetailsViewModel(val getGameDetailsFromIdUseCase: GetGameDetailsFromId
 
         val summary = GameDetailsSummaryListItem(
             listOf(
-                SpannableText("Release Date", data.releasedDate),
-                SpannableText("Publisher", data.publishers?.firstOrNull()?.publisherName),
-                SpannableText("Play Time", playtime?.plus(" hours")),
-                SpannableText("Website", data.websiteUri)
+                SpannableText("Release Date", data.releasedDate, SummaryListItemType.RELEASE_DATE),
+                SpannableText("Publisher", data.publishers?.firstOrNull()?.publisherName, SummaryListItemType.PUBLISHER),
+                SpannableText("Play Time", playtime?.plus(" hours"), SummaryListItemType.PLAY_TIME),
+                SpannableText("Website", data.websiteUri, SummaryListItemType.WEBSITE)
             )
         )
         list.add(summary)
