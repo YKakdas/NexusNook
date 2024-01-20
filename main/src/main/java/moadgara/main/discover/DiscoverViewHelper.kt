@@ -61,10 +61,12 @@ class DiscoverViewHelper(private val fragment: DiscoverFragment) {
         setupRecyclerView(listViewBinding.recyclerView, adapter)
 
         liveData.observeOnce(fragment.viewLifecycleOwner) {
-            adapter.submitList(it.list)
-            root.post {
-                val child = root.indexOfChild(space)
-                root.addViewCheckIfExists(listViewBinding.root, child + 1)
+            if(it != null){
+                adapter.submitList(it.list)
+                root.post {
+                    val child = root.indexOfChild(space)
+                    root.addViewCheckIfExists(listViewBinding.root, child + 1)
+                }
             }
         }
     }

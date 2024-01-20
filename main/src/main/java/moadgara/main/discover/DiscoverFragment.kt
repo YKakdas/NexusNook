@@ -54,7 +54,7 @@ class DiscoverFragment : BaseFragment(R.layout.fragment_discover) {
 
     private fun observeImages() {
         viewModel.getImages().observeOnce(viewLifecycleOwner) {
-            if (it.isNotEmpty()) {
+            if (!it.isNullOrEmpty()) {
                 launchInIO {
                     CoilUtil.prefetchImages(requireContext(), it) {
                         progressDialog.dismissProgress()

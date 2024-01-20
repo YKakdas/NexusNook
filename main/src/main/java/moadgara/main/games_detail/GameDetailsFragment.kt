@@ -72,7 +72,9 @@ class GameDetailsFragment : BaseFragment(R.layout.fragment_game_detail), Toolbar
 
     private fun observeData() {
         viewModel.getGameDetailsData().observeOnce(viewLifecycleOwner) {
-            listAdapter.submitList(it)
+            if (it != null) {
+                listAdapter.submitList(it)
+            }
             progressDialog.showProgress(false, parentFragmentManager)
         }
     }
