@@ -9,6 +9,7 @@ import android.util.TypedValue
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.animation.doOnEnd
+import androidx.databinding.BindingAdapter
 
 class ExpandableTextView constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
     AppCompatTextView(context, attrs, defStyleAttr) {
@@ -40,7 +41,6 @@ class ExpandableTextView constructor(context: Context, attrs: AttributeSet?, def
             collapsedMaxLines = getInt(R.styleable.ExpandableTextView_collapsedMaxLines, 3)
             textSize = getDimensionPixelSize(R.styleable.ExpandableTextView_textSize, 18)
             textColor = getColorStateList(R.styleable.ExpandableTextView_textColor) ?: ColorStateList.valueOf(Color.WHITE)
-            body = getString(R.styleable.ExpandableTextView_body)
             animationDuration = getInt(R.styleable.ExpandableTextView_animationDuration, 1200)
 
             recycle()
@@ -120,6 +120,11 @@ class ExpandableTextView constructor(context: Context, attrs: AttributeSet?, def
         this.text = text
     }
 
+}
+
+@BindingAdapter("body")
+fun setBody(view: ExpandableTextView, text: String?) {
+    view.setBody(text)
 }
 
 enum class State {

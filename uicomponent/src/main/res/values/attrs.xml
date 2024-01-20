@@ -51,17 +51,20 @@
         <attr name="collapsedMaxLines" format="integer" />
         <attr name="textSize" format="dimension" />
         <attr name="textColor" format="color" />
-        <attr name="body" format="string" />
         <attr name="animationDuration" format="integer" />
     </declare-styleable>
 
     <declare-styleable name="SpannableTextView">
-        <attr name="firstSpanText" format="string" />
-        <attr name="secondSpanText" format="string" />
         <attr name="firstSpanTextSize" format="dimension" />
         <attr name="secondSpanTextSize" format="dimension" />
         <attr name="firstSpanTextColor" format="color" />
         <attr name="secondSpanTextColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="MetascoreView">
+        <attr name="state_high_score" format="boolean" />
+        <attr name="state_average_score" format="boolean" />
+        <attr name="state_low_score" format="boolean" />
     </declare-styleable>
 
 </resources>

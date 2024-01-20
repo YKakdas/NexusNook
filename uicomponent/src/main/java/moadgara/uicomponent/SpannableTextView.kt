@@ -12,6 +12,7 @@ import android.text.style.ForegroundColorSpan
 import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.databinding.BindingAdapter
 import androidx.fragment.app.FragmentActivity
 import moadgara.uicomponent.UIUtil.showWebView
 
@@ -39,8 +40,6 @@ class SpannableTextView(context: Context, attrs: AttributeSet?, defStyleAttr: In
 
     private fun parseDeclarableStyleAttributes(attrs: AttributeSet?) {
         context.obtainStyledAttributes(attrs, R.styleable.SpannableTextView).apply {
-            firstSpanText = getString(R.styleable.SpannableTextView_firstSpanText)
-            secondSpanText = getString(R.styleable.SpannableTextView_secondSpanText)
             firstSpanTextColor = getColor(R.styleable.SpannableTextView_firstSpanTextColor, Color.WHITE)
             secondSpanTextColor = getColor(R.styleable.SpannableTextView_secondSpanTextColor, Color.WHITE)
             firstSpanTextSize = getDimensionPixelSize(R.styleable.SpannableTextView_firstSpanTextSize, 16)
@@ -131,4 +130,14 @@ class SpannableTextView(context: Context, attrs: AttributeSet?, defStyleAttr: In
         context.startActivity(intent)
     }
 
+}
+
+@BindingAdapter("firstSpan")
+fun setFirstSpanText(view: SpannableTextView, text: String) {
+    view.setFirstSpanText(text)
+}
+
+@BindingAdapter("secondSpan")
+fun setSecondSpanText(view: SpannableTextView, text: String) {
+    view.setSecondSpanText(text)
 }

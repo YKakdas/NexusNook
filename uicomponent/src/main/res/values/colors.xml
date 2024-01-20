@@ -65,4 +65,8 @@
 
     <color name="window_background_color">@color/black</color>
 
+    <color name="metacritic_green">#00CE7A</color>
+    <color name="metacritic_yellow">#FFBD3F</color>
+    <color name="metacritic_red">#FF6874</color>
+
 </resources>
