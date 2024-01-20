@@ -74,9 +74,9 @@ fun setHorizontalItemDecoration(view: RecyclerView, margin: Float) {
     view.addItemDecoration(HorizontalMarginItemDecoration(margin))
 }
 
-@BindingAdapter("verticalItemDecoration")
-fun setVerticalItemDecoration(view: RecyclerView, margin: Float) {
-    view.addItemDecoration(VerticalMarginItemDecoration(margin))
+@BindingAdapter("verticalItemDecoration", "ignoreFirstTopMargin", requireAll = false)
+fun setVerticalItemDecoration(view: RecyclerView, margin: Float, ignoreFirstTopMargin: Boolean = false) {
+    view.addItemDecoration(VerticalMarginItemDecoration(margin, ignoreFirstTopMargin))
 }
 
 @BindingAdapter(

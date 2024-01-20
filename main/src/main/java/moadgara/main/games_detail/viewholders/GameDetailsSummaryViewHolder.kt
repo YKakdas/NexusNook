@@ -21,19 +21,7 @@ class GameDetailsSummaryViewHolder(val binding: LayoutGameDetailSummaryListItemB
         binding.recyclerView.run {
             val innerItems = data.spannableTexts.filter { !it.secondSpan.isNullOrEmpty() }
             val innerAdapter = genericAdapter<SpannableText> { itemLayoutResource(R.layout.layout_spannable_text) }
-            // TODO: Find a more elegant way to do that
-            layoutManager = GridLayoutManager(context, 5).apply {
-                spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-                    override fun getSpanSize(position: Int): Int {
-                        val item = innerItems[position]
-                        return when (item.type) {
-                            SummaryListItemType.WEBSITE -> if (position % 2 == 0) 5 else 3
-                            else -> return if (item.secondSpan?.length.orZero() > 15) 3 else 2
-                        }
-                    }
-
-                }
-            }
+            layoutManager = GridLayoutManager(context, 2)
             adapter = innerAdapter
             setHasFixedSize(true)
             innerAdapter.submitList(innerItems)

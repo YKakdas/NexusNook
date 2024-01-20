@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.recyclerview.widget.RecyclerView
-        app:verticalItemDecoration="@{@dimen/margin_high}"
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" />
+        android:layout_marginEnd="@dimen/margin_medium"
+        android:orientation="horizontal"
+        app:verticalItemDecoration="@{@dimen/margin_medium}" />
 </layout>

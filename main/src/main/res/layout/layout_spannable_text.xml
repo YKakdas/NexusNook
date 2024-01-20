@@ -10,10 +10,12 @@
     </data>
 
     <moadgara.uicomponent.SpannableTextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_high"
+        android:layout_marginStart="@dimen/margin_medium"
         android:autoLink="web"
+        android:minWidth="@dimen/game_detail_summary_spannable_text_min_width"
+        android:minHeight="@dimen/game_detail_summary_spannable_text_min_height"
         android:textStyle="bold"
         app:firstSpanText="@{data.firstSpan}"
         app:firstSpanTextColor="@color/cloudy_grey"

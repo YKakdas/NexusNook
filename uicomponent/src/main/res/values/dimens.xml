@@ -45,6 +45,8 @@
 
     <dimen name="game_detail_top_image_height">320dp</dimen>
     <dimen name="game_detail_title_margin_top">-12dp</dimen>
+    <dimen name="game_detail_summary_spannable_text_min_height">48dp</dimen>
+    <dimen name="game_detail_summary_spannable_text_min_width">120dp</dimen>
 
     <dimen name="toolbar_height">56dp</dimen>
     <dimen name="toolbar_min_height">80dp</dimen>

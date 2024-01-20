@@ -21,6 +21,10 @@ class SpannableTextView(context: Context, attrs: AttributeSet?, defStyleAttr: In
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
+    companion object {
+        const val MAX_URL_LENGTH = 23
+    }
+
     private var firstSpanText: String? = null
     private var secondSpanText: String? = null
     private var firstSpanTextColor: Int = Color.WHITE
@@ -66,16 +70,23 @@ class SpannableTextView(context: Context, attrs: AttributeSet?, defStyleAttr: In
                     setSpan(AbsoluteSizeSpan(firstSpanTextSize), 0, firstSpan.length, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
 
                     val start = firstSpan.length + 1
-                    val end = start + secondSpan.length
+                    var end = start + secondSpan.length
 
                     if (isWebsiteUrl(secondSpan)) {
                         val clickableSpan = setupClickableSpan(secondSpan)
                         spannableStringBuilder.setSpan(clickableSpan, start, end, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
+                        if (secondSpan.length > MAX_URL_LENGTH) {
+                            val ellipseText = secondSpan.subSequence(0, MAX_URL_LENGTH - 3).toString() + "…"
+                            spannableStringBuilder.replace(start, end, ellipseText)
+                            end = start + ellipseText.length
+                        }
+                        setSpan(clickableSpan, start, end, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
                     }
 
                     setSpan(ForegroundColorSpan(secondSpanTextColor), start, end, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
                     setSpan(AbsoluteSizeSpan(secondSpanTextSize), start, end, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
                 }
+
                 text = spannableStringBuilder
             }
 

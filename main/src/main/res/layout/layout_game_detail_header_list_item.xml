@@ -29,11 +29,13 @@
             android:layout_gravity="bottom"
             android:layout_marginHorizontal="@dimen/margin_medium"
             android:layout_marginTop="@dimen/game_detail_title_margin_top"
+            android:layout_marginBottom="@dimen/margin_small"
             android:breakStrategy="balanced"
             android:gravity="center_horizontal"
             android:text="@{data.name}"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="24sp"
+            android:textStyle="bold"
             android:visibility="@{data.name != null}"
             tools:text="Grand Theft Auto V" />
 
