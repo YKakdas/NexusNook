@@ -8,6 +8,7 @@ import kotlinx.coroutines.launch
 import moadgara.data.games.entity.GameDetailsFromIdResponse
 import moadgara.domain.games.GetGameDetailsFromIdUseCase
 import moadgara.main.games_detail.listitems.GameDetailsHeaderListItem
+import moadgara.main.games_detail.listitems.GameDetailsHorizontalDivider
 import moadgara.main.games_detail.listitems.GameDetailsSummaryListItem
 import moadgara.main.games_detail.listitems.SpannableText
 import moadgara.main.games_detail.listitems.SummaryListItemType
@@ -35,12 +36,9 @@ class GameDetailsViewModel(val getGameDetailsFromIdUseCase: GetGameDetailsFromId
 
         val header = GameDetailsHeaderListItem(imageUrl = data.backgroundImageAdditionalUri, name = data.name ?: data.slug)
         list.add(header)
-
-
-        var playtime: String? = data.playTime?.toString()
-        if (playtime != null && playtime == "0") {
-            playtime = null
-        }
+        list.add(GameDetailsHorizontalDivider())
+        
+        val playtime: String? = data.playTime.takeIf { it != null && it > 0 }?.toString()
 
         val summary = GameDetailsSummaryListItem(
             listOf(
@@ -51,6 +49,8 @@ class GameDetailsViewModel(val getGameDetailsFromIdUseCase: GetGameDetailsFromId
             )
         )
         list.add(summary)
+
+        list.add(GameDetailsHorizontalDivider())
 
         gameDetailsData.value = list
     }
