@@ -1,5 +1,5 @@
 package moadgara.base.extension
 
-fun String?.orEmpty(): String = this ?: ""
+val String?.orEmpty: String get() = this ?: ""
 
 fun String?.orDefault(default: String): String = this ?: default

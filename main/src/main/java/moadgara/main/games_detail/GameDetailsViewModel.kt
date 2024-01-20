@@ -5,16 +5,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.moadgara.common_model.network.NetworkResult
 import kotlinx.coroutines.launch
+import moadgara.base.extension.addIfNotNull
+import moadgara.base.extension.stringRes
+import moadgara.base.util.ResourceProvider
 import moadgara.data.games.entity.GameDetailsFromIdResponse
 import moadgara.domain.games.GetGameDetailsFromIdUseCase
-import moadgara.main.games_detail.listitems.GameDetailsHeaderListItem
+import moadgara.main.R
+import moadgara.main.games_detail.listitems.GameDetailsHeaderData
 import moadgara.main.games_detail.listitems.GameDetailsHorizontalDivider
-import moadgara.main.games_detail.listitems.GameDetailsSummaryListItem
+import moadgara.main.games_detail.listitems.GameDetailsSummaryData
 import moadgara.main.games_detail.listitems.SpannableText
-import moadgara.main.games_detail.listitems.SummaryListItemType
 import moadgara.uicomponent.adapter.GenericListItem
 
-class GameDetailsViewModel(val getGameDetailsFromIdUseCase: GetGameDetailsFromIdUseCase) : ViewModel() {
+class GameDetailsViewModel(val resourceProvider: ResourceProvider, val getGameDetailsFromIdUseCase: GetGameDetailsFromIdUseCase) :
+    ViewModel() {
 
     private val gameDetailsData = MutableLiveData<List<GenericListItem>>()
     private val message = MutableLiveData<String?>()
@@ -34,24 +38,46 @@ class GameDetailsViewModel(val getGameDetailsFromIdUseCase: GetGameDetailsFromId
     private fun prepareData(data: GameDetailsFromIdResponse) {
         val list = mutableListOf<GenericListItem>()
 
-        val header = GameDetailsHeaderListItem(imageUrl = data.backgroundImageAdditionalUri, name = data.name ?: data.slug)
-        list.add(header)
-        list.add(GameDetailsHorizontalDivider())
-        
-        val playtime: String? = data.playTime.takeIf { it != null && it > 0 }?.toString()
-
-        val summary = GameDetailsSummaryListItem(
-            listOf(
-                SpannableText("Release Date", data.releasedDate, SummaryListItemType.RELEASE_DATE),
-                SpannableText("Publisher", data.publishers?.firstOrNull()?.publisherName, SummaryListItemType.PUBLISHER),
-                SpannableText("Play Time", playtime?.plus(" hours"), SummaryListItemType.PLAY_TIME),
-                SpannableText("Website", data.websiteUri, SummaryListItemType.WEBSITE)
-            )
-        )
-        list.add(summary)
-
-        list.add(GameDetailsHorizontalDivider())
+        list.addAll(prepareHeader(data))
+        list.addAll(prepareSummary(data))
 
         gameDetailsData.value = list
+    }
+
+    private fun prepareHeader(data: GameDetailsFromIdResponse): List<GenericListItem> {
+        val header = GameDetailsHeaderData(imageUrl = data.backgroundImageAdditionalUri, name = data.name ?: data.slug)
+        return listOf(header, GameDetailsHorizontalDivider())
+    }
+
+    private fun prepareSummary(data: GameDetailsFromIdResponse): List<GenericListItem> {
+        val spannableTexts = mutableListOf<SpannableText>()
+        data.run {
+            val releaseDate = data.releasedDate.takeIf { !it.isNullOrEmpty() }
+            val publisher = data.publishers?.firstOrNull()?.publisherName.takeIf { !it.isNullOrEmpty() }
+            val playtime = data.playTime.takeIf { it != null && it > 0 }?.toString()
+            val website = data.websiteUri.takeIf { !it.isNullOrEmpty() }
+
+            spannableTexts.addIfNotNull(
+                SpannableText(R.string.game_details_summary_release_date_title.stringRes(resourceProvider), releaseDate),
+                releaseDate
+            )
+
+            spannableTexts.addIfNotNull(
+                SpannableText(R.string.game_details_summary_publisher_title.stringRes(resourceProvider), publisher),
+                publisher
+            )
+
+            spannableTexts.addIfNotNull(
+                SpannableText(R.string.game_details_summary_playtime_title.stringRes(resourceProvider), playtime?.plus(" hours")),
+                playtime
+            )
+
+            spannableTexts.addIfNotNull(
+                SpannableText(R.string.game_details_summary_website_title.stringRes(resourceProvider), website),
+                website
+            )
+        }
+
+        return listOf(GameDetailsSummaryData(spannableTexts), GameDetailsHorizontalDivider())
     }
 }

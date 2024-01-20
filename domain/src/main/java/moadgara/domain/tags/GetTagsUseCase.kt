@@ -14,7 +14,6 @@ class GetTagsUseCase(
     override suspend fun execute(param: Unit): NetworkResult<ListOfTagsResponse> {
         val queryParams = mutableMapOf<String, String>()
         queryParams["page"] = "1"
-        queryParams["page_size"] = "40"
         return repository.fetchTags(queryParams)
     }
 }

@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Rect
 import android.os.Build
 import android.view.View
+import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
 import android.view.WindowInsets
 import android.view.animation.Animation
@@ -98,5 +99,16 @@ fun View.statusBarPadding(direction: Int = 1) {
             }
         }
         insets
+    }
+}
+
+fun ViewGroup.addViewCheckIfExists(viewToAdd: View, index: Int? = null) {
+    if (indexOfChild(viewToAdd) != -1) {
+        removeView(viewToAdd)
+    }
+    if (index != null) {
+        addView(viewToAdd, index)
+    } else {
+        addView(viewToAdd)
     }
 }

@@ -14,7 +14,6 @@ class GetPublishersUseCase(
     override suspend fun execute(param: Unit): NetworkResult<ListOfPublishersResponse> {
         val queryParams = mutableMapOf<String, String>()
         queryParams["page"] = "1"
-        queryParams["page_size"] = "40"
         return repository.fetchPublishers(queryParams)
     }
 }

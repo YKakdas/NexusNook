@@ -16,7 +16,6 @@ class GetTrendingGamesUseCase(
         queryParams["page"] = "1"
         queryParams["discover"] = "true"
         queryParams["ordering"] = "relevance"
-        queryParams["page_size"] = "40"
         return repository.fetchTrendingGames(queryParams)
     }
 }

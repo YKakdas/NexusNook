@@ -7,8 +7,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.OnFlingListener
+import moadgara.base.extension.addViewCheckIfExists
+import moadgara.base.extension.observeOnce
 import moadgara.base.extension.px
+import moadgara.base.extension.setFlingListener
 import moadgara.base.util.ViewUtil
 import moadgara.main.R
 import moadgara.main.databinding.FragmentDiscoverBinding
@@ -17,8 +19,6 @@ import moadgara.uicomponent.CustomLinearSnapHelper
 import moadgara.uicomponent.PreloadLinearLayoutManager
 import moadgara.uicomponent.adapter.GenericAdapter
 import moadgara.uicomponent.adapter.genericAdapter
-import kotlin.math.abs
-import kotlin.math.sign
 
 
 class DiscoverViewHelper(private val fragment: DiscoverFragment) {
@@ -60,16 +60,11 @@ class DiscoverViewHelper(private val fragment: DiscoverFragment) {
         val adapter = genericAdapter { diffCallback(itemDiffCallback) }
         setupRecyclerView(listViewBinding.recyclerView, adapter)
 
-        liveData.observe(fragment.viewLifecycleOwner) {
-            if (it != null) {
-                adapter.submitList(it.list)
-                root.post {
-                    val child = root.indexOfChild(space)
-                    root.addView(listViewBinding.root, child + 1)
-                }
-
-            } else {
-                root.removeView(listViewBinding.root)
+        liveData.observeOnce(fragment.viewLifecycleOwner) {
+            adapter.submitList(it.list)
+            root.post {
+                val child = root.indexOfChild(space)
+                root.addViewCheckIfExists(listViewBinding.root, child + 1)
             }
         }
     }
@@ -101,21 +96,7 @@ class DiscoverViewHelper(private val fragment: DiscoverFragment) {
             setHasFixedSize(true)
             setItemViewCacheSize(6)
             CustomLinearSnapHelper().attachToRecyclerView(this)
-            onFlingListener = getFlingListener(this)
-        }
-    }
-
-    private fun getFlingListener(recyclerView: RecyclerView): OnFlingListener {
-        return object : OnFlingListener() {
-            override fun onFling(velocityX: Int, velocityY: Int): Boolean {
-                val maxVelocity = 2500
-                if (abs(velocityX) > maxVelocity) {
-                    val newVelocity = maxVelocity * sign(velocityX.toDouble()).toInt()
-                    recyclerView.fling(newVelocity, velocityY)
-                    return true
-                }
-                return false
-            }
+            setFlingListener(2500)
         }
     }
 

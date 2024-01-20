@@ -7,7 +7,7 @@
 
         <variable
             name="data"
-            type="moadgara.main.games_detail.listitems.GameDetailsHeaderListItem" />
+            type="moadgara.main.games_detail.listitems.GameDetailsHeaderData" />
     </data>
 
     <FrameLayout
@@ -29,7 +29,7 @@
             android:layout_gravity="bottom"
             android:layout_marginHorizontal="@dimen/margin_medium"
             android:layout_marginTop="@dimen/game_detail_title_margin_top"
-            android:layout_marginBottom="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_tiny"
             android:breakStrategy="balanced"
             android:gravity="center_horizontal"
             android:text="@{data.name}"

@@ -14,7 +14,6 @@ class GetDevelopersUseCase(
     override suspend fun execute(param: Unit): NetworkResult<ListOfDevelopersResponse> {
         val queryParams = mutableMapOf<String, String>()
         queryParams["page"] = "1"
-        queryParams["page_size"] = "40"
         return repository.fetchDevelopers(queryParams)
     }
 }

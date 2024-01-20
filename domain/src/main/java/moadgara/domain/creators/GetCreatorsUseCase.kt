@@ -14,7 +14,6 @@ class GetCreatorsUseCase(
     override suspend fun execute(param: Unit): NetworkResult<ListOfCreatorsResponse> {
         val queryParams = mutableMapOf<String, String>()
         queryParams["page"] = "1"
-        queryParams["page_size"] = "40"
         return repository.fetchCreators(queryParams)
     }
 }

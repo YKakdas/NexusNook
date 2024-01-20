@@ -17,7 +17,7 @@ class DiscoverNavigator(activity: Activity?) {
     fun navigateToGameDetailPage(id: Int?, name: String?) {
         Toast.makeText(activityWeakReference.get()?.applicationContext, id.toString(), Toast.LENGTH_SHORT).show()
         val bundle = Bundle()
-        bundle.putInt(KEY_GAME_ID, id.orZero())
+        bundle.putInt(KEY_GAME_ID, id.orZero)
         bundle.putString(KEY_GAME_NAME, name.orEmpty())
         activityWeakReference.get()?.supportFragmentManager?.let {
             OverlayBaseFragment.startOrAdd(it, GameDetailsFragment::class.java, bundle)

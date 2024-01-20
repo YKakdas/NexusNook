@@ -15,7 +15,6 @@ class GetReleaseDateFilteredGamesUseCase(
         val queryParams = mutableMapOf<String, String>()
         queryParams["page"] = "1"
         queryParams["ordering"] = "released"
-        queryParams["page_size"] = "40"
         queryParams["dates"] = param[0].plus(",").plus(param[1])
         return repository.fetchGames(queryParams)
     }

@@ -14,7 +14,6 @@ class GetPlatformsUseCase(
     override suspend fun execute(param: Unit): NetworkResult<ListOfPlatformsResponse> {
         val queryParams = mutableMapOf<String, String>()
         queryParams["page"] = "1"
-        queryParams["page_size"] = "40"
         return repository.fetchPlatforms(queryParams)
     }
 }

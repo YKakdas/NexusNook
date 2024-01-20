@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes
 import moadgara.main.R
 import moadgara.uicomponent.adapter.GenericListItem
 
-data class GameDetailsHeaderListItem(
+data class GameDetailsHeaderData(
     @DrawableRes val defaultImage: Int = R.drawable.nexus_nook_image,
     val imageUrl: String?,
     val name: String?
