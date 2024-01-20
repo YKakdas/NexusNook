@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="rating"
+            type="Float" />
+
+        <variable
+            name="ratingCount"
+            type="String" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/game_detail_metascore_rating_height">
+
+        <TextView
+            android:id="@+id/ratingTitle"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/game_detail_metascore_rating_title_height"
+            android:layout_marginStart="@dimen/margin_tiny"
+            android:text="@string/game_details_rating_title"
+            android:textColor="@color/cloudy_grey"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/game_detail_metascore_rating_title_height"
+            android:layout_marginStart="@dimen/game_detail_rating_count_margin_start"
+            android:gravity="center"
+            android:text="@{ratingCount}"
+            android:textColor="@color/cloudy_grey"
+            android:textSize="12sp" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/game_detail_metascore_view_dimension"
+            android:layout_marginTop="@dimen/game_detail_rating_bar_margin_top"
+            android:isIndicator="true"
+            android:max="5"
+            android:numStars="5"
+            android:progressTint="@color/metacritic_yellow"
+            android:rating="@{rating}"
+            android:secondaryProgressTint="@color/metacritic_yellow"
+            tools:rating="4.57" />
+
+    </FrameLayout>
+</layout>

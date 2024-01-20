@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="score"
+            type="Integer" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/game_detail_metascore_rating_height">
+
+        <TextView
+            android:id="@+id/metascoreTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/game_detail_metascore_rating_title_height"
+            android:text="@string/game_details_metascore_title"
+            android:textColor="@color/cloudy_grey"
+            android:textSize="16sp" />
+
+        <moadgara.uicomponent.MetascoreView
+            android:id="@+id/metascoreView"
+            android:layout_width="@dimen/game_detail_metascore_view_dimension"
+            android:layout_height="@dimen/game_detail_metascore_view_dimension"
+            android:layout_gravity="start"
+            android:layout_marginStart="@dimen/margin_tiny"
+            android:layout_marginTop="@dimen/margin_high"
+            app:score="@{score}"
+            tools:score="97" />
+
+    </FrameLayout>
+</layout>

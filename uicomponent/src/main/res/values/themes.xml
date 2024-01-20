@@ -16,6 +16,7 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentNavigation">true</item>
+        <item name="ratingBarStyle">@style/Widget.AppCompat.RatingBar.Indicator</item>
     </style>
 
     <style name="Theme.DialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog">

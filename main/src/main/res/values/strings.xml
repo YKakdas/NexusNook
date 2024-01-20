@@ -26,4 +26,6 @@
     <string name="game_details_summary_publisher_title">Publisher</string>
     <string name="game_details_summary_playtime_title">Play Time</string>
     <string name="game_details_summary_website_title">Website</string>
+    <string name="game_details_metascore_title">Metascore</string>
+    <string name="game_details_rating_title">User Ratings</string>
 </resources>

@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.moadgara.common_model.network.NetworkResult
 import kotlinx.coroutines.launch
 import moadgara.base.extension.addIfNotNull
+import moadgara.base.extension.orZero
 import moadgara.base.extension.stringRes
 import moadgara.base.util.ResourceProvider
 import moadgara.data.games.entity.GameDetailsFromIdResponse
@@ -13,6 +14,7 @@ import moadgara.domain.games.GetGameDetailsFromIdUseCase
 import moadgara.main.R
 import moadgara.main.games_detail.listitems.GameDetailsHeaderData
 import moadgara.main.games_detail.listitems.GameDetailsHorizontalDivider
+import moadgara.main.games_detail.listitems.GameDetailsMetascoreRatingData
 import moadgara.main.games_detail.listitems.GameDetailsSummaryData
 import moadgara.main.games_detail.listitems.SpannableText
 import moadgara.uicomponent.adapter.GenericListItem
@@ -39,6 +41,7 @@ class GameDetailsViewModel(val resourceProvider: ResourceProvider, val getGameDe
         val list = mutableListOf<GenericListItem>()
 
         list.addAll(prepareHeader(data))
+        list.addAll(prepareMetascoreRatingView(data))
         list.addAll(prepareSummary(data))
 
         gameDetailsData.value = list
@@ -79,5 +82,13 @@ class GameDetailsViewModel(val resourceProvider: ResourceProvider, val getGameDe
         }
 
         return listOf(GameDetailsSummaryData(spannableTexts), GameDetailsHorizontalDivider())
+    }
+
+    private fun prepareMetascoreRatingView(data: GameDetailsFromIdResponse): List<GenericListItem> {
+        val ratingCount = data.ratingsCount.orZero
+        val ratingScore = if (ratingCount > 0) data.rating else null
+
+        val gameDetailsMetascoreRatingData = GameDetailsMetascoreRatingData(data.metaCritic, ratingScore, "($ratingCount votes)")
+        return listOf(gameDetailsMetascoreRatingData, GameDetailsHorizontalDivider())
     }
 }
