@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="data"
+            type="moadgara.main.games_detail.listitems.GameDetailsDescriptionData" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:background="@drawable/layout_description_bg">
+
+
+        <moadgara.uicomponent.ExpandableTextView
+            android:id="@+id/expandableDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingHorizontal="8dp"
+            app:body="@{data.description}"
+            app:collapsedMaxLines="3"
+            app:textColor="@color/cloudy_grey"
+            app:textSize="14sp" />
+    </FrameLayout>
+
+
+</layout>

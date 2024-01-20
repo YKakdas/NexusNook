@@ -12,6 +12,7 @@ import moadgara.base.util.ResourceProvider
 import moadgara.data.games.entity.GameDetailsFromIdResponse
 import moadgara.domain.games.GetGameDetailsFromIdUseCase
 import moadgara.main.R
+import moadgara.main.games_detail.listitems.GameDetailsDescriptionData
 import moadgara.main.games_detail.listitems.GameDetailsHeaderData
 import moadgara.main.games_detail.listitems.GameDetailsHorizontalDivider
 import moadgara.main.games_detail.listitems.GameDetailsMetascoreRatingData
@@ -43,13 +44,14 @@ class GameDetailsViewModel(val resourceProvider: ResourceProvider, val getGameDe
         list.addAll(prepareHeader(data))
         list.addAll(prepareMetascoreRatingView(data))
         list.addAll(prepareSummary(data))
+        list.addAll(prepareDescription(data))
 
         gameDetailsData.value = list
     }
 
     private fun prepareHeader(data: GameDetailsFromIdResponse): List<GenericListItem> {
         val header = GameDetailsHeaderData(imageUrl = data.backgroundImageAdditionalUri, name = data.name ?: data.slug)
-        return listOf(header, GameDetailsHorizontalDivider())
+        return listOf(header)
     }
 
     private fun prepareSummary(data: GameDetailsFromIdResponse): List<GenericListItem> {
@@ -91,4 +93,9 @@ class GameDetailsViewModel(val resourceProvider: ResourceProvider, val getGameDe
         val gameDetailsMetascoreRatingData = GameDetailsMetascoreRatingData(data.metaCritic, ratingScore, "($ratingCount votes)")
         return listOf(gameDetailsMetascoreRatingData, GameDetailsHorizontalDivider())
     }
+
+    private fun prepareDescription(data: GameDetailsFromIdResponse): List<GenericListItem> {
+        return listOf(GameDetailsDescriptionData(data.descriptionRaw), GameDetailsHorizontalDivider())
+    }
+
 }

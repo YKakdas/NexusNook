@@ -11,7 +11,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.animation.doOnEnd
 import androidx.databinding.BindingAdapter
 
-class ExpandableTextView constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
+class ExpandableTextView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
     AppCompatTextView(context, attrs, defStyleAttr) {
 
     constructor(context: Context) : this(context, null)
@@ -30,10 +30,16 @@ class ExpandableTextView constructor(context: Context, attrs: AttributeSet?, def
 
     private var isBeingAnimated = false
 
+    private var animationChangeListener: ((Boolean, Int) -> Unit)? = null
+
     init {
         parseDeclarableStyleAttributes(attrs)
         setupTextView()
         setOnClickListener { if (!isBeingAnimated) toggle() }
+    }
+
+    fun setOnAnimationChangeListener(animationChangeListener: ((Boolean, Int) -> Unit)?) {
+        this.animationChangeListener = animationChangeListener
     }
 
     private fun parseDeclarableStyleAttributes(attrs: AttributeSet?) {
@@ -74,6 +80,7 @@ class ExpandableTextView constructor(context: Context, attrs: AttributeSet?, def
             }
             State.COLLAPSED
         }
+
     }
 
     private fun measureCollapsedHeight() {
@@ -101,19 +108,26 @@ class ExpandableTextView constructor(context: Context, attrs: AttributeSet?, def
 
     private fun animate(current: Int, new: Int, callback: (() -> Unit)? = null) {
         val valueAnimator = ValueAnimator.ofInt(current, new).setDuration(animationDuration.toLong())
+        var previous = current
         valueAnimator.addUpdateListener {
-            layoutParams.height = it.animatedValue as Int
+            val animatedValue = it.animatedValue as Int
+            layoutParams.height = animatedValue
+            val diff = animatedValue - previous
+            previous = animatedValue
+            animationChangeListener?.invoke(true, diff)
             requestLayout()
         }
 
         valueAnimator.doOnEnd {
             callback?.invoke()
             isBeingAnimated = false
+            animationChangeListener?.invoke(false, 0)
         }
 
         valueAnimator.interpolator = AccelerateDecelerateInterpolator()
         valueAnimator.start()
         isBeingAnimated = true
+        animationChangeListener?.invoke(true, 0)
     }
 
     fun setBody(text: String?) {
