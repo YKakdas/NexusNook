@@ -20,7 +20,7 @@
             layout="@layout/layout_metascore"
             android:layout_width="0dp"
             android:layout_height="@dimen/game_detail_metascore_rating_height"
-            android:layout_weight="0.45"
+            android:layout_weight="0.5"
             android:visibility="@{data.metascore != null}"
             app:score="@{data.metascore}" />
 
@@ -28,7 +28,7 @@
             layout="@layout/layout_user_rating"
             android:layout_width="0dp"
             android:layout_height="@dimen/game_detail_metascore_rating_height"
-            android:layout_weight="0.55"
+            android:layout_weight="0.5"
             android:visibility="@{data.rating != null}"
             app:rating="@{data.rating}"
             app:ratingCount="@{data.ratingCount}" />

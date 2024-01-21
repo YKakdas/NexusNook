@@ -18,7 +18,7 @@ import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.textfield.TextInputEditText
 import moadgara.base.extension.doOnApplyWindowInsets
 import moadgara.base.extension.orDefault
-import moadgara.base.extension.px
+import moadgara.base.extension.toPx
 import moadgara.base.extension.statusBarPadding
 import moadgara.base.extension.toPaddingHolder
 import moadgara.base.util.CoilUtil
@@ -118,7 +118,7 @@ fun setStatusBarPadding(view: View, direction: Int) {
 @BindingAdapter("toolbarPadding")
 fun setToolbarPadding(view: View, padding: Float?) {
     view.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-        topMargin = padding?.toInt().orDefault(90.px)
+        topMargin = padding?.toInt().orDefault(90.toPx)
     }
 }
 

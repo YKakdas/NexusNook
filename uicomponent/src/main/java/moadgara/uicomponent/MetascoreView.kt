@@ -7,7 +7,7 @@ import android.view.Gravity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
-import moadgara.base.extension.sp
+import moadgara.base.extension.toSp
 
 class MetascoreView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : AppCompatButton(context, attrs, defStyleAttr) {
 
@@ -20,7 +20,7 @@ class MetascoreView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
         gravity = Gravity.CENTER
         isClickable = false
         isFocusable = false
-        textSize = 24.sp
+        textSize = 24.toSp
         setTypeface(typeface, Typeface.BOLD)
         setTextColor(ContextCompat.getColorStateList(context, R.color.metascore_color_selector))
         background = ContextCompat.getDrawable(context, R.drawable.metascore_background_shape)

@@ -9,24 +9,32 @@
             type="moadgara.main.games_detail.listitems.GameDetailsDescriptionData" />
     </data>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="8dp"
-        android:background="@drawable/layout_description_bg">
+        android:layout_marginHorizontal="@dimen/margin_high"
+        android:orientation="vertical">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/game_details_description_title"
+            android:textColor="@color/cloudy_grey"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <moadgara.uicomponent.ExpandableTextView
             android:id="@+id/expandableDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:paddingHorizontal="8dp"
+            android:paddingTop="@dimen/margin_small"
+            android:textStyle="bold"
             app:body="@{data.description}"
             app:collapsedMaxLines="3"
-            app:textColor="@color/cloudy_grey"
+            app:textColor="@color/quick_silver"
             app:textSize="14sp" />
-    </FrameLayout>
-
+        
+    </LinearLayout>
 
 </layout>

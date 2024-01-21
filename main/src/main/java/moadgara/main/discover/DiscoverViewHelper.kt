@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import moadgara.base.extension.addViewCheckIfExists
 import moadgara.base.extension.observeOnce
-import moadgara.base.extension.px
 import moadgara.base.extension.setFlingListener
+import moadgara.base.extension.toPx
 import moadgara.base.util.ViewUtil
 import moadgara.main.R
 import moadgara.main.databinding.FragmentDiscoverBinding
@@ -74,7 +74,7 @@ class DiscoverViewHelper(private val fragment: DiscoverFragment) {
     private fun addSpace(root: LinearLayout, index: Int): Space {
         val space = ViewUtil.createSpace(
             fragment.requireContext(),
-            height = moadgara.uicomponent.R.dimen.margin_high.px(fragment.resources)
+            height = moadgara.uicomponent.R.dimen.margin_high.toPx(fragment.resources)
         )
         return space.also { root.addView(space, index) }
     }

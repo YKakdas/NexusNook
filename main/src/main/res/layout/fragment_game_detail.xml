@@ -8,6 +8,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:ignoreFirstTopMargin="@{true}"
+        app:paddingBottomSystemWindowInsets="@{true}"
         app:verticalItemDecoration="@{@dimen/spacing_12}" />
 
 </layout>

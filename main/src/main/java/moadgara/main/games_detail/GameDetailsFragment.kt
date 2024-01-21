@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import moadgara.base.BaseFragment
 import moadgara.base.extension.observeOnce
-import moadgara.base.extension.px
+import moadgara.base.extension.toPx
 import moadgara.base.viewBinding
 import moadgara.main.R
 import moadgara.main.databinding.FragmentGameDetailBinding
@@ -87,7 +87,7 @@ class GameDetailsFragment : BaseFragment(R.layout.fragment_game_detail), Toolbar
             adapter = listAdapter
             setHasFixedSize(false)
         }
-        super.registerRecyclerViewScrollListener(binding.recyclerView, 200.px.toFloat(), 240.px.toFloat())
+        super.registerRecyclerViewScrollListener(binding.recyclerView, 140.toPx.toFloat(), 180.toPx.toFloat())
     }
 
 
