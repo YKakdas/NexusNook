@@ -5,9 +5,11 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import moadgara.base.BaseFragment
+import moadgara.base.extension.getAny
 import moadgara.base.extension.observeOnce
 import moadgara.base.extension.toPx
 import moadgara.base.viewBinding
+import moadgara.data.games.entity.GameDetailResponse
 import moadgara.main.R
 import moadgara.main.databinding.FragmentGameDetailBinding
 import moadgara.main.games_detail.listitems.GameDetailsAdapter
@@ -26,17 +28,20 @@ class GameDetailsFragment : BaseFragment(R.layout.fragment_game_detail), Toolbar
     private lateinit var listAdapter: GameDetailsAdapter
     private lateinit var title: String
     private var gameId: Int? = null
+    private var response: GameDetailResponse? = null
 
 
     companion object {
         const val KEY_GAME_ID = "game_id"
         const val KEY_GAME_NAME = "game_name"
+        const val KEY_GAME_RESPONSE = "game_response"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         gameId = arguments?.getInt(KEY_GAME_ID)
         title = arguments?.getString(KEY_GAME_NAME).orEmpty()
+        response = arguments?.getAny(KEY_GAME_RESPONSE)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,7 +54,7 @@ class GameDetailsFragment : BaseFragment(R.layout.fragment_game_detail), Toolbar
         setupRecyclerView()
         if (gameId != null) {
             progressDialog.showProgress(true, parentFragmentManager)
-            viewModel.fetchData(gameId!!)
+            viewModel.fetchData(gameId!!, response)
         }
     }
 

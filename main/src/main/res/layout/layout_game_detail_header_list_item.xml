@@ -19,9 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/game_detail_top_image_height"
             android:foreground="@drawable/foreground_gradient_shadow_effect"
-            android:scaleType="fitXY"
-            android:src="@{data.imageUrl}"
-            app:error="@{data.defaultImage}" />
+            android:scaleType="fitXY" />
 
         <TextView
             android:layout_width="match_parent"

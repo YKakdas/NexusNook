@@ -13,7 +13,7 @@ abstract class PreviewList(previewListCommonParameters: PreviewListCommonParamet
 
     abstract fun getPreviewListMetaData(): PreviewListMetaData
 
-    abstract fun getInnerItemAction(id: Int?, name: String?): () -> Unit
+    abstract fun getInnerItemAction(id: Int?, name: String?, response: Any?): () -> Unit
 
     abstract fun getViewLiveData(): MutableLiveData<PreviewListViewData>
 

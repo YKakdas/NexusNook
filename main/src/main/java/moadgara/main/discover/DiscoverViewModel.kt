@@ -8,6 +8,7 @@ import com.moadgara.common_model.network.NetworkResult
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
+import moadgara.base.util.tryCast
 import moadgara.data.ResponseMapper
 import moadgara.main.discover.sublists.PreviewList
 
@@ -89,11 +90,17 @@ class DiscoverViewModel(
     }
 
     private fun toPreviewListViewData(common: ResponseMapper?, previewList: PreviewList) {
-        previewList.getViewLiveData().value = PreviewListViewData(common?.toSmallViewData()?.map {
+
+        val rawResponse: List<*>? = common?.rawResponse().tryCast()
+
+        previewList.getViewLiveData().value = PreviewListViewData(common?.toSmallViewData()?.mapIndexed { index, commonData ->
             PreviewListItemData(
-                it.imageUrl, it.name, previewList.getInnerItemAction(it.id, it.name)
+                commonData.imageUrl,
+                commonData.name,
+                previewList.getInnerItemAction(commonData.id, commonData.name, rawResponse?.get(index))
             )
         })
+
     }
 
 }

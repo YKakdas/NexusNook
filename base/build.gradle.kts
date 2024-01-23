@@ -20,6 +20,7 @@ dependencies {
     implementation(Dependencies.Coil.gif)
 
     api(Dependencies.kotlinxSerialization)
+    implementation(Dependencies.gson)
 
     implementation(project(":common-model"))
 }

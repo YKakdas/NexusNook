@@ -4,6 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import moadgara.data.CommonResponseData
 import moadgara.data.ResponseMapper
+import moadgara.data.platforms.entity.PlatformDetailResponse
 
 @Serializable
 data class ListOfPublishersResponse(
@@ -16,5 +17,7 @@ data class ListOfPublishersResponse(
         results?.map { CommonResponseData(it.publisherId, it.publisherImageBackground, it.publisherName) }
 
     override fun toImageList(): List<String>? = results?.mapNotNull { it.publisherImageBackground }
+
+    override fun rawResponse(): List<PublisherDetailResponse>?  = results
 }
 

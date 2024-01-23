@@ -30,7 +30,7 @@ class CreatorsPreviewList(
         )
     }
 
-    override fun getInnerItemAction(id: Int?, name: String?): () -> Unit {
+    override fun getInnerItemAction(id: Int?, name: String?, response: Any?): () -> Unit {
         return { previewListCommonParameters.discoverNavigator.navigateToCreatorDetail(id) }
     }
 

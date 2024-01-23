@@ -3,7 +3,9 @@ package moadgara.main.discover.sublists.games
 import androidx.lifecycle.MutableLiveData
 import com.moadgara.common_model.network.NetworkResult
 import moadgara.base.util.DateUtil
+import moadgara.base.util.tryCast
 import moadgara.data.ResponseMapper
+import moadgara.data.games.entity.GameDetailResponse
 import moadgara.domain.games.GetReleaseDateFilteredGamesUseCase
 import moadgara.main.R
 import moadgara.main.discover.PreviewListMetaData
@@ -30,8 +32,9 @@ class ThisMonthReleasedGamesPreviewList(
         )
     }
 
-    override fun getInnerItemAction(id: Int?, name: String?): () -> Unit {
-        return { previewListCommonParameters.discoverNavigator.navigateToGameDetailPage(id, name) }
+    override fun getInnerItemAction(id: Int?, name: String?, response: Any?): () -> Unit {
+        val responseData = response.tryCast<GameDetailResponse>()
+        return { previewListCommonParameters.discoverNavigator.navigateToGameDetailPage(id, name, responseData) }
     }
 
     override fun getViewLiveData(): MutableLiveData<PreviewListViewData> {

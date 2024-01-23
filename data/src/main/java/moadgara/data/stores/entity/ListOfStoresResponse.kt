@@ -4,6 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import moadgara.data.CommonResponseData
 import moadgara.data.ResponseMapper
+import moadgara.data.publishers.entity.PublisherDetailResponse
 
 @Serializable
 data class ListOfStoresResponse(
@@ -15,4 +16,6 @@ data class ListOfStoresResponse(
     override fun toSmallViewData() = results?.map { CommonResponseData(it.storeId, it.storeImageBackground, it.storeName) }
 
     override fun toImageList(): List<String>? = results?.mapNotNull { it.storeImageBackground }
+
+    override fun rawResponse(): List<StoreDetailResponse>?  = results
 }

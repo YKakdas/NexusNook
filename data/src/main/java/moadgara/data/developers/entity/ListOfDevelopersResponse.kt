@@ -16,4 +16,6 @@ data class ListOfDevelopersResponse(
         results?.map { CommonResponseData(it.developerId, it.developerImageBackground, it.developerName) }
 
     override fun toImageList(): List<String>? = results?.mapNotNull { it.developerImageBackground }
+
+    override fun rawResponse(): List<DeveloperDetailResponse>? = results
 }

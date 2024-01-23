@@ -15,6 +15,7 @@ object Dependencies {
     const val timber = "com.jakewharton.timber:timber:${Versions.timber}"
     const val kotlinCoroutine =
         "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinCoroutine}"
+    const val gson = "com.google.code.gson:gson:${Versions.gson}"
 
     object Arch {
         private const val archLifecycle = "androidx.lifecycle:lifecycle-"

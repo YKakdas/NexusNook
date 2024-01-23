@@ -9,6 +9,7 @@ import moadgara.base.extension.addIfNotNull
 import moadgara.base.extension.orZero
 import moadgara.base.extension.stringRes
 import moadgara.base.util.ResourceProvider
+import moadgara.data.games.entity.GameDetailResponse
 import moadgara.data.games.entity.GameDetailsFromIdResponse
 import moadgara.domain.games.GetGameDetailsFromIdUseCase
 import moadgara.main.R
@@ -25,11 +26,13 @@ class GameDetailsViewModel(val resourceProvider: ResourceProvider, val getGameDe
 
     private val gameDetailsData = MutableLiveData<List<GenericListItem>>()
     private val message = MutableLiveData<String?>()
+    private var responseFromPreviousFragment: GameDetailResponse? = null
 
     fun getGameDetailsData() = gameDetailsData
 
     fun getMessage() = message
-    fun fetchData(gameId: Int) {
+    fun fetchData(gameId: Int, response: GameDetailResponse?) {
+        this.responseFromPreviousFragment = response
         viewModelScope.launch {
             when (val result = getGameDetailsFromIdUseCase(gameId)) {
                 is NetworkResult.Success -> result.data?.let { prepareData(it) }
@@ -50,7 +53,11 @@ class GameDetailsViewModel(val resourceProvider: ResourceProvider, val getGameDe
     }
 
     private fun prepareHeader(data: GameDetailsFromIdResponse): List<GenericListItem> {
-        val header = GameDetailsHeaderData(imageUrl = data.backgroundImageAdditionalUri, name = data.name ?: data.slug)
+        val header = GameDetailsHeaderData(
+            defaultImage = data.backgroundImageAdditionalUri.orEmpty(),
+            imageUrlList = responseFromPreviousFragment?.shortScreenshots?.mapNotNull { it.screenshotImage },
+            name = data.name ?: data.slug
+        )
         return listOf(header)
     }
 

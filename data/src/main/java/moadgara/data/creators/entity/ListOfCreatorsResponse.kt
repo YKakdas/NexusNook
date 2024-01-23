@@ -17,4 +17,6 @@ data class ListOfCreatorsResponse(
 
     override fun toImageList(): List<String>? = results?.mapNotNull { it.creatorImage ?: it.creatorImageBackground }
 
+    override fun rawResponse(): List<CreatorDetailResponse>? = results
+
 }

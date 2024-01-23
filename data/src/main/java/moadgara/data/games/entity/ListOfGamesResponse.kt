@@ -16,5 +16,7 @@ data class ListOfGamesResponse(
         results?.map { CommonResponseData(it.id, it.shortScreenshots?.firstOrNull()?.screenshotImage, it.name) }
 
     override fun toImageList(): List<String>? = results?.mapNotNull { it.shortScreenshots?.firstOrNull()?.screenshotImage }
+
+    override fun rawResponse(): List<GameDetailResponse>? = results
 }
 

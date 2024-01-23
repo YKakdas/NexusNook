@@ -17,4 +17,5 @@ object Versions {
     const val cardView = "1.0.0"
     const val kotlinCoroutine = "1.7.3"
     const val media3 = "1.2.0"
+    const val gson = "2.10"
 }

@@ -30,7 +30,7 @@ class PlatformsPreviewList(
         )
     }
 
-    override fun getInnerItemAction(id: Int?, name: String?): () -> Unit {
+    override fun getInnerItemAction(id: Int?, name: String?, response: Any?): () -> Unit {
         return { previewListCommonParameters.discoverNavigator.navigateToPlatformDetail(id) }
     }
 

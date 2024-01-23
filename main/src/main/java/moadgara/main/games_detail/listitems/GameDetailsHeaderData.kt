@@ -1,11 +1,10 @@
 package moadgara.main.games_detail.listitems
 
-import androidx.annotation.DrawableRes
 import moadgara.main.R
 import moadgara.uicomponent.adapter.GenericListItem
 
 data class GameDetailsHeaderData(
-    @DrawableRes val defaultImage: Int = R.drawable.nexus_nook_image,
-    val imageUrl: String?,
+    val defaultImage: String,
+    val imageUrlList: List<String>?,
     val name: String?
 ) : GenericListItem(R.layout.layout_game_detail_header_list_item)

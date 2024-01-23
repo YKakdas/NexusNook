@@ -3,10 +3,16 @@ package moadgara.main.games_detail.listitems
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import moadgara.base.util.tryCastNotNull
+import moadgara.main.databinding.LayoutGameDetailDescriptionBinding
+import moadgara.main.databinding.LayoutGameDetailHeaderListItemBinding
+import moadgara.main.databinding.LayoutGameDetailSummaryListItemBinding
 import moadgara.main.games_detail.viewholders.GameDetailsDescriptionViewHolder
+import moadgara.main.games_detail.viewholders.GameDetailsHeaderViewHolder
 import moadgara.main.games_detail.viewholders.GameDetailsSummaryViewHolder
 import moadgara.main.games_detail.viewholders.GameDetailsViewType
 import moadgara.main.games_detail.viewholders.GenericViewHolder
@@ -28,13 +34,18 @@ class GameDetailsAdapter : ListAdapter<GenericListItem, GenericViewHolder>(ItemD
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenericViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
+        val viewDataBinding = DataBindingUtil.inflate<ViewDataBinding>(layoutInflater, viewType, parent, false)
         return when (viewType) {
+            GameDetailsViewType.HEADER.type -> GameDetailsHeaderViewHolder(
+                viewDataBinding.tryCastNotNull<LayoutGameDetailHeaderListItemBinding>()
+            )
+
             GameDetailsViewType.SUMMARY.type -> GameDetailsSummaryViewHolder(
-                DataBindingUtil.inflate(layoutInflater, viewType, parent, false)
+                viewDataBinding.tryCastNotNull<LayoutGameDetailSummaryListItemBinding>()
             )
 
             GameDetailsViewType.DESCRIPTION.type -> GameDetailsDescriptionViewHolder(
-                DataBindingUtil.inflate(layoutInflater, viewType, parent, false), recyclerView
+                viewDataBinding.tryCastNotNull<LayoutGameDetailDescriptionBinding>(), recyclerView
             )
 
             else -> GenericViewHolder(DataBindingUtil.inflate(layoutInflater, viewType, parent, false))
