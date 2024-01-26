@@ -6,7 +6,10 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/margin_xlarge"
+        android:fadingEdgeLength="@dimen/game_detail_recycler_view_fading_edge_length"
         android:orientation="vertical"
+        android:requiresFadingEdge="vertical"
         app:ignoreFirstTopMargin="@{true}"
         app:paddingBottomSystemWindowInsets="@{true}"
         app:verticalItemDecoration="@{@dimen/spacing_12}" />

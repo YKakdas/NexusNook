@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="data"
+            type="moadgara.main.games_detail.listitems.GameDetailScreenshotData" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/game_detail_screenshot_view_height"
+        android:layout_marginHorizontal="@dimen/margin_high">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/game_details_screenshots_title"
+            android:textColor="@color/cloudy_grey"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/screenshotPager"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/game_detail_screenshot_image_height"
+            android:layout_marginTop="@dimen/margin_large"
+            android:orientation="horizontal" />
+    </FrameLayout>
+
+
+</layout>

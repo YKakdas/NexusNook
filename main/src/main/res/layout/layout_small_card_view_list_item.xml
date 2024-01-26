@@ -26,14 +26,13 @@
             android:layout_width="@dimen/preview_list_item_image_height"
             android:layout_height="@dimen/preview_list_item_image_height"
             android:src="@{data.imageUrl}"
-            app:transform="@{true}"
             app:error="@{@drawable/no_image_found}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:placeholder="@{@drawable/placeholder}"
             app:shapeAppearanceOverlay="@style/RoundedSquare"
             app:tint="@{R.color.raven}"
+            app:rounded="@{true}"
             tools:src="@drawable/placeholder" />
 
         <TextView

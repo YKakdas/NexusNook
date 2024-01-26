@@ -15,6 +15,7 @@ import moadgara.base.util.ViewUtil
 import moadgara.main.R
 import moadgara.main.databinding.FragmentDiscoverBinding
 import moadgara.main.databinding.LayoutPreviewListBinding
+import moadgara.uicomponent.enforceSingleScrollDirection
 import moadgara.uicomponent.CustomLinearSnapHelper
 import moadgara.uicomponent.PreloadLinearLayoutManager
 import moadgara.uicomponent.adapter.GenericAdapter
@@ -99,6 +100,7 @@ class DiscoverViewHelper(private val fragment: DiscoverFragment) {
             setItemViewCacheSize(6)
             CustomLinearSnapHelper().attachToRecyclerView(this)
             setFlingListener(2500)
+            enforceSingleScrollDirection()
         }
     }
 

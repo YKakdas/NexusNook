@@ -52,6 +52,11 @@
     <dimen name="game_detail_metascore_rating_title_height">24dp</dimen>
     <dimen name="game_detail_rating_count_margin_start">96dp</dimen>
     <dimen name="game_detail_rating_bar_margin_top">26dp</dimen>
+    <dimen name="game_detail_recycler_view_fading_edge_length">50dp</dimen>
+    <dimen name="game_detail_screenshot_radius">8dp</dimen>
+    <dimen name="game_detail_screenshot_elevation">8dp</dimen>
+    <dimen name="game_detail_screenshot_view_height">280dp</dimen>
+    <dimen name="game_detail_screenshot_image_height">240dp</dimen>
 
     <dimen name="toolbar_height">56dp</dimen>
     <dimen name="toolbar_min_height">80dp</dimen>

@@ -7,5 +7,6 @@ enum class GameDetailsViewType(val type: Int) {
     SUMMARY(R.layout.layout_game_detail_summary_list_item),
     DIVIDER(R.layout.layout_horizontal_divider),
     METASCORE_RATING(R.layout.layout_game_detail_metascore_rating),
-    DESCRIPTION(R.layout.layout_game_detail_description)
+    DESCRIPTION(R.layout.layout_game_detail_description),
+    SCREENSHOTS(R.layout.layout_game_detail_screenshots)
 }

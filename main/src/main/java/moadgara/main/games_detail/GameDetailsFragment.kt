@@ -8,12 +8,16 @@ import moadgara.base.BaseFragment
 import moadgara.base.extension.getAny
 import moadgara.base.extension.observeOnce
 import moadgara.base.extension.toPx
+import moadgara.base.util.CoilUtil
 import moadgara.base.viewBinding
 import moadgara.data.games.entity.GameDetailResponse
 import moadgara.main.R
 import moadgara.main.databinding.FragmentGameDetailBinding
 import moadgara.main.games_detail.listitems.GameDetailsAdapter
+import moadgara.main.games_detail.listitems.GameDetailsHeaderData
+import moadgara.uicomponent.enforceSingleScrollDirection
 import moadgara.uicomponent.AlertDialog
+import moadgara.uicomponent.LinearLayoutManagerWithAccurateOffset
 import moadgara.uicomponent.ProgressDialog
 import moadgara.uicomponent.alertDialog
 import moadgara.uicomponent.overlay.ToolbarFragment
@@ -79,8 +83,15 @@ class GameDetailsFragment : BaseFragment(R.layout.fragment_game_detail), Toolbar
         viewModel.getGameDetailsData().observeOnce(viewLifecycleOwner) {
             if (it != null) {
                 listAdapter.submitList(it)
+                val headerImage = it.filterIsInstance<GameDetailsHeaderData>().firstOrNull()?.defaultImage
+                if (headerImage != null) {
+                    CoilUtil.prefetchImages(requireContext(), listOf(headerImage)) {
+                        progressDialog.showProgress(false, parentFragmentManager)
+                    }
+                } else {
+                    progressDialog.showProgress(false, parentFragmentManager)
+                }
             }
-            progressDialog.showProgress(false, parentFragmentManager)
         }
     }
 
@@ -88,11 +99,12 @@ class GameDetailsFragment : BaseFragment(R.layout.fragment_game_detail), Toolbar
         listAdapter = GameDetailsAdapter()
 
         binding.recyclerView.run {
-            layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+            layoutManager = LinearLayoutManagerWithAccurateOffset(requireContext(), RecyclerView.VERTICAL, false)
             adapter = listAdapter
             setHasFixedSize(false)
+            enforceSingleScrollDirection()
         }
-        super.registerRecyclerViewScrollListener(binding.recyclerView, 140.toPx.toFloat(), 180.toPx.toFloat())
+        super.registerRecyclerViewScrollListener(binding.recyclerView, 180.toPx.toFloat(), 200.toPx.toFloat())
     }
 
 

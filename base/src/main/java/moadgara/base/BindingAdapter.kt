@@ -18,9 +18,9 @@ import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.textfield.TextInputEditText
 import moadgara.base.extension.doOnApplyWindowInsets
 import moadgara.base.extension.orDefault
-import moadgara.base.extension.toPx
 import moadgara.base.extension.statusBarPadding
 import moadgara.base.extension.toPaddingHolder
+import moadgara.base.extension.toPx
 import moadgara.base.util.CoilUtil
 import moadgara.base.util.HorizontalMarginItemDecoration
 import moadgara.base.util.VerticalMarginItemDecoration
@@ -46,7 +46,7 @@ fun setOnNavigationItemSelected(
 }
 
 @BindingAdapter(
-    value = ["android:src", "placeholder", "error", "tint", "transform"],
+    value = ["android:src", "placeholder", "error", "tint", "rounded"],
     requireAll = false
 )
 fun setImageFromUrl(
@@ -55,7 +55,7 @@ fun setImageFromUrl(
     placeholder: Drawable?,
     error: Drawable?,
     tintColor: Int?,
-    transform: Boolean = false
+    rounded: Boolean = false
 ) {
     if (tintColor != null) {
         placeholder?.setTint(ContextCompat.getColor(view.context, tintColor))
@@ -64,7 +64,8 @@ fun setImageFromUrl(
 
     view.load(url, CoilUtil.getCachedCoilImageLoader(view.context)) {
         error(error)
-        if (transform) transformations(RoundedCornersTransformation())
+        placeholder(placeholder)
+        if (rounded) transformations(RoundedCornersTransformation())
     }
 
 }

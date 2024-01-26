@@ -29,4 +29,5 @@
     <string name="game_details_metascore_title">Metascore</string>
     <string name="game_details_rating_title">User Ratings</string>
     <string name="game_details_description_title">About</string>
+    <string name="game_details_screenshots_title">Screenshots</string>
 </resources>

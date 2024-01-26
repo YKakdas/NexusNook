@@ -29,7 +29,7 @@ object CoilUtil {
     fun prefetchImages(
         context: Context,
         imageList: List<String>,
-        callback: (() -> Unit)?
+        callback: (() -> Unit)? = null
     ) {
         val imageLoader = getCachedCoilImageLoader(context)
         var count = 0

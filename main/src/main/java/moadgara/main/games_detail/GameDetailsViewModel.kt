@@ -4,15 +4,21 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.moadgara.common_model.network.NetworkResult
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import moadgara.base.extension.addIfNotNull
 import moadgara.base.extension.orZero
 import moadgara.base.extension.stringRes
 import moadgara.base.util.ResourceProvider
+import moadgara.base.util.tryCast
 import moadgara.data.games.entity.GameDetailResponse
 import moadgara.data.games.entity.GameDetailsFromIdResponse
+import moadgara.data.games.entity.ScreenshotsResponse
 import moadgara.domain.games.GetGameDetailsFromIdUseCase
+import moadgara.domain.games.GetScreenshotsFromGameIdUseCase
 import moadgara.main.R
+import moadgara.main.games_detail.listitems.GameDetailScreenshotData
 import moadgara.main.games_detail.listitems.GameDetailsDescriptionData
 import moadgara.main.games_detail.listitems.GameDetailsHeaderData
 import moadgara.main.games_detail.listitems.GameDetailsHorizontalDivider
@@ -21,34 +27,67 @@ import moadgara.main.games_detail.listitems.GameDetailsSummaryData
 import moadgara.main.games_detail.listitems.SpannableText
 import moadgara.uicomponent.adapter.GenericListItem
 
-class GameDetailsViewModel(val resourceProvider: ResourceProvider, val getGameDetailsFromIdUseCase: GetGameDetailsFromIdUseCase) :
+class GameDetailsViewModel(
+    val resourceProvider: ResourceProvider,
+    val getGameDetailsFromIdUseCase: GetGameDetailsFromIdUseCase,
+    val getScreenshotsFromGameIdUseCase: GetScreenshotsFromGameIdUseCase
+) :
     ViewModel() {
 
     private val gameDetailsData = MutableLiveData<List<GenericListItem>>()
     private val message = MutableLiveData<String?>()
     private var responseFromPreviousFragment: GameDetailResponse? = null
 
+    private var gameDetailsFromId: GameDetailsFromIdResponse? = null
+    private var screenshotsFromId: ScreenshotsResponse? = null
+
     fun getGameDetailsData() = gameDetailsData
 
     fun getMessage() = message
     fun fetchData(gameId: Int, response: GameDetailResponse?) {
         this.responseFromPreviousFragment = response
+
+
         viewModelScope.launch {
-            when (val result = getGameDetailsFromIdUseCase(gameId)) {
-                is NetworkResult.Success -> result.data?.let { prepareData(it) }
-                is NetworkResult.Failure -> message.value = result.message
-            }
+            val gameDetails = async { getGameDetailsFromIdUseCase(gameId) }
+            val screenshots = async { getScreenshotsFromGameIdUseCase(gameId) }
+
+            val deferred = awaitAll(gameDetails, screenshots)
+
+            processGameDetails(deferred[0])
+            processScreenshots(deferred[1])
+
+            prepareData()
         }
     }
 
-    private fun prepareData(data: GameDetailsFromIdResponse) {
+    private fun processGameDetails(networkResult: NetworkResult<Any>) {
+        when (networkResult) {
+            is NetworkResult.Failure -> message.value = networkResult.message
+            is NetworkResult.Success -> gameDetailsFromId = networkResult.data.tryCast()
+        }
+    }
+
+    private fun processScreenshots(networkResult: NetworkResult<Any>) {
+        if (networkResult is NetworkResult.Success) {
+            screenshotsFromId = networkResult.data.tryCast()
+        }
+    }
+
+
+    private fun prepareData() {
         val list = mutableListOf<GenericListItem>()
 
-        list.addAll(prepareHeader(data))
-        list.addAll(prepareMetascoreRatingView(data))
-        list.addAll(prepareSummary(data))
-        list.addAll(prepareDescription(data))
+        gameDetailsFromId?.let {
+            list.addAll(prepareHeader(it))
+            list.addAll(prepareMetascoreRatingView(it))
+            list.addAll(prepareSummary(it))
+            list.addAll(prepareDescription(it))
 
+            screenshotsFromId?.let { screenshots ->
+                list.addAll(prepareScreenshots(screenshots))
+            }
+        }
         gameDetailsData.value = list
     }
 
@@ -90,7 +129,11 @@ class GameDetailsViewModel(val resourceProvider: ResourceProvider, val getGameDe
             )
         }
 
-        return listOf(GameDetailsSummaryData(spannableTexts), GameDetailsHorizontalDivider())
+        return if (spannableTexts.isNotEmpty()) {
+            listOf(GameDetailsSummaryData(spannableTexts), GameDetailsHorizontalDivider())
+        } else {
+            emptyList()
+        }
     }
 
     private fun prepareMetascoreRatingView(data: GameDetailsFromIdResponse): List<GenericListItem> {
@@ -98,11 +141,30 @@ class GameDetailsViewModel(val resourceProvider: ResourceProvider, val getGameDe
         val ratingScore = if (ratingCount > 0) data.rating else null
 
         val gameDetailsMetascoreRatingData = GameDetailsMetascoreRatingData(data.metaCritic, ratingScore, "($ratingCount votes)")
-        return listOf(gameDetailsMetascoreRatingData, GameDetailsHorizontalDivider())
+
+        return if (ratingCount <= 0 && (data.metaCritic == null || data.metaCritic == 0))
+            emptyList()
+        else
+            listOf(gameDetailsMetascoreRatingData, GameDetailsHorizontalDivider())
     }
 
     private fun prepareDescription(data: GameDetailsFromIdResponse): List<GenericListItem> {
-        return listOf(GameDetailsDescriptionData(data.descriptionRaw), GameDetailsHorizontalDivider())
+        return if (!data.descriptionRaw.isNullOrEmpty()) {
+            listOf(GameDetailsDescriptionData(data.descriptionRaw), GameDetailsHorizontalDivider())
+        } else {
+            emptyList()
+        }
     }
 
+    private fun prepareScreenshots(data: ScreenshotsResponse): List<GenericListItem> {
+        return if (data.screenshots.isNullOrEmpty()) {
+            emptyList()
+        } else {
+            listOf(
+                GameDetailScreenshotData(data.screenshots!!.mapNotNull { it.screenshotUrl }),
+                GameDetailsHorizontalDivider()
+            )
+        }
+
+    }
 }

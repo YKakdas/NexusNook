@@ -10,9 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import moadgara.base.util.tryCastNotNull
 import moadgara.main.databinding.LayoutGameDetailDescriptionBinding
 import moadgara.main.databinding.LayoutGameDetailHeaderListItemBinding
+import moadgara.main.databinding.LayoutGameDetailScreenshotsBinding
 import moadgara.main.databinding.LayoutGameDetailSummaryListItemBinding
 import moadgara.main.games_detail.viewholders.GameDetailsDescriptionViewHolder
 import moadgara.main.games_detail.viewholders.GameDetailsHeaderViewHolder
+import moadgara.main.games_detail.viewholders.GameDetailsScreenshotsViewHolder
 import moadgara.main.games_detail.viewholders.GameDetailsSummaryViewHolder
 import moadgara.main.games_detail.viewholders.GameDetailsViewType
 import moadgara.main.games_detail.viewholders.GenericViewHolder
@@ -46,6 +48,10 @@ class GameDetailsAdapter : ListAdapter<GenericListItem, GenericViewHolder>(ItemD
 
             GameDetailsViewType.DESCRIPTION.type -> GameDetailsDescriptionViewHolder(
                 viewDataBinding.tryCastNotNull<LayoutGameDetailDescriptionBinding>(), recyclerView
+            )
+
+            GameDetailsViewType.SCREENSHOTS.type -> GameDetailsScreenshotsViewHolder(
+                viewDataBinding.tryCastNotNull<LayoutGameDetailScreenshotsBinding>()
             )
 
             else -> GenericViewHolder(DataBindingUtil.inflate(layoutInflater, viewType, parent, false))
