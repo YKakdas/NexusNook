@@ -13,7 +13,6 @@ import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.util.reflect.TypeInfo
 import moadgara.base.BuildConfig
-import moadgara.base.util.SecurityUtil
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
@@ -32,7 +31,7 @@ class NetworkImpl : KoinComponent, NetworkInterface {
     ): NetworkResult<Response> {
         try {
             val queryParameters = queryParams?.toMutableMap() ?: mutableMapOf()
-            queryParameters["key"] = SecurityUtil.decode(3, BuildConfig.API_KEY)
+            queryParameters["key"] = BuildConfig.API_KEY
 
             val response = client.get(BaseUrl.apiUrl + endPoint) {
                 queryParameters.forEach { parameter(it.key, it.value) }
