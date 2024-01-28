@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import moadgara.base.OnToolbarVisibilityChangedListener
+import moadgara.base.extension.changeVisibility
 import moadgara.uicomponent.R
 import moadgara.uicomponent.databinding.LayoutOverlayBaseBinding
 
@@ -127,18 +128,23 @@ class OverlayBaseFragment : DialogFragment(), OnToolbarVisibilityChangedListener
             fragmentManager.addOnBackStackChangedListener {
                 val fragment = fragmentManager.fragments.lastOrNull() ?: return@addOnBackStackChangedListener
 
-                if (fragment is ToolbarFragment) {
-                    binding.toolbar.toolbarTitle.text = fragment.getTitle()
-                    if (fragment.showToolbar()) {
-                        binding.toolbar.background.alpha = 1f
-                    }
+                if (fragment !is ToolbarFragment) {
+                    throw IllegalStateException("Overlay fragment must implement ToolbarFragment!")
                 }
 
-                if (fragmentManager.backStackEntryCount > 1) {
-                    binding.toolbar.close.visibility = View.VISIBLE
-                } else {
-                    binding.toolbar.close.visibility = View.GONE
+                binding.toolbar.toolbarTitle.text = fragment.getTitle()
+
+                if (fragment.showToolbar()) {
+                    binding.toolbar.background.alpha = 1f
                 }
+
+                when (fragment.getToolbarType()) {
+                    ToolbarType.TITLE_ONLY -> setButtonVisibilities(showCloseButton = false, showBackButton = false)
+                    ToolbarType.BACK -> setButtonVisibilities(showCloseButton = false, showBackButton = true)
+                    ToolbarType.CLOSE -> setButtonVisibilities(showCloseButton = true, showBackButton = false)
+                    ToolbarType.BACK_CLOSE -> setButtonVisibilities(showCloseButton = true, showBackButton = true)
+                }
+
             }
 
             binding.toolbar.back.setOnClickListener {
@@ -156,4 +162,17 @@ class OverlayBaseFragment : DialogFragment(), OnToolbarVisibilityChangedListener
         binding.toolbar.background.alpha = visibility
     }
 
+    private fun setButtonVisibilities(showCloseButton: Boolean, showBackButton: Boolean) {
+        binding.toolbar.run {
+            close.changeVisibility(showCloseButton)
+            back.changeVisibility(showBackButton)
+        }
+    }
+}
+
+enum class ToolbarType {
+    TITLE_ONLY,
+    CLOSE,
+    BACK,
+    BACK_CLOSE
 }

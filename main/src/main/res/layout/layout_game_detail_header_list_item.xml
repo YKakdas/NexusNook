@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -8,6 +7,10 @@
         <variable
             name="data"
             type="moadgara.main.games_detail.listitems.GameDetailsHeaderData" />
+
+        <variable
+            name="imageUrl"
+            type="String" />
     </data>
 
     <FrameLayout
@@ -18,6 +21,7 @@
             android:id="@+id/image"
             android:layout_width="match_parent"
             android:layout_height="@dimen/game_detail_top_image_height"
+            android:src="@{imageUrl}"
             android:foreground="@drawable/foreground_gradient_shadow_effect"
             android:scaleType="fitXY" />
 

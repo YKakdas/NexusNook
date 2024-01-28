@@ -2,7 +2,6 @@ package moadgara.main.games_detail
 
 import android.os.Bundle
 import android.view.View
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import moadgara.base.BaseFragment
 import moadgara.base.extension.getAny
@@ -15,12 +14,13 @@ import moadgara.main.R
 import moadgara.main.databinding.FragmentGameDetailBinding
 import moadgara.main.games_detail.listitems.GameDetailsAdapter
 import moadgara.main.games_detail.listitems.GameDetailsHeaderData
-import moadgara.uicomponent.enforceSingleScrollDirection
 import moadgara.uicomponent.AlertDialog
 import moadgara.uicomponent.LinearLayoutManagerWithAccurateOffset
 import moadgara.uicomponent.ProgressDialog
 import moadgara.uicomponent.alertDialog
+import moadgara.uicomponent.enforceSingleScrollDirection
 import moadgara.uicomponent.overlay.ToolbarFragment
+import moadgara.uicomponent.overlay.ToolbarType
 import org.koin.android.ext.android.inject
 
 class GameDetailsFragment : BaseFragment(R.layout.fragment_game_detail), ToolbarFragment {
@@ -33,7 +33,7 @@ class GameDetailsFragment : BaseFragment(R.layout.fragment_game_detail), Toolbar
     private lateinit var title: String
     private var gameId: Int? = null
     private var response: GameDetailResponse? = null
-
+    private var resumed = false
 
     companion object {
         const val KEY_GAME_ID = "game_id"
@@ -48,6 +48,11 @@ class GameDetailsFragment : BaseFragment(R.layout.fragment_game_detail), Toolbar
         response = arguments?.getAny(KEY_GAME_RESPONSE)
     }
 
+    override fun onResume() {
+        super.onResume()
+        resumed = true
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initialize()
@@ -57,24 +62,28 @@ class GameDetailsFragment : BaseFragment(R.layout.fragment_game_detail), Toolbar
     private fun initialize() {
         setupRecyclerView()
         if (gameId != null) {
-            progressDialog.showProgress(true, parentFragmentManager)
             viewModel.fetchData(gameId!!, response)
         }
     }
 
     private fun observeEvents() {
-        observeError()
         observeData()
+        if (!resumed) {
+            observeError()
+            observeProgress()
+        }
     }
 
     private fun observeError() {
-        viewModel.getMessage().observeOnce(viewLifecycleOwner) {
-            progressDialog.showProgress(false, parentFragmentManager)
-            alertDialog(requireContext()) {
-                title(R.string.generic_error_title)
-                description(it ?: resources.getString(R.string.generic_error_description))
-                neutralText(R.string.alert_dialog_neutral_button_text)
-                type(AlertDialog.Type.ERROR)
+        viewModel.getMessage().observeOnce(this) {
+            if (it != null) {
+                progressDialog.showProgress(false, parentFragmentManager)
+                alertDialog(requireContext()) {
+                    title(R.string.generic_error_title)
+                    description(it ?: resources.getString(R.string.generic_error_description))
+                    neutralText(R.string.alert_dialog_neutral_button_text)
+                    type(AlertDialog.Type.ERROR)
+                }
             }
         }
     }
@@ -95,6 +104,14 @@ class GameDetailsFragment : BaseFragment(R.layout.fragment_game_detail), Toolbar
         }
     }
 
+    private fun observeProgress() {
+        viewModel.getProgress().observeOnce(viewLifecycleOwner) {
+            if (it != null) {
+                progressDialog.showProgress(it, parentFragmentManager)
+            }
+        }
+    }
+
     private fun setupRecyclerView() {
         listAdapter = GameDetailsAdapter()
 
@@ -108,15 +125,16 @@ class GameDetailsFragment : BaseFragment(R.layout.fragment_game_detail), Toolbar
     }
 
 
-    override fun getTitle(): String {
+    override fun getTitle(): String? {
         return if (::title.isInitialized) {
             title
         } else {
-            ""
+            null
         }
     }
 
     override fun showToolbar(): Boolean = false
 
     override fun onBackPressed(): Boolean = false
+    override fun getToolbarType(): ToolbarType = ToolbarType.BACK
 }

@@ -36,17 +36,25 @@ class GameDetailsViewModel(
 
     private val gameDetailsData = MutableLiveData<List<GenericListItem>>()
     private val message = MutableLiveData<String?>()
+    private val progress = MutableLiveData<Boolean>()
     private var responseFromPreviousFragment: GameDetailResponse? = null
 
     private var gameDetailsFromId: GameDetailsFromIdResponse? = null
     private var screenshotsFromId: ScreenshotsResponse? = null
 
+    private var dataIsPrepared = false
+
     fun getGameDetailsData() = gameDetailsData
 
     fun getMessage() = message
-    fun fetchData(gameId: Int, response: GameDetailResponse?) {
-        this.responseFromPreviousFragment = response
 
+    fun getProgress() = progress
+
+    fun fetchData(gameId: Int, response: GameDetailResponse?) {
+        if (dataIsPrepared) return
+
+        progress.value = true
+        this.responseFromPreviousFragment = response
 
         viewModelScope.launch {
             val gameDetails = async { getGameDetailsFromIdUseCase(gameId) }
@@ -89,6 +97,7 @@ class GameDetailsViewModel(
             }
         }
         gameDetailsData.value = list
+        dataIsPrepared = true
     }
 
     private fun prepareHeader(data: GameDetailsFromIdResponse): List<GenericListItem> {

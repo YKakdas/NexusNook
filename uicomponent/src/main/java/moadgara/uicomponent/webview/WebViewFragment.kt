@@ -10,6 +10,7 @@ import moadgara.base.viewBinding
 import moadgara.uicomponent.R
 import moadgara.uicomponent.databinding.LayoutWebviewBinding
 import moadgara.uicomponent.overlay.ToolbarFragment
+import moadgara.uicomponent.overlay.ToolbarType
 
 
 class WebViewFragment : BaseFragment(R.layout.layout_webview), ToolbarFragment {
@@ -37,9 +38,7 @@ class WebViewFragment : BaseFragment(R.layout.layout_webview), ToolbarFragment {
         }
     }
 
-    override fun getTitle(): String {
-        return title
-    }
+    override fun getTitle(): String = title
 
     override fun showToolbar(): Boolean = true
 
@@ -52,6 +51,8 @@ class WebViewFragment : BaseFragment(R.layout.layout_webview), ToolbarFragment {
         }
     }
 
+    override fun getToolbarType(): ToolbarType = ToolbarType.BACK_CLOSE
+
     @SuppressLint("SetJavaScriptEnabled")
     private fun setWebSettings() {
         val settings: WebSettings = this.binding.webview.settings
@@ -59,4 +60,5 @@ class WebViewFragment : BaseFragment(R.layout.layout_webview), ToolbarFragment {
         settings.allowContentAccess = true
         settings.domStorageEnabled = true
     }
+
 }

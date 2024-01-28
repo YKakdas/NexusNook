@@ -5,7 +5,6 @@ import android.content.Context
 import android.graphics.Rect
 import android.os.Build
 import android.view.View
-import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
 import android.view.WindowInsets
 import android.view.animation.Animation
@@ -86,6 +85,7 @@ fun View.isVisibleOnScreen(reference: View): Boolean {
     return getLocalVisibleRect(scrollBounds)
 }
 
+@Suppress("DEPRECATION")
 fun View.statusBarPadding(direction: Int = 1) {
     setOnApplyWindowInsetsListener { _, insets ->
         doOnLayout {
@@ -102,13 +102,6 @@ fun View.statusBarPadding(direction: Int = 1) {
     }
 }
 
-fun ViewGroup.addViewCheckIfExists(viewToAdd: View, index: Int? = null) {
-    if (indexOfChild(viewToAdd) != -1) {
-        removeView(viewToAdd)
-    }
-    if (index != null) {
-        addView(viewToAdd, index)
-    } else {
-        addView(viewToAdd)
-    }
+fun View.changeVisibility(isVisible: Boolean) {
+    visibility = if (isVisible) View.VISIBLE else View.GONE
 }
