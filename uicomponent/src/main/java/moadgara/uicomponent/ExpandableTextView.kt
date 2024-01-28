@@ -10,6 +10,7 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.animation.doOnEnd
 import androidx.databinding.BindingAdapter
+import moadgara.base.setTextFromHtml
 
 class ExpandableTextView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
     AppCompatTextView(context, attrs, defStyleAttr) {
@@ -131,7 +132,7 @@ class ExpandableTextView(context: Context, attrs: AttributeSet?, defStyleAttr: I
     }
 
     fun setBody(text: String?) {
-        this.text = text
+        setTextFromHtml(this, text.orEmpty())
     }
 
 }

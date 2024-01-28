@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -22,6 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/game_detail_top_image_height"
             android:src="@{imageUrl}"
+            app:error="@{@drawable/nexus_nook_image}"
             android:foreground="@drawable/foreground_gradient_shadow_effect"
             android:scaleType="fitXY" />
 

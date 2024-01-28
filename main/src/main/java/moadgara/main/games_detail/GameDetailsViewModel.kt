@@ -101,8 +101,9 @@ class GameDetailsViewModel(
     }
 
     private fun prepareHeader(data: GameDetailsFromIdResponse): List<GenericListItem> {
+        val image = data.backgroundImageAdditionalUri ?: data.backgroundImageUri
         val header = GameDetailsHeaderData(
-            defaultImage = data.backgroundImageAdditionalUri.orEmpty(),
+            defaultImage = image.orEmpty(),
             imageUrlList = responseFromPreviousFragment?.shortScreenshots?.mapNotNull { it.screenshotImage },
             name = data.name ?: data.slug
         )
@@ -158,8 +159,9 @@ class GameDetailsViewModel(
     }
 
     private fun prepareDescription(data: GameDetailsFromIdResponse): List<GenericListItem> {
-        return if (!data.descriptionRaw.isNullOrEmpty()) {
-            listOf(GameDetailsDescriptionData(data.descriptionRaw), GameDetailsHorizontalDivider())
+        val descriptionText = data.description ?: data.descriptionRaw
+        return if (!descriptionText.isNullOrEmpty()) {
+            listOf(GameDetailsDescriptionData(descriptionText), GameDetailsHorizontalDivider())
         } else {
             emptyList()
         }
