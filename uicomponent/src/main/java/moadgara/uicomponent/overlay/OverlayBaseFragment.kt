@@ -114,6 +114,12 @@ class OverlayBaseFragment : DialogFragment(), Overlay {
         }
     }
 
+    override fun backPress() {
+        if (fragmentManager.backStackEntryCount > 1) {
+            fragmentManager.popBackStack()
+        }
+    }
+
     override fun onToolbarVisibilityChanged(visibility: Float) {
         binding.toolbar.background.alpha = visibility
         currentFragment?.tag?.let { toolbarAlphaMap[it] = visibility }

@@ -43,10 +43,10 @@
 
         <ImageButton
             android:id="@+id/back"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/toolbar_button_height"
             android:layout_height="@dimen/toolbar_button_height"
             android:layout_marginStart="@dimen/margin_medium"
-            android:layout_marginBottom="@dimen/spacing_20"
+            android:layout_marginBottom="@dimen/spacing_12"
             android:background="?actionBarItemBackground"
             android:src="@drawable/ic_chevron_back"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -54,11 +54,11 @@
 
         <ImageButton
             android:id="@+id/close"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/toolbar_button_height"
             android:layout_height="@dimen/toolbar_button_height"
             android:layout_gravity="center_vertical|end"
             android:layout_marginEnd="@dimen/margin_medium"
-            android:layout_marginBottom="@dimen/spacing_20"
+            android:layout_marginBottom="@dimen/spacing_12"
             android:background="?actionBarItemBackground"
             android:src="@drawable/ic_close"
             android:visibility="gone"

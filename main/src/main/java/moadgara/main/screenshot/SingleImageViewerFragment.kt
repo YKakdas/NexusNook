@@ -4,14 +4,16 @@ import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
-import moadgara.base.extension.getAny
 import moadgara.base.extension.toPx
 import moadgara.base.util.BitmapUtil
+import moadgara.base.util.CacheUtil
+import moadgara.base.util.IntentUtil
 import moadgara.base.viewBinding
 import moadgara.main.BR
 import moadgara.main.R
@@ -61,6 +63,7 @@ class SingleImageViewerFragment : BaseFragment(R.layout.layout_single_image_view
             }
         }
         imageUrl?.let { imageUrl -> binding.setVariable(BR.data, imageUrl) }
+        setupButtonActions()
         binding.executePendingBindings()
     }
 
@@ -82,7 +85,7 @@ class SingleImageViewerFragment : BaseFragment(R.layout.layout_single_image_view
         } else {
             requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         }
-        isPortrait = !isPortrait;
+        isPortrait = !isPortrait
     }
 
     private fun updateLayoutParameters(orientation: Int) {
@@ -100,5 +103,20 @@ class SingleImageViewerFragment : BaseFragment(R.layout.layout_single_image_view
             this.layoutParams = layoutParams
         }
     }
+
+    private fun setupButtonActions() {
+        binding.setVariable(BR.buttonActions, ToolbarButtonListeners(
+            rotate = { toggleOrientation() },
+            share = { shareScreenshot() },
+            close = { overlay?.backPress() }
+        ))
+    }
+
+    private fun shareScreenshot() {
+        CacheUtil.saveBitmapToCache(requireContext(), (binding.image.drawable as BitmapDrawable).bitmap)
+        IntentUtil.shareImage(requireContext())
+    }
+
+    data class ToolbarButtonListeners(val rotate: () -> Unit, val share: () -> Unit, val close: () -> Unit)
 
 }

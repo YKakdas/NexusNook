@@ -11,6 +11,10 @@
         <variable
             name="backgroundBitmap"
             type="android.graphics.Bitmap" />
+
+        <variable
+            name="buttonActions"
+            type="moadgara.main.screenshot.SingleImageViewerFragment.ToolbarButtonListeners" />
     </data>
 
     <FrameLayout
@@ -26,6 +30,47 @@
             android:layout_gravity="center"
             android:minHeight="@dimen/game_detail_screenshot_image_height"
             android:src="@{data}" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:background="@color/transparent"
+            android:minHeight="@dimen/toolbar_min_height"
+            app:paddingTopSystemWindowInsets="@{true}">
+
+            <ImageButton
+                android:id="@+id/close"
+                android:layout_width="@dimen/toolbar_button_height"
+                android:layout_height="@dimen/toolbar_button_height"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="@dimen/margin_medium"
+                android:background="?actionBarItemBackground"
+                android:onClick="@{() -> buttonActions.close.invoke()}"
+                android:src="@drawable/ic_close" />
+
+            <ImageButton
+                android:id="@+id/rotate"
+                android:layout_width="@dimen/toolbar_button_height"
+                android:layout_height="@dimen/toolbar_button_height"
+                android:layout_gravity="center_vertical|start"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:background="?actionBarItemBackground"
+                android:onClick="@{() -> buttonActions.rotate.invoke()}"
+                android:src="@drawable/ic_rotate" />
+
+            <ImageButton
+                android:id="@+id/share"
+                android:layout_width="@dimen/toolbar_button_height"
+                android:layout_height="@dimen/toolbar_button_height"
+                android:layout_gravity="center_vertical|start"
+                android:layout_marginStart="@dimen/margin_xlarge"
+                android:background="?actionBarItemBackground"
+                android:onClick="@{() -> buttonActions.share.invoke()}"
+                android:src="@drawable/ic_share" />
+
+        </FrameLayout>
+
 
     </FrameLayout>
 </layout>
