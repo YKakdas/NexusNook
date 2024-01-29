@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
+import moadgara.base.extension.getAny
 import moadgara.base.extension.toPx
 import moadgara.base.util.BitmapUtil
 import moadgara.base.viewBinding
@@ -30,25 +31,17 @@ class SingleImageViewerFragment : BaseFragment(R.layout.layout_single_image_view
     private var imageUrl: String? = null
     private var isPortrait = true
     private val binding by viewBinding(LayoutSingleImageViewerBinding::bind)
+    private var overlay: Overlay? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         imageUrl = arguments?.getString(KEY_IMAGE_URL).orEmpty()
+        overlay = parentFragment as? Overlay
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (parentFragment as? Overlay)?.registerScreenCaptureRequest(true, this)
-    }
-
-    @SuppressLint("SourceLockedOrientationActivity")
-    private fun toggleOrientation() {
-        if (isPortrait) {
-            requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-        } else {
-            requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        }
-        isPortrait = !isPortrait;
+        overlay?.registerScreenCaptureRequest(this)
     }
 
     override fun getTitle(): String = ""
@@ -58,6 +51,9 @@ class SingleImageViewerFragment : BaseFragment(R.layout.layout_single_image_view
     override fun onBackPressed(): Boolean = false
 
     override fun getToolbarType(): ToolbarType = ToolbarType.BACK
+
+    override fun showToolbar(): Boolean = false
+
     override fun onScreenCaptureCompleted(bitmap: Bitmap?) {
         if (bitmap != null) {
             BitmapUtil.blurImage(bitmap, requireContext()).let {
@@ -70,8 +66,23 @@ class SingleImageViewerFragment : BaseFragment(R.layout.layout_single_image_view
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-
         updateLayoutParameters(newConfig.orientation)
+    }
+
+    @SuppressLint("SourceLockedOrientationActivity")
+    override fun onDestroyView() {
+        super.onDestroyView()
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+    }
+
+    @SuppressLint("SourceLockedOrientationActivity")
+    private fun toggleOrientation() {
+        if (isPortrait) {
+            requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        } else {
+            requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        }
+        isPortrait = !isPortrait;
     }
 
     private fun updateLayoutParameters(orientation: Int) {
@@ -90,9 +101,4 @@ class SingleImageViewerFragment : BaseFragment(R.layout.layout_single_image_view
         }
     }
 
-    @SuppressLint("SourceLockedOrientationActivity")
-    override fun onDestroyView() {
-        super.onDestroyView()
-        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-    }
 }

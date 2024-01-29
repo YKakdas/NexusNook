@@ -8,4 +8,6 @@ interface ToolbarFragment {
     fun onBackPressed(): Boolean
 
     fun getToolbarType(): ToolbarType
+
+    fun showToolbar(): Boolean = true
 }

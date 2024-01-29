@@ -23,6 +23,7 @@ class OverlayBaseFragment : DialogFragment(), Overlay {
     companion object {
         private const val KEY_INNER_FRAGMENT_CLASS = "inner-fragment-class"
         private const val KEY_INNER_FRAGMENT_BUNDLE = "inner-fragment-bundle"
+
         private var instance: OverlayBaseFragment? = null
 
         fun startOrAdd(
@@ -52,7 +53,7 @@ class OverlayBaseFragment : DialogFragment(), Overlay {
     private var innerFragmentBundle: Bundle? = null
     private lateinit var fragmentManager: FragmentManager
     private lateinit var binding: LayoutOverlayBaseBinding
-    private val toolbarVisibilityMap = mutableMapOf<String, Float>()
+    private val toolbarAlphaMap = mutableMapOf<String, Float>()
     private var currentFragment: Fragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -105,16 +106,9 @@ class OverlayBaseFragment : DialogFragment(), Overlay {
         return R.style.Theme_FullScreenDialogTheme
     }
 
-    override fun registerScreenCaptureRequest(disableToolbar: Boolean, screenCaptureRequest: ScreenCaptureRequest) {
-        val toolbar = binding.toolbar.toolbarLayout
-        val toolbarVisibility = toolbar.visibility
-        if (disableToolbar) {
-            toolbar.changeVisibility(false)
-        }
-
+    override fun registerScreenCaptureRequest(screenCaptureRequest: ScreenCaptureRequest) {
         dialog?.window?.let {
             ScreenCaptureUtil.captureScreen(window = it) { bitmap ->
-                toolbar.visibility = toolbarVisibility
                 screenCaptureRequest.onScreenCaptureCompleted(bitmap)
             }
         }
@@ -122,7 +116,7 @@ class OverlayBaseFragment : DialogFragment(), Overlay {
 
     override fun onToolbarVisibilityChanged(visibility: Float) {
         binding.toolbar.background.alpha = visibility
-        currentFragment?.tag?.let { toolbarVisibilityMap[it] = visibility }
+        currentFragment?.tag?.let { toolbarAlphaMap[it] = visibility }
     }
 
     private fun handleBackPress() {
@@ -167,9 +161,11 @@ class OverlayBaseFragment : DialogFragment(), Overlay {
 
                 currentFragment = fragment
 
-                val alpha = toolbarVisibilityMap[fragment.tag] ?: fragment.initialToolbarAlpha()
+                val alpha = toolbarAlphaMap[fragment.tag] ?: fragment.initialToolbarAlpha()
                 binding.toolbar.background.alpha = alpha
-                toolbarVisibilityMap[fragment.tag!!] = alpha
+                toolbarAlphaMap[fragment.tag!!] = alpha
+
+                binding.toolbar.toolbarLayout.changeVisibility(fragment.showToolbar())
 
                 binding.toolbar.toolbarTitle.text = fragment.getTitle()
 

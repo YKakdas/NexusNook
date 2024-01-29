@@ -19,6 +19,7 @@ import moadgara.uicomponent.LinearLayoutManagerWithAccurateOffset
 import moadgara.uicomponent.ProgressDialog
 import moadgara.uicomponent.alertDialog
 import moadgara.uicomponent.enforceSingleScrollDirection
+import moadgara.uicomponent.overlay.Overlay
 import moadgara.uicomponent.overlay.ToolbarFragment
 import moadgara.uicomponent.overlay.ToolbarType
 import org.koin.android.ext.android.inject
@@ -33,6 +34,7 @@ class GameDetailsFragment : BaseFragment(R.layout.fragment_game_detail), Toolbar
     private lateinit var title: String
     private var gameId: Int? = null
     private var response: GameDetailResponse? = null
+    private var overlay: Overlay? = null
     private var resumed = false
 
     companion object {
@@ -46,6 +48,7 @@ class GameDetailsFragment : BaseFragment(R.layout.fragment_game_detail), Toolbar
         gameId = arguments?.getInt(KEY_GAME_ID)
         title = arguments?.getString(KEY_GAME_NAME).orEmpty()
         response = arguments?.getAny(KEY_GAME_RESPONSE)
+        overlay = parentFragment as? Overlay
     }
 
     override fun onResume() {
@@ -76,16 +79,15 @@ class GameDetailsFragment : BaseFragment(R.layout.fragment_game_detail), Toolbar
 
     private fun observeError() {
         viewModel.getMessage().observeOnce(this) {
-            if (it != null) {
-                progressDialog.showProgress(false, parentFragmentManager)
-                alertDialog(requireContext()) {
-                    title(R.string.generic_error_title)
-                    description(it ?: resources.getString(R.string.generic_error_description))
-                    neutralText(R.string.alert_dialog_neutral_button_text)
-                    type(AlertDialog.Type.ERROR)
-                }
+            progressDialog.showProgress(false, parentFragmentManager)
+            alertDialog(requireContext()) {
+                title(R.string.generic_error_title)
+                description(it ?: resources.getString(R.string.generic_error_description))
+                neutralText(R.string.alert_dialog_neutral_button_text)
+                type(AlertDialog.Type.ERROR)
             }
         }
+
     }
 
     private fun observeData() {
@@ -121,7 +123,7 @@ class GameDetailsFragment : BaseFragment(R.layout.fragment_game_detail), Toolbar
             setHasFixedSize(false)
             enforceSingleScrollDirection()
         }
-        super.registerRecyclerViewScrollListener(binding.recyclerView, 180.toPx.toFloat(), 200.toPx.toFloat())
+        super.registerRecyclerViewScrollListener(binding.recyclerView, 180.toPx.toFloat(), 200.toPx.toFloat(), overlay)
     }
 
 
