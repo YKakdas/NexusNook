@@ -3,6 +3,7 @@
 
     <application>
         <activity
+            android:configChanges="screenSize|orientation"
             android:name=".MainActivity"
             android:exported="false"
             android:launchMode="singleTop"

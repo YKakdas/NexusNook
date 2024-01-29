@@ -2,11 +2,13 @@ package moadgara.uicomponent.overlay
 
 import android.app.Dialog
 import android.content.DialogInterface
+import android.os.Build
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -76,6 +78,9 @@ class OverlayBaseFragment : DialogFragment(), Overlay {
                 }
                 return@setOnKeyListener false
             }
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O_MR1)
+                window?.attributes?.layoutInDisplayCutoutMode =
+                    WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
         }
     }
 

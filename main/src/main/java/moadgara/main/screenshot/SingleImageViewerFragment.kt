@@ -1,8 +1,15 @@
 package moadgara.main.screenshot
 
+import android.annotation.SuppressLint
+import android.content.pm.ActivityInfo
+import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.ImageView
+import moadgara.base.extension.toPx
 import moadgara.base.util.BitmapUtil
 import moadgara.base.viewBinding
 import moadgara.main.BR
@@ -21,9 +28,8 @@ class SingleImageViewerFragment : BaseFragment(R.layout.layout_single_image_view
     }
 
     private var imageUrl: String? = null
-
+    private var isPortrait = true
     private val binding by viewBinding(LayoutSingleImageViewerBinding::bind)
-    private var bitmap: Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +39,16 @@ class SingleImageViewerFragment : BaseFragment(R.layout.layout_single_image_view
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (parentFragment as? Overlay)?.registerScreenCaptureRequest(true, this)
+    }
+
+    @SuppressLint("SourceLockedOrientationActivity")
+    private fun toggleOrientation() {
+        if (isPortrait) {
+            requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        } else {
+            requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        }
+        isPortrait = !isPortrait;
     }
 
     override fun getTitle(): String = ""
@@ -52,4 +68,31 @@ class SingleImageViewerFragment : BaseFragment(R.layout.layout_single_image_view
         binding.executePendingBindings()
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+
+        updateLayoutParameters(newConfig.orientation)
+    }
+
+    private fun updateLayoutParameters(orientation: Int) {
+        binding.image.run {
+            val layoutParams = layoutParams as FrameLayout.LayoutParams
+            if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
+                layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT
+                scaleType = ImageView.ScaleType.FIT_XY
+            } else {
+                layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
+                layoutParams.height = moadgara.uicomponent.R.dimen.game_detail_screenshot_image_height.toPx(resources)
+                scaleType = ImageView.ScaleType.FIT_CENTER
+            }
+            this.layoutParams = layoutParams
+        }
+    }
+
+    @SuppressLint("SourceLockedOrientationActivity")
+    override fun onDestroyView() {
+        super.onDestroyView()
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+    }
 }

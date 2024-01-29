@@ -15,9 +15,9 @@
 
     <FrameLayout
         android:id="@+id/layout"
-        app:backgroundFromBitmap="@{backgroundBitmap}"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:backgroundFromBitmap="@{backgroundBitmap}">
 
         <ImageView
             android:id="@+id/image"
