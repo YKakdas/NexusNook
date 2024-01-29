@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.View
 import android.webkit.WebSettings
 import android.webkit.WebViewClient
-import moadgara.base.BaseFragment
 import moadgara.base.viewBinding
+import moadgara.uicomponent.BaseFragment
 import moadgara.uicomponent.R
 import moadgara.uicomponent.databinding.LayoutWebviewBinding
 import moadgara.uicomponent.overlay.ToolbarFragment
@@ -40,7 +40,7 @@ class WebViewFragment : BaseFragment(R.layout.layout_webview), ToolbarFragment {
 
     override fun getTitle(): String = title
 
-    override fun showToolbar(): Boolean = true
+    override fun initialToolbarAlpha(): Float = 1f
 
     override fun onBackPressed(): Boolean {
         return if (binding.webview.canGoBack()) {

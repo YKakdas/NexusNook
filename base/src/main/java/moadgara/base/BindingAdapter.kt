@@ -1,5 +1,7 @@
 package moadgara.base
 
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.text.Html
 import android.text.TextWatcher
@@ -131,4 +133,9 @@ fun setVisibility(view: View, visible: Boolean) {
 @BindingAdapter("htmlText")
 fun setTextFromHtml(view: TextView, text: String) {
     view.text = Html.fromHtml(text, Html.FROM_HTML_MODE_COMPACT)
+}
+
+@BindingAdapter("backgroundFromBitmap")
+fun setBackgroundFromBitmap(viewGroup: ViewGroup, bitmap: Bitmap) {
+    viewGroup.background = BitmapDrawable(viewGroup.resources, bitmap)
 }

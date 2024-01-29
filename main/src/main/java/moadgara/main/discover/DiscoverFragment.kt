@@ -2,7 +2,7 @@ package moadgara.main.discover
 
 import android.os.Bundle
 import android.view.View
-import moadgara.base.BaseFragment
+import moadgara.uicomponent.BaseFragment
 import moadgara.base.extension.launchInIO
 import moadgara.base.extension.observeOnce
 import moadgara.base.extension.orDefault

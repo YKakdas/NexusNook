@@ -3,7 +3,6 @@ package moadgara.main.games_detail
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import moadgara.base.BaseFragment
 import moadgara.base.extension.getAny
 import moadgara.base.extension.observeOnce
 import moadgara.base.extension.toPx
@@ -15,6 +14,7 @@ import moadgara.main.databinding.FragmentGameDetailBinding
 import moadgara.main.games_detail.listitems.GameDetailsAdapter
 import moadgara.main.games_detail.listitems.GameDetailsHeaderData
 import moadgara.uicomponent.AlertDialog
+import moadgara.uicomponent.BaseFragment
 import moadgara.uicomponent.LinearLayoutManagerWithAccurateOffset
 import moadgara.uicomponent.ProgressDialog
 import moadgara.uicomponent.alertDialog
@@ -133,8 +133,10 @@ class GameDetailsFragment : BaseFragment(R.layout.fragment_game_detail), Toolbar
         }
     }
 
-    override fun showToolbar(): Boolean = false
+    override fun initialToolbarAlpha(): Float = 0f
 
     override fun onBackPressed(): Boolean = false
+
     override fun getToolbarType(): ToolbarType = ToolbarType.BACK
+
 }

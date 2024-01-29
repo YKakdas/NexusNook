@@ -7,7 +7,7 @@ import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import moadgara.base.BaseFragment
+import moadgara.uicomponent.BaseFragment
 import moadgara.base.viewBinding
 import moadgara.main.databinding.FragmentMainBinding
 import org.koin.android.ext.android.inject

@@ -11,12 +11,12 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
-import moadgara.base.OnToolbarVisibilityChangedListener
 import moadgara.base.extension.changeVisibility
+import moadgara.base.util.ScreenCaptureUtil
 import moadgara.uicomponent.R
 import moadgara.uicomponent.databinding.LayoutOverlayBaseBinding
 
-class OverlayBaseFragment : DialogFragment(), OnToolbarVisibilityChangedListener {
+class OverlayBaseFragment : DialogFragment(), Overlay {
 
     companion object {
         private const val KEY_INNER_FRAGMENT_CLASS = "inner-fragment-class"
@@ -50,6 +50,8 @@ class OverlayBaseFragment : DialogFragment(), OnToolbarVisibilityChangedListener
     private var innerFragmentBundle: Bundle? = null
     private lateinit var fragmentManager: FragmentManager
     private lateinit var binding: LayoutOverlayBaseBinding
+    private val toolbarVisibilityMap = mutableMapOf<String, Float>()
+    private var currentFragment: Fragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,6 +100,26 @@ class OverlayBaseFragment : DialogFragment(), OnToolbarVisibilityChangedListener
         return R.style.Theme_FullScreenDialogTheme
     }
 
+    override fun registerScreenCaptureRequest(disableToolbar: Boolean, screenCaptureRequest: ScreenCaptureRequest) {
+        val toolbar = binding.toolbar.toolbarLayout
+        val toolbarVisibility = toolbar.visibility
+        if (disableToolbar) {
+            toolbar.changeVisibility(false)
+        }
+
+        dialog?.window?.let {
+            ScreenCaptureUtil.captureScreen(window = it) { bitmap ->
+                toolbar.visibility = toolbarVisibility
+                screenCaptureRequest.onScreenCaptureCompleted(bitmap)
+            }
+        }
+    }
+
+    override fun onToolbarVisibilityChanged(visibility: Float) {
+        binding.toolbar.background.alpha = visibility
+        currentFragment?.tag?.let { toolbarVisibilityMap[it] = visibility }
+    }
+
     private fun handleBackPress() {
         val fragment = fragmentManager.fragments.lastOrNull()
         if (fragment is ToolbarFragment && fragment.onBackPressed()) return
@@ -125,18 +147,26 @@ class OverlayBaseFragment : DialogFragment(), OnToolbarVisibilityChangedListener
 
         init {
             binding.toolbar.background.alpha = 0f
+
             fragmentManager.addOnBackStackChangedListener {
-                val fragment = fragmentManager.fragments.lastOrNull() ?: return@addOnBackStackChangedListener
+                val fragment = fragmentManager.fragments.lastOrNull()
+
+                if (fragment == null) {
+                    currentFragment = null
+                    return@addOnBackStackChangedListener
+                }
 
                 if (fragment !is ToolbarFragment) {
                     throw IllegalStateException("Overlay fragment must implement ToolbarFragment!")
                 }
 
-                binding.toolbar.toolbarTitle.text = fragment.getTitle()
+                currentFragment = fragment
 
-                if (fragment.showToolbar()) {
-                    binding.toolbar.background.alpha = 1f
-                }
+                val alpha = toolbarVisibilityMap[fragment.tag] ?: fragment.initialToolbarAlpha()
+                binding.toolbar.background.alpha = alpha
+                toolbarVisibilityMap[fragment.tag!!] = alpha
+
+                binding.toolbar.toolbarTitle.text = fragment.getTitle()
 
                 when (fragment.getToolbarType()) {
                     ToolbarType.TITLE_ONLY -> setButtonVisibilities(showCloseButton = false, showBackButton = false)
@@ -144,7 +174,6 @@ class OverlayBaseFragment : DialogFragment(), OnToolbarVisibilityChangedListener
                     ToolbarType.CLOSE -> setButtonVisibilities(showCloseButton = true, showBackButton = false)
                     ToolbarType.BACK_CLOSE -> setButtonVisibilities(showCloseButton = true, showBackButton = true)
                 }
-
             }
 
             binding.toolbar.back.setOnClickListener {
@@ -156,10 +185,6 @@ class OverlayBaseFragment : DialogFragment(), OnToolbarVisibilityChangedListener
                 dialog?.dismiss()
             }
         }
-    }
-
-    override fun onToolbarVisibilityChanged(visibility: Float) {
-        binding.toolbar.background.alpha = visibility
     }
 
     private fun setButtonVisibilities(showCloseButton: Boolean, showBackButton: Boolean) {
