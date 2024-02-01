@@ -2,7 +2,7 @@ package moadgara.main.discover.sublists.games
 
 import androidx.lifecycle.MutableLiveData
 import com.moadgara.common_model.network.NetworkResult
-import moadgara.base.util.DateUtil
+import com.moadgara.common_model.DateUtil
 import moadgara.base.util.tryCast
 import moadgara.data.ResponseMapper
 import moadgara.data.games.entity.GameDetailResponse

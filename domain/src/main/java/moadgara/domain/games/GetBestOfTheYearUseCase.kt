@@ -1,5 +1,6 @@
 package moadgara.domain.games
 
+import com.moadgara.common_model.DateUtil
 import com.moadgara.common_model.network.NetworkResult
 import com.moadgara.common_model.usecase.SuspendUseCase
 import kotlinx.coroutines.CoroutineDispatcher
@@ -12,10 +13,10 @@ class GetBestOfTheYearUseCase(
     coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : SuspendUseCase<Unit, ListOfGamesResponse>(coroutineDispatcher) {
     override suspend fun execute(param: Unit): NetworkResult<ListOfGamesResponse> {
+        val dates = DateUtil.getDateRangeForYear()
         val queryParams = mutableMapOf<String, String>()
-        queryParams["page"] = "1"
-        queryParams["discover"] = "true"
-        queryParams["ordering"] = "relevance"
-        return repository.fetchBestOfTheYear(queryParams)
+        queryParams["ordering"] = "-added"
+        queryParams["dates"] = dates[0].plus(",").plus(dates[1])
+        return repository.fetchGames(queryParams)
     }
 }
