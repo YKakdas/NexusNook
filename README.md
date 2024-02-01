@@ -60,8 +60,12 @@ This project utilizes ```Single Activity``` architecture with ```MVVM``` Moreove
 
 <img src="https://raw.githubusercontent.com/YKakdas/ImagesForReadme/main/GameDetails_2.jpg?raw=true" width="200" height=420> <img src="https://raw.githubusercontent.com/YKakdas/ImagesForReadme/main/DetailPage_1.jpg?raw=true" width="200" height=420>
 
+## GIFs
+
+<img src="https://github.com/YKakdas/ImagesForReadme/blob/c25e2b17edb7bf06527c7e185ab47010f42e6448/dashboard_1.gif"  width="240" height=480>  <img src="https://github.com/YKakdas/ImagesForReadme/blob/c25e2b17edb7bf06527c7e185ab47010f42e6448/dashboard_2.gif"  width="240" height=480>
 
 
+<img src="https://github.com/YKakdas/ImagesForReadme/blob/c25e2b17edb7bf06527c7e185ab47010f42e6448/detail_page_1.gif"  width="240" height=480>  <img src="https://github.com/YKakdas/ImagesForReadme/blob/c25e2b17edb7bf06527c7e185ab47010f42e6448/detail_page_2.gif"  width="240" height=480>
 
 
 #### Yasar Kakdas
