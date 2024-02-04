@@ -44,6 +44,8 @@ This project utilizes ```Single Activity``` architecture with ```MVVM``` Moreove
 -  [AndroidX](https://developer.android.com/jetpack/androidx)
 -  [ViewModel](https://developer.android.com/reference/androidx/lifecycle/ViewModel): Architecture, MVVM
 -  [LiveData](https://developer.android.com/reference/android/arch/lifecycle/LiveData): Responsive UI
+-  [Flow](https://developer.android.com/kotlin/flow): Continuous data transmitting
+-  [Paging V3](https://developer.android.com/topic/libraries/architecture/paging/v3-overview): Endless data retrieval
 -  [ViewBinding - DataBinding](https://developer.android.com/topic/libraries/data-binding): Binding data sources to view layouts
 -  [Coil](https://coil-kt.github.io/coil/): Image loading
 -  [Koin](https://insert-koin.io/): Dependency Injection
