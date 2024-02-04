@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="data"
+            type="moadgara.main.games_detail.listitems.GameDetailPlatformsData" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/game_detail_genres_title_height"
+            android:layout_marginStart="@dimen/margin_medium"
+            android:text="@string/game_details_platforms_title"
+            android:textColor="@color/cloudy_grey"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <moadgara.uicomponent.HorizontalScrollViewEdgeFadeColor
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="@dimen/game_detail_genres_chip_layout_margin_top"
+            android:fadingEdge="horizontal"
+            android:fadingEdgeLength="@dimen/game_detail_genres_scroll_view_edge_fading_length"
+            android:paddingHorizontal="@dimen/margin_medium"
+            android:requiresFadingEdge="horizontal"
+            android:scrollbars="none">
+
+            <moadgara.uicomponent.ChipGroupLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:setChips="@{data.platformNames}"
+                app:singleLine="true">
+
+            </moadgara.uicomponent.ChipGroupLayout>
+
+        </moadgara.uicomponent.HorizontalScrollViewEdgeFadeColor>
+
+    </FrameLayout>
+
+
+</layout>

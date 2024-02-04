@@ -16,12 +16,12 @@ class GameDetailsDescriptionViewHolder(
     @SuppressLint("ClickableViewAccessibility")
     override fun bindData(data: GenericListItem) {
         super.bindData(data as GameDetailsDescriptionData)
-        binding.expandableDescription.setOnAnimationChangeListener { isBeingAnimated, scrollAmount ->
+        binding.expandableDescription.setOnAnimationChangeListener { isBeingAnimated, scrollAmount, isExpanded ->
             recyclerView.setOnTouchListener { _, _ -> isBeingAnimated }
             if (isBeingAnimated) {
                 recyclerView.scrollBy(0, scrollAmount)
             }
-            if (!isBeingAnimated) {
+            if (!isBeingAnimated && isExpanded) {
                 (recyclerView.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(absoluteAdapterPosition, 80.toPx)
             }
         }

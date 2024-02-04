@@ -31,7 +31,7 @@ class ExpandableTextView(context: Context, attrs: AttributeSet?, defStyleAttr: I
 
     private var isBeingAnimated = false
 
-    private var animationChangeListener: ((Boolean, Int) -> Unit)? = null
+    private var animationChangeListener: ((Boolean, Int, Boolean) -> Unit)? = null
 
     init {
         parseDeclarableStyleAttributes(attrs)
@@ -39,7 +39,7 @@ class ExpandableTextView(context: Context, attrs: AttributeSet?, defStyleAttr: I
         setOnClickListener { if (!isBeingAnimated) toggle() }
     }
 
-    fun setOnAnimationChangeListener(animationChangeListener: ((Boolean, Int) -> Unit)?) {
+    fun setOnAnimationChangeListener(animationChangeListener: ((Boolean, Int, Boolean) -> Unit)?) {
         this.animationChangeListener = animationChangeListener
     }
 
@@ -115,25 +115,27 @@ class ExpandableTextView(context: Context, attrs: AttributeSet?, defStyleAttr: I
             layoutParams.height = animatedValue
             val diff = animatedValue - previous
             previous = animatedValue
-            animationChangeListener?.invoke(true, diff)
+            animationChangeListener?.invoke(true, diff, isExpanded())
             requestLayout()
         }
 
         valueAnimator.doOnEnd {
             callback?.invoke()
             isBeingAnimated = false
-            animationChangeListener?.invoke(false, 0)
+            animationChangeListener?.invoke(false, 0, isExpanded())
         }
 
         valueAnimator.interpolator = AccelerateDecelerateInterpolator()
         valueAnimator.start()
         isBeingAnimated = true
-        animationChangeListener?.invoke(true, 0)
+        animationChangeListener?.invoke(true, 0, isExpanded())
     }
 
     fun setBody(text: String?) {
         setTextFromHtml(this, text.orEmpty())
     }
+
+    private fun isExpanded(): Boolean = state == State.EXPANDED
 
 }
 

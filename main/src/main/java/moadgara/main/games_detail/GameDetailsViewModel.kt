@@ -19,6 +19,7 @@ import moadgara.domain.games.GetGameDetailsFromIdUseCase
 import moadgara.domain.games.GetScreenshotsFromGameIdUseCase
 import moadgara.main.R
 import moadgara.main.games_detail.listitems.GameDetailGenresData
+import moadgara.main.games_detail.listitems.GameDetailPlatformsData
 import moadgara.main.games_detail.listitems.GameDetailScreenshotData
 import moadgara.main.games_detail.listitems.GameDetailsDescriptionData
 import moadgara.main.games_detail.listitems.GameDetailsHeaderData
@@ -92,6 +93,7 @@ class GameDetailsViewModel(
             list.addAll(prepareMetascoreRatingView(it))
             list.addAll(prepareSummary(it))
             list.addAll(prepareGenres(it))
+            list.addAll(preparePlatforms(it))
             list.addAll(prepareDescription(it))
 
             screenshotsFromId?.let { screenshots ->
@@ -154,8 +156,19 @@ class GameDetailsViewModel(
             return emptyList()
         }
 
-        val genreNames = data.genres?.mapNotNull { it.genreName }.orEmpty().toMutableList()
+        val genreNames = genres.sortedByDescending { it.genreGamesCount }.mapNotNull { it.genreName }.toMutableList()
         return listOf(GameDetailGenresData(genreNames), GameDetailsHorizontalDivider())
+    }
+
+    private fun preparePlatforms(data: GameDetailsFromIdResponse): List<GenericListItem> {
+        val platforms = data.platforms
+        if (platforms.isNullOrEmpty()) {
+            return emptyList()
+        }
+
+        val platformNames =
+            platforms.sortedByDescending { it.platform?.platformGamesCount }.mapNotNull { it.platform?.platformName }.toMutableList()
+        return listOf(GameDetailPlatformsData(platformNames), GameDetailsHorizontalDivider())
     }
 
     private fun prepareMetascoreRatingView(data: GameDetailsFromIdResponse): List<GenericListItem> {
