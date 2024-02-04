@@ -12,7 +12,7 @@ import moadgara.main.games_detail.GameDetailsFragment
 import moadgara.main.games_detail.GameDetailsFragment.Companion.KEY_GAME_ID
 import moadgara.main.games_detail.GameDetailsFragment.Companion.KEY_GAME_NAME
 import moadgara.main.games_detail.GameDetailsFragment.Companion.KEY_GAME_RESPONSE
-import moadgara.main.paging.GenericPagingFragment
+import moadgara.main.paging.games.GamesPagingFragment
 import moadgara.uicomponent.overlay.OverlayBaseFragment
 import java.lang.ref.WeakReference
 
@@ -32,10 +32,10 @@ class DiscoverNavigator(activity: Activity?) {
 
     fun navigateToAllGamesPage(name: String, listType: ListType) {
         val bundle = Bundle()
-        bundle.putString(GenericPagingFragment.KEY_TITLE, name)
-        bundle.putAny(GenericPagingFragment.KEY_LIST_TYPE, listType)
+        bundle.putString(GamesPagingFragment.KEY_TITLE, name)
+        bundle.putAny(GamesPagingFragment.KEY_LIST_TYPE, listType)
         activityWeakReference.get()?.supportFragmentManager?.let {
-            OverlayBaseFragment.startOrAdd(it, GenericPagingFragment::class.java, bundle)
+            OverlayBaseFragment.startOrAdd(it, GamesPagingFragment::class.java, bundle)
         }
     }
 

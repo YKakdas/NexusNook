@@ -50,7 +50,7 @@ class ProgressDialog : DialogFragment() {
     fun showProgress(show: Boolean, fragmentManager: FragmentManager) {
         if (show && !shown) {
             show(fragmentManager, ProgressDialog::class.java.simpleName)
-        } else if (!show) {
+        } else if (!show && shown) {
             dismissAllowingStateLoss()
         }
     }

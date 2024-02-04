@@ -1,4 +1,4 @@
-package moadgara.main.paging
+package moadgara.main.paging.games
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,13 +12,11 @@ import kotlinx.coroutines.launch
 import moadgara.base.extension.orZero
 import moadgara.domain.games.GetPagingGamesUseCase
 import moadgara.main.discover.DiscoverNavigator
-import moadgara.main.paging.games.PagedGameItemData
 
-// TODO It is not generic yet, refactor to accept any usecase type
-class GenericPagingViewModel(val useCase: GetPagingGamesUseCase, val navigator: DiscoverNavigator) : ViewModel() {
-    private val data = MutableLiveData<PagingData<GenericPagingItemData>>()
+class GamesPagingViewModel(private val useCase: GetPagingGamesUseCase, private val navigator: DiscoverNavigator) : ViewModel() {
+    private val data = MutableLiveData<PagingData<GamesPagingItemData>>()
 
-    fun getData(): LiveData<PagingData<GenericPagingItemData>> {
+    fun getData(): LiveData<PagingData<GamesPagingItemData>> {
         return data.cachedIn(viewModelScope)
     }
 
@@ -27,7 +25,7 @@ class GenericPagingViewModel(val useCase: GetPagingGamesUseCase, val navigator: 
             useCase.invoke(Unit).cachedIn(viewModelScope).collectLatest {
                 data.value =
                     it.map { response ->
-                        PagedGameItemData(
+                        GamesPagingItemData(
                             response.id.orZero,
                             response.backgroundImageUri.orEmpty(),
                             response.name.orEmpty(),

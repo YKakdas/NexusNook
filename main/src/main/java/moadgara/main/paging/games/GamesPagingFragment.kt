@@ -1,48 +1,56 @@
-package moadgara.main.paging
+package moadgara.main.paging.games
 
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import moadgara.base.extension.getAny
+import moadgara.base.extension.observeOnce
 import moadgara.base.viewBinding
 import moadgara.domain.ListType
 import moadgara.main.R
-import moadgara.main.databinding.LayoutGenericPagingFragmentBinding
+import moadgara.main.databinding.LayoutGamesPagingFragmentBinding
+import moadgara.uicomponent.AlertDialog
 import moadgara.uicomponent.BaseFragment
 import moadgara.uicomponent.CustomLinearSnapHelper
 import moadgara.uicomponent.PreloadLinearLayoutManager
+import moadgara.uicomponent.ProgressDialog
 import moadgara.uicomponent.adapter.PagingGenericAdapter
 import moadgara.uicomponent.adapter.pagingGenericAdapter
+import moadgara.uicomponent.alertDialog
 import moadgara.uicomponent.overlay.ToolbarFragment
 import moadgara.uicomponent.overlay.ToolbarType
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
+import timber.log.Timber
 
-class GenericPagingFragment : BaseFragment(R.layout.layout_generic_paging_fragment), ToolbarFragment {
-    private val binding by viewBinding(LayoutGenericPagingFragmentBinding::bind)
+class GamesPagingFragment : BaseFragment(R.layout.layout_games_paging_fragment), ToolbarFragment {
+    private val binding by viewBinding(LayoutGamesPagingFragmentBinding::bind)
+    private val progressDialog = ProgressDialog.newInstance()
 
-    private lateinit var pagingAdapter: PagingGenericAdapter<GenericPagingItemData>
-
-    private lateinit var viewModel: GenericPagingViewModel
+    private lateinit var pagingAdapter: PagingGenericAdapter<GamesPagingItemData>
+    private lateinit var viewModel: GamesPagingViewModel
     private lateinit var title: String
     private lateinit var listType: ListType
 
     private var resumed = false
+
 
     companion object {
         const val KEY_TITLE = "title"
         const val KEY_LIST_TYPE = "list-type"
     }
 
-    private val itemDiffCallback = object : DiffUtil.ItemCallback<GenericPagingItemData>() {
-        override fun areItemsTheSame(oldItem: GenericPagingItemData, newItem: GenericPagingItemData): Boolean {
+    private val itemDiffCallback = object : DiffUtil.ItemCallback<GamesPagingItemData>() {
+        override fun areItemsTheSame(oldItem: GamesPagingItemData, newItem: GamesPagingItemData): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: GenericPagingItemData, newItem: GenericPagingItemData): Boolean {
+        override fun areContentsTheSame(oldItem: GamesPagingItemData, newItem: GamesPagingItemData): Boolean {
             return oldItem.id == newItem.id
         }
     }
@@ -52,7 +60,7 @@ class GenericPagingFragment : BaseFragment(R.layout.layout_generic_paging_fragme
         title = arguments?.getString(KEY_TITLE).orEmpty()
         listType = arguments?.getAny<ListType>(KEY_LIST_TYPE) ?: ListType.TRENDING
 
-        viewModel = inject<GenericPagingViewModel> { parametersOf(listType) }.value
+        viewModel = inject<GamesPagingViewModel> { parametersOf(listType) }.value
         pagingAdapter = pagingGenericAdapter { diffCallback(itemDiffCallback) }
     }
 
@@ -66,6 +74,7 @@ class GenericPagingFragment : BaseFragment(R.layout.layout_generic_paging_fragme
         setupPagingRecyclerView()
         if (!resumed) {
             viewModel.fetchData()
+            observePagingState()
         }
         observeData()
     }
@@ -75,6 +84,30 @@ class GenericPagingFragment : BaseFragment(R.layout.layout_generic_paging_fragme
             viewLifecycleOwner.lifecycleScope.launch {
                 pagingAdapter.submitData(it)
             }
+        }
+    }
+
+    private fun observePagingState() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            pagingAdapter.loadStateFlow.collectLatest {
+                when (it.refresh) {
+                    is LoadState.Loading -> progressDialog.showProgress(true, parentFragmentManager)
+                    is LoadState.Error -> {
+                        showError((it.refresh as? LoadState.Error)?.error?.message)
+                    }
+
+                    else -> progressDialog.showProgress(false, parentFragmentManager)
+                }
+            }
+        }
+    }
+
+    private fun showError(error: String?) {
+        alertDialog(requireContext()) {
+            title(R.string.generic_error_title)
+            description(error ?: resources.getString(R.string.generic_error_description))
+            neutralText(R.string.alert_dialog_neutral_button_text)
+            type(AlertDialog.Type.ERROR)
         }
     }
 
