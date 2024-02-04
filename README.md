@@ -16,9 +16,9 @@ API_KEY="api_key_here"
 
 ## In-App Screenshots
 
-<img src="https://raw.githubusercontent.com/YKakdas/ImagesForReadme/main/Homepage_1.jpg?raw=true" width="200" height=420> <img src="https://raw.githubusercontent.com/YKakdas/ImagesForReadme/main/Homepage_2.jpg?raw=true" width="200" height=420> <img src="https://raw.githubusercontent.com/YKakdas/ImagesForReadme/main/Homepage_3.jpg?raw=true" width="200" height=420> 
+<img src="https://raw.githubusercontent.com/YKakdas/ImagesForReadme/main/Homepage_1.jpg?raw=true" width="200" height=420> <img src="https://raw.githubusercontent.com/YKakdas/ImagesForReadme/main/Homepage_2.jpg?raw=true" width="200" height=420> <img src="https://raw.githubusercontent.com/YKakdas/ImagesForReadme/main/Homepage_3.jpg?raw=true" width="200" height=420> <img src="https://raw.githubusercontent.com/YKakdas/ImagesForReadme/f0adbb5554288c79d83f6709355e527a77092d81/Paging_3.jpg?raw=true" width="200" height=420> 
 
-<img src="https://raw.githubusercontent.com/YKakdas/ImagesForReadme/main/GameDetails_2.jpg?raw=true" width="200" height=420> <img src="https://raw.githubusercontent.com/YKakdas/ImagesForReadme/main/DetailPage_1.jpg?raw=true" width="200" height=420>
+<img src="https://raw.githubusercontent.com/YKakdas/ImagesForReadme/f0adbb5554288c79d83f6709355e527a77092d81/Paging_2.jpg?raw=true" width="200" height=420>  <img src="https://raw.githubusercontent.com/YKakdas/ImagesForReadme/f0adbb5554288c79d83f6709355e527a77092d81/Paging_1.jpg?raw=true" width="200" height=420>  <img src="https://raw.githubusercontent.com/YKakdas/ImagesForReadme/main/GameDetails_2.jpg?raw=true" width="200" height=420> <img src="https://raw.githubusercontent.com/YKakdas/ImagesForReadme/main/DetailPage_1.jpg?raw=true" width="200" height=420>  
 
 
 ## Technical Details
@@ -60,13 +60,12 @@ This project utilizes ```Single Activity``` architecture with ```MVVM``` Moreove
 -  [Timber](https://github.com/JakeWharton/timber): Logging
 -  [GSON](https://github.com/google/gson): Json conversions
 -  [ExoPlayer](https://github.com/google/ExoPlayer): Video Player
+-  [Palette](https://developer.android.com/reference/androidx/palette/graphics/Palette): Extracting colors from images
 
-## GIFs
+## Video demonstrations of the app
 
-<img src="https://github.com/YKakdas/ImagesForReadme/blob/c25e2b17edb7bf06527c7e185ab47010f42e6448/dashboard_1.gif"  width="240" height=480>  <img src="https://github.com/YKakdas/ImagesForReadme/blob/c25e2b17edb7bf06527c7e185ab47010f42e6448/dashboard_2.gif"  width="240" height=480>
+https://github.com/YKakdas/NexusNook/assets/43451457/9d86d939-fbdf-4708-8dc1-3529a16a7db7
 
-
-<img src="https://github.com/YKakdas/ImagesForReadme/blob/c25e2b17edb7bf06527c7e185ab47010f42e6448/detail_page_1.gif"  width="240" height=480>  <img src="https://github.com/YKakdas/ImagesForReadme/blob/c25e2b17edb7bf06527c7e185ab47010f42e6448/detail_page_2.gif"  width="240" height=480>
-
+https://github.com/YKakdas/NexusNook/assets/43451457/0218952e-316d-4c52-816f-5c4524d5b6c0
 
 #### Yasar Kakdas
