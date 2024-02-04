@@ -18,14 +18,15 @@ import moadgara.data.games.entity.ScreenshotsResponse
 import moadgara.domain.games.GetGameDetailsFromIdUseCase
 import moadgara.domain.games.GetScreenshotsFromGameIdUseCase
 import moadgara.main.R
-import moadgara.main.games_detail.listitems.GameDetailGenresData
-import moadgara.main.games_detail.listitems.GameDetailPlatformsData
 import moadgara.main.games_detail.listitems.GameDetailScreenshotData
 import moadgara.main.games_detail.listitems.GameDetailsDescriptionData
+import moadgara.main.games_detail.listitems.GameDetailsGenresData
 import moadgara.main.games_detail.listitems.GameDetailsHeaderData
 import moadgara.main.games_detail.listitems.GameDetailsHorizontalDivider
 import moadgara.main.games_detail.listitems.GameDetailsMetascoreRatingData
+import moadgara.main.games_detail.listitems.GameDetailsPlatformsData
 import moadgara.main.games_detail.listitems.GameDetailsSummaryData
+import moadgara.main.games_detail.listitems.GameDetailsTagData
 import moadgara.main.games_detail.listitems.SpannableText
 import moadgara.uicomponent.adapter.GenericListItem
 
@@ -94,6 +95,7 @@ class GameDetailsViewModel(
             list.addAll(prepareSummary(it))
             list.addAll(prepareGenres(it))
             list.addAll(preparePlatforms(it))
+            list.addAll(prepareTags(it))
             list.addAll(prepareDescription(it))
 
             screenshotsFromId?.let { screenshots ->
@@ -157,7 +159,7 @@ class GameDetailsViewModel(
         }
 
         val genreNames = genres.sortedByDescending { it.genreGamesCount }.mapNotNull { it.genreName }.toMutableList()
-        return listOf(GameDetailGenresData(genreNames), GameDetailsHorizontalDivider())
+        return listOf(GameDetailsGenresData(genreNames), GameDetailsHorizontalDivider())
     }
 
     private fun preparePlatforms(data: GameDetailsFromIdResponse): List<GenericListItem> {
@@ -167,8 +169,20 @@ class GameDetailsViewModel(
         }
 
         val platformNames =
-            platforms.sortedByDescending { it.platform?.platformGamesCount }.mapNotNull { it.platform?.platformName }.toMutableList()
-        return listOf(GameDetailPlatformsData(platformNames), GameDetailsHorizontalDivider())
+            platforms.sortedByDescending { it.platform?.platformGamesCount }.mapNotNull { it.platform?.platformName }
+                .toMutableList()
+        return listOf(GameDetailsPlatformsData(platformNames), GameDetailsHorizontalDivider())
+    }
+
+    private fun prepareTags(data: GameDetailsFromIdResponse): List<GenericListItem> {
+        val tags = data.tags
+        if (tags.isNullOrEmpty()) {
+            return emptyList()
+        }
+
+        val platformNames =
+            tags.sortedByDescending { it.tagGamesCount }.mapNotNull { it.tagName }.toMutableList()
+        return listOf(GameDetailsTagData(platformNames), GameDetailsHorizontalDivider())
     }
 
     private fun prepareMetascoreRatingView(data: GameDetailsFromIdResponse): List<GenericListItem> {

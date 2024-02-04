@@ -6,7 +6,7 @@
 
         <variable
             name="data"
-            type="moadgara.main.games_detail.listitems.GameDetailsPlatformsData" />
+            type="moadgara.main.games_detail.listitems.GameDetailsTagData" />
     </data>
 
     <FrameLayout
@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/game_detail_genres_title_height"
             android:layout_marginStart="@dimen/margin_medium"
-            android:text="@string/game_details_platforms_title"
+            android:text="@string/game_details_tags_title"
             android:textColor="@color/cloudy_grey"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -36,7 +36,7 @@
             <moadgara.uicomponent.ChipGroupLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:setChips="@{data.platformNames}"
+                app:setChips="@{data.tagNames}"
                 app:singleLine="true">
 
             </moadgara.uicomponent.ChipGroupLayout>

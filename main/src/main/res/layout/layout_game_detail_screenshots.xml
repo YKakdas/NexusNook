@@ -11,7 +11,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/game_detail_screenshot_view_height"
-        android:layout_marginHorizontal="@dimen/margin_high">
+        android:layout_marginHorizontal="@dimen/margin_medium">
 
         <TextView
             android:layout_width="wrap_content"
@@ -25,7 +25,7 @@
             android:id="@+id/screenshotPager"
             android:layout_width="match_parent"
             android:layout_height="@dimen/game_detail_screenshot_image_height"
-            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginTop="@dimen/game_detail_screenshot_image_margin_top"
             android:orientation="horizontal" />
     </FrameLayout>
 

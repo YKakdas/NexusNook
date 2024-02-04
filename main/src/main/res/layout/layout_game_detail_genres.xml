@@ -6,7 +6,7 @@
 
         <variable
             name="data"
-            type="moadgara.main.games_detail.listitems.GameDetailGenresData" />
+            type="moadgara.main.games_detail.listitems.GameDetailsGenresData" />
     </data>
 
     <FrameLayout

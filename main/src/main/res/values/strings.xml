@@ -33,4 +33,5 @@
     <string name="game_details_screenshots_title">Screenshots</string>
     <string name="game_details_genres_title">Genres</string>
     <string name="game_details_platforms_title">Platforms</string>
+    <string name="game_details_tags_title">Tags</string>
 </resources>
