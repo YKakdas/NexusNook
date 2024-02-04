@@ -7,46 +7,49 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import moadgara.data.games.entity.ListOfGamesResponse
 import moadgara.data.games.repository.GamesRepository
+import moadgara.domain.ListType
 import java.util.Calendar
 
 class GetGamesUseCase(
     private val repository: GamesRepository,
     coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
-) : SuspendUseCase<GameListType, ListOfGamesResponse>(coroutineDispatcher) {
-    override suspend fun execute(param: GameListType): NetworkResult<ListOfGamesResponse> {
+) : SuspendUseCase<ListType, ListOfGamesResponse>(coroutineDispatcher) {
+    override suspend fun execute(param: ListType): NetworkResult<ListOfGamesResponse> {
         return when (param) {
-            GameListType.BEST_OF_THE_YEAR -> {
+            ListType.BEST_OF_THE_YEAR -> {
                 val year = Calendar.getInstance().get(Calendar.YEAR)
                 GetBestOfTheYearUseCase(repository).invoke(year)
             }
 
-            GameListType.BEST_OF_THE_LAST_YEAR -> {
+            ListType.BEST_OF_LAST_YEAR -> {
                 val year = Calendar.getInstance().get(Calendar.YEAR).minus(1)
                 GetBestOfTheYearUseCase(repository).invoke(year)
             }
 
-            GameListType.TRENDING -> {
+            ListType.TRENDING -> {
                 GetTrendingGamesUseCase(repository).invoke(Unit)
             }
 
-            GameListType.RECENTLY_ADDED_POPULAR -> {
+            ListType.RECENTLY_ADDED_POPULAR -> {
                 GetRecentlyAddedPopularGamesUseCase(repository).invoke(Unit)
             }
 
-            GameListType.RELEASED_THIS_MONTH -> {
+            ListType.THIS_MONTH_RELEASED -> {
                 val dateRange = DateUtil.getDateRangeForMonth()
                 GetReleaseDateFilteredGamesUseCase(repository).invoke(dateRange)
             }
 
-            GameListType.RELEASED_THIS_WEEK -> {
+            ListType.THIS_WEEK_RELEASED -> {
                 val dateRange = DateUtil.getDateRangeForWeek(DateUtil.getCurrentWeek())
                 GetReleaseDateFilteredGamesUseCase(repository).invoke(dateRange)
             }
 
-            GameListType.RELEASING_NEXT_WEEK -> {
+            ListType.RELEASING_NEXT_WEEK -> {
                 val dateRange = DateUtil.getDateRangeForWeek(DateUtil.getCurrentWeek().plus(1))
                 GetReleaseDateFilteredGamesUseCase(repository).invoke(dateRange)
             }
+
+            else -> throw IllegalStateException("Invalid list item type has been provided!")
         }
 
     }

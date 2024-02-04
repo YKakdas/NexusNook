@@ -9,18 +9,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import moadgara.data.games.entity.GameDetailResponse
 import moadgara.data.games.repository.GamesRepository
+import moadgara.domain.ListType
 
 class GetPagingGamesUseCase(
     private val gamesRepository: GamesRepository,
     private val gamesUseCase: GetGamesUseCase,
-    private val gameListType: GameListType,
+    private val listType: ListType,
     coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : PagingFlowUseCase<Unit, GameDetailResponse>(coroutineDispatcher) {
 
     override fun execute(parameters: Unit): Flow<PagingData<GameDetailResponse>> {
         return Pager(
             config = PagingConfig(pageSize = 40),
-            pagingSourceFactory = { GamesPagingSource(gamesRepository, gamesUseCase, gameListType) }
+            pagingSourceFactory = { GamesPagingSource(gamesRepository, gamesUseCase, listType) }
         ).flow
     }
 

@@ -5,14 +5,13 @@ import com.moadgara.common_model.network.NetworkResult
 import moadgara.base.util.tryCast
 import moadgara.data.ResponseMapper
 import moadgara.data.games.entity.GameDetailResponse
-import moadgara.domain.games.GameListType
+import moadgara.domain.ListType
 import moadgara.domain.games.GetGamesUseCase
 import moadgara.main.R
 import moadgara.main.discover.PreviewListMetaData
 import moadgara.main.discover.PreviewListViewData
 import moadgara.main.discover.sublists.PreviewList
 import moadgara.main.discover.sublists.PreviewListCommonParameters
-import moadgara.main.discover.sublists.PreviewListType
 import java.util.Calendar
 
 class BestOfTheLastYearGamesPreviewList(
@@ -21,8 +20,8 @@ class BestOfTheLastYearGamesPreviewList(
 
     private val viewLiveData = MutableLiveData<PreviewListViewData>()
 
-    override val previewListType: PreviewListType
-        get() = PreviewListType.BEST_OF_LAST_YEAR
+    override val previewListType: ListType
+        get() = ListType.BEST_OF_LAST_YEAR
 
     override fun getPreviewListMetaData(): PreviewListMetaData {
         val year = Calendar.getInstance().get(Calendar.YEAR).minus(1)
@@ -31,7 +30,7 @@ class BestOfTheLastYearGamesPreviewList(
         return PreviewListMetaData(
             title = listTitle,
             buttonTitle = previewListCommonParameters.resourceProvider.getString(R.string.see_all_button_title),
-            buttonAction = { previewListCommonParameters.discoverNavigator.navigateToAllGamesPage(listTitle) }
+            buttonAction = { previewListCommonParameters.discoverNavigator.navigateToAllGamesPage(listTitle, previewListType) }
         )
     }
 
@@ -45,7 +44,7 @@ class BestOfTheLastYearGamesPreviewList(
     }
 
     override suspend fun invokeUseCase(): NetworkResult<ResponseMapper> {
-        return useCase.invoke(GameListType.BEST_OF_THE_LAST_YEAR)
+        return useCase.invoke(ListType.BEST_OF_LAST_YEAR)
     }
 
 }

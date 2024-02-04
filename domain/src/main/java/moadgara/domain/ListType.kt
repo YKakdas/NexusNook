@@ -1,6 +1,6 @@
-package moadgara.main.discover.sublists
+package moadgara.domain
 
-enum class PreviewListType(val order: Int) {
+enum class ListType(val order: Int) {
     TRENDING(0),
     BEST_OF_THE_YEAR(1),
     BEST_OF_LAST_YEAR(2),

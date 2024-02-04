@@ -5,16 +5,17 @@ import androidx.paging.PagingState
 import com.moadgara.common_model.network.NetworkResult
 import moadgara.data.games.entity.GameDetailResponse
 import moadgara.data.games.repository.GamesRepository
+import moadgara.domain.ListType
 
 class GamesPagingSource(
     private val gamesRepository: GamesRepository,
     private val gamesUseCase: GetGamesUseCase,
-    private val gameListType: GameListType
+    private val listType: ListType
 ) : PagingSource<String, GameDetailResponse>() {
 
     override suspend fun load(params: LoadParams<String>): LoadResult<String, GameDetailResponse> {
         val response = if (params.key == null) {
-            gamesUseCase.invoke(gameListType)
+            gamesUseCase.invoke(listType)
         } else {
             gamesRepository.fetchGamePage(params.key!!)
         }

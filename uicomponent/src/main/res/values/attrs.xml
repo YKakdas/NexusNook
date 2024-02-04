@@ -65,6 +65,12 @@
         <attr name="state_high_score" format="boolean" />
         <attr name="state_average_score" format="boolean" />
         <attr name="state_low_score" format="boolean" />
+        <attr name="android:textSize" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="ScrollSpeedControlledRecyclerView">
+        <attr name="verticalSpeedFactor" format="float" />
+        <attr name="horizontalSpeedFactor" format="float" />
     </declare-styleable>
 
 </resources>

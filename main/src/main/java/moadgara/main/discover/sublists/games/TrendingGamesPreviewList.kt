@@ -5,29 +5,28 @@ import com.moadgara.common_model.network.NetworkResult
 import moadgara.base.util.tryCast
 import moadgara.data.ResponseMapper
 import moadgara.data.games.entity.GameDetailResponse
-import moadgara.domain.games.GameListType
+import moadgara.domain.ListType
 import moadgara.domain.games.GetGamesUseCase
 import moadgara.main.R
 import moadgara.main.discover.PreviewListMetaData
 import moadgara.main.discover.PreviewListViewData
 import moadgara.main.discover.sublists.PreviewList
 import moadgara.main.discover.sublists.PreviewListCommonParameters
-import moadgara.main.discover.sublists.PreviewListType
 
 class TrendingGamesPreviewList(
     private val previewListCommonParameters: PreviewListCommonParameters, private val useCase: GetGamesUseCase
 ) : PreviewList(previewListCommonParameters, useCase) {
 
     private val viewLiveData = MutableLiveData<PreviewListViewData>()
-    override val previewListType: PreviewListType
-        get() = PreviewListType.TRENDING
+    override val previewListType: ListType
+        get() = ListType.TRENDING
 
     override fun getPreviewListMetaData(): PreviewListMetaData {
         val listTitle = previewListCommonParameters.resourceProvider.getString(R.string.discover_trending_games_title)
         return PreviewListMetaData(
             title = listTitle,
             buttonTitle = previewListCommonParameters.resourceProvider.getString(R.string.see_all_button_title),
-            buttonAction = { previewListCommonParameters.discoverNavigator.navigateToAllGamesPage(listTitle) }
+            buttonAction = { previewListCommonParameters.discoverNavigator.navigateToAllGamesPage(listTitle, previewListType) }
         )
     }
 
@@ -41,7 +40,7 @@ class TrendingGamesPreviewList(
     }
 
     override suspend fun invokeUseCase(): NetworkResult<ResponseMapper> {
-        return useCase.invoke(GameListType.TRENDING)
+        return useCase.invoke(ListType.TRENDING)
     }
 
 }

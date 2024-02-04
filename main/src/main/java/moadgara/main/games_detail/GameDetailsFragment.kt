@@ -139,6 +139,6 @@ class GameDetailsFragment : BaseFragment(R.layout.fragment_game_detail), Toolbar
 
     override fun onBackPressed(): Boolean = false
 
-    override fun getToolbarType(): ToolbarType = ToolbarType.BACK
+    override fun getToolbarType(): ToolbarType = ToolbarType.BACK_AUTO_CLOSE
 
 }

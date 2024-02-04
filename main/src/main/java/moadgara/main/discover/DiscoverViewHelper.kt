@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import moadgara.base.extension.addViewCheckIfExists
 import moadgara.base.extension.observeOnce
-import moadgara.base.extension.setFlingListener
 import moadgara.base.extension.toPx
 import moadgara.base.util.ViewUtil
 import moadgara.main.R
@@ -82,7 +81,7 @@ class DiscoverViewHelper(private val fragment: DiscoverFragment) {
 
     private val itemDiffCallback = object : DiffUtil.ItemCallback<PreviewListItemData>() {
         override fun areItemsTheSame(oldItem: PreviewListItemData, newItem: PreviewListItemData): Boolean {
-            return oldItem === newItem
+            return oldItem.gameTitle == newItem.gameTitle
         }
 
         override fun areContentsTheSame(oldItem: PreviewListItemData, newItem: PreviewListItemData): Boolean {
@@ -99,7 +98,6 @@ class DiscoverViewHelper(private val fragment: DiscoverFragment) {
             setHasFixedSize(true)
             setItemViewCacheSize(6)
             CustomLinearSnapHelper().attachToRecyclerView(this)
-            setFlingListener(2500)
             enforceSingleScrollDirection()
         }
     }

@@ -7,10 +7,12 @@ import androidx.fragment.app.FragmentActivity
 import moadgara.base.extension.orZero
 import moadgara.base.extension.putAny
 import moadgara.data.games.entity.GameDetailResponse
+import moadgara.domain.ListType
 import moadgara.main.games_detail.GameDetailsFragment
 import moadgara.main.games_detail.GameDetailsFragment.Companion.KEY_GAME_ID
 import moadgara.main.games_detail.GameDetailsFragment.Companion.KEY_GAME_NAME
 import moadgara.main.games_detail.GameDetailsFragment.Companion.KEY_GAME_RESPONSE
+import moadgara.main.paging.GenericPagingFragment
 import moadgara.uicomponent.overlay.OverlayBaseFragment
 import java.lang.ref.WeakReference
 
@@ -28,8 +30,13 @@ class DiscoverNavigator(activity: Activity?) {
         }
     }
 
-    fun navigateToAllGamesPage(name: String) {
-        Toast.makeText(activityWeakReference.get()?.applicationContext, name, Toast.LENGTH_SHORT).show()
+    fun navigateToAllGamesPage(name: String, listType: ListType) {
+        val bundle = Bundle()
+        bundle.putString(GenericPagingFragment.KEY_TITLE, name)
+        bundle.putAny(GenericPagingFragment.KEY_LIST_TYPE, listType)
+        activityWeakReference.get()?.supportFragmentManager?.let {
+            OverlayBaseFragment.startOrAdd(it, GenericPagingFragment::class.java, bundle)
+        }
     }
 
     fun navigateToAllGenres(name: String) {

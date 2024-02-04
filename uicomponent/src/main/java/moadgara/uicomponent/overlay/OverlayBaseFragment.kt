@@ -180,6 +180,10 @@ class OverlayBaseFragment : DialogFragment(), Overlay {
                     ToolbarType.BACK -> setButtonVisibilities(showCloseButton = false, showBackButton = true)
                     ToolbarType.CLOSE -> setButtonVisibilities(showCloseButton = true, showBackButton = false)
                     ToolbarType.BACK_CLOSE -> setButtonVisibilities(showCloseButton = true, showBackButton = true)
+                    ToolbarType.BACK_AUTO_CLOSE -> setButtonVisibilities(
+                        showCloseButton = fragmentManager.backStackEntryCount > 1,
+                        showBackButton = true
+                    )
                 }
             }
 
@@ -206,5 +210,6 @@ enum class ToolbarType {
     TITLE_ONLY,
     CLOSE,
     BACK,
+    BACK_AUTO_CLOSE,
     BACK_CLOSE
 }

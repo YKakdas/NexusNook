@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="moadgara.main.paging.games.PagedGameItemData" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/paged_game_item_card_height"
+        android:layout_margin="@dimen/margin_medium"
+        android:elevation="@dimen/paged_game_item_card_elevation"
+        android:onClick="@{() -> data.action.invoke()}"
+        app:cardBackgroundColor="@color/onyx"
+        app:cardCornerRadius="@dimen/paged_game_item_card_corner_radius">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/paged_game_item_image_height"
+            android:scaleType="fitXY"
+            android:src="@{data.image}"
+            app:error="@{@drawable/nexus_nook_image}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/paged_game_item_name_height"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="@dimen/margin_small"
+            android:ellipsize="end"
+            android:gravity="start|center"
+            android:maxWidth="280dp"
+            android:singleLine="true"
+            android:text="@{data.name}"
+            android:textColor="@color/white_smoke"
+            android:textSize="20sp"
+            tools:text="Grand Theft Auto" />
+
+        <moadgara.uicomponent.MetascoreView
+            android:layout_width="@dimen/paged_game_item_metacritic_size"
+            android:layout_height="@dimen/paged_game_item_metacritic_size"
+            android:layout_gravity="bottom|end"
+            android:layout_marginVertical="@dimen/spacing_12"
+            android:layout_marginEnd="@dimen/spacing_12"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:visibility="@{data.metascore != null}"
+            app:score="@{data.metascore}" />
+    </com.google.android.material.card.MaterialCardView>
+</layout>
