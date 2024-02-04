@@ -12,6 +12,10 @@ fun <T : Any> genericAdapter(builder: AdapterBuilder<T>.() -> Unit): GenericAdap
     return AdapterBuilder<T>().apply(builder).build()
 }
 
+fun <T : Any> pagingGenericAdapter(builder: AdapterBuilder<T>.() -> Unit): PagingGenericAdapter<T> {
+    return AdapterBuilder<T>().apply(builder).buildPaging()
+}
+
 @AdapterBuilderMarker
 class AdapterBuilder<T : Any> {
     private var itemLayoutResource = 0
@@ -45,23 +49,33 @@ class AdapterBuilder<T : Any> {
      * Callback to be triggered when an item view clicked in the list.
      */
     fun itemClickListener(listener: ItemClickListener<T>) =
-      apply { this.itemClickListener = listener }
+        apply { this.itemClickListener = listener }
 
     /**
      * Enables selection mode. Root view of item view's "state_selected" will be true.
      */
     fun selectionEnabled(selectionEnabled: Boolean) =
-      apply { this.selectionEnabled = selectionEnabled }
+        apply { this.selectionEnabled = selectionEnabled }
 
     /**
      * [DiffUtil.ItemCallback] to be used when new data set submitted.
      * If a callback is not supplied, default callback is used. Default callback checks only object equalities.
      */
     fun diffCallback(itemCallback: DiffUtil.ItemCallback<T>) =
-      apply { this.itemCallback = itemCallback }
+        apply { this.itemCallback = itemCallback }
 
     internal fun build(): GenericAdapter<T> {
         val adapter = GenericAdapter(itemCallback ?: defaultCallback)
+        adapter.itemLayoutResource = itemLayoutResource
+        adapter.selectionEnabled = selectionEnabled
+        adapter.binder = AdapterDataBinder(bindId ?: BR.data)
+        adapter.clickListener = itemClickListener
+
+        return adapter
+    }
+
+    internal fun buildPaging(): PagingGenericAdapter<T> {
+        val adapter = PagingGenericAdapter(itemCallback ?: defaultCallback)
         adapter.itemLayoutResource = itemLayoutResource
         adapter.selectionEnabled = selectionEnabled
         adapter.binder = AdapterDataBinder(bindId ?: BR.data)

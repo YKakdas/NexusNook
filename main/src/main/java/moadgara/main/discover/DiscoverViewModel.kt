@@ -15,7 +15,7 @@ import moadgara.main.discover.sublists.PreviewList
 class DiscoverViewModel(
     private val enablePrefetch: Boolean = false,
     private val prefetchAmount: Int = 6,
-    private val previewLists: List<PreviewList>
+    previewLists: List<PreviewList>
 ) : ViewModel() {
 
     private val message = MutableLiveData<String?>()

@@ -26,15 +26,20 @@ class NetworkImpl : KoinComponent, NetworkInterface {
 
     override suspend fun <Response : Any> get(
         endPoint: String,
+        type: KClass<Response>,
         queryParams: Map<String, String>?,
-        type: KClass<Response>
+        directCall: Boolean
     ): NetworkResult<Response> {
         try {
             val queryParameters = queryParams?.toMutableMap() ?: mutableMapOf()
             queryParameters["key"] = BuildConfig.API_KEY
 
-            val response = client.get(BaseUrl.apiUrl + endPoint) {
-                queryParameters.forEach { parameter(it.key, it.value) }
+            val response = if (directCall) {
+                client.get(endPoint)
+            } else {
+                client.get(BaseUrl.apiUrl + endPoint) {
+                    queryParameters.forEach { parameter(it.key, it.value) }
+                }
             }
 
             return if (response.status.value == 200) {

@@ -10,4 +10,5 @@ java {
 
 dependencies {
     implementation(Dependencies.kotlinCoroutine)
+    api(Dependencies.Paging.pagingCommon)
 }

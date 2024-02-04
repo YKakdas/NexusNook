@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-class GenericAdapter<T : Any> internal constructor(callback: DiffUtil.ItemCallback<T>) :
-  ListAdapter<T, GenericAdapter<T>.ViewHolder>(callback) {
+class PagingGenericAdapter<T : Any> internal constructor(callback: DiffUtil.ItemCallback<T>) :
+    PagingDataAdapter<T, PagingGenericAdapter<T>.ViewHolder>(callback) {
 
     @LayoutRes
     internal var itemLayoutResource: Int = 0
@@ -22,9 +22,9 @@ class GenericAdapter<T : Any> internal constructor(callback: DiffUtil.ItemCallba
     private var selectedItemPosition = RecyclerView.NO_POSITION
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
-      DataBindingUtil.inflate(
-        LayoutInflater.from(parent.context), viewType, parent, false
-      )
+        DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context), viewType, parent, false
+        )
     )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -59,7 +59,7 @@ class GenericAdapter<T : Any> internal constructor(callback: DiffUtil.ItemCallba
     }
 
     inner class ViewHolder(private val binding: ViewDataBinding) :
-      RecyclerView.ViewHolder(binding.root) {
+        RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.setOnClickListener {
                 if (absoluteAdapterPosition != RecyclerView.NO_POSITION) {
@@ -67,16 +67,16 @@ class GenericAdapter<T : Any> internal constructor(callback: DiffUtil.ItemCallba
                         changeSelection(absoluteAdapterPosition)
                     }
 
-                    clickListener?.onItemClicked(getItem(absoluteAdapterPosition))
+                    val item = getItem(absoluteAdapterPosition)
+                    item?.let { clickListener?.onItemClicked(it) }
                 }
             }
         }
 
-        fun bindData(data: T) {
-            binder.bind(binding, data)
+        fun bindData(data: T?) {
+            data?.let { binder.bind(binding, it) }
             binding.root.isSelected = selectedItemPosition == absoluteAdapterPosition
             binding.executePendingBindings()
         }
     }
 }
-

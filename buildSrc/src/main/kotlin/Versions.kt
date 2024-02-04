@@ -18,4 +18,5 @@ object Versions {
     const val kotlinCoroutine = "1.7.3"
     const val media3 = "1.2.0"
     const val gson = "2.10"
+    const val paging = "3.2.1"
 }

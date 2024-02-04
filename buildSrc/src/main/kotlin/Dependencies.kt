@@ -49,4 +49,9 @@ object Dependencies {
         const val ui = "androidx.media3:media3-ui:${Versions.media3}"
     }
 
+    object Paging {
+        const val pagingCommon = "androidx.paging:paging-common:${Versions.paging}"
+        const val pagingAndroid = "androidx.paging:paging-runtime:${Versions.paging}"
+    }
+
 }

@@ -12,6 +12,7 @@ android {
 dependencies {
     implementation(Dependencies.Coil.core)
     implementation(Dependencies.Coil.gif)
+    implementation(Dependencies.Paging.pagingAndroid)
 
     implementation(project(":base"))
 }
