@@ -2,6 +2,7 @@ package moadgara.uicomponent
 
 import android.content.Context
 import android.util.AttributeSet
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -16,6 +17,8 @@ class ChipGroupLayout(context: Context, attributeSet: AttributeSet?, defStyleInt
         chipList.forEach {
             val chip = Chip(context)
             chip.text = it
+            chip.setTextColor(ContextCompat.getColor(context, R.color.white_smoke))
+            chip.chipBackgroundColor = ContextCompat.getColorStateList(context, R.color.thunder)
             addView(chip)
         }
     }
