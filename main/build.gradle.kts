@@ -18,4 +18,5 @@ dependencies {
     implementation(Dependencies.Media3.exoplayer)
     implementation(Dependencies.Media3.ui)
     implementation(Dependencies.Paging.pagingAndroid)
+    implementation(Dependencies.palette)
 }

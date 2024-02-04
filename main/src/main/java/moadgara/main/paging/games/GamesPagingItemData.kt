@@ -9,4 +9,4 @@ data class GamesPagingItemData(
     val name: String,
     val metascore: Int?,
     val action: (() -> Unit)? = null
-) : GenericListItem(R.layout.layout_paging_game_item_view)
+)

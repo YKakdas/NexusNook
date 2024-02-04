@@ -16,6 +16,7 @@ object Dependencies {
     const val kotlinCoroutine =
         "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinCoroutine}"
     const val gson = "com.google.code.gson:gson:${Versions.gson}"
+    const val palette = "androidx.palette:palette:${Versions.palette}"
 
     object Arch {
         private const val archLifecycle = "androidx.lifecycle:lifecycle-"

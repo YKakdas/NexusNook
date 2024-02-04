@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import moadgara.base.extension.getAny
-import moadgara.base.extension.observeOnce
+import moadgara.base.util.ResourceProvider
 import moadgara.base.viewBinding
 import moadgara.domain.ListType
 import moadgara.main.R
@@ -19,20 +19,17 @@ import moadgara.uicomponent.BaseFragment
 import moadgara.uicomponent.CustomLinearSnapHelper
 import moadgara.uicomponent.PreloadLinearLayoutManager
 import moadgara.uicomponent.ProgressDialog
-import moadgara.uicomponent.adapter.PagingGenericAdapter
-import moadgara.uicomponent.adapter.pagingGenericAdapter
 import moadgara.uicomponent.alertDialog
 import moadgara.uicomponent.overlay.ToolbarFragment
 import moadgara.uicomponent.overlay.ToolbarType
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
-import timber.log.Timber
 
 class GamesPagingFragment : BaseFragment(R.layout.layout_games_paging_fragment), ToolbarFragment {
     private val binding by viewBinding(LayoutGamesPagingFragmentBinding::bind)
     private val progressDialog = ProgressDialog.newInstance()
 
-    private lateinit var pagingAdapter: PagingGenericAdapter<GamesPagingItemData>
+    private lateinit var pagingAdapter: GamesPagingAdapter
     private lateinit var viewModel: GamesPagingViewModel
     private lateinit var title: String
     private lateinit var listType: ListType
@@ -61,7 +58,9 @@ class GamesPagingFragment : BaseFragment(R.layout.layout_games_paging_fragment),
         listType = arguments?.getAny<ListType>(KEY_LIST_TYPE) ?: ListType.TRENDING
 
         viewModel = inject<GamesPagingViewModel> { parametersOf(listType) }.value
-        pagingAdapter = pagingGenericAdapter { diffCallback(itemDiffCallback) }
+        val resourceProvider = inject<ResourceProvider>().value
+
+        pagingAdapter = GamesPagingAdapter(resourceProvider, itemDiffCallback)
     }
 
 
@@ -74,8 +73,8 @@ class GamesPagingFragment : BaseFragment(R.layout.layout_games_paging_fragment),
         setupPagingRecyclerView()
         if (!resumed) {
             viewModel.fetchData()
-            observePagingState()
         }
+        observePagingState()
         observeData()
     }
 

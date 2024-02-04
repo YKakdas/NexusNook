@@ -10,7 +10,7 @@
         android:id="@+id/pagingRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:verticalSpeedFactor="0.3"
-        app:toolbarPadding="@{null}" />
+        app:toolbarPadding="@{null}"
+        app:verticalSpeedFactor="0.3" />
 
 </layout>

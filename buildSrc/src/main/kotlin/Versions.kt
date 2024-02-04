@@ -19,4 +19,5 @@ object Versions {
     const val media3 = "1.2.0"
     const val gson = "2.10"
     const val paging = "3.2.1"
+    const val palette = "1.0.0"
 }
