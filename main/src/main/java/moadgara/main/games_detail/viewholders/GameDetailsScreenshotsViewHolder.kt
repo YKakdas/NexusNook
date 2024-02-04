@@ -22,7 +22,7 @@ class GameDetailsScreenshotsViewHolder(val binding: LayoutGameDetailScreenshotsB
 
     private fun setupViewPager(data: GameDetailScreenshotData) {
         binding.screenshotPager.run {
-            val innerAdapter = genericAdapter<String> {
+            val innerAdapter = genericAdapter {
                 itemLayoutResource(R.layout.layout_game_detail_screenshot_item_view)
                 itemClickListener(this@GameDetailsScreenshotsViewHolder)
             }

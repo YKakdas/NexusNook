@@ -57,6 +57,9 @@
     <dimen name="game_detail_screenshot_elevation">8dp</dimen>
     <dimen name="game_detail_screenshot_view_height">280dp</dimen>
     <dimen name="game_detail_screenshot_image_height">240dp</dimen>
+    <dimen name="game_detail_genres_title_height">32dp</dimen>
+    <dimen name="game_detail_genres_chip_layout_margin_top">32dp</dimen>
+    <dimen name="game_detail_genres_scroll_view_edge_fading_length">32dp</dimen>
 
     <dimen name="paged_game_item_card_height">300dp</dimen>
     <dimen name="paged_game_item_card_corner_radius">8dp</dimen>

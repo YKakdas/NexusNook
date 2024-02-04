@@ -18,6 +18,7 @@ import moadgara.data.games.entity.ScreenshotsResponse
 import moadgara.domain.games.GetGameDetailsFromIdUseCase
 import moadgara.domain.games.GetScreenshotsFromGameIdUseCase
 import moadgara.main.R
+import moadgara.main.games_detail.listitems.GameDetailGenresData
 import moadgara.main.games_detail.listitems.GameDetailScreenshotData
 import moadgara.main.games_detail.listitems.GameDetailsDescriptionData
 import moadgara.main.games_detail.listitems.GameDetailsHeaderData
@@ -90,6 +91,7 @@ class GameDetailsViewModel(
             list.addAll(prepareHeader(it))
             list.addAll(prepareMetascoreRatingView(it))
             list.addAll(prepareSummary(it))
+            list.addAll(prepareGenres(it))
             list.addAll(prepareDescription(it))
 
             screenshotsFromId?.let { screenshots ->
@@ -144,6 +146,16 @@ class GameDetailsViewModel(
         } else {
             emptyList()
         }
+    }
+
+    private fun prepareGenres(data: GameDetailsFromIdResponse): List<GenericListItem> {
+        val genres = data.genres
+        if (genres.isNullOrEmpty()) {
+            return emptyList()
+        }
+
+        val genreNames = data.genres?.mapNotNull { it.genreName }.orEmpty().toMutableList()
+        return listOf(GameDetailGenresData(genreNames), GameDetailsHorizontalDivider())
     }
 
     private fun prepareMetascoreRatingView(data: GameDetailsFromIdResponse): List<GenericListItem> {
