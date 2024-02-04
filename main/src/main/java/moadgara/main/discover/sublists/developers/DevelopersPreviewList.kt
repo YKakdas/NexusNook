@@ -13,8 +13,7 @@ import moadgara.main.discover.sublists.PreviewListType
 
 class DevelopersPreviewList(
     private val previewListCommonParameters: PreviewListCommonParameters, private val useCase: GetDevelopersUseCase
-) :
-    PreviewList(previewListCommonParameters, useCase) {
+) : PreviewList(previewListCommonParameters, useCase) {
 
     private val viewLiveData = MutableLiveData<PreviewListViewData>()
 
@@ -23,11 +22,9 @@ class DevelopersPreviewList(
 
     override fun getPreviewListMetaData(): PreviewListMetaData {
         val listTitle = previewListCommonParameters.resourceProvider.getString(R.string.discover_developers_title)
-        return PreviewListMetaData(
-            title = listTitle,
+        return PreviewListMetaData(title = listTitle,
             buttonTitle = previewListCommonParameters.resourceProvider.getString(R.string.see_all_button_title),
-            buttonAction = { previewListCommonParameters.discoverNavigator.navigateToAllDevelopers(listTitle) }
-        )
+            buttonAction = { previewListCommonParameters.discoverNavigator.navigateToAllDevelopers(listTitle) })
     }
 
     override fun getInnerItemAction(id: Int?, name: String?, response: Any?): () -> Unit {

@@ -42,15 +42,8 @@ object DateUtil {
     }
 
     // If it is first 6 month of the new year, still show last years' games as best of the year, otherwise use the current year
-    fun getDateRangeForYear(): List<String> {
+    fun getDateRangeForYear(year: Int): List<String> {
         val calendar = Calendar.getInstance()
-
-        val month = calendar.get(Calendar.MONTH)
-        var year = calendar.get(Calendar.YEAR)
-
-        if (month < 6) {
-            year -= 1
-        }
 
         calendar.set(Calendar.YEAR, year)
         calendar.set(Calendar.DAY_OF_YEAR, 1)

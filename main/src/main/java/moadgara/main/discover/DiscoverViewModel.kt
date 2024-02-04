@@ -22,6 +22,7 @@ class DiscoverViewModel(
     private val images = MutableLiveData<List<String>>()
 
     private var errorCount = 0
+    private var sortedPreviewList: List<PreviewList> = previewLists.sortedBy { it.previewListType.order }
 
     private lateinit var data: List<Pair<PreviewList, NetworkResult<ResponseMapper>>>
 
@@ -31,20 +32,20 @@ class DiscoverViewModel(
 
     fun preparePageMetaData(): List<PreviewListMetaData> {
         val previewListsMetaData = mutableListOf<PreviewListMetaData>()
-        previewLists.forEach { previewListsMetaData.add(it.getPreviewListMetaData()) }
+        sortedPreviewList.forEach { previewListsMetaData.add(it.getPreviewListMetaData()) }
         return previewListsMetaData
     }
 
     fun getAllPreviewListsLiveData(): List<LiveData<PreviewListViewData>> {
         val observables = mutableListOf<LiveData<PreviewListViewData>>()
-        previewLists.forEach { observables.add(it.getViewLiveData()) }
+        sortedPreviewList.forEach { observables.add(it.getViewLiveData()) }
         return observables
     }
 
     fun fetchData() {
         if (!::data.isInitialized) {
             viewModelScope.launch {
-                data = previewLists.map { previewList ->
+                data = sortedPreviewList.map { previewList ->
                     async {
                         val result = previewList.invokeUseCase()
                         previewList to result // Pair the network result with its corresponding meta data
@@ -66,7 +67,7 @@ class DiscoverViewModel(
             if (result is NetworkResult.Failure) {
                 errorCount++
                 previewList.getViewLiveData().value = null
-                if (errorCount == previewLists.size) {
+                if (errorCount == sortedPreviewList.size) {
                     message.value = result.message
                 }
             } else if (result is NetworkResult.Success) {

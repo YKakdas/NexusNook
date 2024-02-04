@@ -13,8 +13,7 @@ import moadgara.main.discover.sublists.PreviewListType
 
 class GenresPreviewList(
     private val previewListCommonParameters: PreviewListCommonParameters, private val useCase: GetGenresUseCase
-) :
-    PreviewList(previewListCommonParameters, useCase) {
+) : PreviewList(previewListCommonParameters, useCase) {
 
     private val viewLiveData = MutableLiveData<PreviewListViewData>()
 
@@ -23,11 +22,9 @@ class GenresPreviewList(
 
     override fun getPreviewListMetaData(): PreviewListMetaData {
         val listTitle = previewListCommonParameters.resourceProvider.getString(R.string.discover_genres_title)
-        return PreviewListMetaData(
-            title = listTitle,
+        return PreviewListMetaData(title = listTitle,
             buttonTitle = previewListCommonParameters.resourceProvider.getString(R.string.see_all_button_title),
-            buttonAction = { previewListCommonParameters.discoverNavigator.navigateToAllGenres(listTitle) }
-        )
+            buttonAction = { previewListCommonParameters.discoverNavigator.navigateToAllGenres(listTitle) })
     }
 
     override fun getInnerItemAction(id: Int?, name: String?, response: Any?): () -> Unit {

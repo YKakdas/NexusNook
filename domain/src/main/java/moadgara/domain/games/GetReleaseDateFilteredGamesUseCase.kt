@@ -7,7 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import moadgara.data.games.entity.ListOfGamesResponse
 import moadgara.data.games.repository.GamesRepository
 
-class GetReleaseDateFilteredGamesUseCase(
+internal class GetReleaseDateFilteredGamesUseCase(
     private val repository: GamesRepository,
     coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : SuspendUseCase<List<String>, ListOfGamesResponse>(coroutineDispatcher) {

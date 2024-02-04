@@ -13,18 +13,21 @@ import moadgara.main.discover.PreviewListViewData
 import moadgara.main.discover.sublists.PreviewList
 import moadgara.main.discover.sublists.PreviewListCommonParameters
 import moadgara.main.discover.sublists.PreviewListType
+import java.util.Calendar
 
-class ThisMonthReleasedGamesPreviewList(
+class BestOfTheLastYearGamesPreviewList(
     private val previewListCommonParameters: PreviewListCommonParameters, private val useCase: GetGamesUseCase
 ) : PreviewList(previewListCommonParameters, useCase) {
 
     private val viewLiveData = MutableLiveData<PreviewListViewData>()
 
     override val previewListType: PreviewListType
-        get() = PreviewListType.THIS_MONTH_RELEASED
+        get() = PreviewListType.BEST_OF_LAST_YEAR
 
     override fun getPreviewListMetaData(): PreviewListMetaData {
-        val listTitle = previewListCommonParameters.resourceProvider.getString(R.string.discover_released_this_month_games_title)
+        val year = Calendar.getInstance().get(Calendar.YEAR).minus(1)
+        val listTitle =
+            previewListCommonParameters.resourceProvider.getString(R.string.discover_best_of_the_last_year_games_title, year)
         return PreviewListMetaData(
             title = listTitle,
             buttonTitle = previewListCommonParameters.resourceProvider.getString(R.string.see_all_button_title),
@@ -42,7 +45,7 @@ class ThisMonthReleasedGamesPreviewList(
     }
 
     override suspend fun invokeUseCase(): NetworkResult<ResponseMapper> {
-        return useCase.invoke(GameListType.RELEASED_THIS_MONTH)
+        return useCase.invoke(GameListType.BEST_OF_THE_LAST_YEAR)
     }
 
 }

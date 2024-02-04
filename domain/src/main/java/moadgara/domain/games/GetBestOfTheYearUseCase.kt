@@ -8,12 +8,12 @@ import kotlinx.coroutines.Dispatchers
 import moadgara.data.games.entity.ListOfGamesResponse
 import moadgara.data.games.repository.GamesRepository
 
-class GetBestOfTheYearUseCase(
+internal class GetBestOfTheYearUseCase(
     private val repository: GamesRepository,
     coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
-) : SuspendUseCase<Unit, ListOfGamesResponse>(coroutineDispatcher) {
-    override suspend fun execute(param: Unit): NetworkResult<ListOfGamesResponse> {
-        val dates = DateUtil.getDateRangeForYear()
+) : SuspendUseCase<Int, ListOfGamesResponse>(coroutineDispatcher) {
+    override suspend fun execute(param: Int): NetworkResult<ListOfGamesResponse> {
+        val dates = DateUtil.getDateRangeForYear(param)
         val queryParams = mutableMapOf<String, String>()
         queryParams["ordering"] = "-added"
         queryParams["dates"] = dates[0].plus(",").plus(dates[1])

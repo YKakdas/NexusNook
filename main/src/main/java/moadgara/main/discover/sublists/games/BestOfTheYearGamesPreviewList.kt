@@ -5,7 +5,8 @@ import com.moadgara.common_model.network.NetworkResult
 import moadgara.base.util.tryCast
 import moadgara.data.ResponseMapper
 import moadgara.data.games.entity.GameDetailResponse
-import moadgara.domain.games.GetBestOfTheYearUseCase
+import moadgara.domain.games.GameListType
+import moadgara.domain.games.GetGamesUseCase
 import moadgara.main.R
 import moadgara.main.discover.PreviewListMetaData
 import moadgara.main.discover.PreviewListViewData
@@ -14,7 +15,7 @@ import moadgara.main.discover.sublists.PreviewListCommonParameters
 import moadgara.main.discover.sublists.PreviewListType
 
 class BestOfTheYearGamesPreviewList(
-    private val previewListCommonParameters: PreviewListCommonParameters, private val useCase: GetBestOfTheYearUseCase
+    private val previewListCommonParameters: PreviewListCommonParameters, private val useCase: GetGamesUseCase
 ) : PreviewList(previewListCommonParameters, useCase) {
 
     private val viewLiveData = MutableLiveData<PreviewListViewData>()
@@ -41,7 +42,7 @@ class BestOfTheYearGamesPreviewList(
     }
 
     override suspend fun invokeUseCase(): NetworkResult<ResponseMapper> {
-        return useCase.invoke(Unit)
+        return useCase.invoke(GameListType.BEST_OF_THE_YEAR)
     }
 
 }

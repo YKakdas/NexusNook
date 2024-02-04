@@ -7,7 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import moadgara.data.games.entity.ListOfGamesResponse
 import moadgara.data.games.repository.GamesRepository
 
-class GetTrendingGamesUseCase(
+internal class GetTrendingGamesUseCase(
     private val repository: GamesRepository,
     coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : SuspendUseCase<Unit, ListOfGamesResponse>(coroutineDispatcher) {
