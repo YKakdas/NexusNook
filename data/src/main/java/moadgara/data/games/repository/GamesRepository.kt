@@ -27,4 +27,8 @@ class GamesRepository(private val networkInterface: NetworkInterface) {
     suspend fun fetchScreenshotsFromID(id: Int, queryParams: Map<String, String>): NetworkResult<ScreenshotsResponse> {
         return networkInterface.getRequest("games/$id/screenshots", queryParams)
     }
+
+    suspend fun fetchGamePage(pageUrl: String): NetworkResult<ListOfGamesResponse> {
+        return networkInterface.getRequest(endPoint = pageUrl, directCall = true)
+    }
 }

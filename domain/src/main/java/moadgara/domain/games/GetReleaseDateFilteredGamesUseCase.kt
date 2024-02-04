@@ -13,7 +13,7 @@ internal class GetReleaseDateFilteredGamesUseCase(
 ) : SuspendUseCase<List<String>, ListOfGamesResponse>(coroutineDispatcher) {
     override suspend fun execute(param: List<String>): NetworkResult<ListOfGamesResponse> {
         val queryParams = mutableMapOf<String, String>()
-        queryParams["page"] = "1"
+        queryParams["page_size"] = "40"
         queryParams["ordering"] = "released"
         queryParams["dates"] = param[0].plus(",").plus(param[1])
         return repository.fetchGames(queryParams)

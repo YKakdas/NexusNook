@@ -13,7 +13,7 @@ internal class GetRecentlyAddedPopularGamesUseCase(
 ) : SuspendUseCase<Unit, ListOfGamesResponse>(coroutineDispatcher) {
     override suspend fun execute(param: Unit): NetworkResult<ListOfGamesResponse> {
         val queryParams = mutableMapOf<String, String>()
-        queryParams["page"] = "1"
+        queryParams["page_size"] = "40"
         queryParams["ordering"] = "relevance"
         return repository.fetchRecentlyAddedPopularGames(queryParams)
     }

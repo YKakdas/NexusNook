@@ -16,6 +16,7 @@ internal class GetBestOfTheYearUseCase(
         val dates = DateUtil.getDateRangeForYear(param)
         val queryParams = mutableMapOf<String, String>()
         queryParams["ordering"] = "-added"
+        queryParams["page_size"] = "40"
         queryParams["dates"] = dates[0].plus(",").plus(dates[1])
         return repository.fetchGames(queryParams)
     }
