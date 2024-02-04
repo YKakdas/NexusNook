@@ -14,6 +14,13 @@ API_KEY="api_key_here"
 
 >#### NOTE: Please be advised that the project is still under the development, some features may not work as intended and not all functionalities have been implemented yet.
 
+## In-App Screenshots
+
+<img src="https://raw.githubusercontent.com/YKakdas/ImagesForReadme/main/Homepage_1.jpg?raw=true" width="200" height=420> <img src="https://raw.githubusercontent.com/YKakdas/ImagesForReadme/main/Homepage_2.jpg?raw=true" width="200" height=420> <img src="https://raw.githubusercontent.com/YKakdas/ImagesForReadme/main/Homepage_3.jpg?raw=true" width="200" height=420> 
+
+<img src="https://raw.githubusercontent.com/YKakdas/ImagesForReadme/main/GameDetails_2.jpg?raw=true" width="200" height=420> <img src="https://raw.githubusercontent.com/YKakdas/ImagesForReadme/main/DetailPage_1.jpg?raw=true" width="200" height=420>
+
+
 ## Technical Details
 
 ### Packages & Directory Structure
@@ -53,14 +60,6 @@ This project utilizes ```Single Activity``` architecture with ```MVVM``` Moreove
 -  [Timber](https://github.com/JakeWharton/timber): Logging
 -  [GSON](https://github.com/google/gson): Json conversions
 -  [ExoPlayer](https://github.com/google/ExoPlayer): Video Player
-
-
-## In-App Screenshots
-
-
-<img src="https://raw.githubusercontent.com/YKakdas/ImagesForReadme/main/Homepage_1.jpg?raw=true" width="200" height=420> <img src="https://raw.githubusercontent.com/YKakdas/ImagesForReadme/main/Homepage_2.jpg?raw=true" width="200" height=420> <img src="https://raw.githubusercontent.com/YKakdas/ImagesForReadme/main/Homepage_3.jpg?raw=true" width="200" height=420> 
-
-<img src="https://raw.githubusercontent.com/YKakdas/ImagesForReadme/main/GameDetails_2.jpg?raw=true" width="200" height=420> <img src="https://raw.githubusercontent.com/YKakdas/ImagesForReadme/main/DetailPage_1.jpg?raw=true" width="200" height=420>
 
 ## GIFs
 
