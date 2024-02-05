@@ -1,9 +1,9 @@
 package moadgara.main.games_detail.viewholders
 
 import android.annotation.SuppressLint
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
-import moadgara.base.extension.toPx
+import moadgara.base.extension.smoothSnapToPosition
 import moadgara.main.databinding.LayoutGameDetailDescriptionBinding
 import moadgara.main.games_detail.listitems.GameDetailsDescriptionData
 import moadgara.uicomponent.adapter.GenericListItem
@@ -20,9 +20,8 @@ class GameDetailsDescriptionViewHolder(
             recyclerView.setOnTouchListener { _, _ -> isBeingAnimated }
             if (isBeingAnimated) {
                 recyclerView.scrollBy(0, scrollAmount)
-            }
-            if (!isBeingAnimated && isExpanded) {
-                (recyclerView.layoutManager as? LinearLayoutManager)?.scrollToPositionWithOffset(absoluteAdapterPosition, 80.toPx)
+            } else {
+                recyclerView.smoothSnapToPosition(absoluteAdapterPosition - 2, LinearSmoothScroller.SNAP_TO_START)
             }
         }
     }
