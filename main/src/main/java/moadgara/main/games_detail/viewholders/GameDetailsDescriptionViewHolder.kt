@@ -21,7 +21,8 @@ class GameDetailsDescriptionViewHolder(
             if (isBeingAnimated) {
                 recyclerView.scrollBy(0, scrollAmount)
             } else {
-                recyclerView.smoothSnapToPosition(absoluteAdapterPosition - 2, LinearSmoothScroller.SNAP_TO_START)
+                val position = if (absoluteAdapterPosition > 1) absoluteAdapterPosition - 2 else absoluteAdapterPosition
+                recyclerView.smoothSnapToPosition(position, LinearSmoothScroller.SNAP_TO_START)
             }
         }
     }
