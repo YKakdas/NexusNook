@@ -42,7 +42,7 @@
             android:textStyle="bold"
             tools:text="Grand Theft Auto" />
 
-        <moadgara.uicomponent.MetascoreView
+        <moadgara.uicomponent.custom_view.MetascoreView
             android:layout_width="@dimen/paged_game_item_metacritic_size"
             android:layout_height="@dimen/paged_game_item_metacritic_size"
             android:layout_gravity="bottom|end"

@@ -1,4 +1,4 @@
-package moadgara.uicomponent
+package moadgara.uicomponent.custom_view
 
 import android.content.DialogInterface
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import moadgara.base.extension.loadGif
+import moadgara.uicomponent.R
 import moadgara.uicomponent.databinding.LayoutProgressBinding
 
 class ProgressDialog : DialogFragment() {
@@ -60,7 +61,7 @@ class ProgressDialog : DialogFragment() {
 
     private fun showLoadingAnimation() {
         binding.progressImage.loadGif(
-          R.raw.loading_animation,
+            R.raw.loading_animation,
           listOf(R.anim.progress_rotate)
         )
     }

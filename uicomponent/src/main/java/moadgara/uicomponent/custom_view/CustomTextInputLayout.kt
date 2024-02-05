@@ -1,4 +1,4 @@
-package moadgara.uicomponent
+package moadgara.uicomponent.custom_view
 
 import android.content.Context
 import android.content.res.ColorStateList
@@ -17,6 +17,7 @@ import moadgara.base.extension.closeSoftKeyboard
 import moadgara.base.extension.getEnumOrDefault
 import moadgara.base.extension.setAndStartAnimation
 import moadgara.base.validation.InputValidationError
+import moadgara.uicomponent.R
 
 
 class CustomTextInputLayout constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
@@ -91,27 +92,27 @@ class CustomTextInputLayout constructor(context: Context, attrs: AttributeSet?, 
 
             animationMetaDataShowError = AnimationMetaData().apply {
                 direction = getEnumOrDefault(
-                  R.styleable.CustomTextInputLayout_animationDirectionShowError,
+                    R.styleable.CustomTextInputLayout_animationDirectionShowError,
                   AnimationDirection.LEFT_TO_RIGHT
                 )
                 type = getEnumOrDefault(
-                  R.styleable.CustomTextInputLayout_animationTypeShowError, AnimationType.FADE_IN
+                    R.styleable.CustomTextInputLayout_animationTypeShowError, AnimationType.FADE_IN
                 )
                 duration = getInt(
-                  R.styleable.CustomTextInputLayout_animationDurationShowError, 1000
+                    R.styleable.CustomTextInputLayout_animationDurationShowError, 1000
                 ).toLong()
             }
 
             animationMetaDataHideError = AnimationMetaData().apply {
                 direction = getEnumOrDefault(
-                  R.styleable.CustomTextInputLayout_animationDirectionHideError,
+                    R.styleable.CustomTextInputLayout_animationDirectionHideError,
                   AnimationDirection.LEFT_TO_RIGHT
                 )
                 type = getEnumOrDefault(
-                  R.styleable.CustomTextInputLayout_animationTypeHideError, AnimationType.FADE_IN
+                    R.styleable.CustomTextInputLayout_animationTypeHideError, AnimationType.FADE_IN
                 )
                 duration = getInt(
-                  R.styleable.CustomTextInputLayout_animationDurationHideError, 1000
+                    R.styleable.CustomTextInputLayout_animationDurationHideError, 1000
                 ).toLong()
             }
 

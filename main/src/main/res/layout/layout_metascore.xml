@@ -22,7 +22,7 @@
             android:textColor="@color/cloudy_grey"
             android:textSize="16sp" />
 
-        <moadgara.uicomponent.MetascoreView
+        <moadgara.uicomponent.custom_view.MetascoreView
             android:id="@+id/metascoreView"
             android:layout_width="@dimen/game_detail_metascore_view_dimension"
             android:layout_height="@dimen/game_detail_metascore_view_dimension"

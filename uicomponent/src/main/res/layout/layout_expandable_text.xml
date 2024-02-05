@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <merge tools:parentTag="android.widget.FrameLayout">
+
+        <moadgara.uicomponent.custom_view.ExpandableTextView
+            android:id="@+id/expandableDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:background="@drawable/expandable_text_view_background"
+            android:breakStrategy="high_quality"
+            android:gravity="start"
+            android:lineSpacingExtra="4sp"
+            android:paddingHorizontal="@dimen/margin_medium"
+            android:paddingTop="@dimen/margin_large"
+            android:paddingBottom="@dimen/margin_large"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/game_detail_description_title_height"
+            android:layout_marginStart="@dimen/margin_small"
+            android:background="@drawable/expandable_text_view_title_background"
+            android:gravity="center"
+            android:minWidth="@dimen/game_detail_description_title_width"
+            android:textColor="@color/cloudy_grey"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <View
+            android:id="@+id/fadingBackground"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/expandable_text_fading_height"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/margin_large"
+            android:background="@drawable/expandable_text_view_fading_background" />
+
+        <ImageButton
+            android:id="@+id/button"
+            android:layout_width="@dimen/expandable_text_button_width"
+            android:layout_height="@dimen/expandable_text_button_height"
+            android:layout_gravity="bottom|center_horizontal"
+            android:background="@color/transparent"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_expand_more"
+            app:tint="@color/quick_silver" />
+
+    </merge>
+</layout>

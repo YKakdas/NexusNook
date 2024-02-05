@@ -6,7 +6,7 @@
 
     </data>
 
-    <moadgara.uicomponent.ScrollSpeedControlledRecyclerView
+    <moadgara.uicomponent.custom_view.ScrollSpeedControlledRecyclerView
         android:id="@+id/pagingRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

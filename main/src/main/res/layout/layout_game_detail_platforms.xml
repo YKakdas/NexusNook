@@ -22,7 +22,7 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <moadgara.uicomponent.HorizontalScrollViewEdgeFadeColor
+        <moadgara.uicomponent.custom_view.HorizontalScrollViewEdgeFadeColor
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -33,16 +33,16 @@
             android:requiresFadingEdge="horizontal"
             android:scrollbars="none">
 
-            <moadgara.uicomponent.ChipGroupLayout
+            <moadgara.uicomponent.custom_view.ChipGroupLayout
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/game_detail_genres_chip_height"
                 android:layout_marginTop="@dimen/margin_small"
                 app:setChips="@{data.platformNames}"
                 app:singleLine="true">
 
-            </moadgara.uicomponent.ChipGroupLayout>
+            </moadgara.uicomponent.custom_view.ChipGroupLayout>
 
-        </moadgara.uicomponent.HorizontalScrollViewEdgeFadeColor>
+        </moadgara.uicomponent.custom_view.HorizontalScrollViewEdgeFadeColor>
 
     </FrameLayout>
 

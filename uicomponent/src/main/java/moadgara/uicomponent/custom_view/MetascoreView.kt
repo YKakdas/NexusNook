@@ -1,4 +1,4 @@
-package moadgara.uicomponent
+package moadgara.uicomponent.custom_view
 
 import android.content.Context
 import android.graphics.Typeface
@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import moadgara.base.extension.toPx
 import moadgara.base.extension.toSp
+import moadgara.uicomponent.R
 
 class MetascoreView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : AppCompatButton(context, attrs, defStyleAttr) {
 

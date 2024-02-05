@@ -1,8 +1,9 @@
-package moadgara.uicomponent
+package moadgara.uicomponent.custom_view
 
 import android.content.Context
 import android.util.AttributeSet
 import androidx.recyclerview.widget.RecyclerView
+import moadgara.uicomponent.R
 
 class ScrollSpeedControlledRecyclerView(context: Context, attrs: AttributeSet?, defStyleInt: Int) :
     RecyclerView(context, attrs, defStyleInt) {

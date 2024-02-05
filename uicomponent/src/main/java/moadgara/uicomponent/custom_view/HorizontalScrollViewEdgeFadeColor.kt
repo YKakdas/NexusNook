@@ -1,9 +1,10 @@
-package moadgara.uicomponent
+package moadgara.uicomponent.custom_view
 
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.HorizontalScrollView
 import androidx.core.content.ContextCompat
+import moadgara.uicomponent.R
 
 class HorizontalScrollViewEdgeFadeColor(context: Context, attributeSet: AttributeSet?, defStyleInt: Int) :
     HorizontalScrollView(context, attributeSet, defStyleInt) {

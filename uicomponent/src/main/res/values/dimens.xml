@@ -62,6 +62,8 @@
     <dimen name="game_detail_genres_chip_layout_margin_top">32dp</dimen>
     <dimen name="game_detail_genres_chip_height">48dp</dimen>
     <dimen name="game_detail_genres_scroll_view_edge_fading_length">60dp</dimen>
+    <dimen name="game_detail_description_title_width">80dp</dimen>
+    <dimen name="game_detail_description_title_height">36dp</dimen>
 
     <dimen name="paged_game_item_card_height">300dp</dimen>
     <dimen name="paged_game_item_card_corner_radius">8dp</dimen>
@@ -75,6 +77,10 @@
     <dimen name="toolbar_title_height">24dp</dimen>
     <dimen name="toolbar_title_max_width">240dp</dimen>
     <dimen name="toolbar_button_height">36dp</dimen>
+
+    <dimen name="expandable_text_button_height">32dp</dimen>
+    <dimen name="expandable_text_button_width">40dp</dimen>
+    <dimen name="expandable_text_fading_height">44dp</dimen>
 
     <dimen name="webview_toolbar_padding">84dp</dimen>
 </resources>

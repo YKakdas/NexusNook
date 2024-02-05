@@ -9,7 +9,7 @@
             type="moadgara.main.games_detail.listitems.SpannableText" />
     </data>
 
-    <moadgara.uicomponent.SpannableTextView
+    <moadgara.uicomponent.custom_view.SpannableTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_medium"

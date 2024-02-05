@@ -11,7 +11,7 @@ import moadgara.base.viewBinding
 import moadgara.main.R
 import moadgara.main.databinding.FragmentDiscoverBinding
 import moadgara.uicomponent.AlertDialog
-import moadgara.uicomponent.ProgressDialog
+import moadgara.uicomponent.custom_view.ProgressDialog
 import moadgara.uicomponent.alertDialog
 import org.koin.android.ext.android.inject
 

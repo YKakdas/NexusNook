@@ -43,7 +43,7 @@
         <attr name="animationDurationHideError" format="integer" />
     </declare-styleable>
 
-    <declare-styleable name="ExpandableTextView">
+    <declare-styleable name="ExpandableTextLayout">
         <attr name="initialState" format="enum">
             <enum name="COLLAPSED" value="0" />
             <enum name="EXPANDED" value="1" />
@@ -52,6 +52,7 @@
         <attr name="textSize" format="dimension" />
         <attr name="textColor" format="color" />
         <attr name="animationDuration" format="integer" />
+        <attr name="title" format="string|reference" />
     </declare-styleable>
 
     <declare-styleable name="SpannableTextView">

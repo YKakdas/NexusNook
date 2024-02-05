@@ -46,7 +46,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <moadgara.uicomponent.ScrollSpeedControlledRecyclerView
+        <moadgara.uicomponent.custom_view.ScrollSpeedControlledRecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="@dimen/preview_list_item_view_height"

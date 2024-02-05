@@ -16,7 +16,7 @@ import moadgara.main.games_detail.listitems.GameDetailsHeaderData
 import moadgara.uicomponent.AlertDialog
 import moadgara.uicomponent.BaseFragment
 import moadgara.uicomponent.LinearLayoutManagerWithAccurateOffset
-import moadgara.uicomponent.ProgressDialog
+import moadgara.uicomponent.custom_view.ProgressDialog
 import moadgara.uicomponent.alertDialog
 import moadgara.uicomponent.enforceSingleScrollDirection
 import moadgara.uicomponent.overlay.Overlay

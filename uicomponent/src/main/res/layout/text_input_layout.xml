@@ -21,7 +21,7 @@
             android:focusable="true"
             android:focusableInTouchMode="true" />
 
-        <moadgara.uicomponent.CustomTextInputLayout
+        <moadgara.uicomponent.custom_view.CustomTextInputLayout
             android:id="@+id/customTextInputLayout"
             style="@style/Widget.Moadgara.TextInputLayout"
             android:layout_width="match_parent"
@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 moadgara:registerTextWatcher="@{vm.phoneNumberTextWatcher}" />
 
-        </moadgara.uicomponent.CustomTextInputLayout>
+        </moadgara.uicomponent.custom_view.CustomTextInputLayout>
 
 
     </LinearLayout>

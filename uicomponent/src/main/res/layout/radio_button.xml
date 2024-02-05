@@ -7,14 +7,14 @@
     android:orientation="vertical"
     android:padding="@dimen/margin_small">
 
-    <moadgara.uicomponent.ToggleableRadioButton
+    <moadgara.uicomponent.custom_view.ToggleableRadioButton
         style="@style/Widget.Moadgara.RadioButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:text="Radio Button" />
 
-    <moadgara.uicomponent.ToggleableRadioButton
+    <moadgara.uicomponent.custom_view.ToggleableRadioButton
         style="@style/Widget.Moadgara.RadioButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
         android:enabled="false"
         android:text="Radio Button Disabled" />
 
-    <moadgara.uicomponent.ToggleableRadioButton
+    <moadgara.uicomponent.custom_view.ToggleableRadioButton
         style="@style/Widget.Moadgara.RadioButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
         android:clickable="false"
         android:text="Radio Button Checked" />
 
-    <moadgara.uicomponent.ToggleableRadioButton
+    <moadgara.uicomponent.custom_view.ToggleableRadioButton
         style="@style/Widget.Moadgara.RadioButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

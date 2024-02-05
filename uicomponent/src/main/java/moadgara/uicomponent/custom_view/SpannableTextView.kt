@@ -1,4 +1,4 @@
-package moadgara.uicomponent
+package moadgara.uicomponent.custom_view
 
 import android.content.Context
 import android.content.Intent
@@ -14,7 +14,10 @@ import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.FragmentActivity
+import moadgara.uicomponent.AlertDialog
+import moadgara.uicomponent.R
 import moadgara.uicomponent.UIUtil.showWebView
+import moadgara.uicomponent.alertDialog
 
 class SpannableTextView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
     AppCompatTextView(context, attrs, defStyleAttr) {

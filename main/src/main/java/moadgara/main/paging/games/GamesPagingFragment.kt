@@ -18,7 +18,7 @@ import moadgara.uicomponent.AlertDialog
 import moadgara.uicomponent.BaseFragment
 import moadgara.uicomponent.CustomLinearSnapHelper
 import moadgara.uicomponent.PreloadLinearLayoutManager
-import moadgara.uicomponent.ProgressDialog
+import moadgara.uicomponent.custom_view.ProgressDialog
 import moadgara.uicomponent.alertDialog
 import moadgara.uicomponent.overlay.ToolbarFragment
 import moadgara.uicomponent.overlay.ToolbarType

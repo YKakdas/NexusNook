@@ -1,4 +1,4 @@
-package moadgara.uicomponent
+package moadgara.uicomponent.custom_view
 
 import android.content.Context
 import android.util.AttributeSet

@@ -1,15 +1,11 @@
-package moadgara.uicomponent
+package moadgara.uicomponent.custom_view
 
 import android.animation.ValueAnimator
 import android.content.Context
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.util.AttributeSet
-import android.util.TypedValue
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.animation.doOnEnd
-import androidx.databinding.BindingAdapter
 import moadgara.base.setTextFromHtml
 
 class ExpandableTextView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
@@ -20,50 +16,45 @@ class ExpandableTextView(context: Context, attrs: AttributeSet?, defStyleAttr: I
 
     private var state: State = State.COLLAPSED
     private var collapsedMaxLines: Int = 3
-    private var textSize: Int? = null
-    private var textColor: ColorStateList? = null
-    private var body: String? = null
-
     private var animationDuration: Int = 1200
-
     private var collapsedHeight: Int = 0
     private var expandedHeight: Int = 0
-
     private var isBeingAnimated = false
-
     private var animationChangeListener: ((Boolean, Int, Boolean) -> Unit)? = null
 
-    init {
-        parseDeclarableStyleAttributes(attrs)
-        setupTextView()
-        setOnClickListener { if (!isBeingAnimated) toggle() }
-    }
+    private var onExpanded: (() -> Unit)? = null
+    private var onCollapsed: (() -> Unit)? = null
 
     fun setOnAnimationChangeListener(animationChangeListener: ((Boolean, Int, Boolean) -> Unit)?) {
         this.animationChangeListener = animationChangeListener
     }
 
-    private fun parseDeclarableStyleAttributes(attrs: AttributeSet?) {
-        context.obtainStyledAttributes(attrs, R.styleable.ExpandableTextView).apply {
-            collapsedMaxLines = getInt(R.styleable.ExpandableTextView_collapsedMaxLines, 3)
-            textSize = getDimensionPixelSize(R.styleable.ExpandableTextView_textSize, 18)
-            textColor = getColorStateList(R.styleable.ExpandableTextView_textColor) ?: ColorStateList.valueOf(Color.WHITE)
-            animationDuration = getInt(R.styleable.ExpandableTextView_animationDuration, 1200)
-
-            recycle()
-        }
-    }
-
-    private fun setupTextView() {
-        setTextColor(textColor)
-        setTextSize(TypedValue.COMPLEX_UNIT_PX, this@ExpandableTextView.textSize?.toFloat() ?: 8f)
-        text = body
+    fun setCollapsedMaxTextLines(collapsedMaxLines: Int) {
+        this.collapsedMaxLines = collapsedMaxLines
         if (state == State.COLLAPSED) {
             maxLines = collapsedMaxLines
         }
     }
 
-    private fun toggle() {
+    fun setAnimationDuration(animationDuration: Int) {
+        this.animationDuration = animationDuration
+    }
+
+    fun setOnExpanded(onExpanded: (() -> Unit)?) {
+        this.onExpanded = onExpanded
+    }
+
+    fun setOnCollapsed(onCollapsed: (() -> Unit)?) {
+        this.onCollapsed = onCollapsed
+    }
+
+    fun setBody(text: String?) {
+        setTextFromHtml(this, text.orEmpty())
+    }
+
+    internal fun toggle() {
+        if (isBeingAnimated) return
+
         if (expandedHeight == 0) {
             measureExpandedHeight()
         }
@@ -76,9 +67,7 @@ class ExpandableTextView(context: Context, attrs: AttributeSet?, defStyleAttr: I
             animate(collapsedHeight, expandedHeight)
             State.EXPANDED
         } else {
-            animate(expandedHeight, collapsedHeight) {
-                maxLines = collapsedMaxLines
-            }
+            animate(expandedHeight, collapsedHeight)
             State.COLLAPSED
         }
 
@@ -107,7 +96,7 @@ class ExpandableTextView(context: Context, attrs: AttributeSet?, defStyleAttr: I
         return measuredHeight
     }
 
-    private fun animate(current: Int, new: Int, callback: (() -> Unit)? = null) {
+    private fun animate(current: Int, new: Int) {
         val valueAnimator = ValueAnimator.ofInt(current, new).setDuration(animationDuration.toLong())
         var previous = current
         valueAnimator.addUpdateListener {
@@ -120,9 +109,9 @@ class ExpandableTextView(context: Context, attrs: AttributeSet?, defStyleAttr: I
         }
 
         valueAnimator.doOnEnd {
-            callback?.invoke()
             isBeingAnimated = false
             animationChangeListener?.invoke(false, 0, isExpanded())
+            toggleEnd()
         }
 
         valueAnimator.interpolator = AccelerateDecelerateInterpolator()
@@ -131,17 +120,19 @@ class ExpandableTextView(context: Context, attrs: AttributeSet?, defStyleAttr: I
         animationChangeListener?.invoke(true, 0, isExpanded())
     }
 
-    fun setBody(text: String?) {
-        setTextFromHtml(this, text.orEmpty())
+    private fun toggleEnd() {
+        if (isExpanded()) {
+            state = State.EXPANDED
+            onExpanded?.invoke()
+        } else {
+            state = State.COLLAPSED
+            maxLines = collapsedMaxLines
+            onCollapsed?.invoke()
+        }
     }
 
     private fun isExpanded(): Boolean = state == State.EXPANDED
 
-}
-
-@BindingAdapter("body")
-fun setBody(view: ExpandableTextView, text: String?) {
-    view.setBody(text)
 }
 
 enum class State {
