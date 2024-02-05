@@ -26,16 +26,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:layout_marginHorizontal="@dimen/margin_medium"
             android:layout_marginTop="@dimen/game_detail_genres_chip_layout_margin_top"
             android:fadingEdge="horizontal"
             android:fadingEdgeLength="@dimen/game_detail_genres_scroll_view_edge_fading_length"
-            android:paddingHorizontal="@dimen/margin_medium"
             android:requiresFadingEdge="horizontal"
             android:scrollbars="none">
 
             <moadgara.uicomponent.ChipGroupLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/game_detail_genres_chip_height"
+                android:layout_marginTop="@dimen/margin_small"
                 app:setChips="@{data.genreNames}"
                 app:singleLine="true">
 

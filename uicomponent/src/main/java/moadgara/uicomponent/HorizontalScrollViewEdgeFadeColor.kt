@@ -12,7 +12,7 @@ class HorizontalScrollViewEdgeFadeColor(context: Context, attributeSet: Attribut
     constructor(context: Context) : this(context, null, 0)
 
     override fun getSolidColor(): Int {
-        return ContextCompat.getColor(context, R.color.thunder_with_alpha)
+        return ContextCompat.getColor(context, R.color.black)
     }
 
 }

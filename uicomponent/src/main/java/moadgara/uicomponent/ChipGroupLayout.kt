@@ -12,13 +12,15 @@ class ChipGroupLayout(context: Context, attributeSet: AttributeSet?, defStyleInt
 
     constructor(context: Context, attributeSet: AttributeSet?) : this(context, attributeSet, 0)
     constructor(context: Context) : this(context, null, 0)
-
+    
     fun initializeChips(chipList: List<String>) {
         chipList.forEach {
             val chip = Chip(context)
             chip.text = it
             chip.setTextColor(ContextCompat.getColor(context, R.color.white_smoke))
             chip.chipBackgroundColor = ContextCompat.getColorStateList(context, R.color.thunder)
+            chip.setPadding(0, 0, 0, 0)
+            chip.setEnsureMinTouchTargetSize(true)
             addView(chip)
         }
     }
