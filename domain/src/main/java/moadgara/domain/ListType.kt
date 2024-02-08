@@ -1,6 +1,6 @@
 package moadgara.domain
 
-enum class ListType(val order: Int) {
+enum class ListType(val order: Int, val additionalParameters: List<String>? = null) {
     TRENDING(0),
     BEST_OF_THE_YEAR(1),
     BEST_OF_LAST_YEAR(2),

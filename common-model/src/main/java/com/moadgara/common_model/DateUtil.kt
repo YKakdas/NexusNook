@@ -59,10 +59,4 @@ object DateUtil {
         return listOf(startString, endString)
     }
 
-    fun getCurrentWeek(): Int {
-        val calendar = Calendar.getInstance()
-        val weekNumber = calendar.get(Calendar.WEEK_OF_YEAR)
-        return weekNumber
-    }
-
 }
