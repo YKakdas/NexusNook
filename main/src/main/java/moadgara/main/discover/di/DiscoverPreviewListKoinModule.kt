@@ -4,6 +4,7 @@ import moadgara.main.discover.sublists.PreviewList
 import moadgara.main.discover.sublists.PreviewListCommonParameters
 import moadgara.main.discover.sublists.creators.CreatorsPreviewList
 import moadgara.main.discover.sublists.developers.DevelopersPreviewList
+import moadgara.main.discover.sublists.games.AllTimeTop250GamesPreviewList
 import moadgara.main.discover.sublists.games.BestOfTheLastYearGamesPreviewList
 import moadgara.main.discover.sublists.games.BestOfTheYearGamesPreviewList
 import moadgara.main.discover.sublists.games.RecentlyAddedPopularGamesPreviewList
@@ -26,6 +27,7 @@ val previewListModule = module {
     single { PreviewListCommonParameters(get(), get()) }
 
     single { TrendingGamesPreviewList(get(), get()) } bind PreviewList::class
+    single { AllTimeTop250GamesPreviewList(get(), get()) } bind PreviewList::class
     single { BestOfTheYearGamesPreviewList(get(), get()) } bind PreviewList::class
     single { BestOfTheLastYearGamesPreviewList(get(), get()) } bind PreviewList::class
     single { RecentlyAddedPopularGamesPreviewList(get(), get()) } bind PreviewList::class

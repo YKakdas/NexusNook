@@ -22,6 +22,16 @@ class GetGamesUseCase(
         queryParams["ordering"] = "-added"
 
         return when (param) {
+            ListType.TRENDING -> {
+                queryParams["ordering"] = "relevance"
+                repository.fetchTrendingGames(queryParams)
+            }
+
+            ListType.ALL_TIME_TOP_250 -> {
+                queryParams["ordering"] = "relevance"
+                repository.fetchAllTimeTop250(queryParams)
+            }
+
             ListType.BEST_OF_THE_YEAR -> {
                 val year = Calendar.getInstance().currentYear()
                 val dates = DateUtil.getDateRangeForYear(year)
@@ -34,11 +44,6 @@ class GetGamesUseCase(
                 val dates = DateUtil.getDateRangeForYear(year)
                 queryParams["dates"] = dates[0].plus(",").plus(dates[1])
                 repository.fetchGames(queryParams)
-            }
-
-            ListType.TRENDING -> {
-                queryParams["ordering"] = "relevance"
-                repository.fetchTrendingGames(queryParams)
             }
 
             ListType.RECENTLY_ADDED_POPULAR -> {
