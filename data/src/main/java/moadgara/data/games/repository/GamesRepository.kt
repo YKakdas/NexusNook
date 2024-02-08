@@ -16,6 +16,10 @@ class GamesRepository(private val networkInterface: NetworkInterface) {
         return networkInterface.getRequest("games/lists/popular", queryParams)
     }
 
+    suspend fun fetchBestOf(queryParams: Map<String, String>): NetworkResult<ListOfGamesResponse> {
+        return networkInterface.getRequest("games/lists/greatest", queryParams)
+    }
+
     suspend fun fetchRecentlyAddedPopularGames(queryParams: Map<String, String>): NetworkResult<ListOfGamesResponse> {
         return networkInterface.getRequest("games/lists/recent-games-past", queryParams)
     }

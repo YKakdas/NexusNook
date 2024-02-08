@@ -33,17 +33,17 @@ class GetGamesUseCase(
             }
 
             ListType.BEST_OF_THE_YEAR -> {
+                queryParams["ordering"] = "relevance"
                 val year = Calendar.getInstance().currentYear()
-                val dates = DateUtil.getDateRangeForYear(year)
-                queryParams["dates"] = dates[0].plus(",").plus(dates[1])
-                repository.fetchGames(queryParams)
+                queryParams["year"] = year.toString()
+                repository.fetchBestOf(queryParams)
             }
 
             ListType.BEST_OF_LAST_YEAR -> {
+                queryParams["ordering"] = "relevance"
                 val year = Calendar.getInstance().currentYear().minus(1)
-                val dates = DateUtil.getDateRangeForYear(year)
-                queryParams["dates"] = dates[0].plus(",").plus(dates[1])
-                repository.fetchGames(queryParams)
+                queryParams["year"] = year.toString()
+                repository.fetchBestOf(queryParams)
             }
 
             ListType.RECENTLY_ADDED_POPULAR -> {
