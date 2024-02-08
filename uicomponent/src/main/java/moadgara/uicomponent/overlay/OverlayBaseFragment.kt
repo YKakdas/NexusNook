@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import moadgara.base.extension.changeVisibility
+import moadgara.base.extension.gone
 import moadgara.base.util.ScreenCaptureUtil
 import moadgara.uicomponent.R
 import moadgara.uicomponent.databinding.LayoutOverlayBaseBinding
@@ -168,14 +169,17 @@ class OverlayBaseFragment : DialogFragment(), Overlay {
                 currentFragment = fragment
 
                 val alpha = toolbarAlphaMap[fragment.tag] ?: fragment.initialToolbarAlpha()
-                binding.toolbar.background.alpha = alpha
-                toolbarAlphaMap[fragment.tag!!] = alpha
 
-                binding.toolbar.toolbarLayout.changeVisibility(fragment.showToolbar())
+                with(binding.toolbar) {
+                    background.alpha = alpha
+                    toolbarAlphaMap[fragment.tag!!] = alpha
+                    toolbarLayout.changeVisibility(fragment.showToolbar())
+                    toolbarTitle.text = fragment.getTitle()
+                }
 
-                binding.toolbar.toolbarTitle.text = fragment.getTitle()
 
                 when (fragment.getToolbarType()) {
+                    ToolbarType.NONE -> binding.toolbar.root.gone()
                     ToolbarType.TITLE_ONLY -> setButtonVisibilities(showCloseButton = false, showBackButton = false)
                     ToolbarType.BACK -> setButtonVisibilities(showCloseButton = false, showBackButton = true)
                     ToolbarType.CLOSE -> setButtonVisibilities(showCloseButton = true, showBackButton = false)
@@ -184,6 +188,17 @@ class OverlayBaseFragment : DialogFragment(), Overlay {
                         showCloseButton = fragmentManager.backStackEntryCount > 1,
                         showBackButton = true
                     )
+
+                    ToolbarType.AUTO -> {
+                        if (fragmentManager.backStackEntryCount == 0) {
+                            binding.toolbar.root.gone()
+                        } else {
+                            setButtonVisibilities(
+                                showCloseButton = fragmentManager.backStackEntryCount > 1,
+                                showBackButton = true
+                            )
+                        }
+                    }
                 }
             }
 
@@ -207,9 +222,11 @@ class OverlayBaseFragment : DialogFragment(), Overlay {
 }
 
 enum class ToolbarType {
+    NONE,
     TITLE_ONLY,
     CLOSE,
     BACK,
     BACK_AUTO_CLOSE,
-    BACK_CLOSE
+    BACK_CLOSE,
+    AUTO
 }

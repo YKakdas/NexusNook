@@ -6,8 +6,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import moadgara.base.util.MappingUtil.mapValue
 import moadgara.uicomponent.overlay.Overlay
+import moadgara.uicomponent.overlay.ToolbarFragment
+import moadgara.uicomponent.overlay.ToolbarType
 
-abstract class BaseFragment(@LayoutRes contentLayoutId: Int) : Fragment(contentLayoutId) {
+abstract class BaseFragment(@LayoutRes contentLayoutId: Int) : Fragment(contentLayoutId), ToolbarFragment {
 
     fun registerRecyclerViewScrollListener(recyclerView: RecyclerView, minHeight: Float, maxHeight: Float, overlay: Overlay?) {
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -29,4 +31,13 @@ abstract class BaseFragment(@LayoutRes contentLayoutId: Int) : Fragment(contentL
 
     }
 
+    override fun getTitle(): String? = null
+
+    override fun initialToolbarAlpha(): Float = 0f
+
+    override fun onBackPressed(): Boolean = false
+
+    override fun getToolbarType(): ToolbarType = ToolbarType.AUTO
+
+    override fun showToolbar(): Boolean = true
 }

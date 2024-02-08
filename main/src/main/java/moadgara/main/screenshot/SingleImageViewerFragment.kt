@@ -46,12 +46,6 @@ class SingleImageViewerFragment : BaseFragment(R.layout.layout_single_image_view
         overlay?.registerScreenCaptureRequest(this)
     }
 
-    override fun getTitle(): String = ""
-
-    override fun initialToolbarAlpha(): Float = 0f
-
-    override fun onBackPressed(): Boolean = false
-
     override fun getToolbarType(): ToolbarType = ToolbarType.BACK
 
     override fun showToolbar(): Boolean = false

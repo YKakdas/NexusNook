@@ -126,7 +126,5 @@ class GamesPagingFragment : BaseFragment(R.layout.layout_games_paging_fragment),
 
     override fun initialToolbarAlpha(): Float = 1f
 
-    override fun onBackPressed(): Boolean = false
-
     override fun getToolbarType(): ToolbarType = ToolbarType.BACK
 }

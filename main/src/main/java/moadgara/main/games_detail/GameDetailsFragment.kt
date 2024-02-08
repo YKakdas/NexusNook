@@ -24,7 +24,7 @@ import moadgara.uicomponent.overlay.ToolbarFragment
 import moadgara.uicomponent.overlay.ToolbarType
 import org.koin.android.ext.android.inject
 
-class GameDetailsFragment : BaseFragment(R.layout.fragment_game_detail), ToolbarFragment {
+class GameDetailsFragment : BaseFragment(R.layout.fragment_game_detail) {
 
     private val viewModel: GameDetailsViewModel by inject()
     private val binding by viewBinding(FragmentGameDetailBinding::bind)
@@ -134,11 +134,5 @@ class GameDetailsFragment : BaseFragment(R.layout.fragment_game_detail), Toolbar
             null
         }
     }
-
-    override fun initialToolbarAlpha(): Float = 0f
-
-    override fun onBackPressed(): Boolean = false
-
-    override fun getToolbarType(): ToolbarType = ToolbarType.BACK_AUTO_CLOSE
 
 }
