@@ -10,7 +10,7 @@ import moadgara.data.stores.repository.StoresRepository
 import moadgara.data.tags.repository.TagsRepository
 import org.koin.dsl.module
 
-val repositoryModule = module {
+val discoverRepositoryModule = module {
     single { GamesRepository(get()) }
     single { GenresRepository(get()) }
     single { PlatformsRepository(get()) }

@@ -10,10 +10,10 @@ import androidx.paging.map
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import moadgara.base.extension.orZero
-import moadgara.domain.games.GetPagingGamesUseCase
+import moadgara.domain.games.GetGamesPagingUseCase
 import moadgara.main.discover.DiscoverNavigator
 
-class GamesPagingViewModel(private val useCase: GetPagingGamesUseCase, private val navigator: DiscoverNavigator) : ViewModel() {
+class GamesPagingViewModel(private val useCase: GetGamesPagingUseCase, private val navigator: DiscoverNavigator) : ViewModel() {
     private val data = MutableLiveData<PagingData<GamesPagingItemData>>()
 
     fun getData(): LiveData<PagingData<GamesPagingItemData>> {

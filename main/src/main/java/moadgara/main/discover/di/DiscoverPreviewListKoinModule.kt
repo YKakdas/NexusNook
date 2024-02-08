@@ -17,13 +17,10 @@ import moadgara.main.discover.sublists.platforms.PlatformsPreviewList
 import moadgara.main.discover.sublists.publishers.PublishersPreviewList
 import moadgara.main.discover.sublists.stores.StoresPreviewList
 import moadgara.main.discover.sublists.tags.TagsPreviewList
-import org.koin.core.annotation.KoinInternalApi
-import org.koin.core.definition.Kind
 import org.koin.dsl.bind
 import org.koin.dsl.module
-import org.koin.java.KoinJavaComponent
 
-val previewListModule = module {
+val discoverPreviewListModule = module {
     single { PreviewListCommonParameters(get(), get()) }
 
     single { TrendingGamesPreviewList(get(), get()) } bind PreviewList::class

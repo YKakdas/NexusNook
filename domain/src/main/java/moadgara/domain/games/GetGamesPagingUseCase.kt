@@ -11,7 +11,7 @@ import moadgara.data.games.entity.GameDetailResponse
 import moadgara.data.games.repository.GamesRepository
 import moadgara.domain.ListType
 
-class GetPagingGamesUseCase(
+class GetGamesPagingUseCase(
     private val gamesRepository: GamesRepository,
     private val gamesUseCase: GetGamesUseCase,
     private val listType: ListType,

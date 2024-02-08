@@ -15,7 +15,7 @@ import moadgara.base.util.CoilUtil
 import moadgara.base.util.ResourceProvider
 import moadgara.main.BR
 import moadgara.main.R
-import moadgara.main.databinding.LayoutPagingGameItemViewBinding
+import moadgara.main.databinding.LayoutGamePagingItemViewBinding
 
 class GamesPagingAdapter internal constructor(
     val resourceProvider: ResourceProvider,
@@ -24,14 +24,14 @@ class GamesPagingAdapter internal constructor(
     PagingDataAdapter<GamesPagingItemData, GamesPagingAdapter.ViewHolder>(callback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GamesPagingAdapter.ViewHolder = ViewHolder(
-        LayoutPagingGameItemViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        LayoutGamePagingItemViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
     override fun onBindViewHolder(holder: GamesPagingAdapter.ViewHolder, position: Int) {
         holder.bindData(getItem(position))
     }
 
-    inner class ViewHolder(private val binding: LayoutPagingGameItemViewBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: LayoutGamePagingItemViewBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bindData(data: GamesPagingItemData?) {
             data?.let { binding.setVariable(BR.data, data) }
 

@@ -9,5 +9,5 @@ val discoverKoinModule = module {
     single { DiscoverNavigator(get<ContextProvider>().getCurrentActivity()) }
     single { get<ContextProvider>().getResourceProvider() }
 
-    includes(repositoryModule, useCaseModule, previewListModule, viewModelModule)
+    includes(discoverRepositoryModule, discoverUseCaseModule, discoverPreviewListModule, discoverViewModelModule)
 }

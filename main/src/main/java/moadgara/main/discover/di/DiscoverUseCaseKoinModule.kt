@@ -10,7 +10,7 @@ import moadgara.domain.stores.GetStoresUseCase
 import moadgara.domain.tags.GetTagsUseCase
 import org.koin.dsl.module
 
-val useCaseModule = module {
+val discoverUseCaseModule = module {
     single { GetGamesUseCase(get()) }
     single { GetGenresUseCase(get()) }
     single { GetPlatformsUseCase(get()) }
