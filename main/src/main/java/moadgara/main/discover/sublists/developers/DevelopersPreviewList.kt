@@ -28,7 +28,11 @@ class DevelopersPreviewList(
     }
 
     override fun getInnerItemAction(id: Int?, name: String?, response: Any?): () -> Unit {
-        return { previewListCommonParameters.discoverNavigator.navigateToDeveloperDetail(id) }
+        return {
+            previewListCommonParameters.discoverNavigator.navigateToDeveloperDetail(
+                previewListCommonParameters.resourceProvider.getString(R.string.detail_page_title, name), id
+            )
+        }
     }
 
     override fun getViewLiveData(): MutableLiveData<PreviewListViewData> {

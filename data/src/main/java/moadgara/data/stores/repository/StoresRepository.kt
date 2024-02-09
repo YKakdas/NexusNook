@@ -11,4 +11,8 @@ class StoresRepository(private val networkInterface: NetworkInterface) {
         return networkInterface.getRequest("stores", queryParams)
     }
 
+    suspend fun fetchStoresPage(pageUrl: String): NetworkResult<ListOfStoresResponse> {
+        return networkInterface.getRequest(endPoint = pageUrl, directCall = true)
+    }
+
 }

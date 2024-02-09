@@ -11,7 +11,12 @@ abstract class BasePagingViewModel : ViewModel() {
 }
 
 enum class PagingViewModelType {
+    CREATORS,
+    DEVELOPERS,
     GAMES,
+    GENRES,
     PLATFORMS,
-    GENRES
+    PUBLISHERS,
+    STORES,
+    TAGS
 }

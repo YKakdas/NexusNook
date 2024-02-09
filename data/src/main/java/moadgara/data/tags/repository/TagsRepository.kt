@@ -11,4 +11,8 @@ class TagsRepository(private val networkInterface: NetworkInterface) {
         return networkInterface.getRequest("tags", queryParams)
     }
 
+    suspend fun fetchTagsPage(pageUrl: String): NetworkResult<ListOfTagsResponse> {
+        return networkInterface.getRequest(endPoint = pageUrl, directCall = true)
+    }
+
 }

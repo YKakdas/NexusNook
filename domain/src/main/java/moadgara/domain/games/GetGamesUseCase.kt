@@ -71,9 +71,15 @@ class GetGamesUseCase(
                 repository.fetchGames(queryParams)
             }
 
-            ListType.PLATFORMS -> {
+            ListType.CREATORS -> {
                 queryParams["page_size"] = "10"
-                queryParams["platforms"] = param.additionalParameters?.joinToString(",").orEmpty()
+                queryParams["creators"] = param.additionalParameters?.joinToString(",").orEmpty()
+                repository.fetchGames(queryParams)
+            }
+
+            ListType.DEVELOPERS -> {
+                queryParams["page_size"] = "10"
+                queryParams["developers"] = param.additionalParameters?.joinToString(",").orEmpty()
                 repository.fetchGames(queryParams)
             }
 
@@ -83,7 +89,30 @@ class GetGamesUseCase(
                 repository.fetchGames(queryParams)
             }
 
-            else -> throw IllegalStateException("Invalid list item type has been provided!")
+            ListType.PLATFORMS -> {
+                queryParams["page_size"] = "10"
+                queryParams["platforms"] = param.additionalParameters?.joinToString(",").orEmpty()
+                repository.fetchGames(queryParams)
+            }
+
+            ListType.PUBLISHERS -> {
+                queryParams["page_size"] = "10"
+                queryParams["publishers"] = param.additionalParameters?.joinToString(",").orEmpty()
+                repository.fetchGames(queryParams)
+            }
+
+            ListType.STORES -> {
+                queryParams["page_size"] = "10"
+                queryParams["stores"] = param.additionalParameters?.joinToString(",").orEmpty()
+                repository.fetchGames(queryParams)
+            }
+
+            ListType.TAGS -> {
+                queryParams["page_size"] = "10"
+                queryParams["tags"] = param.additionalParameters?.joinToString(",").orEmpty()
+                repository.fetchGames(queryParams)
+            }
+
         }
 
     }

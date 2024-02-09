@@ -11,4 +11,8 @@ class DevelopersRepository(private val networkInterface: NetworkInterface) {
         return networkInterface.getRequest("developers", queryParams)
     }
 
+    suspend fun fetchDevelopersPage(pageUrl: String): NetworkResult<ListOfDevelopersResponse> {
+        return networkInterface.getRequest(endPoint = pageUrl, directCall = true)
+    }
+
 }

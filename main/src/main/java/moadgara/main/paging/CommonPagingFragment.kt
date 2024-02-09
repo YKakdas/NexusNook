@@ -8,8 +8,13 @@ import moadgara.base.util.tryCastNotNull
 import moadgara.base.viewBinding
 import moadgara.main.R
 import moadgara.main.databinding.LayoutCommonPagingFragmentBinding
+import moadgara.main.paging.creators.CreatorsPagingViewModel
+import moadgara.main.paging.developers.DevelopersPagingViewModel
 import moadgara.main.paging.genres.GenresPagingViewModel
 import moadgara.main.paging.platforms.PlatformsPagingViewModel
+import moadgara.main.paging.publishers.PublishersPagingViewModel
+import moadgara.main.paging.stores.StoresPagingViewModel
+import moadgara.main.paging.tags.TagsPagingViewModel
 import moadgara.uicomponent.CustomLinearSnapHelper
 import moadgara.uicomponent.PreloadLinearLayoutManager
 import moadgara.uicomponent.adapter.PagingGenericAdapter
@@ -45,8 +50,13 @@ class CommonPagingFragment : BasePagingFragment(R.layout.layout_common_paging_fr
 
     override fun getBasePagingViewModel(): BasePagingViewModel {
         return when (viewModelType) {
-            PagingViewModelType.PLATFORMS -> getViewModel<PlatformsPagingViewModel>()
+            PagingViewModelType.CREATORS -> getViewModel<CreatorsPagingViewModel>()
+            PagingViewModelType.DEVELOPERS -> getViewModel<DevelopersPagingViewModel>()
             PagingViewModelType.GENRES -> getViewModel<GenresPagingViewModel>()
+            PagingViewModelType.PLATFORMS -> getViewModel<PlatformsPagingViewModel>()
+            PagingViewModelType.PUBLISHERS -> getViewModel<PublishersPagingViewModel>()
+            PagingViewModelType.STORES -> getViewModel<StoresPagingViewModel>()
+            PagingViewModelType.TAGS -> getViewModel<TagsPagingViewModel>()
             else -> throw IllegalArgumentException("Illegal paging view model argument!")
         }
     }

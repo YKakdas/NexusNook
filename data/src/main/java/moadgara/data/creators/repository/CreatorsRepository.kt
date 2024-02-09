@@ -11,4 +11,8 @@ class CreatorsRepository(private val networkInterface: NetworkInterface) {
         return networkInterface.getRequest("creators", queryParams)
     }
 
+    suspend fun fetchCreatorsPage(pageUrl: String): NetworkResult<ListOfCreatorsResponse> {
+        return networkInterface.getRequest(endPoint = pageUrl, directCall = true)
+    }
+
 }

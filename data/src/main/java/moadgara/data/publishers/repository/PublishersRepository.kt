@@ -11,4 +11,8 @@ class PublishersRepository(private val networkInterface: NetworkInterface) {
         return networkInterface.getRequest("publishers", queryParams)
     }
 
+    suspend fun fetchPublishersPage(pageUrl: String): NetworkResult<ListOfPublishersResponse> {
+        return networkInterface.getRequest(endPoint = pageUrl, directCall = true)
+    }
+
 }

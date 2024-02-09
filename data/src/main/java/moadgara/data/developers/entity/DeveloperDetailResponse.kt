@@ -9,5 +9,6 @@ data class DeveloperDetailResponse(
     @SerialName("name") val developerName: String? = null,
     @SerialName("slug") val developerSlug: String? = null,
     @SerialName("games_count") val developerGamesCount: Int? = null,
-    @SerialName("image_background") val developerImageBackground: String? = null
+    @SerialName("image_background") val developerImageBackground: String? = null,
+    @SerialName("games") val developerGames: List<DeveloperGame>? = null
 )

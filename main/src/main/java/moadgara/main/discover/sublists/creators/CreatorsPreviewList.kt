@@ -28,7 +28,11 @@ class CreatorsPreviewList(
     }
 
     override fun getInnerItemAction(id: Int?, name: String?, response: Any?): () -> Unit {
-        return { previewListCommonParameters.discoverNavigator.navigateToCreatorDetail(id) }
+        return {
+            previewListCommonParameters.discoverNavigator.navigateToCreatorDetail(
+                previewListCommonParameters.resourceProvider.getString(R.string.detail_page_title, name), id
+            )
+        }
     }
 
     override fun getViewLiveData(): MutableLiveData<PreviewListViewData> {

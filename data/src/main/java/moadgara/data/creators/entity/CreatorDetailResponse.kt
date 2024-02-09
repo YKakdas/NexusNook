@@ -10,5 +10,6 @@ data class CreatorDetailResponse(
     @SerialName("slug") val creatorSlug: String? = null,
     @SerialName("image") val creatorImage: String? = null,
     @SerialName("games_count") val creatorGamesCount: Int? = null,
-    @SerialName("image_background") val creatorImageBackground: String? = null
+    @SerialName("image_background") val creatorImageBackground: String? = null,
+    @SerialName("games") val creatorGames: List<CreatorGame>? = null
 )

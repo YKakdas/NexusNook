@@ -42,12 +42,7 @@ class DiscoverNavigator(activity: Activity?) {
     }
 
     fun navigateToAllGenres(name: String) {
-        val bundle = Bundle()
-        bundle.putString(CommonPagingFragment.KEY_TITLE, name)
-        bundle.putAny(CommonPagingFragment.KEY_VIEW_MODEL_TYPE, PagingViewModelType.GENRES)
-        activityWeakReference.get()?.supportFragmentManager?.let {
-            OverlayBaseFragment.startOrAdd(it, CommonPagingFragment::class.java, bundle)
-        }
+        navigateToAllCommon(name, PagingViewModelType.GENRES)
     }
 
     fun navigateToGenreDetail(name: String, id: Int?) {
@@ -57,12 +52,7 @@ class DiscoverNavigator(activity: Activity?) {
     }
 
     fun navigateToAllPlatforms(name: String) {
-        val bundle = Bundle()
-        bundle.putString(CommonPagingFragment.KEY_TITLE, name)
-        bundle.putAny(CommonPagingFragment.KEY_VIEW_MODEL_TYPE, PagingViewModelType.PLATFORMS)
-        activityWeakReference.get()?.supportFragmentManager?.let {
-            OverlayBaseFragment.startOrAdd(it, CommonPagingFragment::class.java, bundle)
-        }
+        navigateToAllCommon(name, PagingViewModelType.PLATFORMS)
     }
 
     fun navigateToPlatformDetail(name: String, id: Int?) {
@@ -72,42 +62,62 @@ class DiscoverNavigator(activity: Activity?) {
     }
 
     fun navigateToAllPublishers(name: String) {
-        Toast.makeText(activityWeakReference.get()?.applicationContext, name, Toast.LENGTH_SHORT).show()
+        navigateToAllCommon(name, PagingViewModelType.PUBLISHERS)
     }
 
-    fun navigateToPublisherDetail(id: Int?) {
-        Toast.makeText(activityWeakReference.get()?.applicationContext, id.toString(), Toast.LENGTH_SHORT).show()
+    fun navigateToPublisherDetail(name: String, id: Int?) {
+        val listType = ListType.PUBLISHERS
+        listType.additionalParameters = listOf(id?.orZero.toString())
+        navigateToAllGamesPage(name, listType)
     }
 
     fun navigateToAllStores(name: String) {
-        Toast.makeText(activityWeakReference.get()?.applicationContext, name, Toast.LENGTH_SHORT).show()
+        navigateToAllCommon(name, PagingViewModelType.STORES)
     }
 
-    fun navigateToStoreDetail(id: Int?) {
-        Toast.makeText(activityWeakReference.get()?.applicationContext, id.toString(), Toast.LENGTH_SHORT).show()
+    fun navigateToStoreDetail(name: String, id: Int?) {
+        val listType = ListType.STORES
+        listType.additionalParameters = listOf(id?.orZero.toString())
+        navigateToAllGamesPage(name, listType)
     }
 
     fun navigateToAllCreators(name: String) {
-        Toast.makeText(activityWeakReference.get()?.applicationContext, name, Toast.LENGTH_SHORT).show()
+        navigateToAllCommon(name, PagingViewModelType.CREATORS)
     }
 
-    fun navigateToCreatorDetail(id: Int?) {
-        Toast.makeText(activityWeakReference.get()?.applicationContext, id.toString(), Toast.LENGTH_SHORT).show()
+    fun navigateToCreatorDetail(name: String, id: Int?) {
+        val listType = ListType.CREATORS
+        listType.additionalParameters = listOf(id?.orZero.toString())
+        navigateToAllGamesPage(name, listType)
     }
 
     fun navigateToAllDevelopers(name: String) {
-        Toast.makeText(activityWeakReference.get()?.applicationContext, name, Toast.LENGTH_SHORT).show()
+        navigateToAllCommon(name, PagingViewModelType.DEVELOPERS)
     }
 
-    fun navigateToDeveloperDetail(id: Int?) {
-        Toast.makeText(activityWeakReference.get()?.applicationContext, id.toString(), Toast.LENGTH_SHORT).show()
+    fun navigateToDeveloperDetail(name: String, id: Int?) {
+        val listType = ListType.DEVELOPERS
+        listType.additionalParameters = listOf(id?.orZero.toString())
+        navigateToAllGamesPage(name, listType)
     }
 
     fun navigateToAllTags(name: String) {
-        Toast.makeText(activityWeakReference.get()?.applicationContext, name, Toast.LENGTH_SHORT).show()
+        navigateToAllCommon(name, PagingViewModelType.TAGS)
     }
 
-    fun navigateToTagDetail(id: Int?) {
-        Toast.makeText(activityWeakReference.get()?.applicationContext, id.toString(), Toast.LENGTH_SHORT).show()
+    fun navigateToTagDetail(name: String, id: Int?) {
+        val listType = ListType.TAGS
+        listType.additionalParameters = listOf(id?.orZero.toString())
+        navigateToAllGamesPage(name, listType)
     }
+
+    private fun navigateToAllCommon(name: String, pagingViewModelType: PagingViewModelType) {
+        val bundle = Bundle()
+        bundle.putString(CommonPagingFragment.KEY_TITLE, name)
+        bundle.putAny(CommonPagingFragment.KEY_VIEW_MODEL_TYPE, pagingViewModelType)
+        activityWeakReference.get()?.supportFragmentManager?.let {
+            OverlayBaseFragment.startOrAdd(it, CommonPagingFragment::class.java, bundle)
+        }
+    }
+
 }
