@@ -1,59 +1,56 @@
-package moadgara.main.paging.games
+package moadgara.main.paging.platforms
 
 import android.os.Bundle
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
-import moadgara.base.extension.getAny
-import moadgara.base.util.ResourceProvider
 import moadgara.base.util.tryCastNotNull
 import moadgara.base.viewBinding
-import moadgara.domain.ListType
 import moadgara.main.R
-import moadgara.main.databinding.LayoutGamesPagingFragmentBinding
+import moadgara.main.databinding.LayoutPlatformsPagingFragmentBinding
 import moadgara.main.paging.BasePagingFragment
 import moadgara.main.paging.BasePagingViewModel
 import moadgara.main.paging.PagingItemData
 import moadgara.uicomponent.CustomLinearSnapHelper
 import moadgara.uicomponent.PreloadLinearLayoutManager
+import moadgara.uicomponent.adapter.PagingGenericAdapter
+import moadgara.uicomponent.adapter.pagingGenericAdapter
 import moadgara.uicomponent.overlay.ToolbarType
 import org.koin.android.ext.android.inject
-import org.koin.core.parameter.parametersOf
 
-class GamesPagingFragment : BasePagingFragment(R.layout.layout_games_paging_fragment) {
-    private val binding by viewBinding(LayoutGamesPagingFragmentBinding::bind)
-    private val viewModel by inject<GamesPagingViewModel> { parametersOf(listType) }
+class PlatformsPagingFragment : BasePagingFragment(R.layout.layout_platforms_paging_fragment) {
+    private val binding by viewBinding(LayoutPlatformsPagingFragmentBinding::bind)
+    private val viewModel: PlatformsPagingViewModel by inject()
 
-    private lateinit var pagingAdapter: GamesPagingAdapter
+    private lateinit var pagingAdapter: PagingGenericAdapter<PlatformsPagingItemData>
     private lateinit var title: String
-    private lateinit var listType: ListType
 
     companion object {
         const val KEY_TITLE = "title"
-        const val KEY_LIST_TYPE = "list-type"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         title = arguments?.getString(KEY_TITLE).orEmpty()
-        listType = arguments?.getAny<ListType>(KEY_LIST_TYPE) ?: ListType.TRENDING
+    }
+
+    override fun getPagingAdapter(): PagingDataAdapter<PagingItemData, RecyclerView.ViewHolder> {
+        pagingAdapter = pagingGenericAdapter {
+            diffCallback(super.getItemDiffCallback().tryCastNotNull())
+            itemLayoutResource(R.layout.layout_platform_paging_item_view)
+        }
+        return pagingAdapter.tryCastNotNull()
     }
 
     override fun getBasePagingViewModel(): BasePagingViewModel = viewModel
 
-    override fun getPagingAdapter(): PagingDataAdapter<PagingItemData, RecyclerView.ViewHolder> {
-        val resourceProvider = inject<ResourceProvider>().value
-        pagingAdapter = GamesPagingAdapter(resourceProvider, super.getItemDiffCallback().tryCastNotNull())
-        return pagingAdapter.tryCastNotNull()
-    }
-
     override fun setupRecyclerView() {
         binding.pagingRecyclerView.run {
             val preloadLinearLayoutManager = PreloadLinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-            preloadLinearLayoutManager.setPreloadItemCount(10)
+            preloadLinearLayoutManager.setPreloadItemCount(5)
             this.layoutManager = preloadLinearLayoutManager
             this.adapter = pagingAdapter
             setHasFixedSize(true)
-            setItemViewCacheSize(10)
+            setItemViewCacheSize(5)
             CustomLinearSnapHelper().attachToRecyclerView(this)
         }
     }

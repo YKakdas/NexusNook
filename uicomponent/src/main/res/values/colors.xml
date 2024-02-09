@@ -33,6 +33,7 @@
     <color name="onyx">#131313</color>
     <color name="thunder">#303030</color>
     <color name="thunder_with_alpha">#64303030</color>
+    <color name="thunder_with_alpha_opaquer">#96303030</color>
     <color name="baltic_sea">#272525</color>
 
     <color name="colorPrimary">@color/eggplant</color>

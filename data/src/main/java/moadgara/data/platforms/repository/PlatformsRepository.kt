@@ -11,4 +11,8 @@ class PlatformsRepository(private val networkInterface: NetworkInterface) {
         return networkInterface.getRequest("platforms", queryParams)
     }
 
+    suspend fun fetchPlatformPage(pageUrl: String): NetworkResult<ListOfPlatformsResponse> {
+        return networkInterface.getRequest(endPoint = pageUrl, directCall = true)
+    }
+
 }

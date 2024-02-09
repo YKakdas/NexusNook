@@ -69,8 +69,18 @@
     <dimen name="paged_game_item_card_corner_radius">8dp</dimen>
     <dimen name="paged_game_item_card_elevation">8dp</dimen>
     <dimen name="paged_game_item_image_height">240dp</dimen>
+    <dimen name="paged_game_item_name_max_width">280dp</dimen>
     <dimen name="paged_game_item_name_height">60dp</dimen>
     <dimen name="paged_game_item_metacritic_size">36dp</dimen>
+
+    <dimen name="paged_platform_item_card_height">240dp</dimen>
+    <dimen name="paged_platform_item_card_elevation">8dp</dimen>
+    <dimen name="paged_platform_item_popular_games_height">100dp</dimen>
+    <dimen name="paged_platform_item_popular_games_margin_top">60dp</dimen>
+    <dimen name="paged_platform_item_popular_games_margin_bottom">80dp</dimen>
+    <dimen name="paged_platform_item_popular_games_item_name_max_width">240dp</dimen>
+    <dimen name="paged_platform_item_popular_games_item_name_height">20dp</dimen>
+    <dimen name="paged_platform_item_divider_margin_bottom">72dp</dimen>
 
     <dimen name="toolbar_height">56dp</dimen>
     <dimen name="toolbar_min_height">80dp</dimen>
@@ -83,4 +93,6 @@
     <dimen name="expandable_text_fading_height">44dp</dimen>
 
     <dimen name="webview_toolbar_padding">84dp</dimen>
+
+    <dimen name="thin_divider_height">1dp</dimen>
 </resources>

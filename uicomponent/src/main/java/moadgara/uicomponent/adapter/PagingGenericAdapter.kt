@@ -22,9 +22,7 @@ class PagingGenericAdapter<T : Any> internal constructor(callback: DiffUtil.Item
     private var selectedItemPosition = RecyclerView.NO_POSITION
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
-        DataBindingUtil.inflate(
-            LayoutInflater.from(parent.context), viewType, parent, false
-        )
+        DataBindingUtil.inflate(LayoutInflater.from(parent.context), viewType, parent, false)
     )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

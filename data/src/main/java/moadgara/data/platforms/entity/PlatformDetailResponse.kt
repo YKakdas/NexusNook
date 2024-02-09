@@ -9,6 +9,7 @@ data class PlatformDetailResponse(
   @SerialName("slug") val platformSlug: String? = null,
   @SerialName("name") val platformName: String? = null,
   @SerialName("image") val platformImage: String? = null,
+  @SerialName("games") val platformGames: List<PlatformGame>? = null,
   @SerialName("year_end") val platformEndYear: Int? = null,
   @SerialName("year_start") val platformStartYear: Int? = null,
   @SerialName("games_count") val platformGamesCount: Int? = null,

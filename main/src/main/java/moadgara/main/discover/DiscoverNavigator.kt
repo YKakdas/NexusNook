@@ -13,6 +13,7 @@ import moadgara.main.games_detail.GameDetailsFragment.Companion.KEY_GAME_ID
 import moadgara.main.games_detail.GameDetailsFragment.Companion.KEY_GAME_NAME
 import moadgara.main.games_detail.GameDetailsFragment.Companion.KEY_GAME_RESPONSE
 import moadgara.main.paging.games.GamesPagingFragment
+import moadgara.main.paging.platforms.PlatformsPagingFragment
 import moadgara.uicomponent.overlay.OverlayBaseFragment
 import java.lang.ref.WeakReference
 
@@ -48,7 +49,11 @@ class DiscoverNavigator(activity: Activity?) {
     }
 
     fun navigateToAllPlatforms(name: String) {
-        Toast.makeText(activityWeakReference.get()?.applicationContext, name, Toast.LENGTH_SHORT).show()
+        val bundle = Bundle()
+        bundle.putString(PlatformsPagingFragment.KEY_TITLE, name)
+        activityWeakReference.get()?.supportFragmentManager?.let {
+            OverlayBaseFragment.startOrAdd(it, PlatformsPagingFragment::class.java, bundle)
+        }
     }
 
     fun navigateToPlatformDetail(id: Int?) {

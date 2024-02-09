@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="moadgara.main.paging.platforms.PlatformsPagingItemData" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/paged_platform_item_card_height"
+        android:layout_margin="@dimen/margin_medium"
+        android:elevation="@dimen/paged_platform_item_card_elevation"
+        android:onClick="@{() -> data.action.invoke()}"
+        app:cardBackgroundColor="@color/transparent"
+        app:cardCornerRadius="@dimen/paged_game_item_card_corner_radius">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@{data.image}"
+            app:error="@{@drawable/nexus_nook_image}" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:background="@color/thunder_with_alpha_opaquer" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:layout_marginHorizontal="@dimen/margin_large"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:ellipsize="end"
+            android:gravity="start|center"
+            android:maxLines="1"
+            android:text="@{data.name}"
+            android:textColor="@color/white_smoke"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:text="Grand Theft Auto" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|bottom"
+            android:layout_marginStart="@dimen/margin_medium"
+            android:layout_marginBottom="@dimen/paged_platform_item_popular_games_margin_bottom"
+            android:text="@string/paged_platform_item_popular_games_title"
+            android:textColor="@color/white_smoke"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginEnd="@dimen/margin_medium"
+            android:layout_marginBottom="@dimen/paged_platform_item_popular_games_margin_bottom"
+            android:text="@{data.gamesCount}"
+            android:textColor="@color/white_smoke"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="# 12345" />
+
+        <View
+            style="?android:attr/listDivider"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/thin_divider_height"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/paged_platform_item_divider_margin_bottom"
+            android:background="@color/white" />
+
+        <moadgara.uicomponent.custom_view.PlatformsPagingTopGamesView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/paged_platform_item_popular_games_height"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="@dimen/paged_platform_item_popular_games_margin_top"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:gravity="bottom"
+            app:setData="@{data.topGames}" />
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

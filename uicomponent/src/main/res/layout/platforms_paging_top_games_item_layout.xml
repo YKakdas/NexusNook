@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="name"
+            type="String" />
+
+        <variable
+            name="addedCount"
+            type="Integer" />
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="@dimen/margin_medium"
+            android:ellipsize="end"
+            android:maxWidth="@dimen/paged_platform_item_popular_games_item_name_max_width"
+            android:maxLines="1"
+            android:text="@{name}"
+            android:textColor="@color/white_smoke"
+            android:textSize="14sp"
+            tools:text="Grand Theft Auto V" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/paged_platform_item_popular_games_item_name_height"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="@dimen/margin_large"
+            android:text="@{addedCount.toString()}"
+            android:textColor="@color/white_smoke"
+            android:textSize="14sp"
+            tools:text="12345" />
+
+        <ImageView
+            android:layout_width="@dimen/paged_platform_item_popular_games_item_name_height"
+            android:layout_height="@dimen/paged_platform_item_popular_games_item_name_height"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:src="@drawable/ic_person_add"
+            app:tint="@color/white_smoke" />
+
+    </FrameLayout>
+
+</layout>

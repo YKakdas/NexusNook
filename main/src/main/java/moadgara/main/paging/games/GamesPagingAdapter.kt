@@ -20,8 +20,7 @@ import moadgara.main.databinding.LayoutGamePagingItemViewBinding
 class GamesPagingAdapter internal constructor(
     val resourceProvider: ResourceProvider,
     callback: DiffUtil.ItemCallback<GamesPagingItemData>
-) :
-    PagingDataAdapter<GamesPagingItemData, GamesPagingAdapter.ViewHolder>(callback) {
+) : PagingDataAdapter<GamesPagingItemData, GamesPagingAdapter.ViewHolder>(callback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GamesPagingAdapter.ViewHolder = ViewHolder(
         LayoutGamePagingItemViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)

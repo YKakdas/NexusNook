@@ -10,7 +10,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:background="?android:attr/listDivider"
-        android:layout_height="1dp" />
+        android:layout_height="@dimen/thin_divider_height"
+        android:background="?android:attr/listDivider" />
 
 </layout>
