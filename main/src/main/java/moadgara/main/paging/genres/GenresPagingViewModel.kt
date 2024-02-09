@@ -1,4 +1,4 @@
-package moadgara.main.paging.platforms
+package moadgara.main.paging.genres
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,15 +11,15 @@ import kotlinx.coroutines.launch
 import moadgara.base.extension.orZero
 import moadgara.base.util.ResourceProvider
 import moadgara.base.util.tryCastNotNull
-import moadgara.domain.platforms.GetPlatformsPagingUseCase
+import moadgara.domain.genres.GetGenresPagingUseCase
 import moadgara.main.R
 import moadgara.main.discover.DiscoverNavigator
 import moadgara.main.paging.BasePagingViewModel
 import moadgara.main.paging.CommonPagingItemData
 import moadgara.main.paging.PagingItemData
 
-class PlatformsPagingViewModel(
-    private val useCase: GetPlatformsPagingUseCase,
+class GenresPagingViewModel(
+    private val useCase: GetGenresPagingUseCase,
     private val navigator: DiscoverNavigator,
     private val resourceProvider: ResourceProvider
 ) : BasePagingViewModel() {
@@ -35,16 +35,16 @@ class PlatformsPagingViewModel(
                 data.value = it.map { response ->
                     with(response) {
                         CommonPagingItemData(
-                            platformId.orZero,
-                            platformImageBackground.orEmpty(),
-                            platformName.orEmpty(),
-                            resourceProvider.getString(R.string.game_count, platformGamesCount.orZero.toString()),
-                            platformGames?.map { game -> game.gameName.orEmpty() to game.gameAddedCount.orZero }.orEmpty()
+                            genreId.orZero,
+                            genreImageBackground.orEmpty(),
+                            genreName.orEmpty(),
+                            resourceProvider.getString(R.string.game_count, genreGamesCount.orZero.toString()),
+                            genreGames?.map { game -> game.gameName.orEmpty() to game.gameAddedCount.orZero }.orEmpty()
                         ) {
-                            navigator.navigateToPlatformDetail(
+                            navigator.navigateToGenreDetail(
                                 resourceProvider.getString(
-                                    R.string.detail_page_title, platformName
-                                ), platformId
+                                    R.string.detail_page_title, genreName
+                                ), genreId
                             )
                         }
                     }

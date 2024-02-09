@@ -1,47 +1,55 @@
-package moadgara.main.paging.platforms
+package moadgara.main.paging
 
 import android.os.Bundle
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
+import moadgara.base.extension.getAny
 import moadgara.base.util.tryCastNotNull
 import moadgara.base.viewBinding
 import moadgara.main.R
-import moadgara.main.databinding.LayoutPlatformsPagingFragmentBinding
-import moadgara.main.paging.BasePagingFragment
-import moadgara.main.paging.BasePagingViewModel
-import moadgara.main.paging.PagingItemData
+import moadgara.main.databinding.LayoutCommonPagingFragmentBinding
+import moadgara.main.paging.genres.GenresPagingViewModel
+import moadgara.main.paging.platforms.PlatformsPagingViewModel
 import moadgara.uicomponent.CustomLinearSnapHelper
 import moadgara.uicomponent.PreloadLinearLayoutManager
 import moadgara.uicomponent.adapter.PagingGenericAdapter
 import moadgara.uicomponent.adapter.pagingGenericAdapter
 import moadgara.uicomponent.overlay.ToolbarType
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 
-class PlatformsPagingFragment : BasePagingFragment(R.layout.layout_platforms_paging_fragment) {
-    private val binding by viewBinding(LayoutPlatformsPagingFragmentBinding::bind)
-    private val viewModel: PlatformsPagingViewModel by inject()
-
-    private lateinit var pagingAdapter: PagingGenericAdapter<PlatformsPagingItemData>
+class CommonPagingFragment : BasePagingFragment(R.layout.layout_common_paging_fragment) {
+    private lateinit var pagingAdapter: PagingGenericAdapter<CommonPagingItemData>
     private lateinit var title: String
+
+    private var viewModelType: PagingViewModelType? = PagingViewModelType.GAMES
+    private val binding by viewBinding(LayoutCommonPagingFragmentBinding::bind)
 
     companion object {
         const val KEY_TITLE = "title"
+        const val KEY_VIEW_MODEL_TYPE = "view-model-type"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         title = arguments?.getString(KEY_TITLE).orEmpty()
+        viewModelType = arguments?.getAny<PagingViewModelType>(KEY_VIEW_MODEL_TYPE)
     }
 
     override fun getPagingAdapter(): PagingDataAdapter<PagingItemData, RecyclerView.ViewHolder> {
         pagingAdapter = pagingGenericAdapter {
             diffCallback(super.getItemDiffCallback().tryCastNotNull())
-            itemLayoutResource(R.layout.layout_platform_paging_item_view)
+            itemLayoutResource(R.layout.layout_common_paging_item_view)
         }
         return pagingAdapter.tryCastNotNull()
     }
 
-    override fun getBasePagingViewModel(): BasePagingViewModel = viewModel
+    override fun getBasePagingViewModel(): BasePagingViewModel {
+        return when (viewModelType) {
+            PagingViewModelType.PLATFORMS -> getViewModel<PlatformsPagingViewModel>()
+            PagingViewModelType.GENRES -> getViewModel<GenresPagingViewModel>()
+            else -> throw IllegalArgumentException("Illegal paging view model argument!")
+        }
+    }
 
     override fun setupRecyclerView() {
         binding.pagingRecyclerView.run {
@@ -59,5 +67,5 @@ class PlatformsPagingFragment : BasePagingFragment(R.layout.layout_platforms_pag
 
     override fun initialToolbarAlpha(): Float = 1f
 
-    override fun getToolbarType(): ToolbarType = ToolbarType.BACK
+    override fun getToolbarType(): ToolbarType = ToolbarType.AUTO
 }

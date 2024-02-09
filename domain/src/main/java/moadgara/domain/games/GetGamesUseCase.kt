@@ -77,6 +77,12 @@ class GetGamesUseCase(
                 repository.fetchGames(queryParams)
             }
 
+            ListType.GENRES -> {
+                queryParams["page_size"] = "10"
+                queryParams["genres"] = param.additionalParameters?.joinToString(",").orEmpty()
+                repository.fetchGames(queryParams)
+            }
+
             else -> throw IllegalStateException("Invalid list item type has been provided!")
         }
 

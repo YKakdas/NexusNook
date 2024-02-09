@@ -37,5 +37,7 @@
     <string name="game_details_tags_title">Tags</string>
 
     <string name="paged_platform_item_popular_games_title">Popular Games</string>
-    <string name="platform_detail_page_title">Games from %1$s</string>
+    <string name="detail_page_title">%1$s Games</string>
+
+    <string name="game_count"># %1$s</string>
 </resources>

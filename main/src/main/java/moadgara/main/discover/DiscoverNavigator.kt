@@ -12,8 +12,9 @@ import moadgara.main.games_detail.GameDetailsFragment
 import moadgara.main.games_detail.GameDetailsFragment.Companion.KEY_GAME_ID
 import moadgara.main.games_detail.GameDetailsFragment.Companion.KEY_GAME_NAME
 import moadgara.main.games_detail.GameDetailsFragment.Companion.KEY_GAME_RESPONSE
+import moadgara.main.paging.CommonPagingFragment
+import moadgara.main.paging.PagingViewModelType
 import moadgara.main.paging.games.GamesPagingFragment
-import moadgara.main.paging.platforms.PlatformsPagingFragment
 import moadgara.uicomponent.overlay.OverlayBaseFragment
 import java.lang.ref.WeakReference
 
@@ -41,18 +42,26 @@ class DiscoverNavigator(activity: Activity?) {
     }
 
     fun navigateToAllGenres(name: String) {
-        Toast.makeText(activityWeakReference.get()?.applicationContext, name, Toast.LENGTH_SHORT).show()
+        val bundle = Bundle()
+        bundle.putString(CommonPagingFragment.KEY_TITLE, name)
+        bundle.putAny(CommonPagingFragment.KEY_VIEW_MODEL_TYPE, PagingViewModelType.GENRES)
+        activityWeakReference.get()?.supportFragmentManager?.let {
+            OverlayBaseFragment.startOrAdd(it, CommonPagingFragment::class.java, bundle)
+        }
     }
 
-    fun navigateToGenreDetail(id: Int?) {
-        Toast.makeText(activityWeakReference.get()?.applicationContext, id.toString(), Toast.LENGTH_SHORT).show()
+    fun navigateToGenreDetail(name: String, id: Int?) {
+        val listType = ListType.GENRES
+        listType.additionalParameters = listOf(id?.orZero.toString())
+        navigateToAllGamesPage(name, listType)
     }
 
     fun navigateToAllPlatforms(name: String) {
         val bundle = Bundle()
-        bundle.putString(PlatformsPagingFragment.KEY_TITLE, name)
+        bundle.putString(CommonPagingFragment.KEY_TITLE, name)
+        bundle.putAny(CommonPagingFragment.KEY_VIEW_MODEL_TYPE, PagingViewModelType.PLATFORMS)
         activityWeakReference.get()?.supportFragmentManager?.let {
-            OverlayBaseFragment.startOrAdd(it, PlatformsPagingFragment::class.java, bundle)
+            OverlayBaseFragment.startOrAdd(it, CommonPagingFragment::class.java, bundle)
         }
     }
 

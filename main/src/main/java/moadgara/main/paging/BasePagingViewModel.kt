@@ -9,3 +9,9 @@ abstract class BasePagingViewModel : ViewModel() {
 
     abstract fun getObserver(): LiveData<out PagingData<PagingItemData>>
 }
+
+enum class PagingViewModelType {
+    GAMES,
+    PLATFORMS,
+    GENRES
+}

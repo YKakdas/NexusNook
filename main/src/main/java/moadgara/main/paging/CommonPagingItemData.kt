@@ -1,10 +1,8 @@
-package moadgara.main.paging.platforms
+package moadgara.main.paging
 
-import moadgara.main.R
 import moadgara.main.paging.PagingItemData
-import moadgara.uicomponent.adapter.GenericListItem
 
-data class PlatformsPagingItemData(
+data class CommonPagingItemData(
     override val id: Int,
     val image: String,
     val name: String,
