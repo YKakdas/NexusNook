@@ -56,8 +56,10 @@ class DiscoverNavigator(activity: Activity?) {
         }
     }
 
-    fun navigateToPlatformDetail(id: Int?) {
-        Toast.makeText(activityWeakReference.get()?.applicationContext, id.toString(), Toast.LENGTH_SHORT).show()
+    fun navigateToPlatformDetail(name: String, id: Int?) {
+        val listType = ListType.PLATFORMS
+        listType.additionalParameters = listOf(id?.orZero.toString())
+        navigateToAllGamesPage(name, listType)
     }
 
     fun navigateToAllPublishers(name: String) {

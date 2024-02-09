@@ -9,13 +9,19 @@ import androidx.paging.map
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import moadgara.base.extension.orZero
+import moadgara.base.util.ResourceProvider
 import moadgara.base.util.tryCastNotNull
 import moadgara.domain.platforms.GetPlatformsPagingUseCase
+import moadgara.main.R
 import moadgara.main.discover.DiscoverNavigator
 import moadgara.main.paging.BasePagingViewModel
 import moadgara.main.paging.PagingItemData
 
-class PlatformsPagingViewModel(private val useCase: GetPlatformsPagingUseCase, private val navigator: DiscoverNavigator) :
+class PlatformsPagingViewModel(
+    private val useCase: GetPlatformsPagingUseCase,
+    private val navigator: DiscoverNavigator,
+    private val resourceProvider: ResourceProvider
+) :
     BasePagingViewModel() {
     private val data = MutableLiveData<PagingData<PlatformsPagingItemData>>()
 
@@ -35,7 +41,14 @@ class PlatformsPagingViewModel(private val useCase: GetPlatformsPagingUseCase, p
                             "# ${platformGamesCount.orZero}",
                             platformGames?.map { game -> game.gameName.orEmpty() to game.gameAddedCount.orZero }
                                 .orEmpty()
-                        ) { navigator.navigateToPlatformDetail(platformId) }
+                        ) {
+                            navigator.navigateToPlatformDetail(
+                                resourceProvider.getString(
+                                    R.string.platform_detail_page_title,
+                                    platformName
+                                ), platformId
+                            )
+                        }
                     }
                 }
             }

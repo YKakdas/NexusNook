@@ -28,7 +28,11 @@ class PlatformsPreviewList(
     }
 
     override fun getInnerItemAction(id: Int?, name: String?, response: Any?): () -> Unit {
-        return { previewListCommonParameters.discoverNavigator.navigateToPlatformDetail(id) }
+        return {
+            previewListCommonParameters.discoverNavigator.navigateToPlatformDetail(
+                previewListCommonParameters.resourceProvider.getString(R.string.platform_detail_page_title, name), id
+            )
+        }
     }
 
     override fun getViewLiveData(): MutableLiveData<PreviewListViewData> {

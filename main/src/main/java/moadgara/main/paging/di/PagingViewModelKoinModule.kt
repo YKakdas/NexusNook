@@ -7,5 +7,5 @@ import org.koin.dsl.module
 
 val pagingViewModelModule = module {
     viewModel { params -> GamesPagingViewModel(get { params }, get()) }
-    viewModel { PlatformsPagingViewModel(get(), get()) }
+    viewModel { PlatformsPagingViewModel(get(), get(), get()) }
 }
