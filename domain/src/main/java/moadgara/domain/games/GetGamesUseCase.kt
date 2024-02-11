@@ -71,45 +71,9 @@ class GetGamesUseCase(
                 repository.fetchGames(queryParams)
             }
 
-            ListType.CREATORS -> {
+            else -> {
                 queryParams["page_size"] = "10"
-                queryParams["creators"] = param.additionalParameters?.joinToString(",").orEmpty()
-                repository.fetchGames(queryParams)
-            }
-
-            ListType.DEVELOPERS -> {
-                queryParams["page_size"] = "10"
-                queryParams["developers"] = param.additionalParameters?.joinToString(",").orEmpty()
-                repository.fetchGames(queryParams)
-            }
-
-            ListType.GENRES -> {
-                queryParams["page_size"] = "10"
-                queryParams["genres"] = param.additionalParameters?.joinToString(",").orEmpty()
-                repository.fetchGames(queryParams)
-            }
-
-            ListType.PLATFORMS -> {
-                queryParams["page_size"] = "10"
-                queryParams["platforms"] = param.additionalParameters?.joinToString(",").orEmpty()
-                repository.fetchGames(queryParams)
-            }
-
-            ListType.PUBLISHERS -> {
-                queryParams["page_size"] = "10"
-                queryParams["publishers"] = param.additionalParameters?.joinToString(",").orEmpty()
-                repository.fetchGames(queryParams)
-            }
-
-            ListType.STORES -> {
-                queryParams["page_size"] = "10"
-                queryParams["stores"] = param.additionalParameters?.joinToString(",").orEmpty()
-                repository.fetchGames(queryParams)
-            }
-
-            ListType.TAGS -> {
-                queryParams["page_size"] = "10"
-                queryParams["tags"] = param.additionalParameters?.joinToString(",").orEmpty()
+                queryParams[param.name.lowercase()] = param.additionalParameters?.joinToString(",").orEmpty()
                 repository.fetchGames(queryParams)
             }
 
