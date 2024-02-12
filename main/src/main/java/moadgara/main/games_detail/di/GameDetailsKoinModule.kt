@@ -3,7 +3,6 @@ package moadgara.main.games_detail.di
 import moadgara.base.util.ContextProvider
 import moadgara.domain.games.GetGameDetailsFromIdUseCase
 import moadgara.domain.games.GetScreenshotsFromGameIdUseCase
-import moadgara.main.discover.DiscoverNavigator
 import moadgara.main.games_detail.GameDetailsNavigator
 import moadgara.main.games_detail.GameDetailsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -15,5 +14,5 @@ val gameDetailsKoinModule = module {
     single { GetGameDetailsFromIdUseCase(get()) }
     single { GetScreenshotsFromGameIdUseCase(get()) }
 
-    viewModel { GameDetailsViewModel(get(), get(), get()) }
+    viewModel { GameDetailsViewModel(get(), get(), get(), get()) }
 }

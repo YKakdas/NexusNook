@@ -18,24 +18,23 @@ import moadgara.data.games.entity.ScreenshotsResponse
 import moadgara.domain.games.GetGameDetailsFromIdUseCase
 import moadgara.domain.games.GetScreenshotsFromGameIdUseCase
 import moadgara.main.R
+import moadgara.main.discover.DiscoverNavigator
 import moadgara.main.games_detail.listitems.GameDetailScreenshotData
+import moadgara.main.games_detail.listitems.GameDetailsChipData
 import moadgara.main.games_detail.listitems.GameDetailsDescriptionData
-import moadgara.main.games_detail.listitems.GameDetailsGenresData
 import moadgara.main.games_detail.listitems.GameDetailsHeaderData
 import moadgara.main.games_detail.listitems.GameDetailsHorizontalDivider
 import moadgara.main.games_detail.listitems.GameDetailsMetascoreRatingData
-import moadgara.main.games_detail.listitems.GameDetailsPlatformsData
 import moadgara.main.games_detail.listitems.GameDetailsSummaryData
-import moadgara.main.games_detail.listitems.GameDetailsTagData
 import moadgara.main.games_detail.listitems.SpannableText
 import moadgara.uicomponent.adapter.GenericListItem
 
 class GameDetailsViewModel(
     val resourceProvider: ResourceProvider,
     val getGameDetailsFromIdUseCase: GetGameDetailsFromIdUseCase,
-    val getScreenshotsFromGameIdUseCase: GetScreenshotsFromGameIdUseCase
-) :
-    ViewModel() {
+    val getScreenshotsFromGameIdUseCase: GetScreenshotsFromGameIdUseCase,
+    val discoverNavigator: DiscoverNavigator
+) : ViewModel() {
 
     private val gameDetailsData = MutableLiveData<List<GenericListItem>>()
     private val message = MutableLiveData<String?>()
@@ -130,8 +129,7 @@ class GameDetailsViewModel(
             )
 
             spannableTexts.addIfNotNull(
-                SpannableText(R.string.game_details_summary_publisher_title.stringRes(resourceProvider), publisher),
-                publisher
+                SpannableText(R.string.game_details_summary_publisher_title.stringRes(resourceProvider), publisher), publisher
             )
 
             spannableTexts.addIfNotNull(
@@ -140,8 +138,7 @@ class GameDetailsViewModel(
             )
 
             spannableTexts.addIfNotNull(
-                SpannableText(R.string.game_details_summary_website_title.stringRes(resourceProvider), website),
-                website
+                SpannableText(R.string.game_details_summary_website_title.stringRes(resourceProvider), website), website
             )
         }
 
@@ -158,8 +155,14 @@ class GameDetailsViewModel(
             return emptyList()
         }
 
-        val genreNames = genres.sortedByDescending { it.genreGamesCount }.mapNotNull { it.genreName }.toMutableList()
-        return listOf(GameDetailsGenresData(genreNames), GameDetailsHorizontalDivider())
+        val chipList = genres.sortedByDescending { it.genreGamesCount }.map { it.genreId to it.genreName }.toList()
+        return listOf(
+            GameDetailsChipData(
+                resourceProvider.getString(R.string.game_details_genres_title),
+                chipList
+            ) { id, name -> discoverNavigator.navigateToGenreDetail(name.orEmpty(), id) },
+            GameDetailsHorizontalDivider()
+        )
     }
 
     private fun preparePlatforms(data: GameDetailsFromIdResponse): List<GenericListItem> {
@@ -168,10 +171,17 @@ class GameDetailsViewModel(
             return emptyList()
         }
 
-        val platformNames =
-            platforms.sortedByDescending { it.platform?.platformGamesCount }.mapNotNull { it.platform?.platformName }
-                .toMutableList()
-        return listOf(GameDetailsPlatformsData(platformNames), GameDetailsHorizontalDivider())
+        val chipList =
+            platforms.sortedByDescending { it.platform?.platformGamesCount }
+                .map { it.platform?.platformId to it.platform?.platformName }
+                .toList()
+        return listOf(
+            GameDetailsChipData(
+                resourceProvider.getString(R.string.game_details_platforms_title),
+                chipList
+            ) { id, name -> discoverNavigator.navigateToPlatformDetail(name.orEmpty(), id) },
+            GameDetailsHorizontalDivider()
+        )
     }
 
     private fun prepareTags(data: GameDetailsFromIdResponse): List<GenericListItem> {
@@ -180,9 +190,14 @@ class GameDetailsViewModel(
             return emptyList()
         }
 
-        val platformNames =
-            tags.sortedByDescending { it.tagGamesCount }.mapNotNull { it.tagName }.toMutableList()
-        return listOf(GameDetailsTagData(platformNames), GameDetailsHorizontalDivider())
+        val chipList = tags.sortedByDescending { it.tagGamesCount }.map { it.tagId to it.tagName }.toList()
+        return listOf(
+            GameDetailsChipData(
+                resourceProvider.getString(R.string.game_details_tags_title),
+                chipList
+            ) { id, name -> discoverNavigator.navigateToTagDetail(name.orEmpty(), id) },
+            GameDetailsHorizontalDivider()
+        )
     }
 
     private fun prepareMetascoreRatingView(data: GameDetailsFromIdResponse): List<GenericListItem> {
@@ -191,10 +206,8 @@ class GameDetailsViewModel(
 
         val gameDetailsMetascoreRatingData = GameDetailsMetascoreRatingData(data.metaCritic, ratingScore, "($ratingCount votes)")
 
-        return if (ratingCount <= 0 && (data.metaCritic == null || data.metaCritic == 0))
-            emptyList()
-        else
-            listOf(gameDetailsMetascoreRatingData, GameDetailsHorizontalDivider())
+        return if (ratingCount <= 0 && (data.metaCritic == null || data.metaCritic == 0)) emptyList()
+        else listOf(gameDetailsMetascoreRatingData, GameDetailsHorizontalDivider())
     }
 
     private fun prepareDescription(data: GameDetailsFromIdResponse): List<GenericListItem> {
@@ -211,8 +224,7 @@ class GameDetailsViewModel(
             emptyList()
         } else {
             listOf(
-                GameDetailScreenshotData(data.screenshots!!.mapNotNull { it.screenshotUrl }),
-                GameDetailsHorizontalDivider()
+                GameDetailScreenshotData(data.screenshots!!.mapNotNull { it.screenshotUrl }), GameDetailsHorizontalDivider()
             )
         }
 
