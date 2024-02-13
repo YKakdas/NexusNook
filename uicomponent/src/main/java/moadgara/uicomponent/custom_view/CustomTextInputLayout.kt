@@ -20,7 +20,7 @@ import moadgara.base.validation.InputValidationError
 import moadgara.uicomponent.R
 
 
-class CustomTextInputLayout constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
+class CustomTextInputLayout(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
   TextInputLayout(context, attrs, defStyleAttr) {
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)

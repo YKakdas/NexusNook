@@ -13,7 +13,7 @@ import moadgara.main.discover.sublists.PreviewListCommonParameters
 
 class PublishersPreviewList(
     private val previewListCommonParameters: PreviewListCommonParameters, private val useCase: GetPublishersUseCase
-) : PreviewList(previewListCommonParameters, useCase) {
+) : PreviewList() {
 
     private val viewLiveData = MutableLiveData<PreviewListViewData>()
 

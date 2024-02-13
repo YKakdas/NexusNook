@@ -12,13 +12,21 @@ import android.text.style.ForegroundColorSpan
 import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.databinding.BindingAdapter
+import androidx.databinding.BindingMethod
+import androidx.databinding.BindingMethods
 import androidx.fragment.app.FragmentActivity
 import moadgara.uicomponent.AlertDialog
 import moadgara.uicomponent.R
 import moadgara.uicomponent.UIUtil.showWebView
 import moadgara.uicomponent.alertDialog
 
+@BindingMethods(
+    value = [BindingMethod(
+        type = SpannableTextView::class, attribute = "firstSpan", method = "setFirstSpanText"
+    ), BindingMethod(
+        type = SpannableTextView::class, attribute = "secondSpan", method = "setSecondSpanText"
+    )]
+)
 class SpannableTextView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
     AppCompatTextView(context, attrs, defStyleAttr) {
 
@@ -133,14 +141,4 @@ class SpannableTextView(context: Context, attrs: AttributeSet?, defStyleAttr: In
         context.startActivity(intent)
     }
 
-}
-
-@BindingAdapter("firstSpan")
-fun setFirstSpanText(view: SpannableTextView, text: String) {
-    view.setFirstSpanText(text)
-}
-
-@BindingAdapter("secondSpan")
-fun setSecondSpanText(view: SpannableTextView, text: String) {
-    view.setSecondSpanText(text)
 }

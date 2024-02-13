@@ -3,11 +3,19 @@ package moadgara.uicomponent.custom_view
 import android.content.Context
 import android.util.AttributeSet
 import androidx.core.content.ContextCompat
-import androidx.databinding.BindingAdapter
+import androidx.databinding.BindingMethod
+import androidx.databinding.BindingMethods
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import moadgara.uicomponent.R
 
+@BindingMethods(
+    value = [BindingMethod(
+        type = ChipGroupLayout::class, attribute = "setChips", method = "initializeChips"
+    ), BindingMethod(
+        type = ChipGroupLayout::class, attribute = "chipClickListener", method = "setOnChipClicked"
+    )]
+)
 class ChipGroupLayout(context: Context, attributeSet: AttributeSet?, defStyleInt: Int) :
     ChipGroup(context, attributeSet, defStyleInt) {
 
@@ -33,14 +41,4 @@ class ChipGroupLayout(context: Context, attributeSet: AttributeSet?, defStyleInt
         }
     }
 
-}
-
-@BindingAdapter("setChips")
-fun initializeChips(view: ChipGroupLayout, chipList: List<Pair<Int?, String?>>) {
-    view.initializeChips(chipList)
-}
-
-@BindingAdapter("chipClickListener")
-fun setOnChipClicked(view: ChipGroupLayout, onChipClicked: ((Int?, String?) -> Unit)?) {
-    view.setOnChipClicked(onChipClicked)
 }

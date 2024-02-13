@@ -7,11 +7,17 @@ import android.util.TypedValue
 import android.view.Gravity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
-import androidx.databinding.BindingAdapter
+import androidx.databinding.BindingMethod
+import androidx.databinding.BindingMethods
 import moadgara.base.extension.toPx
 import moadgara.base.extension.toSp
 import moadgara.uicomponent.R
 
+@BindingMethods(
+    value = [BindingMethod(
+        type = MetascoreView::class, attribute = "score", method = "setScore"
+    )]
+)
 class MetascoreView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : AppCompatButton(context, attrs, defStyleAttr) {
 
     private var score = -1
@@ -56,9 +62,4 @@ class MetascoreView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
         refreshDrawableState()
     }
 
-}
-
-@BindingAdapter("score")
-fun setScore(view: MetascoreView, score: Int) {
-    view.setScore(score)
 }

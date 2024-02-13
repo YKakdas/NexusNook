@@ -9,12 +9,18 @@ import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnLayout
-import androidx.databinding.BindingAdapter
+import androidx.databinding.BindingMethod
+import androidx.databinding.BindingMethods
 import moadgara.base.extension.gone
 import moadgara.base.extension.visible
 import moadgara.uicomponent.R
 import moadgara.uicomponent.databinding.LayoutExpandableTextBinding
 
+@BindingMethods(
+    value = [BindingMethod(
+        type = ExpandableTextLayout::class, attribute = "description", method = "setDescriptionText"
+    )]
+)
 class ExpandableTextLayout(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
     FrameLayout(context, attrs, defStyleAttr) {
 
@@ -98,9 +104,4 @@ class ExpandableTextLayout(context: Context, attrs: AttributeSet?, defStyleAttr:
         }
     }
 
-}
-
-@BindingAdapter("description")
-fun setDescriptionText(view: ExpandableTextLayout, text: String?) {
-    view.setDescriptionText(text)
 }

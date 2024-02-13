@@ -4,10 +4,16 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
-import androidx.databinding.BindingAdapter
+import androidx.databinding.BindingMethod
+import androidx.databinding.BindingMethods
 import moadgara.uicomponent.BR
 import moadgara.uicomponent.databinding.PlatformsPagingTopGamesItemLayoutBinding
 
+@BindingMethods(
+    value = [BindingMethod(
+        type = PlatformsPagingTopGamesView::class, attribute = "setData", method = "setData"
+    )]
+)
 class PlatformsPagingTopGamesView(context: Context, attributeSet: AttributeSet?, defStyleInt: Int) :
     LinearLayout(context, attributeSet, defStyleInt) {
     constructor(context: Context, attributeSet: AttributeSet?) : this(context, attributeSet, 0)
@@ -35,9 +41,4 @@ class PlatformsPagingTopGamesView(context: Context, attributeSet: AttributeSet?,
         }
     }
 
-}
-
-@BindingAdapter("setData")
-fun setData(view: PlatformsPagingTopGamesView, data: List<Pair<String, Int>>) {
-    view.setData(data)
 }
