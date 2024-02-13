@@ -12,12 +12,14 @@ class CubicPageTransformer : ViewPager2.PageTransformer {
             page.alpha = 0f
         } else if (position <= 0) {    // [-1,0] item is being slided to left or slided from left to center
             page.alpha = (1 - abs(position)).coerceIn(0f, 1f)
-            page.translationZ  = (1 - abs(position)) * 30
+            page.translationZ = (1 - abs(position)) * 30
             page.pivotX = page.width.toFloat()
+            page.pivotY = page.height.toFloat() / 2
             page.rotationY = -90 * abs(position)
         } else if (position <= 1) {    // (0,1] item is being slided to right or slided from right to center
             page.alpha = (1 - abs(position)).coerceIn(0f, 1f)
             page.pivotX = 0f
+            page.pivotY = page.height.toFloat() / 2
             page.rotationY = 90 * abs(position)
         }
     }
