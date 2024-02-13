@@ -66,4 +66,48 @@ data class GameDetailsFromIdResponse(
     @SerialName("esrb_rating") val esrbRating: EsrbRatingDetailResponse? = null,
     @SerialName("clip") val clip: String? = null,
     @SerialName("description_raw") val descriptionRaw: String? = null
-)
+) {
+    fun mapGenresToChipData(): List<Pair<Int?, String?>>? {
+        return genres
+            ?.sortedByDescending { it.genreGamesCount }
+            ?.map { it.genreId to it.genreName }
+            ?.toList()
+    }
+
+    fun mapPlatformsToChipData(): List<Pair<Int?, String?>>? {
+        return platforms
+            ?.sortedByDescending { it.platform?.platformGamesCount }
+            ?.map { it.platform?.platformId to it.platform?.platformName }
+            ?.toList()
+    }
+
+    fun mapTagsToChipData(): List<Pair<Int?, String?>>? {
+        return tags
+            ?.sortedByDescending { it.tagGamesCount }
+            ?.map { it.tagId to it.tagName }
+            ?.toList()
+    }
+
+    fun mapStoresToChipData(): List<Pair<Int?, String?>>? {
+        return stores
+            ?.sortedByDescending { it.store?.storeGamesCount }
+            ?.map { it.store?.storeId to it.store?.storeName }
+            ?.toList()
+    }
+
+    fun mapPublishersToChipData(): List<Pair<Int?, String?>>? {
+        return publishers
+            ?.sortedByDescending { it.publisherGamesCount }
+            ?.map { it.publisherId to it.publisherName }
+            ?.toList()
+    }
+
+    fun mapDevelopersToChipData(): List<Pair<Int?, String?>>? {
+        return developers
+            ?.sortedByDescending { it.developerGamesCount }
+            ?.map { it.developerId to it.developerName }
+            ?.toList()
+    }
+
+
+}

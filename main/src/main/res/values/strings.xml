@@ -35,6 +35,9 @@
     <string name="game_details_genres_title">Genres</string>
     <string name="game_details_platforms_title">Platforms</string>
     <string name="game_details_tags_title">Tags</string>
+    <string name="game_details_publishers_title">Publishers</string>
+    <string name="game_details_stores_title">Stores</string>
+    <string name="game_details_developers_title">Developers</string>
 
     <string name="paged_platform_item_popular_games_title">Popular Games</string>
     <string name="detail_page_title">%1$s Games</string>

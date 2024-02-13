@@ -95,6 +95,9 @@ class GameDetailsViewModel(
             list.addAll(prepareGenres(it))
             list.addAll(preparePlatforms(it))
             list.addAll(prepareTags(it))
+            list.addAll(prepareStores(it))
+            list.addAll(preparePublishers(it))
+            list.addAll(prepareDevelopers(it))
             list.addAll(prepareDescription(it))
 
             screenshotsFromId?.let { screenshots ->
@@ -150,54 +153,81 @@ class GameDetailsViewModel(
     }
 
     private fun prepareGenres(data: GameDetailsFromIdResponse): List<GenericListItem> {
-        val genres = data.genres
-        if (genres.isNullOrEmpty()) {
-            return emptyList()
+        val chipList = data.mapGenresToChipData()
+        return if (chipList.isNullOrEmpty()) {
+            emptyList()
+        } else {
+            return listOf(
+                GameDetailsChipData(
+                    resourceProvider.getString(R.string.game_details_genres_title), chipList
+                ) { id, name -> discoverNavigator.navigateToGenreDetail(name.orEmpty(), id) }, GameDetailsHorizontalDivider()
+            )
         }
-
-        val chipList = genres.sortedByDescending { it.genreGamesCount }.map { it.genreId to it.genreName }.toList()
-        return listOf(
-            GameDetailsChipData(
-                resourceProvider.getString(R.string.game_details_genres_title),
-                chipList
-            ) { id, name -> discoverNavigator.navigateToGenreDetail(name.orEmpty(), id) },
-            GameDetailsHorizontalDivider()
-        )
     }
 
     private fun preparePlatforms(data: GameDetailsFromIdResponse): List<GenericListItem> {
-        val platforms = data.platforms
-        if (platforms.isNullOrEmpty()) {
-            return emptyList()
+        val chipList = data.mapPlatformsToChipData()
+        return if (chipList.isNullOrEmpty()) {
+            emptyList()
+        } else {
+            return listOf(
+                GameDetailsChipData(
+                    resourceProvider.getString(R.string.game_details_platforms_title), chipList
+                ) { id, name -> discoverNavigator.navigateToPlatformDetail(name.orEmpty(), id) }, GameDetailsHorizontalDivider()
+            )
         }
-
-        val chipList =
-            platforms.sortedByDescending { it.platform?.platformGamesCount }
-                .map { it.platform?.platformId to it.platform?.platformName }
-                .toList()
-        return listOf(
-            GameDetailsChipData(
-                resourceProvider.getString(R.string.game_details_platforms_title),
-                chipList
-            ) { id, name -> discoverNavigator.navigateToPlatformDetail(name.orEmpty(), id) },
-            GameDetailsHorizontalDivider()
-        )
     }
 
     private fun prepareTags(data: GameDetailsFromIdResponse): List<GenericListItem> {
-        val tags = data.tags
-        if (tags.isNullOrEmpty()) {
-            return emptyList()
+        val chipList = data.mapTagsToChipData()
+        return if (chipList.isNullOrEmpty()) {
+            emptyList()
+        } else {
+            return listOf(
+                GameDetailsChipData(
+                    resourceProvider.getString(R.string.game_details_tags_title), chipList
+                ) { id, name -> discoverNavigator.navigateToTagDetail(name.orEmpty(), id) }, GameDetailsHorizontalDivider()
+            )
         }
+    }
 
-        val chipList = tags.sortedByDescending { it.tagGamesCount }.map { it.tagId to it.tagName }.toList()
-        return listOf(
-            GameDetailsChipData(
-                resourceProvider.getString(R.string.game_details_tags_title),
-                chipList
-            ) { id, name -> discoverNavigator.navigateToTagDetail(name.orEmpty(), id) },
-            GameDetailsHorizontalDivider()
-        )
+    private fun prepareStores(data: GameDetailsFromIdResponse): List<GenericListItem> {
+        val chipList = data.mapStoresToChipData()
+        return if (chipList.isNullOrEmpty()) {
+            emptyList()
+        } else {
+            return listOf(
+                GameDetailsChipData(
+                    resourceProvider.getString(R.string.game_details_stores_title), chipList
+                ) { id, name -> discoverNavigator.navigateToStoreDetail(name.orEmpty(), id) }, GameDetailsHorizontalDivider()
+            )
+        }
+    }
+
+    private fun preparePublishers(data: GameDetailsFromIdResponse): List<GenericListItem> {
+        val chipList = data.mapPublishersToChipData()
+        return if (chipList.isNullOrEmpty()) {
+            emptyList()
+        } else {
+            return listOf(
+                GameDetailsChipData(
+                    resourceProvider.getString(R.string.game_details_publishers_title), chipList
+                ) { id, name -> discoverNavigator.navigateToPublisherDetail(name.orEmpty(), id) }, GameDetailsHorizontalDivider()
+            )
+        }
+    }
+
+    private fun prepareDevelopers(data: GameDetailsFromIdResponse): List<GenericListItem> {
+        val chipList = data.mapDevelopersToChipData()
+        return if (chipList.isNullOrEmpty()) {
+            emptyList()
+        } else {
+            return listOf(
+                GameDetailsChipData(
+                    resourceProvider.getString(R.string.game_details_developers_title), chipList
+                ) { id, name -> discoverNavigator.navigateToDeveloperDetail(name.orEmpty(), id) }, GameDetailsHorizontalDivider()
+            )
+        }
     }
 
     private fun prepareMetascoreRatingView(data: GameDetailsFromIdResponse): List<GenericListItem> {
