@@ -2,13 +2,12 @@ package moadgara.main.discover.sublists
 
 import androidx.lifecycle.MutableLiveData
 import com.moadgara.common_model.network.NetworkResult
-import com.moadgara.common_model.usecase.SuspendUseCase
 import moadgara.data.ResponseMapper
 import moadgara.domain.ListType
 import moadgara.main.discover.PreviewListMetaData
 import moadgara.main.discover.PreviewListViewData
 
-abstract class PreviewList(previewListCommonParameters: PreviewListCommonParameters, useCase: SuspendUseCase<out Any, out Any>) {
+abstract class PreviewList {
 
     abstract val previewListType: ListType
 

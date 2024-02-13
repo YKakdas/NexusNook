@@ -15,7 +15,7 @@ import moadgara.main.discover.sublists.PreviewListCommonParameters
 
 class AllTimeTop250GamesPreviewList(
     private val previewListCommonParameters: PreviewListCommonParameters, private val useCase: GetGamesUseCase
-) : PreviewList(previewListCommonParameters, useCase) {
+) : PreviewList() {
 
     private val viewLiveData = MutableLiveData<PreviewListViewData>()
     override val previewListType: ListType
