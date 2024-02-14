@@ -26,14 +26,23 @@
             android:layout_height="@dimen/paged_game_item_image_height"
             android:scaleType="fitXY" />
 
+        <moadgara.uicomponent.custom_view.PlatformIconView
+            android:layout_width="@dimen/paged_game_item_platform_view_width"
+            android:layout_height="@dimen/paged_game_item_platform_view_height"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/paged_game_item_platform_view_margin_bottom"
+            app:platforms="@{data.platforms}" />
+
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/paged_game_item_name_height"
             android:layout_gravity="bottom"
             android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_small"
             android:ellipsize="end"
-            android:gravity="start|center"
+            android:gravity="start|bottom|center"
             android:maxWidth="@dimen/paged_game_item_name_max_width"
             android:maxLines="1"
             android:text="@{data.name}"

@@ -28,6 +28,7 @@ class GamesPagingViewModel(private val useCase: GetGamesPagingUseCase, private v
                             GamesPagingItemData(
                                 id.orZero,
                                 backgroundImageUri.orEmpty(),
+                                platforms?.mapNotNull { platform -> platform.platform?.platformId }.orEmpty(),
                                 name.orEmpty(),
                                 metaCritic
                             ) {
