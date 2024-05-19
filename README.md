@@ -66,6 +66,5 @@ This project utilizes ```Single Activity``` architecture with ```MVVM``` Moreove
 
 https://github.com/YKakdas/NexusNook/assets/43451457/9d86d939-fbdf-4708-8dc1-3529a16a7db7
 
-https://github.com/YKakdas/NexusNook/assets/43451457/0218952e-316d-4c52-816f-5c4524d5b6c0
 
 #### Yasar Kakdas
